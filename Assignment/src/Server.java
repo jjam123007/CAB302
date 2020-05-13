@@ -27,27 +27,30 @@ public class Server {
 
         //while ( !o.toString().contentEquals("quit") ) {
         MyClass o = (MyClass) ois.readObject();
-        Object[] data = o.getVal();
+        Object[] requestType = o.getVal();
+        System.out.println("Request type :"+requestType[0]);
 
-        System.out.println("ID :"+data[0]);
-        System.out.println("Name :"+data[1]);
-        System.out.println("Number :"+data[2]);
+        if(requestType[0].toString().contentEquals("addBillboard")){
+            System.out.println("HERE");
+            Add o2 = (Add) ois.readObject();
+            Object[]  data = o2.getVal();
+            System.out.println("Name :"+data[0]);
+            System.out.println("Msg :"+data[1]);
+            System.out.println("Info :"+data[2]);
+            System.out.println("Url :"+data[3]);
 
-        Statement statement = DBConnection.getInstance().createStatement();
-        statement.executeQuery("insert into testtable values("+data[0]+",'"+data[1]+"',"+data[2]+")");
-        statement.close();
 
-        Statement statement2 = DBConnection.getInstance().createStatement();
-        statement2.executeQuery("delete from testtable where personaId="+data[3]);
-        statement2.close();
-        //}
+            Statement statement = DBConnection.getInstance().createStatement();
+            statement.executeQuery("insert into billboard values('"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"');");
+            statement.close();
 
-        oos.close();
-        ois.close();
-        socket.close();
+            oos.close();
+            ois.close();
+            socket.close();
+        } //else if
+
+
     }
-
-
     public Server() throws SQLException, IOException {
 
 

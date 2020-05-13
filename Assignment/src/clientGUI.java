@@ -1,4 +1,12 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Scanner;
 
 public class clientGUI {
     private JPanel panel1;
@@ -27,4 +35,52 @@ public class clientGUI {
     private JButton updateButton;
     private JButton deleteButton;
     private JTable table1;
+    private JTable table2;
+
+    public clientGUI() {
+        submitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+                try {
+                    Socket socket = new Socket("localhost", 3310);
+
+                    OutputStream os = socket.getOutputStream();
+                    InputStream inputStream = socket.getInputStream();
+
+                    ObjectOutputStream oos = new ObjectOutputStream(os);
+                    ObjectInputStream ois = new ObjectInputStream(inputStream);
+
+                    String billboardName = textArea1.getText();
+                    String msg = textArea2.getText();
+                    String info = textArea3.getText();
+                    String url = textArea4.getText();
+                    String requestType = "addBillboard";
+                    MyClass myclass = new MyClass(requestType);
+                    Add addBillboard = new Add(billboardName,msg,info,url);
+                    oos.writeObject(myclass);
+                    oos.flush();
+                    oos.writeObject(addBillboard);
+                    oos.flush();
+
+                    ois.close();
+                    oos.close();
+
+                    socket.close();
+
+                    JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
+                } catch (UnknownHostException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+    }
+    public JPanel getRootPanel(){
+        return panel1;
+    }
+
 }
