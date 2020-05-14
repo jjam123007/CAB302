@@ -101,8 +101,8 @@ public class clientGUI {
 
                     JFrame frame = new JFrame("preview");
                     JOptionPane.showMessageDialog(null,
-                            "Billboard Name: " + billboardName + " Message:" + msg +"image"+url,
-                            "Backup problem",
+                            "Billboard Name: " + billboardName + '\n'+"Message:" + msg +'\n'+"Image: "+url,
+                            "Preview",
                             JOptionPane.INFORMATION_MESSAGE,icon);
 
                 } catch (MalformedURLException ex) {
