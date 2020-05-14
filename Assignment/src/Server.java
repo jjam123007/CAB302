@@ -84,6 +84,18 @@ public class Server {
                         Statement statement = DBConnection.getInstance().createStatement();
                         statement.executeQuery("delete from billboard where billboardID=("+ data[0]+");");
                         statement.close();
+                        break;
+                    }
+
+                    case "editTable" : {
+                        Edit editData = (Edit) ois.readObject();
+                        Object[] data = editData.getVal();
+                        System.out.println("ID to edit :"+data[0]);
+                        Statement statement = DBConnection.getInstance().createStatement();
+                        System.out.println("update billboard set BillboardName="+data[1]+", message="+ data[2]+",info="+ data[3]+",url="+ data[0]+" where billboardID="+ data[0]+";");
+                        statement.executeQuery("update billboard set BillboardName='"+data[1]+"', message='"+ data[2]+"',info='"+ data[3]+"',url='"+ data[4]+"' where billboardID='"+ data[0]+"';");
+                        statement.close();
+                        break;
                     }
 
 
