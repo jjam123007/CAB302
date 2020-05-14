@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class Main {
@@ -12,11 +13,15 @@ public class Main {
 
                 } catch (SQLException e) {
                     e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
                 }
             }
         }));
     }
-    private  static void createGUI() throws SQLException {
+    private  static void createGUI() throws SQLException, IOException, ClassNotFoundException {
         clientGUI ui = new clientGUI();
         JPanel root = ui.getRootPanel();
         JFrame frame = new JFrame();

@@ -1,67 +1,108 @@
+
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import java.io.EOFException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.net.SocketException;
 import java.sql.Connection;
 import java.sql.*;
 import java.sql.Statement;
 
 
 public class Server {
-    private Connection connection;
 
+    private Connection connection;
 
     public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException {
         ServerSocket serverSocket = new ServerSocket(3310);
         Socket socket = serverSocket.accept();
-
-
         System.out.println("Connected to "+ socket.getInetAddress());
-
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream ois = new ObjectInputStream( socket.getInputStream());
-       //Object o = "";
 
-        //while ( !o.toString().contentEquals("quit") ) {
-        MyClass o = (MyClass) ois.readObject();
-        Object[] requestType = o.getVal();
-        System.out.println("Request type :"+requestType[0]);
+        for(;;){
+            try {
+                //MyClass o = (MyClass) ois.readObject();
+                //Object[] requestType = o.getVal();
+                String requestType = ois.readUTF();
+                System.out.println("Request type :"+requestType);
+                switch(requestType){
+                    case "addBillboard" : {
+                        Add o2 = (Add) ois.readObject();
+                        Object[]  data = o2.getVal();
+                        System.out.println("Name :"+data[0]);
+                        System.out.println("Msg :"+data[1]);
+                        System.out.println("Info :"+data[2]);
+                        System.out.println("Url :"+data[3]);
 
-        if(requestType[0].toString().contentEquals("addBillboard")){
-            Add o2 = (Add) ois.readObject();
-            Object[]  data = o2.getVal();
-            System.out.println("Name :"+data[0]);
-            System.out.println("Msg :"+data[1]);
-            System.out.println("Info :"+data[2]);
-            System.out.println("Url :"+data[3]);
+                        Statement statement = DBConnection.getInstance().createStatement();
+                        statement.executeQuery("insert into billboard values(null,'"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"');");
+                        statement.close();
 
 
-            Statement statement = DBConnection.getInstance().createStatement();
-            statement.executeQuery("insert into billboard values('"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"');");
-            statement.close();
+                        break;
+                    }
 
-            oos.close();
-            ois.close();
-            socket.close();
-        } else if (requestType[0].toString().contentEquals("delete")){
-            Delete o3 = (Delete) ois.readObject();
-            Object[] data = o3.getVal();
-            System.out.println("ID :"+data[0]);
-            Statement statement = DBConnection.getInstance().createStatement();
-            statement.executeQuery("delete into billboard where billboardID=("+ data[0]+");");
-            statement.close();
+                    case "showTable" : {
+                        Object [][] data;
+
+                        Statement statement = DBConnection.getInstance().createStatement();
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM billboard");
+
+                        int rowcount = 0;
+
+                        if (resultSet.last()) {
+                            rowcount = resultSet.getRow();
+                            resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+                        }
+                        data =  new Object[rowcount][5];
+
+                        for (int i=0; i<rowcount; i++){
+                            resultSet.next();
+                            String billboardID = Integer.toString(resultSet.getInt(1));
+                            String BillboardName = resultSet.getString(2);
+                            String msg = resultSet.getString(3);
+                            String info = resultSet.getString(4);
+                            String url = resultSet.getString(5);
+                            String[] myString= {billboardID,BillboardName,msg,info,url};
+                            data[i]=myString;
+                        }
+                        statement.close();
+                        dataArray tableData = new dataArray(data);
+                        oos.writeObject(tableData);
+                        oos.flush();
+                        break;
+                    }
+
+                    case "delete" : {
+                        Delete o3 = (Delete) ois.readObject();
+                        Object[] data = o3.getVal();
+                        System.out.println("ID :"+data[0]);
+                        Statement statement = DBConnection.getInstance().createStatement();
+                        statement.executeQuery("delete into billboard where billboardID=("+ data[0]+");");
+                        statement.close();
+                    }
+
+
+                }
+
+            } catch (EOFException e) {
+                e.printStackTrace();
+            }
+
+
+
+
+
         }
-
+        // oos.close();
+        //ois.close();
+        //socket.close();
 
     }
-    public Server() throws SQLException, IOException {
-
-
-        }
-//        ServerSocket serverSocket = new ServerSocket(3306);
 }
 
 

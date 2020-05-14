@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -46,37 +47,53 @@ public class clientGUI {
     String url;
 
 
-    public clientGUI() {
+    public clientGUI() throws IOException, ClassNotFoundException {
+//        createTable();
+        Socket socket = new Socket("localhost", 3310);
+
+        OutputStream os = socket.getOutputStream();
+        InputStream inputStream = socket.getInputStream();
+
+        ObjectOutputStream oos = new ObjectOutputStream(os);
+        ObjectInputStream ois = new ObjectInputStream(inputStream);
+
+
+        String requestType = "showTable";
+        //MyClass myclass = new MyClass(requestType);
+        //oos.writeObject(myclass);
+        //oos.flush();
+        oos.writeUTF(requestType);
+        oos.flush();
+
+
+        dataArray tableData = (dataArray) ois.readObject();
+        Object[][]  data = tableData.getData();
+
+        table2.setModel(new DefaultTableModel(
+                data,
+                new String[]{"BillboardID","Billboard Name","Message", "Information", "Url"}
+        ));
+
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
-
                 try {
-                    Socket socket = new Socket("localhost", 3310);
 
-                    OutputStream os = socket.getOutputStream();
-                    InputStream inputStream = socket.getInputStream();
-
-                    ObjectOutputStream oos = new ObjectOutputStream(os);
-                    ObjectInputStream ois = new ObjectInputStream(inputStream);
-
-                    billboardName = textArea1.getText();
-                    msg = textArea2.getText();
+                    String billboardName = textArea1.getText();
+                    String msg = textArea2.getText();
                     String info = textArea3.getText();
-                    url = textArea4.getText();
+                    String url = textArea4.getText();
                     String requestType = "addBillboard";
-                    MyClass myclass = new MyClass(requestType);
-                    Add addBillboard = new Add(billboardName,msg,info,url);
-                    oos.writeObject(myclass);
+                    //MyClass myclass = new MyClass(requestType);
+                    //oos.writeObject(myclass);
+                    oos.writeUTF(requestType);
                     oos.flush();
+
+
+                    Add addBillboard = new Add(billboardName,msg,info,url);
                     oos.writeObject(addBillboard);
                     oos.flush();
 
-                    ois.close();
-                    oos.close();
-
-                    socket.close();
 
                     JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
                 } catch (UnknownHostException ex) {
@@ -87,6 +104,12 @@ public class clientGUI {
 
             }
         });
+
+        //ois.close();
+        //oos.close();
+        //socket.close();
+
+
         previewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
