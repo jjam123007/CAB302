@@ -1,8 +1,12 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -36,6 +40,11 @@ public class clientGUI {
     private JButton deleteButton;
     private JTable table1;
     private JTable table2;
+    private JButton previewButton;
+    String billboardName;
+    String msg;
+    String url;
+
 
     public clientGUI() {
         submitButton.addActionListener(new ActionListener() {
@@ -52,10 +61,10 @@ public class clientGUI {
                     ObjectOutputStream oos = new ObjectOutputStream(os);
                     ObjectInputStream ois = new ObjectInputStream(inputStream);
 
-                    String billboardName = textArea1.getText();
-                    String msg = textArea2.getText();
+                    billboardName = textArea1.getText();
+                    msg = textArea2.getText();
                     String info = textArea3.getText();
-                    String url = textArea4.getText();
+                    url = textArea4.getText();
                     String requestType = "addBillboard";
                     MyClass myclass = new MyClass(requestType);
                     Add addBillboard = new Add(billboardName,msg,info,url);
@@ -78,9 +87,38 @@ public class clientGUI {
 
             }
         });
+        previewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                billboardName = textArea1.getText();
+                msg = textArea2.getText();
+                url = textArea4.getText();
+
+                try {
+                    URL url2 = new URL(url);
+                    BufferedImage img = ImageIO.read(url2);
+                    ImageIcon icon = new ImageIcon(img);
+
+                    JFrame frame = new JFrame("preview");
+                    JOptionPane.showMessageDialog(null,
+                            "Billboard Name: " + billboardName + " Message:" + msg +"image"+url,
+                            "Backup problem",
+                            JOptionPane.INFORMATION_MESSAGE,icon);
+
+                } catch (MalformedURLException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+
+
+            }
+        });
     }
     public JPanel getRootPanel(){
         return panel1;
     }
+
 
 }
