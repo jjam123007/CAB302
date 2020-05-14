@@ -78,11 +78,11 @@ public class Server {
                     }
 
                     case "delete" : {
-                        Delete o3 = (Delete) ois.readObject();
-                        Object[] data = o3.getVal();
+                        Delete deleteData = (Delete) ois.readObject();
+                        Object[] data = deleteData.getVal();
                         System.out.println("ID :"+data[0]);
                         Statement statement = DBConnection.getInstance().createStatement();
-                        statement.executeQuery("delete into billboard where billboardID=("+ data[0]+");");
+                        statement.executeQuery("delete from billboard where billboardID=("+ data[0]+");");
                         statement.close();
                     }
 

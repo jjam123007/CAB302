@@ -1,11 +1,10 @@
 import java.io.Serializable;
 
 public class Delete implements Serializable {
-    private final String BillboardID;
+    private final int BillboardID;
 
-
-    public Delete (String BillboardName){
-        this.BillboardID = BillboardName;
+    public Delete (int BillboardID){
+        this.BillboardID = BillboardID;
     }
 
 

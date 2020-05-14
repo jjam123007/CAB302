@@ -1,5 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -42,9 +44,12 @@ public class clientGUI {
     private JTable table1;
     private JTable table2;
     private JButton previewButton;
+    private JButton deleteButton1;
     String billboardName;
     String msg;
     String url;
+    private Integer billboardID;
+    private int selectedRow;
 
 
     public clientGUI() throws IOException, ClassNotFoundException {
@@ -73,6 +78,42 @@ public class clientGUI {
                 data,
                 new String[]{"BillboardID","Billboard Name","Message", "Information", "Url"}
         ));
+
+        table2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if (!e.getValueIsAdjusting()) {//This line prevents double events
+                    int i = table2.getSelectedRow();
+                    if (i >= 0) {
+                        billboardID = Integer.parseInt(table2.getValueAt(table2.getSelectedRow(),0).toString());
+                        selectedRow = table2.getSelectedRow();
+                    }
+                }
+            }
+        });
+        deleteButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String requestType = "delete";
+                    oos.writeUTF(requestType);
+                    oos.flush();
+                    Delete deleteTable = new Delete(billboardID);
+                    oos.writeObject(deleteTable);
+                    oos.flush();
+
+                    if(billboardID != null){
+                        System.out.println("Selected id "+billboardID);
+                        DefaultTableModel dm = (DefaultTableModel) table2.getModel();
+                        System.out.println("row "+selectedRow);
+                        dm.removeRow(selectedRow);
+                    }
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+            }
+
+            });
 
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -138,6 +179,7 @@ public class clientGUI {
 
             }
         });
+
     }
     public JPanel getRootPanel(){
         return panel1;
