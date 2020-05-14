@@ -31,7 +31,6 @@ public class Server {
         System.out.println("Request type :"+requestType[0]);
 
         if(requestType[0].toString().contentEquals("addBillboard")){
-            System.out.println("HERE");
             Add o2 = (Add) ois.readObject();
             Object[]  data = o2.getVal();
             System.out.println("Name :"+data[0]);
@@ -47,7 +46,14 @@ public class Server {
             oos.close();
             ois.close();
             socket.close();
-        } //else if
+        } else if (requestType[0].toString().contentEquals("delete")){
+            Delete o3 = (Delete) ois.readObject();
+            Object[] data = o3.getVal();
+            System.out.println("ID :"+data[0]);
+            Statement statement = DBConnection.getInstance().createStatement();
+            statement.executeQuery("delete into billboard where billboardID=("+ data[0]+");");
+            statement.close();
+        }
 
 
     }
