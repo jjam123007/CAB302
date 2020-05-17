@@ -318,7 +318,7 @@
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="scheduleName"/>
+                          <text value="Billboard ID"/>
                         </properties>
                       </component>
                       <component id="2bd9a" class="javax.swing.JTextArea" binding="textArea15" default-binding="true">
@@ -366,7 +366,7 @@
                           <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="frequency"/>
+                          <text value="Type"/>
                         </properties>
                       </component>
                       <component id="50d7b" class="javax.swing.JTextArea" binding="textArea18" default-binding="true">
@@ -382,7 +382,7 @@
                           <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="scheduledDate"/>
+                          <text value="scheduled Date"/>
                         </properties>
                       </component>
                       <component id="de370" class="javax.swing.JTextArea" binding="textArea19" default-binding="true">
@@ -398,7 +398,7 @@
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                         </constraints>
                         <properties>
-                          <text value="Billboard ID"/>
+                          <text value="Billboard Name"/>
                         </properties>
                       </component>
                       <component id="94470" class="javax.swing.JTextArea" binding="textArea20" default-binding="true">
