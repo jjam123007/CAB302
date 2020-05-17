@@ -33,7 +33,6 @@ public class clientGUI {
     private JTextArea textArea16;
     private JTextArea textArea17;
     private JTextArea textArea19;
-    private JTextArea textArea20;
     private JButton submitButton2;
     private JTextArea textArea21;
     private JTextArea textArea22;
@@ -212,6 +211,14 @@ public class clientGUI {
                     textArea2.setText("");
                     textArea3.setText("");
                     textArea4.setText("");
+                    Object[]  data = addBillboard.getVal();
+
+                    if(billboardID != null){
+                        System.out.println("Selected id "+billboardID);
+                        DefaultTableModel dm = (DefaultTableModel) table2.getModel();
+                        System.out.println("row "+selectedRow);
+                        dm.addRow(data);
+                    }
 
                     JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
                 } catch (UnknownHostException ex) {
