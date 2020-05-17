@@ -2,6 +2,8 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -44,12 +46,15 @@ public class clientGUI {
     private JTable table2;
     private JButton previewButton;
     private JButton deleteButton1;
+    private JButton editButton1;
+    private JTextArea textArea5;
     String billboardName;
     String msg;
     String url;
     private Integer billboardID;
     private int selectedRow;
 
+    private int rowToEdit;
 
     public clientGUI() throws IOException, ClassNotFoundException {
 //        createTable();
@@ -75,7 +80,7 @@ public class clientGUI {
 
         table2.setModel(new DefaultTableModel(
                 data,
-                new String[]{"BillboardID","Billboard Name","Type", "Scheduled Date", "Start time", "End time"}
+                new String[]{"BillboardID","Billboard Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
         ));
 
         table2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -94,6 +99,15 @@ public class clientGUI {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 
+            }
+        });
+        table2.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int row = e.getFirstRow();
+                int billboardId = Integer.valueOf(table2.getModel().getValueAt(row,0).toString());
+
+
             }
         });
         deleteButton1.addActionListener(new ActionListener() {
@@ -119,6 +133,73 @@ public class clientGUI {
             }
 
             });
+
+        editButton1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String billboardId = table2.getModel().getValueAt(selectedRow,0).toString();
+                String billboardName = (String)table2.getModel().getValueAt(selectedRow,1);
+                String billboardMessage = (String)table2.getModel().getValueAt(selectedRow,2);
+                String billboardInformation = (String)table2.getModel().getValueAt(selectedRow,3);
+                String billboardUrl = (String)table2.getModel().getValueAt(selectedRow,4);
+
+                textArea5.setText(billboardId);
+                textArea5.setEditable(false);
+                textArea8.setText(billboardName);
+                textArea10.setText(billboardMessage);
+                textArea13.setText(billboardInformation);
+                textArea14.setText(billboardUrl);
+                rowToEdit = selectedRow;
+                tabbedPane1.setSelectedIndex(2);
+
+            }
+        });
+        updateButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                int billboardId = Integer.valueOf(textArea5.getText());
+                String billboardName = textArea8.getText();
+                String billboardMessage = textArea10.getText();
+                String billboardInformation = textArea13.getText();
+                String billboardUrl = textArea14.getText();
+                System.out.println("Data Updated");
+                System.out.println(billboardName+" "+billboardMessage+" "+billboardInformation+" "+billboardUrl);
+
+                String requestType = "editTable";
+                try {
+                    oos.writeUTF(requestType);
+                    oos.flush();
+                    Edit editData = new Edit(billboardId,billboardName,billboardMessage,billboardInformation,billboardUrl);
+                    oos.writeObject(editData);
+                    oos.flush();
+
+                    table2.getModel().setValueAt(billboardId,rowToEdit,0);
+                    table2.getModel().setValueAt(billboardName,rowToEdit,1);
+                    table2.getModel().setValueAt(billboardMessage,rowToEdit,2);
+                    table2.getModel().setValueAt(billboardInformation,rowToEdit,3);
+                    table2.getModel().setValueAt(billboardUrl,rowToEdit,4);
+                    rowToEdit = -1;
+
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+
+                textArea8.setText("");
+                textArea10.setText("");
+                textArea13.setText("");
+                textArea14.setText("");
+                textArea5.setText("");
+                JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
+                tabbedPane1.setSelectedIndex(0);
+
+
+            }
+        });
+
+
 
         submitButton.addActionListener(new ActionListener() {
             @Override

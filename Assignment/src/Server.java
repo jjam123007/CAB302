@@ -58,17 +58,19 @@ public class Server {
                             rowcount = resultSet.getRow();
                             resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
                         }
-                        data =  new Object[rowcount][6];
+                        data =  new Object[rowcount][8];
 
                         for (int i=0; i<rowcount; i++){
                             resultSet.next();
                             String billboardID = Integer.toString(resultSet.getInt(1));
                             String BillboardName = resultSet.getString(2);
-                            String Type = resultSet.getString(3);
-                            String schduledDate = resultSet.getString(4);
-                            Time startTime = resultSet.getTime(5);
-                            Time endTime =  resultSet.getTime(6);
-                            Object[] myString= {billboardID,BillboardName,Type,schduledDate,startTime,endTime};
+                            String info = resultSet.getString(3);
+                            String msg = resultSet.getString(4);
+                            String url = resultSet.getString(5);
+                            String schduledDate = resultSet.getString(6);
+                            Time startTime = resultSet.getTime(7);
+                            Time endTime =  resultSet.getTime(8);
+                            Object[] myString= {billboardID,BillboardName,info,msg,url,schduledDate,startTime,endTime};
                             data[i]=myString;
                         }
                         statement.close();
@@ -85,6 +87,17 @@ public class Server {
                         Statement statement = DBConnection.getInstance().createStatement();
                         statement.executeQuery("delete from billboard where billboardID=("+ data[0]+");");
                         statement.close();
+                        break;
+                    }
+                    case "editTable" : {
+                        Edit editData = (Edit) ois.readObject();
+                        Object[] data = editData.getVal();
+                        System.out.println("ID to edit :"+data[0]);
+                        Statement statement = DBConnection.getInstance().createStatement();
+                        System.out.println("update billboard set BillboardName="+data[1]+", message="+ data[2]+",info="+ data[3]+",url="+ data[4]+" where billboardID="+ data[0]+";");
+                        statement.executeQuery("update billboard set BillboardName='"+data[1]+"', message='"+ data[2]+"',info='"+ data[3]+"',url='"+ data[4]+"' where billboardID='"+ data[0]+"';");
+                        statement.close();
+                        break;
                     }
 
 
