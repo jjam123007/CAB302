@@ -255,9 +255,6 @@ public class clientGUI {
                         icon1 = new ImageIcon(newimg);
                         System.out.println("not base64");
 
-
-
-
                         JFrame frame1 = new JFrame("preview");
                         JOptionPane.showMessageDialog(null,
                                 "Billboard Name: " + billboardName + '\n'+"Message:" + msg,
@@ -315,6 +312,11 @@ public class clientGUI {
                     Add addview = new Add(billboardId,scheduledDate,startTime,endTime);
                     oos.writeObject(addview);
                     oos.flush();
+
+                    textArea15.setText("");
+                    textArea19.setText("");
+                    textArea17.setText("");
+                    textArea16.setText("");
 
 
                     JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
