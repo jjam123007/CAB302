@@ -1,8 +1,13 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
@@ -11,6 +16,7 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Base64;
 import java.util.Scanner;
 
 public class clientGUI {
@@ -43,9 +49,10 @@ public class clientGUI {
     private JButton deleteButton1;
     private JButton editButton1;
     private JTextArea textArea5;
+    private JTextArea textArea6;
     String billboardName;
     String msg;
-    String url;
+    String imagelink;
     private Integer billboardID;
     private int selectedRow;
 
@@ -90,9 +97,21 @@ public class clientGUI {
                 }
             }
         });
+        table2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+            }
+        });
+        table2.getModel().addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int row = e.getFirstRow();
+                int billboardId = Integer.valueOf(table2.getModel().getValueAt(row,0).toString());
 
 
-
+            }
+        });
         deleteButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -115,7 +134,7 @@ public class clientGUI {
                 }
             }
 
-            });
+        });
 
         editButton1.addActionListener(new ActionListener() {
             @Override
@@ -203,11 +222,6 @@ public class clientGUI {
                     Add addBillboard = new Add(billboardName,msg,info,url);
                     oos.writeObject(addBillboard);
                     oos.flush();
-                    textArea1.setText("");
-                    textArea2.setText("");
-                    textArea3.setText("");
-                    textArea4.setText("");
-                    tabbedPane1.setSelectedIndex(0);
 
 
                     JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
@@ -230,18 +244,45 @@ public class clientGUI {
             public void actionPerformed(ActionEvent e) {
                 billboardName = textArea1.getText();
                 msg = textArea2.getText();
-                url = textArea4.getText();
+                imagelink =textArea6.getText();
 
                 try {
-                    URL url2 = new URL(url);
-                    BufferedImage img = ImageIO.read(url2);
-                    ImageIcon icon = new ImageIcon(img);
+                    if(!imagelink.substring(0,4).contentEquals("http")){
+                        BufferedImage img = ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(imagelink)));
+                        ImageIcon icon1 = new ImageIcon(img);
+                        Image image =  icon1.getImage();
+                        Image newimg = image.getScaledInstance(240,120, Image.SCALE_SMOOTH);
+                        icon1 = new ImageIcon(newimg);
+                        System.out.println("not base64");
 
-                    JFrame frame = new JFrame("preview");
-                    JOptionPane.showMessageDialog(null,
-                            "Billboard Name: " + billboardName + '\n'+"Message:" + msg +'\n'+"Image: "+url,
-                            "Preview",
-                            JOptionPane.INFORMATION_MESSAGE,icon);
+
+
+
+                        JFrame frame1 = new JFrame("preview");
+                        JOptionPane.showMessageDialog(null,
+                                "Billboard Name: " + billboardName + '\n'+"Message:" + msg,
+                                "Preview",
+                                JOptionPane.INFORMATION_MESSAGE,icon1);
+                    }
+                    else{
+
+                        URL url2 = new URL(imagelink);
+                        BufferedImage img1 = ImageIO.read(url2);
+                        ImageIcon icon = new ImageIcon(img1);
+
+                        Image image =  icon.getImage();
+                        Image newimg = image.getScaledInstance(240,120, Image.SCALE_SMOOTH);
+                        icon = new ImageIcon(newimg);
+
+                        JFrame frame2 = new JFrame("preview");
+                        JOptionPane.showMessageDialog(null,
+                                "Billboard Name: " + billboardName + '\n'+"Message:" + msg,
+                                "Preview",
+                                JOptionPane.INFORMATION_MESSAGE,icon);
+
+                    }
+
+
 
                 } catch (MalformedURLException ex) {
                     ex.printStackTrace();
@@ -254,37 +295,10 @@ public class clientGUI {
             }
         });
 
-
-        tabbedPane1.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                System.out.println("tab: " + tabbedPane1.getSelectedIndex());
-                if(tabbedPane1.getSelectedIndex() == 0){
-                    String requestType = "showTable";
-
-                    try {
-                        oos.writeUTF(requestType);
-                        oos.flush();
-
-                        System.out.println("TAB 1 SELECTED");
-                        dataArray tableData = (dataArray) ois.readObject();
-                        Object[][]  data = tableData.getData();
-
-                        table2.setModel(new DefaultTableModel(
-                                data,
-                                new String[]{"BillboardID","Billboard Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
-                        ));
-
-                    } catch (IOException | ClassNotFoundException ex) {
-                        ex.printStackTrace();
-                    }
-
-                }
-            }
-        });
         submitButton2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 try {
 
                     String billboardId = textArea15.getText();
@@ -309,6 +323,8 @@ public class clientGUI {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+
+
 
             }
         });
