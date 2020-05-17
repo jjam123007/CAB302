@@ -30,7 +30,6 @@ public class clientGUI {
     private JTextArea textArea15;
     private JTextArea textArea16;
     private JTextArea textArea17;
-    private JTextArea textArea18;
     private JTextArea textArea19;
     private JTextArea textArea20;
     private JButton submitButton2;
@@ -76,7 +75,7 @@ public class clientGUI {
 
         table2.setModel(new DefaultTableModel(
                 data,
-                new String[]{"BillboardID","Billboard Name","Message", "Information", "Url"}
+                new String[]{"BillboardID","Billboard Name","Type", "Scheduled Date", "Start time", "End time"}
         ));
 
         table2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

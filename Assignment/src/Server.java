@@ -50,7 +50,7 @@ public class Server {
                         Object [][] data;
 
                         Statement statement = DBConnection.getInstance().createStatement();
-                        ResultSet resultSet = statement.executeQuery("SELECT * FROM billboard");
+                        ResultSet resultSet = statement.executeQuery("SELECT * FROM view");
 
                         int rowcount = 0;
 
@@ -58,16 +58,17 @@ public class Server {
                             rowcount = resultSet.getRow();
                             resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
                         }
-                        data =  new Object[rowcount][5];
+                        data =  new Object[rowcount][6];
 
                         for (int i=0; i<rowcount; i++){
                             resultSet.next();
                             String billboardID = Integer.toString(resultSet.getInt(1));
                             String BillboardName = resultSet.getString(2);
-                            String msg = resultSet.getString(3);
-                            String info = resultSet.getString(4);
-                            String url = resultSet.getString(5);
-                            String[] myString= {billboardID,BillboardName,msg,info,url};
+                            String Type = resultSet.getString(3);
+                            String schduledDate = resultSet.getString(4);
+                            Time startTime = resultSet.getTime(5);
+                            Time endTime =  resultSet.getTime(6);
+                            Object[] myString= {billboardID,BillboardName,Type,schduledDate,startTime,endTime};
                             data[i]=myString;
                         }
                         statement.close();
