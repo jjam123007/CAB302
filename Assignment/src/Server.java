@@ -46,6 +46,21 @@ public class Server {
 
                         break;
                     }
+                    case "addView": {
+                        Add o3 = (Add) ois.readObject();
+                        Object[]  data = o3.getVal();
+                        System.out.println("billboardId :"+data[0]);
+                        System.out.println("scheduledDate :"+data[1]);
+                        System.out.println("startTime :"+data[2]);
+                        System.out.println("endTime :"+data[3]);
+
+                        Statement statement = DBConnection.getInstance().createStatement();
+                        statement.executeQuery("update view set scheduleddate='"+data[1]+"', starttime='"+data[2]+"', endtime='"+data[3]+"'Where billboardId='"+data[0]+"'") ;
+                        statement.close();
+
+
+                        break;
+                    }
 
                     case "showTable" : {
                         Object [][] data;

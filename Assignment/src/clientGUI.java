@@ -282,6 +282,36 @@ public class clientGUI {
                 }
             }
         });
+        submitButton2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+
+                    String billboardId = textArea15.getText();
+                    String scheduledDate = textArea19.getText();
+                    String startTime = textArea17.getText();
+                    String endTime = textArea16.getText();
+                    String requestType = "addView";
+                    //MyClass myclass = new MyClass(requestType);
+                    //oos.writeObject(myclass);
+                    oos.writeUTF(requestType);
+                    oos.flush();
+
+
+                    Add addview = new Add(billboardId,scheduledDate,startTime,endTime);
+                    oos.writeObject(addview);
+                    oos.flush();
+
+
+                    JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
+                } catch (UnknownHostException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+            }
+        });
     }
     public JPanel getRootPanel(){
         return panel1;
