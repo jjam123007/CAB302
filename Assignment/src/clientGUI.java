@@ -213,12 +213,11 @@ public class clientGUI {
                     textArea4.setText("");
                     Object[]  data = addBillboard.getVal();
 
-                    if(billboardID != null){
-                        System.out.println("Selected id "+billboardID);
-                        DefaultTableModel dm = (DefaultTableModel) table2.getModel();
-                        System.out.println("row "+selectedRow);
-                        dm.addRow(data);
-                    }
+
+                    DefaultTableModel dm = (DefaultTableModel) table2.getModel();
+                    System.out.println("row "+selectedRow);
+                    dm.addRow(data);
+
 
                     JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
                 } catch (UnknownHostException ex) {
