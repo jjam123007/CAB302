@@ -1,12 +1,8 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
+import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.MalformedURLException;
@@ -211,12 +207,7 @@ public class clientGUI {
                     textArea2.setText("");
                     textArea3.setText("");
                     textArea4.setText("");
-                    Object[]  data = addBillboard.getVal();
-
-
-                    DefaultTableModel dm = (DefaultTableModel) table2.getModel();
-                    System.out.println("row "+selectedRow);
-                    dm.addRow(data);
+                    tabbedPane1.setSelectedIndex(0);
 
 
                     JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
@@ -263,6 +254,34 @@ public class clientGUI {
             }
         });
 
+
+        tabbedPane1.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("tab: " + tabbedPane1.getSelectedIndex());
+                if(tabbedPane1.getSelectedIndex() == 0){
+                    String requestType = "showTable";
+
+                    try {
+                        oos.writeUTF(requestType);
+                        oos.flush();
+
+                        System.out.println("TAB 1 SELECTED");
+                        dataArray tableData = (dataArray) ois.readObject();
+                        Object[][]  data = tableData.getData();
+
+                        table2.setModel(new DefaultTableModel(
+                                data,
+                                new String[]{"BillboardID","Billboard Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
+                        ));
+
+                    } catch (IOException | ClassNotFoundException ex) {
+                        ex.printStackTrace();
+                    }
+
+                }
+            }
+        });
     }
     public JPanel getRootPanel(){
         return panel1;
