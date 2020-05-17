@@ -1,0 +1,426 @@
+InnoDB: using atomic writes.
+2020-04-07 21:34:46 0 [Note] InnoDB: The first innodb_system data file 'ibdata1' did not exist. A new tablespace will be created!
+2020-04-07 21:34:46 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-04-07 21:34:46 0 [Note] InnoDB: Uses event mutexes
+2020-04-07 21:34:46 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-04-07 21:34:46 0 [Note] InnoDB: Number of pools: 1
+2020-04-07 21:34:46 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-04-07 21:34:46 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-04-07 21:34:46 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-04-07 21:34:46 0 [Note] InnoDB: Setting file '.\ibdata1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-07 21:34:46 0 [Note] InnoDB: File '.\ibdata1' size is now 12 MB.
+2020-04-07 21:34:46 0 [Note] InnoDB: Setting log file .\ib_logfile101 size to 100663296 bytes
+2020-04-07 21:34:46 0 [Note] InnoDB: Renaming log file .\ib_logfile101 to .\ib_logfile0
+2020-04-07 21:34:46 0 [Note] InnoDB: New log file created, LSN=10312
+2020-04-07 21:34:46 0 [Note] InnoDB: Doublewrite buffer not found: creating new
+2020-04-07 21:34:46 0 [Note] InnoDB: Doublewrite buffer created
+2020-04-07 21:34:46 0 [Note] InnoDB: 128 rollback segments are active.
+2020-04-07 21:34:46 0 [Note] InnoDB: Creating foreign key constraint system tables.
+2020-04-07 21:34:46 0 [Note] InnoDB: Creating tablespace and datafile system tables.
+2020-04-07 21:34:46 0 [Note] InnoDB: Creating sys_virtual system tables.
+2020-04-07 21:34:46 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-04-07 21:34:46 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-07 21:34:46 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-04-07 21:34:46 0 [Note] InnoDB: 10.5.2 started; log sequence number 0; transaction id 7
+2020-04-07 21:34:46 0 [Note] Plugin 'FEEDBACK' is disabled.
+InnoDB: using atomic writes.
+2020-04-27 18:02:59 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-04-27 18:02:59 0 [Note] InnoDB: Uses event mutexes
+2020-04-27 18:02:59 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-04-27 18:02:59 0 [Note] InnoDB: Number of pools: 1
+2020-04-27 18:02:59 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-04-27 18:02:59 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-04-27 18:02:59 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-04-27 18:02:59 0 [Note] InnoDB: 128 rollback segments are active.
+2020-04-27 18:02:59 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-04-27 18:02:59 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-27 18:02:59 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-04-27 18:02:59 0 [Note] InnoDB: 10.5.2 started; log sequence number 49202; transaction id 39
+2020-04-27 18:02:59 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-04-27 18:02:59 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-04-27 18:02:59 0 [Note] InnoDB: Buffer pool(s) load completed at 200427 18:02:59
+InnoDB: using atomic writes.
+2020-04-27 21:03:07 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-04-27 21:03:07 0 [Note] InnoDB: Uses event mutexes
+2020-04-27 21:03:07 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-04-27 21:03:07 0 [Note] InnoDB: Number of pools: 1
+2020-04-27 21:03:07 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-04-27 21:03:07 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-04-27 21:03:07 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-04-27 21:03:07 0 [Note] InnoDB: 128 rollback segments are active.
+2020-04-27 21:03:07 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-04-27 21:03:07 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-27 21:03:07 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-04-27 21:03:07 0 [Note] InnoDB: 10.5.2 started; log sequence number 49226; transaction id 39
+2020-04-27 21:03:07 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-04-27 21:03:07 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-04-27 21:03:07 0 [Note] Server socket created on IP: '::'.
+2020-04-27 21:03:07 0 [ERROR] Can't start server: Bind on TCP/IP port. Got error: 10048: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+
+2020-04-27 21:03:07 0 [ERROR] Do you already have another mysqld server running on port: 3306 ?
+2020-04-27 21:03:07 0 [Note] InnoDB: Buffer pool(s) load completed at 200427 21:03:07
+2020-04-27 21:03:07 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-04-27 21:03:22 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-04-27 21:03:22 0 [Note] InnoDB: Uses event mutexes
+2020-04-27 21:03:22 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-04-27 21:03:22 0 [Note] InnoDB: Number of pools: 1
+2020-04-27 21:03:22 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-04-27 21:03:22 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-04-27 21:03:22 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-04-27 21:03:22 0 [Note] InnoDB: 128 rollback segments are active.
+2020-04-27 21:03:22 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-04-27 21:03:22 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-04-27 21:03:22 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-04-27 21:03:22 0 [Note] InnoDB: 10.5.2 started; log sequence number 49238; transaction id 39
+2020-04-27 21:03:22 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-04-27 21:03:22 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-04-27 21:03:22 0 [Note] Server socket created on IP: '::'.
+2020-04-27 21:03:22 0 [ERROR] Can't start server: Bind on TCP/IP port. Got error: 10048: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+
+2020-04-27 21:03:22 0 [ERROR] Do you already have another mysqld server running on port: 3306 ?
+2020-04-27 21:03:22 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 16:37:59 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-05-05 16:37:59 0 [Note] InnoDB: Uses event mutexes
+2020-05-05 16:37:59 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-05-05 16:37:59 0 [Note] InnoDB: Number of pools: 1
+2020-05-05 16:37:59 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-05 16:37:59 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-05-05 16:37:59 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-05-05 16:37:59 0 [Note] InnoDB: Starting crash recovery from checkpoint LSN=49250
+2020-05-05 16:37:59 0 [Note] InnoDB: 128 rollback segments are active.
+2020-05-05 16:37:59 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2020-05-05 16:37:59 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-05-05 16:37:59 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-05-05 16:37:59 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-05-05 16:37:59 0 [Note] InnoDB: 10.5.2 started; log sequence number 49262; transaction id 39
+2020-05-05 16:37:59 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 16:37:59 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-05-05 16:37:59 0 [Note] Server socket created on IP: '::'.
+2020-05-05 16:37:59 0 [Note] InnoDB: Buffer pool(s) load completed at 200505 16:37:59
+2020-05-05 16:37:59 0 [ERROR] Can't start server: Bind on TCP/IP port. Got error: 10048: Only one usage of each socket address (protocol/network address/port) is normally permitted.
+
+2020-05-05 16:37:59 0 [ERROR] Do you already have another mysqld server running on port: 3306 ?
+2020-05-05 16:37:59 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 16:40:11 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-05-05 16:40:11 0 [Note] InnoDB: Uses event mutexes
+2020-05-05 16:40:11 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-05-05 16:40:11 0 [Note] InnoDB: Number of pools: 1
+2020-05-05 16:40:11 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-05 16:40:11 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-05-05 16:40:11 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-05-05 16:40:11 0 [Note] InnoDB: 128 rollback segments are active.
+2020-05-05 16:40:11 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-05-05 16:40:11 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-05-05 16:40:11 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-05-05 16:40:11 0 [Note] InnoDB: 10.5.2 started; log sequence number 49298; transaction id 39
+2020-05-05 16:40:11 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 16:40:11 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-05-05 16:40:11 0 [Note] Server socket created on IP: '::'.
+2020-05-05 16:40:11 0 [Note] InnoDB: Buffer pool(s) load completed at 200505 16:40:11
+2020-05-05 16:40:12 0 [Note] Reading of all Master_info entries succeeded
+2020-05-05 16:40:12 0 [Note] Added new Master_info '' to hash table
+2020-05-05 16:40:12 0 [Note] mysqld: ready for connections.
+Version: '10.5.2-MariaDB'  socket: ''  port: 3307  mariadb.org binary distribution
+InnoDB: using atomic writes.
+2020-05-05 16:42:56 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 16:42:56 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 16:42:56 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 16:42:56 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 16:42:56 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 16:42:56 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 16:42:56 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 16:43:50 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 16:43:50 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 16:43:50 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 16:43:50 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 16:43:50 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 16:43:50 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 16:43:50 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 16:44:18 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 16:44:18 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 16:44:18 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 16:44:18 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 16:44:18 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 16:44:18 0 [ERROR] mysqld: unknown option '-p'
+2020-05-05 16:44:18 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 16:45:13 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 16:45:13 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 16:45:13 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 16:45:13 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 16:45:13 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 16:45:13 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 16:45:13 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:26:46 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:26:46 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:26:46 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:26:46 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:26:46 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 20:26:46 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 20:26:46 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:32:35 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:32:35 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:32:35 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:32:35 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:32:35 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 20:32:35 0 [ERROR] mysqld: unknown option '-p'
+2020-05-05 20:32:35 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:36:37 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:36:37 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:36:37 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:36:37 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:36:37 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 20:36:37 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 20:36:37 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:38:49 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:38:49 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:38:49 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:38:49 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:38:49 0 [Note] Plugin 'FEEDBACK' is disabled.
+InnoDB: using atomic writes.
+2020-05-05 20:41:49 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:41:49 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:41:49 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:41:49 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:41:49 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 20:41:49 0 [ERROR] mysqld: unknown option '-p'
+2020-05-05 20:41:49 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:43:46 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:43:46 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:43:46 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:43:46 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:43:46 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 20:43:46 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 20:43:46 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:44:02 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:44:02 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:44:02 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:44:02 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:44:02 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysqld: Too many arguments (first extra is '=p').
+2020-05-05 20:44:02 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:44:04 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:44:04 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:44:04 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:44:04 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:44:04 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 20:44:04 0 [ERROR] mysqld: unknown option '-p'
+2020-05-05 20:44:04 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:44:40 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:44:40 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:44:40 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:44:40 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:44:40 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 20:44:40 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 20:44:40 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:44:55 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:44:55 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:44:55 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:44:55 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:44:55 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 20:44:55 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 20:44:55 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:45:25 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:45:25 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:45:25 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:45:25 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:45:25 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 20:45:25 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 20:45:25 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 20:48:45 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:48:45 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:48:45 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:48:45 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:48:45 0 [Note] Plugin 'FEEDBACK' is disabled.
+InnoDB: using atomic writes.
+2020-05-05 20:51:56 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:51:56 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 20:51:56 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 20:51:56 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 20:51:56 0 [Note] Plugin 'FEEDBACK' is disabled.
+InnoDB: using atomic writes.
+2020-05-05 21:04:05 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:04:05 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:04:05 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 21:04:05 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 21:04:05 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 21:04:05 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 21:04:05 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:04:21 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:04:21 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:04:21 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 21:04:21 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 21:04:21 0 [Note] Plugin 'FEEDBACK' is disabled.
+InnoDB: using atomic writes.
+2020-05-05 21:05:16 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:05:16 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:05:16 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 21:05:16 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 21:05:16 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 21:05:16 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 21:05:16 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:05:39 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:05:39 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:05:39 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 21:05:39 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 21:05:39 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 21:05:39 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 21:05:39 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:07:54 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:07:54 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:07:54 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 21:07:54 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 21:07:54 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 21:07:54 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 21:07:54 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:10:04 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:10:04 0 [ERROR] InnoDB: The innodb_system data file 'ibdata1' must be writable
+2020-05-05 21:10:04 0 [ERROR] Plugin 'InnoDB' init function returned error.
+2020-05-05 21:10:04 0 [ERROR] Plugin 'InnoDB' registration as a STORAGE ENGINE failed.
+2020-05-05 21:10:04 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 21:10:04 0 [ERROR] Unknown/unsupported storage engine: InnoDB
+2020-05-05 21:10:04 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:11:13 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-05-05 21:11:13 0 [Note] InnoDB: Uses event mutexes
+2020-05-05 21:11:13 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-05-05 21:11:13 0 [Note] InnoDB: Number of pools: 1
+2020-05-05 21:11:13 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-05 21:11:13 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-05-05 21:11:13 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-05-05 21:11:13 0 [Note] InnoDB: 128 rollback segments are active.
+2020-05-05 21:11:13 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-05-05 21:11:13 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-05-05 21:11:13 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-05-05 21:11:13 0 [Note] InnoDB: 10.5.2 started; log sequence number 35011; transaction id 9
+2020-05-05 21:11:13 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 21:11:13 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+mysqld: Too many arguments (first extra is 'stop').
+2020-05-05 21:11:13 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:11:26 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-05-05 21:11:26 0 [Note] InnoDB: Uses event mutexes
+2020-05-05 21:11:26 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-05-05 21:11:26 0 [Note] InnoDB: Number of pools: 1
+2020-05-05 21:11:26 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-05 21:11:26 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-05-05 21:11:26 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-05-05 21:11:26 0 [Note] InnoDB: 128 rollback segments are active.
+2020-05-05 21:11:26 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-05-05 21:11:26 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-05-05 21:11:26 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-05-05 21:11:26 0 [Note] InnoDB: 10.5.2 started; log sequence number 35035; transaction id 9
+2020-05-05 21:11:26 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-05-05 21:11:26 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysqld: Too many arguments (first extra is 'kill').
+2020-05-05 21:11:26 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:12:26 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-05-05 21:12:26 0 [Note] InnoDB: Uses event mutexes
+2020-05-05 21:12:26 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-05-05 21:12:26 0 [Note] InnoDB: Number of pools: 1
+2020-05-05 21:12:26 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-05 21:12:26 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-05-05 21:12:26 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-05-05 21:12:26 0 [Note] InnoDB: 128 rollback segments are active.
+2020-05-05 21:12:26 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-05-05 21:12:26 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-05-05 21:12:26 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-05-05 21:12:26 0 [Note] InnoDB: 10.5.2 started; log sequence number 35071; transaction id 9
+2020-05-05 21:12:26 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-05-05 21:12:26 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 21:12:26 0 [Note] InnoDB: Buffer pool(s) load completed at 200505 21:12:26
+2020-05-05 21:12:26 0 [Note] Server socket created on IP: '::'.
+2020-05-05 21:12:26 1 [Warning] Failed to load slave replication state from table mysql.gtid_slave_pos: 1932: Table 'mysql.gtid_slave_pos' doesn't exist in engine
+2020-05-05 21:12:26 0 [Note] Reading of all Master_info entries succeeded
+2020-05-05 21:12:26 0 [Note] Added new Master_info '' to hash table
+2020-05-05 21:12:26 0 [Note] mysqld: ready for connections.
+Version: '10.5.2-MariaDB'  socket: ''  port: 3308  mariadb.org binary distribution
+InnoDB: using atomic writes.
+2020-05-05 21:14:38 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-05-05 21:14:38 0 [Note] InnoDB: Uses event mutexes
+2020-05-05 21:14:38 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-05-05 21:14:38 0 [Note] InnoDB: Number of pools: 1
+2020-05-05 21:14:38 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-05 21:14:38 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-05-05 21:14:38 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-05-05 21:14:38 0 [Note] InnoDB: 128 rollback segments are active.
+2020-05-05 21:14:38 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-05-05 21:14:38 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-05-05 21:14:38 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-05-05 21:14:38 0 [Note] InnoDB: 10.5.2 started; log sequence number 35011; transaction id 9
+2020-05-05 21:14:38 0 [Note] Plugin 'FEEDBACK' is disabled.
+2020-05-05 21:14:38 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+mysqld: Too many arguments (first extra is 'stop').
+2020-05-05 21:14:38 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:14:57 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-05-05 21:14:57 0 [Note] InnoDB: Uses event mutexes
+2020-05-05 21:14:57 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-05-05 21:14:57 0 [Note] InnoDB: Number of pools: 1
+2020-05-05 21:14:57 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-05 21:14:57 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-05-05 21:14:57 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-05-05 21:14:57 0 [Note] InnoDB: 128 rollback segments are active.
+2020-05-05 21:14:57 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-05-05 21:14:57 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-05-05 21:14:57 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-05-05 21:14:57 0 [Note] InnoDB: 10.5.2 started; log sequence number 35035; transaction id 9
+2020-05-05 21:14:57 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-05-05 21:14:57 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysqld: Too many arguments (first extra is 'status').
+2020-05-05 21:14:57 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:15:02 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-05-05 21:15:02 0 [Note] InnoDB: Uses event mutexes
+2020-05-05 21:15:02 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-05-05 21:15:02 0 [Note] InnoDB: Number of pools: 1
+2020-05-05 21:15:02 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-05 21:15:02 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-05-05 21:15:02 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-05-05 21:15:02 0 [Note] InnoDB: 128 rollback segments are active.
+2020-05-05 21:15:02 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-05-05 21:15:02 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-05-05 21:15:02 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-05-05 21:15:02 0 [Note] InnoDB: 10.5.2 started; log sequence number 35047; transaction id 9
+2020-05-05 21:15:02 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-05-05 21:15:02 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysqld: Too many arguments (first extra is 'stop').
+2020-05-05 21:15:02 0 [ERROR] Aborting
+InnoDB: using atomic writes.
+2020-05-05 21:15:21 0 [Note] InnoDB: Mutexes and rw_locks use Windows interlocked functions
+2020-05-05 21:15:21 0 [Note] InnoDB: Uses event mutexes
+2020-05-05 21:15:21 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2020-05-05 21:15:21 0 [Note] InnoDB: Number of pools: 1
+2020-05-05 21:15:21 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2020-05-05 21:15:21 0 [Note] InnoDB: Initializing buffer pool, total size = 134217728, chunk size = 134217728
+2020-05-05 21:15:21 0 [Note] InnoDB: Completed initialization of buffer pool
+2020-05-05 21:15:21 0 [Note] InnoDB: 128 rollback segments are active.
+2020-05-05 21:15:21 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2020-05-05 21:15:21 0 [Note] InnoDB: Setting file '.\ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2020-05-05 21:15:21 0 [Note] InnoDB: File '.\ibtmp1' size is now 12 MB.
+2020-05-05 21:15:21 0 [Note] InnoDB: 10.5.2 started; log sequence number 35059; transaction id 9
+2020-05-05 21:15:21 0 [Note] InnoDB: Loading buffer pool(s) from C:\Users\Chenj\OneDrive\Desktop\CAB302\mariaDB\mariadb-10.5.2-winx64\data\ib_buffer_pool
+2020-05-05 21:15:21 0 [Note] Plugin 'FEEDBACK' is disabled.
+mysqld: Too many arguments (first extra is 'kill').
+2020-05-05 21:15:21 0 [ERROR] Aborting
