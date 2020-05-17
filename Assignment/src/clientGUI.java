@@ -95,21 +95,9 @@ public class clientGUI {
                 }
             }
         });
-        table2.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                
-            }
-        });
-        table2.getModel().addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                int row = e.getFirstRow();
-                int billboardId = Integer.valueOf(table2.getModel().getValueAt(row,0).toString());
 
 
-            }
-        });
+
         deleteButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -220,7 +208,10 @@ public class clientGUI {
                     Add addBillboard = new Add(billboardName,msg,info,url);
                     oos.writeObject(addBillboard);
                     oos.flush();
-
+                    textArea1.setText("");
+                    textArea2.setText("");
+                    textArea3.setText("");
+                    textArea4.setText("");
 
                     JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
                 } catch (UnknownHostException ex) {

@@ -40,6 +40,7 @@ public class Server {
 
                         Statement statement = DBConnection.getInstance().createStatement();
                         statement.executeQuery("insert into billboard values(null,'"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"');");
+                        statement.executeQuery("insert into view (BillboardName, message, info, url) values('"+data[0]+"','"+data[1]+"','"+data[2]+"','"+data[3]+"');");
                         statement.close();
 
 
@@ -85,7 +86,7 @@ public class Server {
                         Object[] data = deleteData.getVal();
                         System.out.println("ID :"+data[0]);
                         Statement statement = DBConnection.getInstance().createStatement();
-                        statement.executeQuery("delete from billboard where billboardID=("+ data[0]+");");
+                        statement.executeQuery("delete from view where billboardID=("+ data[0]+");");
                         statement.close();
                         break;
                     }
