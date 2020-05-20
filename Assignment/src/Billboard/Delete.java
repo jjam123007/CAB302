@@ -9,7 +9,6 @@ public class Delete implements Serializable {
         this.BillboardID = BillboardID;
     }
 
-
     public Object[] getVal() {
         Object data[] = new Object[1];
         data[0] = BillboardID;

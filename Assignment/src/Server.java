@@ -1,7 +1,5 @@
 
-import Billboard.Add;
-import Billboard.Delete;
-import Billboard.Edit;
+import Billboard.ManageBillboards;
 
 
 import java.io.EOFException;
@@ -23,51 +21,29 @@ public class Server {
         ServerSocket serverSocket = new ServerSocket(3310);
         Socket socket = serverSocket.accept();
         System.out.println("Connected to "+ socket.getInetAddress());
+
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream ois = new ObjectInputStream( socket.getInputStream());
 
         for(;;){
             try {
-                Object requestObject = (Object) ois.readObject(); System.out.println("Request type :"+ requestObject);
+                Object requestObject = ois.readObject();
 
                 if (requestObject instanceof BillboardRequest)
                 {
-                    String request = ((BillboardRequest) requestObject).request;
+                    String request = ((BillboardRequest) requestObject).request;  System.out.println("Request type :"+ request);
                     String token = ((BillboardRequest) requestObject).token;
-                    Object[] data = ((BillboardRequest) requestObject).data;
+                    Object[] billboard = ((BillboardRequest) requestObject).data;
+
                     switch (request) {
                         case "addBillboard": {
-                            //Add o2 = (Add) ois.readObject();
-                            //Object[] data1 = o2.getVal();
-                            System.out.println("Name :" + data[0]);
-                            System.out.println("Msg :" + data[1]);
-                            System.out.println("Info :" + data[2]);
-                            System.out.println("Url :" + data[3]);
-
-                            Statement statement = DBConnection.getInstance().createStatement();
-                            statement.executeQuery("insert into billboard values(null,'" + data[0] + "','" + data[1] + "','" + data[2] + "','" + data[3] + "');");
-                            statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + data[0] + "','" + data[1] + "','" + data[2] + "','" + data[3] + "');");
-                            statement.close();
-
-
+                            ManageBillboards.addBillboard(billboard);
                             break;
                         }
                         case "addView": {
-                            //Add o3 = (Add) ois.readObject();
-                            //Object[] data = o3.getVal();
-                            System.out.println("billboardId :" + data[0]);
-                            System.out.println("scheduledDate :" + data[1]);
-                            System.out.println("startTime :" + data[2]);
-                            System.out.println("endTime :" + data[3]);
-
-                            Statement statement = DBConnection.getInstance().createStatement();
-                            statement.executeQuery("update view set scheduleddate='" + data[1] + "', starttime='" + data[2] + "', endtime='" + data[3] + "'Where billboardId='" + data[0] + "'");
-                            statement.close();
-
-
+                            ManageBillboards.addView(billboard);
                             break;
                         }
-
                         case "showTable": {
                             Object[][] tableData;
 
@@ -96,26 +72,18 @@ public class Server {
                                 tableData[i] = myString;
                             }
                             statement.close();
-                            SerialDataArray d2= new SerialDataArray(tableData);
+                            SerialDataArray d2 = new SerialDataArray(tableData);
                             oos.writeObject(d2);
                             oos.flush();
                             break;
                         }
-
                         case "delete": {
-                            //Delete deleteData = (Delete) ois.readObject();
-                            //Object[] data = deleteData.getVal();
-                            System.out.println("ID :" + data[0]);
-                            Statement statement = DBConnection.getInstance().createStatement();
-                            statement.executeQuery("delete from view where billboardID=(" + data[0] + ");");
-                            statement.close();
-                            break;
+                            ManageBillboards.delete(billboard);
                         }
                         case "editTable": {
-
+                            ManageBillboards.edit(billboard);
                             break;
                         }
-
 
                     }
                 }

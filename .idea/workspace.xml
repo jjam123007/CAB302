@@ -16,33 +16,37 @@
         <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/NikoDev" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Assignment/src/Billboard/DBConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assignment/src/Billboard/Manage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assignment/src/BillboardRequest.java" afterDir="false" />
+    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="Changed statements under request cases in class &quot;Server&quot; to call static functions, such as &quot;add&quot;,&quot;delete&quot;, from class &quot;ManageBillboards&quot; using billboard data as a singular argument.">
+      <change afterPath="$PROJECT_DIR$/Assignment/src/Billboard/ManageBillboards.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/mariadb-java-client-2.6.0.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/Add.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/Delete.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Edit.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/Edit.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/MyClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Billboard/Add.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Billboard/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/Delete.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Billboard/Edit.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Billboard/Manage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/BillboardRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/BillboardRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/clientGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/clientGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/clientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/clientGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/dataArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/SerialDataArray.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/EXCEPTIONS-CLIENT" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/EXCEPTIONS-CLIENT" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibtmp1" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibtmp1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/my.ini" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/my.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/mydb/db.opt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/mydb/test.frm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/newschema/db.opt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/pizza/db.opt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/billboard.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/billboard.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/share/errmsg-utf8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/share/errmsg-utf8.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/sqlite-jdbc-3.30.1.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/view.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/view.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/test/db.opt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/test/testtable.frm" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/test/testtable.ibd" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +67,7 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
   </component>
   <component name="ProjectId" id="1betDm3j6KQkGzfaqktadXAJVSw" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -83,7 +88,7 @@
       <recent name="Billboard" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ControlPanel">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="ControlPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ControlPanel" />
       <module name="BillboardProject" />
@@ -130,6 +135,14 @@
       <option name="presentableId" value="Default" />
       <updated>1589004269741</updated>
     </task>
+    <task id="LOCAL-00001" summary="- Changed how Server requests into a single object containing the request type, user session token and request data. This replaces the old method of doing a .writeUtf and .writeObject call to the Server. Additionally,individual casts on the request data are not required as they are already deserialized.">
+      <created>1589982582729</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1589982582729</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,11 +150,33 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="false" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/NikoDev" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="- Changed how Server requests into a single object containing the request type, user session token and request data. This replaces the old method of doing a .writeUtf and .writeObject call to the Server. Additionally,individual casts on the request data are not required as they are already deserialized." />
+    <MESSAGE value="Changed statements under request cases in class &quot;Server&quot; to call static functions, such as &quot;add&quot;,&quot;delete&quot;, from class &quot;ManageBillboards&quot; using billboard data as a singular argument." />
+    <option name="LAST_COMMIT_MESSAGE" value="Changed statements under request cases in class &quot;Server&quot; to call static functions, such as &quot;add&quot;,&quot;delete&quot;, from class &quot;ManageBillboards&quot; using billboard data as a singular argument." />
   </component>
   <component name="WindowStateProjectService">
     <state x="343" y="139" key="#Project_Structure" timestamp="1589004292317">
@@ -152,45 +187,50 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589977028431" />
+    <state x="743" y="414" width="433" height="217" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1589987913179">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="743" y="414" width="433" height="217" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1589987913179" />
     <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl" timestamp="1589952640146">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="531" y="235" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1589005149560" />
     <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589952640146" />
-    <state width="1877" height="252" key="GridCell.Tab.0.bottom" timestamp="1589981852053">
+    <state width="1877" height="252" key="GridCell.Tab.0.bottom" timestamp="1589988064599">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589981852053" />
-    <state width="1877" height="252" key="GridCell.Tab.0.center" timestamp="1589981852053">
+    <state width="1877" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589988064599" />
+    <state width="1877" height="252" key="GridCell.Tab.0.center" timestamp="1589988064599">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="252" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589981852053" />
-    <state width="1877" height="252" key="GridCell.Tab.0.left" timestamp="1589981852053">
+    <state width="1877" height="252" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589988064599" />
+    <state width="1877" height="252" key="GridCell.Tab.0.left" timestamp="1589988064599">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="252" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589981852053" />
-    <state width="1877" height="252" key="GridCell.Tab.0.right" timestamp="1589981852053">
+    <state width="1877" height="252" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589988064599" />
+    <state width="1877" height="252" key="GridCell.Tab.0.right" timestamp="1589988064599">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="252" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589981852053" />
+    <state width="1877" height="252" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589988064599" />
     <state x="440" y="94" key="SettingsEditor" timestamp="1589961170363">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589961170363" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1589982695792">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1589982695792" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589981899118">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1589981899118" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Assignment/src/Server.java</url>
-          <line>39</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <state x="730" y="400" key="com.intellij.uiDesigner.propertyInspector.editors.string.StringEditorDialog" timestamp="1589987839906">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="730" y="400" key="com.intellij.uiDesigner.propertyInspector.editors.string.StringEditorDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589987839906" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1589986608780">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1589986608780" />
   </component>
 </project>

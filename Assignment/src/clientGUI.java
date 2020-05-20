@@ -1,7 +1,3 @@
-import Billboard.Add;
-import Billboard.Delete;
-import Billboard.Edit;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -69,11 +65,9 @@ public class clientGUI {
         ObjectOutputStream oos = new ObjectOutputStream(os);
         ObjectInputStream ois = new ObjectInputStream(inputStream);
 
-        BillboardRequest request = new BillboardRequest("showTable","",null);
+        BillboardRequest request = new BillboardRequest("showTable",null,"");
         oos.writeObject(request);
         oos.flush();
-        //oos.writeUTF(requestType);
-        //oos.flush();
 
 
         SerialDataArray tableData = (SerialDataArray) ois.readObject();
@@ -107,22 +101,17 @@ public class clientGUI {
             public void tableChanged(TableModelEvent e) {
                 int row = e.getFirstRow();
                 int billboardId = Integer.valueOf(table2.getModel().getValueAt(row,0).toString());
-
-
             }
         });
+
         deleteButton1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-
-                    String requestType = "delete";
-                    oos.writeUTF(requestType);
+                    Object[] id = {billboardID};
+                    BillboardRequest delete = new BillboardRequest("delete",id,"");
+                    oos.writeObject(delete);
                     oos.flush();
-                    Delete deleteTable = new Delete(billboardID);
-                    oos.writeObject(deleteTable);
-                    oos.flush();
-
 
                     if(billboardID != null){
                         System.out.println("Selected id "+billboardID);
@@ -173,7 +162,7 @@ public class clientGUI {
                 String requestType = "editTable";
                 try {
                     Object[] newTable = {billboardId,billboardName,billboardMessage,billboardInformation,billboardUrl};
-                    BillboardRequest edit = new BillboardRequest(requestType, "",newTable);
+                    BillboardRequest edit = new BillboardRequest(requestType, newTable,"");
                     oos.writeObject(edit);
                     oos.flush();
 
@@ -209,15 +198,15 @@ public class clientGUI {
                     String billboardName = textArea1.getText();
                     String msg = textArea2.getText();
                     String info = textArea3.getText();
-                    String url = textArea4.getText();
+                    String url = textArea6.getText();
                     String requestType = "addBillboard";
                     //MyClass myclass = new MyClass(requestType);
                     //oos.writeObject(myclass);
-                    oos.writeUTF(requestType);
-                    oos.flush();
+                    //oos.writeUTF(requestType);
+                    //oos.flush();
 
-
-                    Add addBillboard = new Add(billboardName,msg,info,url);
+                    Object[] newTable = {billboardName,msg,info,url};
+                    BillboardRequest addBillboard = new BillboardRequest("addBillboard",newTable,"");
                     oos.writeObject(addBillboard);
                     oos.flush();
 
@@ -304,12 +293,9 @@ public class clientGUI {
                     String startTime = textArea17.getText();
                     String endTime = textArea16.getText();
                     String requestType = "addView";
-                    //MyClass myclass = new MyClass(requestType);
-                    //oos.writeObject(myclass);
-                    oos.writeUTF(requestType);
-                    oos.flush();
+                    Object[] submitData = {billboardId, scheduledDate,startTime,endTime,requestType};
 
-                    Add addview = new Add(billboardId,scheduledDate,startTime,endTime);
+                    BillboardRequest addview = new BillboardRequest("addView", submitData, "");
                     oos.writeObject(addview);
                     oos.flush();
 
@@ -320,9 +306,6 @@ public class clientGUI {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
-
-
-
             }
         });
     }
