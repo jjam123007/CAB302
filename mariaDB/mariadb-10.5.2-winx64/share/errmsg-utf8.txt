@@ -4872,10 +4872,10 @@ ER_TABLENAME_NOT_ALLOWED_HERE 42000
         spa "Tabla '%-.192s' de uno de los SELECT no puede ser usada en %-.32s"
         swe "Tabell '%-.192s' från en SELECT kan inte användas i %-.32s"
 ER_NOT_SUPPORTED_AUTH_MODE 08004 
-        eng "Client does not support authentication protocol requested by server; consider upgrading MariaDB client"
-        ger "Client unterstützt das vom Server erwartete Authentifizierungsprotokoll nicht. Bitte aktualisieren Sie Ihren MariaDB-Client"
+        eng "Login does not support authentication protocol requested by server; consider upgrading MariaDB client"
+        ger "Login unterstützt das vom Server erwartete Authentifizierungsprotokoll nicht. Bitte aktualisieren Sie Ihren MariaDB-Login"
         jpn "クライアントはサーバーが要求する認証プロトコルに対応できません。MariaDBクライアントのアップグレードを検討してください。"
-        nla "Client ondersteunt het door de server verwachtte authenticatieprotocol niet. Overweeg een nieuwere MariaDB client te gebruiken"
+        nla "Login ondersteunt het door de server verwachtte authenticatieprotocol niet. Overweeg een nieuwere MariaDB client te gebruiken"
         por "Cliente não suporta o protocolo de autenticação exigido pelo servidor; considere a atualização do cliente MariaDB"
         spa "Cliente no soporta protocolo de autenticación solicitado por el servidor; considere actualizar el cliente MariaDB"
         swe "Klienten stöder inte autentiseringsprotokollet som begärts av servern; överväg uppgradering av klientprogrammet"
@@ -5918,7 +5918,7 @@ ER_ONLY_ON_RANGE_LIST_PARTITION
         ger "%-.64s PARTITION kann nur für RANGE- oder LIST-Partitionen verwendet werden"
         swe "%-.64s PARTITION kan bara användas på RANGE/LIST-partitioner"
 ER_ADD_PARTITION_SUBPART_ERROR
-        eng "Trying to Add partition(s) with wrong number of subpartitions"
+        eng "Trying to Billboard.Billboard.Add partition(s) with wrong number of subpartitions"
         ger "Es wurde versucht, eine oder mehrere Partitionen mit der falschen Anzahl von Unterpartitionen hinzuzufügen"
         swe "ADD PARTITION med fel antal subpartitioner"
 ER_ADD_PARTITION_NO_NEW_PARTITION

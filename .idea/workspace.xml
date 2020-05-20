@@ -1,7 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="" />
+    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assignment/src/Billboard/DBConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assignment/src/Billboard/Manage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assignment/src/BillboardRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/mariadb-java-client-2.6.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Add.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/Add.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Delete.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/Delete.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Edit.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/Edit.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/MyClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/clientGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/clientGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/clientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/clientGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/dataArray.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/SerialDataArray.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/EXCEPTIONS-CLIENT" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/EXCEPTIONS-CLIENT" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibtmp1" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibtmp1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/my.ini" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/my.ini" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/billboard.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/billboard.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/share/errmsg-utf8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/share/errmsg-utf8.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mariaDB/sqlite-jdbc-3.30.1.jar" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,20 +57,67 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1betDm3j6KQkGzfaqktadXAJVSw" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/Assignment" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/mariaDB/mariadb-java-client-2.6.0.jar!/" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="Billboard" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.ControlPanel">
+    <configuration name="ControlPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ControlPanel" />
+      <module name="BillboardProject" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Login" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Login" />
+      <module name="BillboardProject" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Server" />
+      <module name="BillboardProject" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Assignment/src" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Server" />
+      <item itemvalue="Application.ControlPanel" />
+      <item itemvalue="Application.Login" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.ControlPanel" />
+        <item itemvalue="Application.Server" />
+        <item itemvalue="Application.Login" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -43,14 +132,65 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
     <state x="343" y="139" key="#Project_Structure" timestamp="1589004292317">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
     <state x="343" y="139" key="#Project_Structure/0.0.1500.960@0.0.1500.960" timestamp="1589004292317" />
-    <state x="531" y="235" key="FileChooserDialogImpl" timestamp="1589005149560">
-      <screen x="0" y="0" width="1500" height="960" />
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1589977028431">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589977028431" />
+    <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl" timestamp="1589952640146">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="531" y="235" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1589005149560" />
+    <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1589952640146" />
+    <state width="1877" height="252" key="GridCell.Tab.0.bottom" timestamp="1589981852053">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1589981852053" />
+    <state width="1877" height="252" key="GridCell.Tab.0.center" timestamp="1589981852053">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="252" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1589981852053" />
+    <state width="1877" height="252" key="GridCell.Tab.0.left" timestamp="1589981852053">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="252" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1589981852053" />
+    <state width="1877" height="252" key="GridCell.Tab.0.right" timestamp="1589981852053">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="252" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1589981852053" />
+    <state x="440" y="94" key="SettingsEditor" timestamp="1589961170363">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1589961170363" />
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1589981899118">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1589981899118" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Assignment/src/Server.java</url>
+          <line>39</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

@@ -1,3 +1,7 @@
+import Billboard.Add;
+import Billboard.Delete;
+import Billboard.Edit;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -14,10 +18,7 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Base64;
-import java.util.Scanner;
 
 public class clientGUI {
     private JPanel panel1;
@@ -68,16 +69,14 @@ public class clientGUI {
         ObjectOutputStream oos = new ObjectOutputStream(os);
         ObjectInputStream ois = new ObjectInputStream(inputStream);
 
-
-        String requestType = "showTable";
-        //MyClass myclass = new MyClass(requestType);
-        //oos.writeObject(myclass);
-        //oos.flush();
-        oos.writeUTF(requestType);
+        BillboardRequest request = new BillboardRequest("showTable","",null);
+        oos.writeObject(request);
         oos.flush();
+        //oos.writeUTF(requestType);
+        //oos.flush();
 
 
-        dataArray tableData = (dataArray) ois.readObject();
+        SerialDataArray tableData = (SerialDataArray) ois.readObject();
         Object[][]  data = tableData.getData();
 
         table2.setModel(new DefaultTableModel(
@@ -116,12 +115,14 @@ public class clientGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+
                     String requestType = "delete";
                     oos.writeUTF(requestType);
                     oos.flush();
                     Delete deleteTable = new Delete(billboardID);
                     oos.writeObject(deleteTable);
                     oos.flush();
+
 
                     if(billboardID != null){
                         System.out.println("Selected id "+billboardID);
@@ -171,10 +172,9 @@ public class clientGUI {
 
                 String requestType = "editTable";
                 try {
-                    oos.writeUTF(requestType);
-                    oos.flush();
-                    Edit editData = new Edit(billboardId,billboardName,billboardMessage,billboardInformation,billboardUrl);
-                    oos.writeObject(editData);
+                    Object[] newTable = {billboardId,billboardName,billboardMessage,billboardInformation,billboardUrl};
+                    BillboardRequest edit = new BillboardRequest(requestType, "",newTable);
+                    oos.writeObject(edit);
                     oos.flush();
 
                     table2.getModel().setValueAt(billboardId,rowToEdit,0);
@@ -200,8 +200,6 @@ public class clientGUI {
 
             }
         });
-
-
 
         submitButton.addActionListener(new ActionListener() {
             @Override
@@ -310,7 +308,6 @@ public class clientGUI {
                     //oos.writeObject(myclass);
                     oos.writeUTF(requestType);
                     oos.flush();
-
 
                     Add addview = new Add(billboardId,scheduledDate,startTime,endTime);
                     oos.writeObject(addview);

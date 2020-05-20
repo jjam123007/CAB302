@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.Properties;
+import java.nio.file.Paths;
 
 public class DBConnection {
 
@@ -14,10 +15,10 @@ public class DBConnection {
         Properties props = new Properties();
         FileInputStream in = null;
         try {
-            in = new FileInputStream("src/db.props");
+            System.out.println("Path: " + Paths.get(".").toAbsolutePath().normalize().toString());
+            in = new FileInputStream("db.props");
             props.load(in);
             in.close();
-
             // specify the data source, username and password
             String url = props.getProperty("jdbc.url");
             String username = props.getProperty("jdbc.username");
