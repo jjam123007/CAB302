@@ -2,12 +2,12 @@ import java.io.Serializable;
 
 public class BillboardRequest implements Serializable {
     String request;
-    String token;
+    String sessionToken;
     Object[] data;
 
-    public BillboardRequest(String request, Object[] data, String token){
+    public BillboardRequest(String request, Object[] data, String sessionToken){
         this.request = request;
-        this.token = token;
+        this.sessionToken = sessionToken;
         this.data = data;
     }
 }

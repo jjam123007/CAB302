@@ -10,7 +10,7 @@ public final class ManageBillboards implements Serializable {
         String name = (String) data[0];
         String message = (String) data[1];
         String info = (String) data[2];
-        String url = (String) data[4];
+        String url = (String) data[3];
         System.out.println("Name :" + name);
         System.out.println("Msg :" + message);
         System.out.println("Info :" + info);

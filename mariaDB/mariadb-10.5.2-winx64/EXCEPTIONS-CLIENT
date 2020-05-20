@@ -7,11 +7,11 @@ What is the FOSS License Exception?
 
    Oracle's Free and Open Source Software ("FOSS") License Exception
    (formerly known as the FLOSS License Exception) allows developers of FOSS
-   applications to include Oracle's MySQL Login Libraries (also referred to
+   applications to include Oracle's MySQL LoginRequest Libraries (also referred to
    as "MySQL Drivers" or "MySQL Connectors") with their FOSS applications.
-   MySQL Login Libraries are typically licensed pursuant to version 2 of the
+   MySQL LoginRequest Libraries are typically licensed pursuant to version 2 of the
    General Public License ("GPL"), but this exception permits distribution of
-   certain MySQL Login Libraries with a developer's FOSS applications
+   certain MySQL LoginRequest Libraries with a developer's FOSS applications
    licensed under the terms of another FOSS license listed below, even though
    such other FOSS license may be incompatible with the GPL.
 
@@ -29,7 +29,7 @@ Oracle's FOSS License Exception Terms and Conditions
        "FOSS License List."
 
        "FOSS Notice" means a notice placed by Oracle or MySQL in a copy of
-       the MySQL Login Libraries stating that such copy of the MySQL Login
+       the MySQL LoginRequest Libraries stating that such copy of the MySQL LoginRequest
        Libraries may be distributed under Oracle's or MySQL's FOSS (or FLOSS)
        License Exception.
 
@@ -37,7 +37,7 @@ Oracle's FOSS License Exception Terms and Conditions
        derived from the Program and can reasonably be considered independent
        and separate works.
 
-       "Program" means a copy of Oracle's MySQL Login Libraries that
+       "Program" means a copy of Oracle's MySQL LoginRequest Libraries that
        contains a FOSS Notice.
 
     2. A FOSS application developer ("you" or "your") may distribute a

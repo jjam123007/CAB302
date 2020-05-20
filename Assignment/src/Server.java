@@ -32,7 +32,7 @@ public class Server {
                 if (requestObject instanceof BillboardRequest)
                 {
                     String request = ((BillboardRequest) requestObject).request;  System.out.println("Request type :"+ request);
-                    String token = ((BillboardRequest) requestObject).token;
+                    String token = ((BillboardRequest) requestObject).sessionToken;
                     Object[] billboard = ((BillboardRequest) requestObject).data;
 
                     switch (request) {
@@ -87,6 +87,11 @@ public class Server {
 
                     }
                 }
+                else if (requestObject instanceof LoginRequest)
+                {
+
+                }
+
 
             } catch (EOFException e) {
                 e.printStackTrace();

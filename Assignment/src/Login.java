@@ -1,12 +1,13 @@
 import java.io.*;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 
 public class Login {
 
-    public  static void main (String [] args) throws IOException {
-
+    public  static void main (String [] args) throws IOException, NoSuchAlgorithmException {
+        /*
         Socket socket = new Socket("localhost", 3310);
 
         OutputStream os = socket.getOutputStream();
@@ -14,33 +15,26 @@ public class Login {
 
         ObjectOutputStream oos = new ObjectOutputStream(os);
         ObjectInputStream ois = new ObjectInputStream(inputStream);
-
-        Scanner myObj = new Scanner(System.in);  // Create a Scanner object
-        String userName = "";
+        */
+        Scanner userInput = new Scanner(System.in);  // Create a Scanner object
 
         //ame.contentEquals("quit") ) {
-            System.out.println("Enter person id");
-            int personId = Integer.parseInt(myObj.nextLine());
+        System.out.println("Please enter your username");
+        String userName = userInput.nextLine();
 
-        System.out.println("Enter person name");
-        String personName = myObj.nextLine();
+        System.out.println("Please enter your password");
+        String password = userInput.nextLine();
 
-        System.out.println("Enter some number");
-        float someNumber = Float.parseFloat(myObj.nextLine());
-
-
-        System.out.println("Select user id to delete");
-        int personToDelete = Integer.parseInt(myObj.nextLine());
-
-//        MyClass myclass = new MyClass(personId,personName,someNumber,personToDelete);
-//        oos.writeObject(myclass);
+        LoginRequest login = new LoginRequest(userName, password);
+        /*
+        oos.writeObject(login);
+        ois.readUTF();
         oos.flush();
 
 
         ois.close();
         oos.close();
-
         socket.close();
-
+        */
     }
 }
