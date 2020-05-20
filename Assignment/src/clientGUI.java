@@ -58,6 +58,13 @@ public class clientGUI {
 
     private int rowToEdit;
 
+    // User permissions, based on data retrieved from the database
+    private boolean isCreator = true;
+    private boolean isEditor = true;
+    private boolean isScheduler = true;
+    private boolean isAdmin = true;
+    ////---- To be updated ---////
+
     public clientGUI() throws IOException, ClassNotFoundException {
 //        createTable();
         Socket socket = new Socket("localhost", 3310);
@@ -332,6 +339,18 @@ public class clientGUI {
         });
     }
     public JPanel getRootPanel(){
+        if (!isCreator) {
+            tabbedPane1.setEnabledAt(1, false);
+        }
+        if (!isEditor) {
+            tabbedPane1.setEnabledAt(2, false);
+        }
+        if (!isScheduler) {
+            tabbedPane1.setEnabledAt(3, false);
+        }
+        if (!isAdmin) {
+            tabbedPane1.setEnabledAt(4, false);
+        }
         return panel1;
     }
 
