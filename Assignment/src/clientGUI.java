@@ -1,3 +1,5 @@
+import Billboard.Billboards;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -47,6 +49,7 @@ public class clientGUI {
     private JButton editButton1;
     private JTextArea textArea5;
     private JTextArea textArea6;
+    private JTree tree1;
     String billboardName;
     String msg;
     String imagelink;
@@ -65,7 +68,7 @@ public class clientGUI {
         ObjectOutputStream oos = new ObjectOutputStream(os);
         ObjectInputStream ois = new ObjectInputStream(inputStream);
 
-        BillboardRequest request = new BillboardRequest("showTable",null,"");
+        BillboardRequest request = new BillboardRequest(Billboards.showTable,null,"");
         oos.writeObject(request);
         oos.flush();
 
@@ -109,7 +112,7 @@ public class clientGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Object[] id = {billboardID};
-                    BillboardRequest delete = new BillboardRequest("delete",id,"");
+                    BillboardRequest delete = new BillboardRequest(Billboards.delete,id,"");
                     oos.writeObject(delete);
                     oos.flush();
 
@@ -159,10 +162,9 @@ public class clientGUI {
                 System.out.println("Data Updated");
                 System.out.println(billboardName+" "+billboardMessage+" "+billboardInformation+" "+billboardUrl);
 
-                String requestType = "editTable";
                 try {
                     Object[] newTable = {billboardId,billboardName,billboardMessage,billboardInformation,billboardUrl};
-                    BillboardRequest edit = new BillboardRequest(requestType, newTable,"");
+                    BillboardRequest edit = new BillboardRequest(Billboards.edit, newTable,"");
                     oos.writeObject(edit);
                     oos.flush();
 
@@ -206,7 +208,7 @@ public class clientGUI {
                     //oos.flush();
 
                     Object[] newTable = {billboardName,msg,info,url};
-                    BillboardRequest addBillboard = new BillboardRequest("addBillboard",newTable,"");
+                    BillboardRequest addBillboard = new BillboardRequest(Billboards.addBillboard,newTable,"");
                     oos.writeObject(addBillboard);
                     oos.flush();
 
@@ -295,7 +297,7 @@ public class clientGUI {
                     String requestType = "addView";
                     Object[] submitData = {billboardId, scheduledDate,startTime,endTime,requestType};
 
-                    BillboardRequest addview = new BillboardRequest("addView", submitData, "");
+                    BillboardRequest addview = new BillboardRequest(Billboards.addView, submitData, "");
                     oos.writeObject(addview);
                     oos.flush();
 

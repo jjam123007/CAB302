@@ -1,11 +1,13 @@
+import Billboard.Billboards;
+
 import java.io.Serializable;
 
 public class BillboardRequest implements Serializable {
-    String request;
+    Billboards request;
     String sessionToken;
     Object[] data;
 
-    public BillboardRequest(String request, Object[] data, String sessionToken){
+    public BillboardRequest(Billboards request, Object[] data, String sessionToken){
         this.request = request;
         this.sessionToken = sessionToken;
         this.data = data;

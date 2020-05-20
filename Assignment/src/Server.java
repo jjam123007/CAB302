@@ -1,4 +1,5 @@
 
+import Billboard.Billboards;
 import Billboard.ManageBillboards;
 
 
@@ -31,20 +32,20 @@ public class Server {
 
                 if (requestObject instanceof BillboardRequest)
                 {
-                    String request = ((BillboardRequest) requestObject).request;  System.out.println("Request type :"+ request);
+                    Billboards request = ((BillboardRequest) requestObject).request;  System.out.println("Request type :"+ request);
                     String token = ((BillboardRequest) requestObject).sessionToken;
                     Object[] billboard = ((BillboardRequest) requestObject).data;
 
                     switch (request) {
-                        case "addBillboard": {
+                        case addBillboard: {
                             ManageBillboards.addBillboard(billboard);
                             break;
                         }
-                        case "addView": {
+                        case addView: {
                             ManageBillboards.addView(billboard);
                             break;
                         }
-                        case "showTable": {
+                        case showTable: {
                             Object[][] tableData;
 
                             Statement statement = DBConnection.getInstance().createStatement();
@@ -77,10 +78,11 @@ public class Server {
                             oos.flush();
                             break;
                         }
-                        case "delete": {
+                        case delete: {
                             ManageBillboards.delete(billboard);
+                            break;
                         }
-                        case "editTable": {
+                        case edit: {
                             ManageBillboards.edit(billboard);
                             break;
                         }

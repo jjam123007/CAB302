@@ -1,20 +1,15 @@
-import java.io.*;
-import java.math.BigInteger;
-import java.net.Socket;
-import java.nio.charset.StandardCharsets;
-import java.security.MessageDigest;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
-import java.util.Scanner;
 
 
-public class LoginRequest {
+public class LoginRequest implements Serializable {
     String userName;
     String password;
 
     public LoginRequest(String userName,String password) throws NoSuchAlgorithmException {
         this.userName = userName;
-        this.password = Hash.getHash(password);
-        System.out.println(Hash.getHash(password));
+        this.password = Password.Hash(password);
+        System.out.println(Password.Hash(password));
     }
 
 

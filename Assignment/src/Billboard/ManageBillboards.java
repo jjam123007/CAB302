@@ -44,6 +44,7 @@ public final class ManageBillboards implements Serializable {
     }
 
     public static void edit(Object[] data) throws SQLException {
+        System.out.println("Data0: "+data[0]);
         int id = (int) data[0];
         String name = (String) data[1];
         String message = (String) data[2];

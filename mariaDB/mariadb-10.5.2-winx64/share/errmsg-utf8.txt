@@ -5449,7 +5449,7 @@ ER_RELAY_LOG_FAIL
         ger "Bereinigen alter Relais-Logs fehlgeschlagen: %s"
 ER_PASSWD_LENGTH  
         eng "Password hash should be a %d-digit hexadecimal number"
-        ger "Passwort-Hash sollte eine Hexdaezimalzahl mit %d Stellen sein"
+        ger "Passwort-Password sollte eine Hexdaezimalzahl mit %d Stellen sein"
 ER_UNKNOWN_TARGET_BINLOG  
         eng "Target log not found in binlog index"
         ger "Ziel-Log im Binlog-Index nicht gefunden"
