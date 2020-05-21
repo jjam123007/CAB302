@@ -1,4 +1,4 @@
-package Billboard;
+package BillboardViewer;
 
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
