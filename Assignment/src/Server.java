@@ -4,7 +4,7 @@ import Billboard.BillboardRequestType;
 import Billboard.ManageBillboards;
 import User.LoginReply;
 import User.LoginRequest;
-
+import Database.DBConnection;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;

@@ -26,31 +26,10 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="Added ability for a user to login which can be test via the Login class.">
-      <change afterPath="$PROJECT_DIR$/Assignment/src/User/Register.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assignment/src/User/RegisterReply.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assignment/src/User/RegisterRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assignment/src/User/UserPermissions.java" afterDir="false" />
+    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="Refactored a number of classes under appropriate package names. NOTE: Classes Register and RegisterReply do not currently work so please comment them out for testing.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Billboard/Billboards.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/BillboardRequestType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Billboard/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Database/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Billboard/ManageBillboards.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/ManageBillboards.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/BillboardRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Billboard/BillboardRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/DataSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/User/DataSecurity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/User/Login.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/LoginReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/User/LoginReply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/User/LoginRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Register.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/RegisterRequest.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/DBConnection.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserPermissions.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/clientGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/clientGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/clientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/clientGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/EXCEPTIONS-CLIENT" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/EXCEPTIONS-CLIENT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/bin/GRANT" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/bin/GRANT" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/bin/mysql/user.frm" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/bin/mysql/user.frm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/mysql/user.frm" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/mysql/user.frm" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/share/errmsg-utf8.txt" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/share/errmsg-utf8.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -200,7 +179,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590043587204</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Refactored a number of classes under appropriate package names. NOTE: Classes Register and RegisterReply do not currently work so please comment them out for testing.">
+      <created>1590046866019</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1590046866019</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -238,7 +224,8 @@
     <MESSAGE value="Added login request and static Hash class." />
     <MESSAGE value="Added Billboard functions as enumator values." />
     <MESSAGE value="Added ability for a user to login which can be test via the Login class." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added ability for a user to login which can be test via the Login class." />
+    <MESSAGE value="Refactored a number of classes under appropriate package names. NOTE: Classes Register and RegisterReply do not currently work so please comment them out for testing." />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored a number of classes under appropriate package names. NOTE: Classes Register and RegisterReply do not currently work so please comment them out for testing." />
   </component>
   <component name="WindowStateProjectService">
     <state x="343" y="139" key="#Project_Structure" timestamp="1589004292317">
@@ -253,6 +240,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="743" y="414" width="433" height="217" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040@0.0.1920.1040" timestamp="1590035350836" />
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590046892402">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590046892402" />
     <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl" timestamp="1589952640146">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
