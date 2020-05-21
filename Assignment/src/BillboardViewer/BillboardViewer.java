@@ -1,54 +1,41 @@
 package BillboardViewer;
-
-import org.w3c.dom.Element;
-import org.xml.sax.SAXException;
-import org.w3c.dom.Document;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+
+
+/* Things that needs to be done:
+* - Close on click, on ESC
+* - Resize img
+* - Handle when there are no message, img, info,
+* - Title: never have a line break (?)
+* - Query based on database: info, schedule*/
 
 public class BillboardViewer {
-    public static void main (String args[]) {
-        try {
-            // Adapted from https://www.javatpoint.com/how-to-read-xml-file-in-java
-            // Get input from the XML file
-            File inputFile = new File("src/BillboardViewer/test.xml");
 
-            // Create a document builder to parse the XML file
-            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            Document doc = builder.parse(inputFile);
-            doc.getDocumentElement().normalize();
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+    private JPanel billboardPanel;
+    private JLabel titleLabel;
+    private JLabel infoLabel;
+    private JLabel imageLabel;
 
-            // Get message data
-            Element messageData = (Element) doc.getElementsByTagName("message").item(0);
-            String message = messageData.getTextContent();
-            String messageColour = messageData.getAttribute("colour");
-            System.out.println(message);
-            System.out.println(messageColour);
+    public void changeMessage(String message) {
+        titleLabel.setText(message);
+    }
 
-            // Get picture URL
-            Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
-            String pictureURL = pictureData.getAttribute("url");
-            System.out.println(pictureURL);
+    public void changeImage(String imgURL) throws IOException {
+        ImageIcon img = new ImageIcon(imgURL);
+        imageLabel.setIcon(img);
+        imageLabel.setText("");
+    }
 
-            // Get information data
-            Element informationData = (Element) doc.getElementsByTagName("information").item(0);
-            String information = informationData.getTextContent();
-            String informationColour = pictureData.getAttribute("colour");
-            System.out.println(information);
-            System.out.println(informationColour);
+    public void changeInfo(String info) {
+        infoLabel.setText((info));
+    }
 
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+    public JPanel ExportBillboard() {
+        return billboardPanel;
     }
 }
