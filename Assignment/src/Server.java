@@ -2,15 +2,17 @@
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import Billboard.ManageBillboards;
-import User.LoginReply;
-import User.LoginRequest;
+import UserManagement.PermissionType;
+import UserManagement.*;
 import Database.DBConnection;
+
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.*;
 import java.sql.Statement;
@@ -96,8 +98,20 @@ public class Server {
                     LoginReply loginReply = new LoginReply((LoginRequest) requestObject);
                     oos.writeObject(loginReply);
                 }
+                else if (requestObject instanceof RegisterRequest)
+                {
+                    RegisterRequest registerRequest = (RegisterRequest) requestObject;
+                    String sessionToken = registerRequest.getSessionToken();
+                    if (UserSession.hasPermission(sessionToken, PermissionType.editUsers))
+                    {
+                        RegisterReply registerReply = new RegisterReply(registerRequest);
+                        oos.writeObject(registerReply);
+                    } else {
+                        System.out.println("User does not have permission");
+                    }
+                }
 
-            } catch (EOFException e) {
+            } catch (EOFException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
 

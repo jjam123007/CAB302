@@ -7,14 +7,10 @@ public class BillboardRequest implements Serializable {
     String sessionToken;
     Object[] data;
 
-    public String getSessionToken() {
-        return sessionToken;
-    }
-
     public BillboardRequestType getRequest() {
         return request;
     }
-
+    public String getSessionToken() { return sessionToken; }
     public Object[] getData() {
         return data;
     }

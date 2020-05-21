@@ -80,7 +80,7 @@ The following specify which files/extra groups are read (specified before remain
   -o, --one-database  Ignore statements except those that occur while the
                       default database is the one named at the command line.
   -p, --password[=name] 
-                      User.DataSecurity to use when connecting to server. If password is
+                      UserManagement.DataSecurity to use when connecting to server. If password is
                       not given it's asked from the tty.
   -W, --pipe          Use named pipes to connect to server.
   -P, --port=#        Port number to use for connection or 0 for default to, in
@@ -120,7 +120,7 @@ The following specify which files/extra groups are read (specified before remain
   --tee=name          Append everything into outfile. See interactive help (\h)
                       also. Does not work in batch mode. Disable with
                       --disable-tee. This option is disabled by default.
-  -u, --user=name     User for login if not current user.
+  -u, --user=name     UserManagement for login if not current user.
   -U, --safe-updates  Only allow UPDATE and DELETE that uses keys.
   -U, --i-am-a-dummy  Synonym for option --safe-updates, -U.
   -v, --verbose       Write more. (-v -v -v gives the table output format).
