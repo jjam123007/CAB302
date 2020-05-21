@@ -1,4 +1,4 @@
-import Billboard.Billboards;
+package User;
 
 import java.io.*;
 import java.net.Socket;
@@ -29,7 +29,7 @@ public class Login {
         oos.flush();
         LoginReply loginReply = (LoginReply) ois.readObject();
         if (loginReply.Success()){
-            System.out.println("Login Successful");
+            System.out.println("User.Login Successful");
         }else{
             System.out.println(loginReply.getErrorMessage());
         }

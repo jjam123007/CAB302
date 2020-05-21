@@ -1,5 +1,7 @@
 package Billboard;
 
+import Database.DBConnection;
+
 import java.io.Serializable;
 import java.sql.SQLException;
 import java.sql.Statement;

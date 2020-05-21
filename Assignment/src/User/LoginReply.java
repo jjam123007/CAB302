@@ -1,4 +1,6 @@
-import Billboard.DBConnection;
+package User;
+
+import Database.DBConnection;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
@@ -8,6 +10,7 @@ import java.sql.Statement;
 public class LoginReply implements Serializable{
     private Boolean success = false;
     private String errorMessage = null;
+
 
     public Boolean Success() {
         return success;
@@ -22,7 +25,6 @@ public class LoginReply implements Serializable{
            String username = loginRequest.getUsername();
            String password = loginRequest.getPassword();
            String query = ("SELECT id, username, password FROM users WHERE username='" + username + "';");
-
            Statement statement = DBConnection.getInstance().createStatement();
            ResultSet user = statement.executeQuery(query);
 
@@ -43,5 +45,7 @@ public class LoginReply implements Serializable{
            System.out.println(e);
        }
    }
+
+
 
 }

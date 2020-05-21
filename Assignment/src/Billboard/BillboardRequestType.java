@@ -1,6 +1,6 @@
 package Billboard;
 
-public enum Billboards {
+public enum BillboardRequestType {
     showTable,
     addBillboard,
     addView,

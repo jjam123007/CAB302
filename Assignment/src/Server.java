@@ -1,7 +1,9 @@
 
-import Billboard.Billboards;
+import Billboard.BillboardRequest;
+import Billboard.BillboardRequestType;
 import Billboard.ManageBillboards;
-
+import User.LoginReply;
+import User.LoginRequest;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -32,9 +34,9 @@ public class Server {
 
                 if (requestObject instanceof BillboardRequest)
                 {
-                    Billboards request = ((BillboardRequest) requestObject).request;  System.out.println("Request type :"+ request);
-                    String token = ((BillboardRequest) requestObject).sessionToken;
-                    Object[] billboard = ((BillboardRequest) requestObject).data;
+                    BillboardRequestType request = ((BillboardRequest) requestObject).getRequest();  System.out.println("Request type :"+ request);
+                    String token = ((BillboardRequest) requestObject).getSessionToken();
+                    Object[] billboard = ((BillboardRequest) requestObject).getData();
 
                     switch (request) {
                         case addBillboard: {

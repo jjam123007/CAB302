@@ -1,4 +1,5 @@
-import Billboard.Billboards;
+import Billboard.BillboardRequest;
+import Billboard.BillboardRequestType;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -68,7 +69,7 @@ public class clientGUI {
         ObjectOutputStream oos = new ObjectOutputStream(os);
         ObjectInputStream ois = new ObjectInputStream(inputStream);
 
-        BillboardRequest request = new BillboardRequest(Billboards.showTable,null,"");
+        BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null,"");
         oos.writeObject(request);
         oos.flush();
 
@@ -111,7 +112,7 @@ public class clientGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
                     Object[] id = {billboardID};
-                    BillboardRequest delete = new BillboardRequest(Billboards.delete,id,"");
+                    BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,"");
                     oos.writeObject(delete);
                     oos.flush();
 
@@ -163,7 +164,7 @@ public class clientGUI {
 
                 try {
                     Object[] newTable = {billboardId,billboardName,billboardMessage,billboardInformation,billboardUrl};
-                    BillboardRequest edit = new BillboardRequest(Billboards.edit, newTable,"");
+                    BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable,"");
                     oos.writeObject(edit);
                     oos.flush();
 
@@ -207,7 +208,7 @@ public class clientGUI {
                     //oos.flush();
 
                     Object[] newTable = {billboardName,msg,info,url};
-                    BillboardRequest addBillboard = new BillboardRequest(Billboards.addBillboard,newTable,"");
+                    BillboardRequest addBillboard = new BillboardRequest(BillboardRequestType.addBillboard,newTable,"");
                     oos.writeObject(addBillboard);
                     oos.flush();
 
@@ -296,7 +297,7 @@ public class clientGUI {
                     String requestType = "addView";
                     Object[] submitData = {billboardId, scheduledDate,startTime,endTime,requestType};
 
-                    BillboardRequest addview = new BillboardRequest(Billboards.addView, submitData, "");
+                    BillboardRequest addview = new BillboardRequest(BillboardRequestType.addView, submitData, "");
                     oos.writeObject(addview);
                     oos.flush();
 
