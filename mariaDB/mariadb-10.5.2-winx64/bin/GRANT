@@ -80,7 +80,7 @@ The following specify which files/extra groups are read (specified before remain
   -o, --one-database  Ignore statements except those that occur while the
                       default database is the one named at the command line.
   -p, --password[=name] 
-                      Password to use when connecting to server. If password is
+                      DataSecurity to use when connecting to server. If password is
                       not given it's asked from the tty.
   -W, --pipe          Use named pipes to connect to server.
   -P, --port=#        Port number to use for connection or 0 for default to, in

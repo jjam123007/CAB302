@@ -16,7 +16,6 @@ public final class ManageBillboards implements Serializable {
         System.out.println("Info :" + info);
         System.out.println("Url :" + url);
 
-
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery("insert into billboard values(null,'" + name + "','" + message + "','" + info + "','" + url + "');");
         statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + name + "','" + message + "','" + info + "','" + url + "');");

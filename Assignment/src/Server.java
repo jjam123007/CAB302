@@ -91,9 +91,9 @@ public class Server {
                 }
                 else if (requestObject instanceof LoginRequest)
                 {
-
+                    LoginReply loginReply = new LoginReply((LoginRequest) requestObject);
+                    oos.writeObject(loginReply);
                 }
-
 
             } catch (EOFException e) {
                 e.printStackTrace();

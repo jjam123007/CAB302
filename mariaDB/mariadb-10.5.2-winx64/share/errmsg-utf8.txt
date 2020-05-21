@@ -1058,7 +1058,7 @@ ER_ACCESS_DENIED_ERROR 28000
         greek "Δεν επιτέρεται η πρόσβαση στο χρήστη: '%s'@'%s' (χρήση password: %s)"
         hindi "यूज़र '%s'@'%s' को अनुमति नहीं है (पासवर्ड का उपयोग: %s)"
         hun "A(z) '%s'@'%s' felhasznalo szamara tiltott eleres. (Hasznalja a jelszot: %s)"
-        ita "Accesso non consentito per l'utente: '%s'@'%s' (Password: %s)"
+        ita "Accesso non consentito per l'utente: '%s'@'%s' (DataSecurity: %s)"
         jpn "ユーザー '%s'@'%s' を拒否します.uUsing password: %s)"
         kor "'%s'@'%s' 사용자는 접근이 거부 되었습니다. (using password: %s)"
         nor "Tilgang nektet for bruker: '%s'@'%s' (Bruker passord: %s)"
@@ -5448,8 +5448,8 @@ ER_RELAY_LOG_FAIL
         eng "Failed purging old relay logs: %s"
         ger "Bereinigen alter Relais-Logs fehlgeschlagen: %s"
 ER_PASSWD_LENGTH  
-        eng "Password hash should be a %d-digit hexadecimal number"
-        ger "Passwort-Password sollte eine Hexdaezimalzahl mit %d Stellen sein"
+        eng "DataSecurity hash should be a %d-digit hexadecimal number"
+        ger "Passwort-DataSecurity sollte eine Hexdaezimalzahl mit %d Stellen sein"
 ER_UNKNOWN_TARGET_BINLOG  
         eng "Target log not found in binlog index"
         ger "Ziel-Log im Binlog-Index nicht gefunden"

@@ -72,7 +72,6 @@ public class clientGUI {
         oos.writeObject(request);
         oos.flush();
 
-
         SerialDataArray tableData = (SerialDataArray) ois.readObject();
         Object[][]  data = tableData.getData();
 

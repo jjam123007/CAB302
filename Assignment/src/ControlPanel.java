@@ -9,6 +9,7 @@ public class ControlPanel {
             @Override
             public void run() {
                 try {
+
                     createGUI();
 
                 } catch (SQLException e) {
