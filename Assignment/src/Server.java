@@ -25,7 +25,6 @@ public class Server {
         ServerSocket serverSocket = new ServerSocket(3310);
         Socket socket = serverSocket.accept();
         System.out.println("Connected to "+ socket.getInetAddress());
-
         ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
         ObjectInputStream ois = new ObjectInputStream( socket.getInputStream());
 
@@ -118,6 +117,7 @@ public class Server {
 
         }
     }
+
 }
 
 

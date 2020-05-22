@@ -26,27 +26,17 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="-&#10;&#10;NOTE: Register and its associated classes do not currently function.">
-      <change afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/LoginGUI.form" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/LoginGUI.java" afterDir="false" />
+    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="Moved and renamed ClientGUI form under the GUIs package.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Database/DBConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/GUIs/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/GUIs/ClientGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/GUIs/LoginGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/GUIs/LoginGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/GUIs/LoginGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/GUIs/LoginGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Login.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/LoginReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/LoginReply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/LoginRequest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Register.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/RegisterReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/RegisterReply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/SessionToken.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/ClientToken.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/UserPermissions.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/UserPermissions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/UserSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/UserSession.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/clientGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ClientGUI.form" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/clientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ClientGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/db.props" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Database/db.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibtmp1" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibtmp1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/billboard.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/billboard.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/view.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/view.ibd" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,8 +86,12 @@
       <recent name="" />
       <recent name="Billboard" />
     </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\School\BillboardProject\Assignment\src\Database" />
+      <recent name="E:\School\BillboardProject\Assignment\src\GUIs" />
+    </key>
   </component>
-  <component name="RunManager" selected="Application.Server">
+  <component name="RunManager" selected="Application.ControlPanel">
     <configuration name="ControlPanel" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="ControlPanel" />
       <module name="BillboardProject" />
@@ -231,7 +225,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590067244573</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Moved and renamed ClientGUI form under the GUIs package.">
+      <created>1590139556064</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1590139556064</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -271,7 +272,8 @@
     <MESSAGE value="Added ability for a user to login which can be test via the Login class." />
     <MESSAGE value="Refactored a number of classes under appropriate package names. NOTE: Classes Register and RegisterReply do not currently work so please comment them out for testing." />
     <MESSAGE value="- Created PermissionType enum&#10;- Successfully implemented static UserSession class:&#10;  - This class handles user sessions and exceptional cases (such as users not existing or having expired tokens) on the server side.&#10;  - On the server side, UserSession.hasPermission can be used to check if a user has a particular permission. See line 101 in class Server for an example.&#10;&#10;NOTE: Register and its associated classes do not currently function." />
-    <option name="LAST_COMMIT_MESSAGE" value="- Created PermissionType enum&#10;- Successfully implemented static UserSession class:&#10;  - This class handles user sessions and exceptional cases (such as users not existing or having expired tokens) on the server side.&#10;  - On the server side, UserSession.hasPermission can be used to check if a user has a particular permission. See line 101 in class Server for an example.&#10;&#10;NOTE: Register and its associated classes do not currently function." />
+    <MESSAGE value="Moved and renamed ClientGUI form under the GUIs package." />
+    <option name="LAST_COMMIT_MESSAGE" value="Moved and renamed ClientGUI form under the GUIs package." />
   </component>
   <component name="WindowStateProjectService">
     <state x="343" y="139" key="#Project_Structure" timestamp="1589004292317">
@@ -282,6 +284,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="414" y="175" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590065603531" />
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1590140682994">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1590140682994" />
     <state x="689" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590139239628">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -303,22 +309,22 @@
     </state>
     <state x="531" y="235" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1589005149560" />
     <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590065601054" />
-    <state width="1877" height="274" key="GridCell.Tab.0.bottom" timestamp="1590138561586">
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom" timestamp="1590150040496">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590138561586" />
-    <state width="1877" height="274" key="GridCell.Tab.0.center" timestamp="1590138561586">
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590150040496" />
+    <state width="1877" height="274" key="GridCell.Tab.0.center" timestamp="1590150040496">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590138561586" />
-    <state width="1877" height="274" key="GridCell.Tab.0.left" timestamp="1590138561586">
+    <state width="1877" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590150040496" />
+    <state width="1877" height="274" key="GridCell.Tab.0.left" timestamp="1590150040496">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590138561586" />
-    <state width="1877" height="274" key="GridCell.Tab.0.right" timestamp="1590138561586">
+    <state width="1877" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590150040496" />
+    <state width="1877" height="274" key="GridCell.Tab.0.right" timestamp="1590150040496">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590138561586" />
+    <state width="1877" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590150040496" />
     <state x="440" y="94" key="SettingsEditor" timestamp="1589992244645">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

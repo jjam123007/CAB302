@@ -62,21 +62,10 @@ public class ClientGUI {
     private int rowToEdit;
 
     public ClientGUI() throws IOException, ClassNotFoundException {
-//        createTable();
-        JPanel root = this.getRootPanel();
-        JFrame frame = new JFrame();
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(root);
-        frame.pack();
-        frame.setLocationRelativeTo(null);
-        frame.setVisible(true);
 
         Socket socket = new Socket("localhost", 3310);
-
         OutputStream os = socket.getOutputStream();
         InputStream inputStream = socket.getInputStream();
-
         ObjectOutputStream oos = new ObjectOutputStream(os);
         ObjectInputStream ois = new ObjectInputStream(inputStream);
 

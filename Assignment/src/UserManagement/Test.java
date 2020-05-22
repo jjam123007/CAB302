@@ -12,10 +12,8 @@ import java.util.Scanner;
 public class Test {
     public static void main(String[] args) throws SQLException, IOException, NoSuchAlgorithmException, ClassNotFoundException {
         Socket socket = new Socket("localhost", 3310);
-
         OutputStream os = socket.getOutputStream();
         InputStream inputStream = socket.getInputStream();
-
         ObjectOutputStream oos = new ObjectOutputStream(os);
         ObjectInputStream ois = new ObjectInputStream(inputStream);
 

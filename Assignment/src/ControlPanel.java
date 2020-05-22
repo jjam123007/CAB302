@@ -1,4 +1,5 @@
 import GUIs.ClientGUI;
+import GUIs.LoginGUI;
 
 import javax.swing.*;
 import java.io.IOException;
@@ -10,10 +11,8 @@ public class ControlPanel {
             @Override
             public void run() {
                 try {
-                    ClientGUI ui = new ClientGUI();
+                    LoginGUI login = new LoginGUI();
                 } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
             }
@@ -22,6 +21,13 @@ public class ControlPanel {
 
     private  static void createGUI() throws IOException, ClassNotFoundException {
         ClientGUI ui = new ClientGUI();
+        JPanel root = ui.getRootPanel();
+        JFrame frame = new JFrame();
+        frame.setContentPane(root);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 }
 
