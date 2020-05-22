@@ -26,16 +26,15 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="Moved and renamed ClientGUI form under the GUIs package.">
+    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="Added login GUI.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Database/DBConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Database/DBConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/GUIs/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/GUIs/ClientGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/GUIs/LoginGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/GUIs/LoginGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/GUIs/ClientGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/GUIs/ControlPanelGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/GUIs/ClientGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/GUIs/ControlPanelGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/GUIs/LoginGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/GUIs/LoginGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Test.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/db.props" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Database/db.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Register.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/RegisterReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/RegisterReply.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibtmp1" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibtmp1" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -75,6 +74,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/mariaDB/mariadb-java-client-2.6.0.jar!/" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -232,7 +232,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590139556064</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Added login GUI.">
+      <created>1590150152804</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1590150152804</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -273,7 +280,8 @@
     <MESSAGE value="Refactored a number of classes under appropriate package names. NOTE: Classes Register and RegisterReply do not currently work so please comment them out for testing." />
     <MESSAGE value="- Created PermissionType enum&#10;- Successfully implemented static UserSession class:&#10;  - This class handles user sessions and exceptional cases (such as users not existing or having expired tokens) on the server side.&#10;  - On the server side, UserSession.hasPermission can be used to check if a user has a particular permission. See line 101 in class Server for an example.&#10;&#10;NOTE: Register and its associated classes do not currently function." />
     <MESSAGE value="Moved and renamed ClientGUI form under the GUIs package." />
-    <option name="LAST_COMMIT_MESSAGE" value="Moved and renamed ClientGUI form under the GUIs package." />
+    <MESSAGE value="Added login GUI." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added login GUI." />
   </component>
   <component name="WindowStateProjectService">
     <state x="343" y="139" key="#Project_Structure" timestamp="1589004292317">
@@ -288,10 +296,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1590140682994" />
-    <state x="689" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590139239628">
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590170507104">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="689" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590139239628" />
+    <state x="689" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590170507104" />
     <state x="743" y="414" width="433" height="217" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590035350836">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -300,31 +308,35 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590046892402" />
-    <state x="741" y="299" key="#com.intellij.uiDesigner.palette.ComponentItemDialog" timestamp="1590137067117">
+    <state x="741" y="299" key="#com.intellij.uiDesigner.palette.ComponentItemDialog" timestamp="1590170511105">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="741" y="299" key="#com.intellij.uiDesigner.palette.ComponentItemDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590137067117" />
+    <state x="834" y="404" key="#com.intellij.uiDesigner.palette.ComponentItemDialog.OneOff" timestamp="1590172552362">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="834" y="404" key="#com.intellij.uiDesigner.palette.ComponentItemDialog.OneOff/0.0.1920.1040@0.0.1920.1040" timestamp="1590172552362" />
+    <state x="741" y="299" key="#com.intellij.uiDesigner.palette.ComponentItemDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590170511105" />
     <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl" timestamp="1590065601054">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="531" y="235" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1589005149560" />
     <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590065601054" />
-    <state width="1877" height="274" key="GridCell.Tab.0.bottom" timestamp="1590150040496">
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom" timestamp="1590167737963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590150040496" />
-    <state width="1877" height="274" key="GridCell.Tab.0.center" timestamp="1590150040496">
+    <state width="1877" height="274" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590167737963" />
+    <state width="1877" height="274" key="GridCell.Tab.0.center" timestamp="1590167737963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590150040496" />
-    <state width="1877" height="274" key="GridCell.Tab.0.left" timestamp="1590150040496">
+    <state width="1877" height="274" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590167737963" />
+    <state width="1877" height="274" key="GridCell.Tab.0.left" timestamp="1590167737963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590150040496" />
-    <state width="1877" height="274" key="GridCell.Tab.0.right" timestamp="1590150040496">
+    <state width="1877" height="274" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590167737963" />
+    <state width="1877" height="274" key="GridCell.Tab.0.right" timestamp="1590167737963">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590150040496" />
+    <state width="1877" height="274" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590167737963" />
     <state x="440" y="94" key="SettingsEditor" timestamp="1589992244645">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -333,10 +345,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="839" y="314" key="UIDesigner.ListEditorDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590137275968" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590067262439">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590152263588">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590067262439" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590152263588" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590082584491">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

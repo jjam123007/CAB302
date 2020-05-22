@@ -1,6 +1,5 @@
 package GUIs;
 
-import UserManagement.ClientToken;
 import UserManagement.LoginReply;
 import UserManagement.LoginRequest;
 
@@ -12,6 +11,8 @@ import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 
 public class LoginGUI {
+    private JFrame frame;
+
     private JLabel usernameLabel;
     private JLabel passwordLabel;
     private JLabel loginLabel;
@@ -22,23 +23,24 @@ public class LoginGUI {
     private JLabel messageLabel;
     private JButton loginButton;
 
+    private Socket socket;
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
-    private JFrame frame;
+
     public LoginGUI() throws IOException {
         this.frame = new JFrame("Login");
-        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.frame.setContentPane(loginPanel);
-        this.frame.pack();
-        this.frame.setLocationRelativeTo(null);
-        this.frame.setVisible(true);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setContentPane(loginPanel);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
 
         createStreams();
         setLoginButton();
     }
 
     private void createStreams() throws IOException {
-        Socket socket = new Socket("localhost", 3310);
+        this.socket = new Socket("localhost", 3310);
         OutputStream os = socket.getOutputStream();
         InputStream inputStream = socket.getInputStream();
         this.oos = new ObjectOutputStream(os);
@@ -64,15 +66,16 @@ public class LoginGUI {
         LoginReply loginReply = (LoginReply) ois.readObject();
         if (loginReply.isSuccess()){
             //TODO: Create and display the client GUI after a successful login.
-            createGUI();
-            //this.frame.dispose();
+            initControlPanelGUI();
+            this.frame.dispose();
+            System.out.println("hello");
         }else{
             messageLabel.setText(loginReply.getErrorMessage());
         }
     }
 
-    private  static void createGUI() throws IOException, ClassNotFoundException {
-        ClientGUI ui = new ClientGUI();
+    private void initControlPanelGUI() throws IOException, ClassNotFoundException {
+        ControlPanelGUI ui = new ControlPanelGUI(socket,oos,ois);
         JPanel root = ui.getRootPanel();
         JFrame frame = new JFrame();
         frame.setContentPane(root);

@@ -19,19 +19,15 @@ import java.sql.Statement;
 
 public class Server {
 
-    private Connection connection;
+    private static ObjectOutputStream oos;
+    private static ObjectInputStream ois;
 
     public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException {
-        ServerSocket serverSocket = new ServerSocket(3310);
-        Socket socket = serverSocket.accept();
-        System.out.println("Connected to "+ socket.getInetAddress());
-        ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-        ObjectInputStream ois = new ObjectInputStream( socket.getInputStream());
+        setStreams();
 
         for(;;){
             try {
                 Object requestObject = ois.readObject();
-
                 if (requestObject instanceof BillboardRequest)
                 {
                     BillboardRequestType request = ((BillboardRequest) requestObject).getRequest();  System.out.println("Request type :"+ request);
@@ -118,6 +114,13 @@ public class Server {
         }
     }
 
+    private static void setStreams() throws IOException {
+        ServerSocket serverSocket = new ServerSocket(3310);
+        Socket socket = serverSocket.accept();
+        System.out.println("Connected to "+ socket.getInetAddress());
+        oos = new ObjectOutputStream(socket.getOutputStream());
+        ois = new ObjectInputStream( socket.getInputStream());
+    }
 }
 
 

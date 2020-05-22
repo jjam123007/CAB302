@@ -11,11 +11,11 @@ public class RegisterReply implements Serializable {
     public boolean isSuccess() { return success; }
     public String getErrorMessage() { return errorMessage; }
 
-    UserPermissions permissions;
     public RegisterReply(RegisterRequest registerRequest) throws SQLException {
         String sessionToken = registerRequest.getSessionToken();
         if (UserSession.hasPermission(sessionToken, PermissionType.editUsers))
         {
+            registerUser();
             this.success = true;
         } else {
             this.errorMessage = "User does not have permission";
