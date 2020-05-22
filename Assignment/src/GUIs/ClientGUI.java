@@ -24,34 +24,34 @@ import java.util.Base64;
 public class ClientGUI {
     private JPanel panel1;
     private JTabbedPane tabbedPane1;
-    private JTextArea textArea1;
-    private JTextArea textArea2;
-    private JTextArea textArea3;
+    private JTextArea createBbName;
+    private JTextArea createBbMsg;
+    private JTextArea createBbInfo;
     private JTextArea textArea4;
-    private JButton submitButton;
-    private JTextArea textArea8;
-    private JTextArea textArea10;
-    private JTextArea textArea13;
-    private JTextArea textArea14;
-    private JTextArea textArea15;
-    private JTextArea textArea16;
-    private JTextArea textArea17;
-    private JTextArea textArea19;
+    private JButton createSubmitButton;
+    private JTextArea editBbName;
+    private JTextArea editBbMsg;
+    private JTextArea editBbInfo;
+    private JTextArea editBbImgLink;
+    private JTextArea scheduleBbID;
+    private JTextArea scheduleEndTIme;
+    private JTextArea scheduleStartTime;
+    private JTextArea scheduleBbDate;
     private JButton submitButton2;
     private JTextArea textArea21;
     private JTextArea textArea22;
     private JTextArea textArea23;
     private JButton editButton;
     private JButton submitButton1;
-    private JButton updateButton;
-    private JButton deleteButton;
+    private JButton editUpdateButton;
+    private JButton editDeleteButton;
     private JTable table1;
     private JTable table2;
-    private JButton previewButton;
-    private JButton deleteButton1;
-    private JButton editButton1;
-    private JTextArea textArea5;
-    private JTextArea textArea6;
+    private JButton createPreviewButton;
+    private JButton viewDeleteButton;
+    private JButton viewEditButton;
+    private JTextArea editBbID;
+    private JTextArea createBbImgLink;
     private JTree tree1;
     String billboardName;
     String msg;
@@ -107,7 +107,7 @@ public class ClientGUI {
             }
         });
 
-        deleteButton1.addActionListener(new ActionListener() {
+        viewDeleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -129,7 +129,7 @@ public class ClientGUI {
 
         });
 
-        editButton1.addActionListener(new ActionListener() {
+        viewEditButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -139,26 +139,26 @@ public class ClientGUI {
                 String billboardInformation = (String)table2.getModel().getValueAt(selectedRow,3);
                 String billboardUrl = (String)table2.getModel().getValueAt(selectedRow,4);
 
-                textArea5.setText(billboardId);
-                textArea5.setEditable(false);
-                textArea8.setText(billboardName);
-                textArea10.setText(billboardMessage);
-                textArea13.setText(billboardInformation);
-                textArea14.setText(billboardUrl);
+                editBbID.setText(billboardId);
+                editBbID.setEditable(false);
+                editBbName.setText(billboardName);
+                editBbMsg.setText(billboardMessage);
+                editBbInfo.setText(billboardInformation);
+                editBbImgLink.setText(billboardUrl);
                 rowToEdit = selectedRow;
                 tabbedPane1.setSelectedIndex(2);
 
             }
         });
-        updateButton.addActionListener(new ActionListener() {
+        editUpdateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int billboardId = Integer.valueOf(textArea5.getText());
-                String billboardName = textArea8.getText();
-                String billboardMessage = textArea10.getText();
-                String billboardInformation = textArea13.getText();
-                String billboardUrl = textArea14.getText();
+                int billboardId = Integer.valueOf(editBbID.getText());
+                String billboardName = editBbName.getText();
+                String billboardMessage = editBbMsg.getText();
+                String billboardInformation = editBbInfo.getText();
+                String billboardUrl = editBbImgLink.getText();
                 System.out.println("Data Updated");
                 System.out.println(billboardName+" "+billboardMessage+" "+billboardInformation+" "+billboardUrl);
 
@@ -180,11 +180,11 @@ public class ClientGUI {
                 }
 
 
-                textArea8.setText("");
-                textArea10.setText("");
-                textArea13.setText("");
-                textArea14.setText("");
-                textArea5.setText("");
+                editBbName.setText("");
+                editBbMsg.setText("");
+                editBbInfo.setText("");
+                editBbImgLink.setText("");
+                editBbID.setText("");
                 JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
                 tabbedPane1.setSelectedIndex(0);
 
@@ -192,15 +192,15 @@ public class ClientGUI {
             }
         });
 
-        submitButton.addActionListener(new ActionListener() {
+        createSubmitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
 
-                    String billboardName = textArea1.getText();
-                    String msg = textArea2.getText();
-                    String info = textArea3.getText();
-                    String url = textArea6.getText();
+                    String billboardName = createBbName.getText();
+                    String msg = createBbMsg.getText();
+                    String info = createBbInfo.getText();
+                    String url = createBbImgLink.getText();
                     String requestType = "addBillboard";
                     //MyClass myclass = new MyClass(requestType);
                     //oos.writeObject(myclass);
@@ -228,12 +228,12 @@ public class ClientGUI {
         //socket.close();
 
 
-        previewButton.addActionListener(new ActionListener() {
+        createPreviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                billboardName = textArea1.getText();
-                msg = textArea2.getText();
-                imagelink =textArea6.getText();
+                billboardName = createBbName.getText();
+                msg = createBbMsg.getText();
+                imagelink = createBbImgLink.getText();
 
                 try {
                     if(!imagelink.substring(0,4).contentEquals("http")){
@@ -290,10 +290,10 @@ public class ClientGUI {
 
                 try {
 
-                    String billboardId = textArea15.getText();
-                    String scheduledDate = textArea19.getText();
-                    String startTime = textArea17.getText();
-                    String endTime = textArea16.getText();
+                    String billboardId = scheduleBbID.getText();
+                    String scheduledDate = scheduleBbDate.getText();
+                    String startTime = scheduleStartTime.getText();
+                    String endTime = scheduleEndTIme.getText();
                     String requestType = "addView";
                     Object[] submitData = {billboardId, scheduledDate,startTime,endTime,requestType};
 
