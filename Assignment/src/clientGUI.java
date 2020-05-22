@@ -14,42 +14,39 @@ import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Base64;
-import java.util.Scanner;
 
 public class clientGUI {
     private JPanel panel1;
     private JTabbedPane tabbedPane1;
-    private JTextArea textArea1;
-    private JTextArea textArea2;
-    private JTextArea textArea3;
+    private JTextArea createBillboardName;
+    private JTextArea createMsg;
+    private JTextArea createInfo;
     private JTextArea textArea4;
     private JButton submitButton;
-    private JTextArea textArea8;
-    private JTextArea textArea10;
-    private JTextArea textArea13;
-    private JTextArea textArea14;
-    private JTextArea textArea15;
-    private JTextArea textArea16;
-    private JTextArea textArea17;
-    private JTextArea textArea19;
-    private JButton submitButton2;
+    private JTextArea editBbName;
+    private JTextArea editMsg;
+    private JTextArea editInfo;
+    private JTextArea editLink;
+    private JTextArea scheduleID;
+    private JTextArea scheduleEndTime;
+    private JTextArea scheduleStartTime;
+    private JTextArea sceduledDate;
+    private JButton scheduleSubmitButton;
     private JTextArea textArea21;
     private JTextArea textArea22;
     private JTextArea textArea23;
-    private JButton editButton;
-    private JButton submitButton1;
-    private JButton updateButton;
-    private JButton deleteButton;
+    private JButton createEditButton;
+    private JButton createSubmitButton;
+    private JButton editUpdateButton;
+    private JButton editDeleteButton;
     private JTable table1;
     private JTable table2;
     private JButton previewButton;
     private JButton deleteButton1;
     private JButton editButton1;
-    private JTextArea textArea5;
-    private JTextArea textArea6;
+    private JTextArea EditBbID;
+    private JTextArea createImgLink;
     String billboardName;
     String msg;
     String imagelink;
@@ -153,26 +150,26 @@ public class clientGUI {
                 String billboardInformation = (String)table2.getModel().getValueAt(selectedRow,3);
                 String billboardUrl = (String)table2.getModel().getValueAt(selectedRow,4);
 
-                textArea5.setText(billboardId);
-                textArea5.setEditable(false);
-                textArea8.setText(billboardName);
-                textArea10.setText(billboardMessage);
-                textArea13.setText(billboardInformation);
-                textArea14.setText(billboardUrl);
+                EditBbID.setText(billboardId);
+                EditBbID.setEditable(false);
+                editBbName.setText(billboardName);
+                editMsg.setText(billboardMessage);
+                editInfo.setText(billboardInformation);
+                editLink.setText(billboardUrl);
                 rowToEdit = selectedRow;
                 tabbedPane1.setSelectedIndex(2);
 
             }
         });
-        updateButton.addActionListener(new ActionListener() {
+        editUpdateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int billboardId = Integer.valueOf(textArea5.getText());
-                String billboardName = textArea8.getText();
-                String billboardMessage = textArea10.getText();
-                String billboardInformation = textArea13.getText();
-                String billboardUrl = textArea14.getText();
+                int billboardId = Integer.valueOf(EditBbID.getText());
+                String billboardName = editBbName.getText();
+                String billboardMessage = editMsg.getText();
+                String billboardInformation = editInfo.getText();
+                String billboardUrl = editLink.getText();
                 System.out.println("Data Updated");
                 System.out.println(billboardName+" "+billboardMessage+" "+billboardInformation+" "+billboardUrl);
 
@@ -196,11 +193,11 @@ public class clientGUI {
                 }
 
 
-                textArea8.setText("");
-                textArea10.setText("");
-                textArea13.setText("");
-                textArea14.setText("");
-                textArea5.setText("");
+                editBbName.setText("");
+                editMsg.setText("");
+                editInfo.setText("");
+                editLink.setText("");
+                EditBbID.setText("");
                 JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);
                 tabbedPane1.setSelectedIndex(0);
 
@@ -215,9 +212,9 @@ public class clientGUI {
             public void actionPerformed(ActionEvent e) {
                 try {
 
-                    String billboardName = textArea1.getText();
-                    String msg = textArea2.getText();
-                    String info = textArea3.getText();
+                    String billboardName = createBillboardName.getText();
+                    String msg = createMsg.getText();
+                    String info = createInfo.getText();
                     String url = textArea4.getText();
                     String requestType = "addBillboard";
                     //MyClass myclass = new MyClass(requestType);
@@ -249,9 +246,9 @@ public class clientGUI {
         previewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                billboardName = textArea1.getText();
-                msg = textArea2.getText();
-                imagelink =textArea6.getText();
+                billboardName = createBillboardName.getText();
+                msg = createMsg.getText();
+                imagelink = createImgLink.getText();
 
                 try {
                     if(!imagelink.substring(0,4).contentEquals("http")){
@@ -299,16 +296,16 @@ public class clientGUI {
             }
         });
 
-        submitButton2.addActionListener(new ActionListener() {
+        scheduleSubmitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
                 try {
 
-                    String billboardId = textArea15.getText();
-                    String scheduledDate = textArea19.getText();
-                    String startTime = textArea17.getText();
-                    String endTime = textArea16.getText();
+                    String billboardId = scheduleID.getText();
+                    String scheduledDate = sceduledDate.getText();
+                    String startTime = scheduleStartTime.getText();
+                    String endTime = scheduleEndTime.getText();
                     String requestType = "addView";
                     //MyClass myclass = new MyClass(requestType);
                     //oos.writeObject(myclass);
@@ -320,10 +317,10 @@ public class clientGUI {
                     oos.writeObject(addview);
                     oos.flush();
 
-                    textArea15.setText("");
-                    textArea19.setText("");
-                    textArea17.setText("");
-                    textArea16.setText("");
+                    scheduleID.setText("");
+                    sceduledDate.setText("");
+                    scheduleStartTime.setText("");
+                    scheduleEndTime.setText("");
 
 
                     JOptionPane.showMessageDialog(panel1,"Success","message",JOptionPane.NO_OPTION);

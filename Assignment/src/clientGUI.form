@@ -109,7 +109,7 @@
                               <text value="Information"/>
                             </properties>
                           </component>
-                          <component id="f6ada" class="javax.swing.JTextArea" binding="textArea1" default-binding="true">
+                          <component id="f6ada" class="javax.swing.JTextArea" binding="createBillboardName" default-binding="true">
                             <constraints>
                               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
@@ -117,7 +117,7 @@
                             </constraints>
                             <properties/>
                           </component>
-                          <component id="17a6" class="javax.swing.JTextArea" binding="textArea2" default-binding="true">
+                          <component id="17a6" class="javax.swing.JTextArea" binding="createMsg" default-binding="true">
                             <constraints>
                               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
@@ -125,7 +125,7 @@
                             </constraints>
                             <properties/>
                           </component>
-                          <component id="23d90" class="javax.swing.JTextArea" binding="textArea3" default-binding="true">
+                          <component id="23d90" class="javax.swing.JTextArea" binding="createInfo">
                             <constraints>
                               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
@@ -138,10 +138,10 @@
                               <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <text value="Image link"/>
+                              <text value="Image Link"/>
                             </properties>
                           </component>
-                          <component id="36c7a" class="javax.swing.JTextArea" binding="textArea6" default-binding="true">
+                          <component id="36c7a" class="javax.swing.JTextArea" binding="createImgLink">
                             <constraints>
                               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
@@ -210,7 +210,7 @@
                               <text value="Billlboard Name"/>
                             </properties>
                           </component>
-                          <component id="5a6c2" class="javax.swing.JTextArea" binding="textArea8" default-binding="true">
+                          <component id="5a6c2" class="javax.swing.JTextArea" binding="editBbName">
                             <constraints>
                               <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
@@ -226,7 +226,7 @@
                               <text value="Message"/>
                             </properties>
                           </component>
-                          <component id="51af" class="javax.swing.JTextArea" binding="textArea10" default-binding="true">
+                          <component id="51af" class="javax.swing.JTextArea" binding="editMsg">
                             <constraints>
                               <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
@@ -242,7 +242,7 @@
                               <text value="Information"/>
                             </properties>
                           </component>
-                          <component id="2da0" class="javax.swing.JTextArea" binding="textArea13" default-binding="true">
+                          <component id="2da0" class="javax.swing.JTextArea" binding="editInfo">
                             <constraints>
                               <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
@@ -255,10 +255,10 @@
                               <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <text value="Url"/>
+                              <text value="Image Link"/>
                             </properties>
                           </component>
-                          <component id="519ce" class="javax.swing.JTextArea" binding="textArea14" default-binding="true">
+                          <component id="519ce" class="javax.swing.JTextArea" binding="editLink">
                             <constraints>
                               <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
@@ -266,7 +266,7 @@
                             </constraints>
                             <properties/>
                           </component>
-                          <component id="4e612" class="javax.swing.JTextArea" binding="textArea5" default-binding="true">
+                          <component id="4e612" class="javax.swing.JTextArea" binding="EditBbID">
                             <constraints>
                               <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                                 <preferred-size width="150" height="50"/>
@@ -294,7 +294,7 @@
                     <properties/>
                     <border type="none"/>
                     <children>
-                      <component id="c369d" class="javax.swing.JButton" binding="updateButton" default-binding="true">
+                      <component id="c369d" class="javax.swing.JButton" binding="editUpdateButton">
                         <constraints>
                           <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -302,7 +302,7 @@
                           <text value="Update"/>
                         </properties>
                       </component>
-                      <component id="89808" class="javax.swing.JButton" binding="deleteButton" default-binding="true">
+                      <component id="89808" class="javax.swing.JButton" binding="editDeleteButton">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                         </constraints>
@@ -345,7 +345,7 @@
                           <text value="Billboard ID"/>
                         </properties>
                       </component>
-                      <component id="2bd9a" class="javax.swing.JTextArea" binding="textArea15" default-binding="true">
+                      <component id="2bd9a" class="javax.swing.JTextArea" binding="scheduleID">
                         <constraints>
                           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="50"/>
@@ -361,7 +361,7 @@
                           <text value="endTime"/>
                         </properties>
                       </component>
-                      <component id="dd013" class="javax.swing.JTextArea" binding="textArea16" default-binding="true">
+                      <component id="dd013" class="javax.swing.JTextArea" binding="scheduleEndTime">
                         <constraints>
                           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="50"/>
@@ -377,7 +377,7 @@
                           <text value="startTime"/>
                         </properties>
                       </component>
-                      <component id="6d964" class="javax.swing.JTextArea" binding="textArea17" default-binding="true">
+                      <component id="6d964" class="javax.swing.JTextArea" binding="scheduleStartTime">
                         <constraints>
                           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="50"/>
@@ -393,7 +393,7 @@
                           <text value="scheduled Date"/>
                         </properties>
                       </component>
-                      <component id="de370" class="javax.swing.JTextArea" binding="textArea19" default-binding="true">
+                      <component id="de370" class="javax.swing.JTextArea" binding="sceduledDate">
                         <constraints>
                           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
                             <preferred-size width="150" height="50"/>
@@ -405,7 +405,7 @@
                   </grid>
                 </children>
               </scrollpane>
-              <component id="a3a9f" class="javax.swing.JButton" binding="submitButton2" default-binding="true">
+              <component id="a3a9f" class="javax.swing.JButton" binding="scheduleSubmitButton">
                 <constraints>
                   <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
@@ -498,7 +498,7 @@
                 <properties/>
                 <border type="none"/>
                 <children>
-                  <component id="c2149" class="javax.swing.JButton" binding="editButton" default-binding="true">
+                  <component id="c2149" class="javax.swing.JButton" binding="createEditButton">
                     <constraints>
                       <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
@@ -506,7 +506,7 @@
                       <text value="Edit"/>
                     </properties>
                   </component>
-                  <component id="de006" class="javax.swing.JButton" binding="submitButton1" default-binding="true">
+                  <component id="de006" class="javax.swing.JButton" binding="createSubmitButton">
                     <constraints>
                       <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
