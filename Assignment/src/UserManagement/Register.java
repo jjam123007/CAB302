@@ -20,19 +20,17 @@ public class Register {
         String username = userInput.nextLine();
         System.out.println("Please enter a password");
         String password = userInput.nextLine();
+
         UserPermissions permissions = new UserPermissions(true,false,false,true);
-
-        RegisterRequest login = new RegisterRequest(username, password, permissions, SessionToken.getToken());
-        oos.writeObject(login);
+        System.out.println(ClientToken.getToken());
+        RegisterRequest registerRequest= new RegisterRequest(username, password, permissions, ClientToken.getToken());
+        oos.writeObject(registerRequest);
         oos.flush();
-
-
-        LoginReply loginReply = (LoginReply) ois.readObject();
-        if (loginReply.Success()){
-            System.out.println("User.Login Successful");
-        }else{
-            System.out.println(loginReply.getErrorMessage());
+        RegisterReply registerReply = (RegisterReply) ois.readObject();
+        if (registerReply.isSuccess()){
+            System.out.println("Success!");
         }
+
 
     }
 }

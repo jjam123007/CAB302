@@ -11,7 +11,6 @@ public class LoginRequest implements Serializable {
     public String getPassword() {
         return password;
     }
-
     public String getUsername() {
         return username;
     }
@@ -19,7 +18,6 @@ public class LoginRequest implements Serializable {
     public LoginRequest(String username, String password) throws NoSuchAlgorithmException {
         this.username = username;
         this.password = DataSecurity.hash(password);
-        System.out.println(DataSecurity.hash(password));
     }
 
 

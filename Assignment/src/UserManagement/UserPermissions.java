@@ -1,8 +1,9 @@
 package UserManagement;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class UserPermissions {
+public class UserPermissions implements Serializable {
     private boolean createBillboards;
     private boolean editBillboards;
     private boolean scheduleBillboards;

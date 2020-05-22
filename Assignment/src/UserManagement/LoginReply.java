@@ -12,7 +12,7 @@ public class LoginReply implements Serializable{
     private String errorMessage = null;
     private String sessionToken = null;
 
-    public Boolean Success() { return success; }
+    public Boolean isSuccess() { return success; }
     public String getErrorMessage() {return errorMessage;}
     public String getSessionToken() {return sessionToken;}
 
@@ -29,7 +29,8 @@ public class LoginReply implements Serializable{
                String serverPassword = user.getString("password");
                if (password.equals(serverPassword)){
                    this.success = true;
-                   storeSessionToken(statement);
+                   this.sessionToken = DataSecurity.randomString();
+                   UserSession.addSession(this.sessionToken,username);
                }else{
                    this.errorMessage = "Incorrect password.";
                }
@@ -43,12 +44,6 @@ public class LoginReply implements Serializable{
            System.out.println(e);
        }
    }
-
-   private void storeSessionToken(Statement statement){
-       this.sessionToken = DataSecurity.randomString();
-       //String query = ("INSERT INTO session values(null,'"+name+"');");
-   }
-
 
 
 }

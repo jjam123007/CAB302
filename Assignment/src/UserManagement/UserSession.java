@@ -61,10 +61,12 @@ public final class UserSession {
             if ((currentTime - user.lastSessionUseTime) < expirationTime){
                 return true;
             }else{
+                System.out.println("Token expired!");
                 removeSession(sessionToken);
                 return false;
             }
         } else{
+            System.out.println("Token not found!");
             return false;
         }
     }

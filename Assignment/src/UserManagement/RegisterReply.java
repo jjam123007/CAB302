@@ -2,17 +2,29 @@ package UserManagement;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
 
 public class RegisterReply implements Serializable {
-    private String userName;
-    private String password;
+    private boolean success = false;
+    private String errorMessage = null;
+
+    public boolean isSuccess() { return success; }
+    public String getErrorMessage() { return errorMessage; }
 
     UserPermissions permissions;
-    public RegisterReply(RegisterRequest registerRequest) throws NoSuchAlgorithmException {
-        this.userName = userName;
-        this.password = DataSecurity.hash(password);
-        this.permissions = permissions;
-        System.out.println(DataSecurity.hash(password));
+    public RegisterReply(RegisterRequest registerRequest) throws SQLException {
+        String sessionToken = registerRequest.getSessionToken();
+        if (UserSession.hasPermission(sessionToken, PermissionType.editUsers))
+        {
+            this.success = true;
+        } else {
+            this.errorMessage = "User does not have permission";
+            System.out.println(this.errorMessage);
+        }
+    }
+
+    private static void registerUser(){
+
     }
 
 }
