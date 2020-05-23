@@ -2,7 +2,7 @@
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import Billboard.ManageBillboards;
-import GUIs.SerialDataArray;
+import ControlPanel.SerializeArray;
 import UserManagement.*;
 import Database.DBConnection;
 
@@ -12,7 +12,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
 import java.sql.*;
 import java.sql.Statement;
 
@@ -71,7 +70,7 @@ public class Server {
                                 tableData[i] = myString;
                             }
                             statement.close();
-                            SerialDataArray d2 = new SerialDataArray(tableData);
+                            SerializeArray d2 = new SerializeArray(tableData);
                             oos.writeObject(d2);
                             oos.flush();
                             break;
