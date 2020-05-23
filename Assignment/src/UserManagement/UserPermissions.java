@@ -8,24 +8,27 @@ public class UserPermissions implements Serializable {
     private boolean editBillboards;
     private boolean scheduleBillboards;
     private boolean editUsers;
+    private boolean admin;
 
-    public boolean CreateBillboards() {
+    public boolean canCreateBillboards() {
         return createBillboards;
     }
-    public boolean EditBillboards() {
+    public boolean canEditBillboards() {
         return editBillboards;
     }
-    public boolean ScheduleBillboards() {
+    public boolean canScheduleBillboards() {
         return scheduleBillboards;
     }
-    public boolean editUsers() {
+    public boolean canEditUsers() {
         return editUsers;
     }
+    public boolean isAdmin() { return admin; }
 
     public UserPermissions(boolean createBillboards, boolean editBillboards, boolean scheduleBillboards, boolean editUsers){
         this.createBillboards = createBillboards;
         this.editBillboards = editBillboards;
         this.scheduleBillboards = scheduleBillboards;
         this.editUsers = editUsers;
+        this.admin = (editUsers == true);
     }
 }

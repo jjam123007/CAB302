@@ -1,5 +1,9 @@
 package ControlPanel.GUI;
 
+import ControlPanel.GUI.AdminPane.AdminPane;
+import ControlPanel.GUI.AdminPane.RegisterUser;
+import ControlPanel.GUI.BillboardsPane.*;
+
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
@@ -12,15 +16,13 @@ public class ControlPanelGUI {
     protected JTextArea createBbMsg;
     protected JTextArea createBbInfo;
     protected JTextArea createBbImgLink;
-    protected JButton createSubmitButton;
-    protected JButton createPreviewButton;
+    protected JButton createBbSubmitButton;
+    protected JButton createBbPreviewButton;
 
     protected JTextArea editBbName;
     protected JTextArea editBbMsg;
     protected JTextArea editBbInfo;
     protected JTextArea editBbImgLink;
-    protected JCheckBox editUsersAdminCheckBox;
-    protected JCheckBox editBillboardsCheckBox;
     protected JButton editUpdateButton;
     protected JButton editDeleteButton;
     protected JTextArea editBbID;
@@ -37,13 +39,17 @@ public class ControlPanelGUI {
 
     protected JTabbedPane menuPane;
     protected JTabbedPane adminPane;
-    protected JTextField textField1;
-    protected JPasswordField passwordField1;
-    protected JPasswordField passwordField2;
-    protected JCheckBox createBillboardsCheckBox;
-    protected JCheckBox scheduleBillboardsCheckBox;
-    protected JLabel errorMessage;
+    protected JTextField registerUsernameField;
+    protected JPasswordField registerPasswordField;
+    protected JPasswordField registerReenterPasswordField;
+    protected JCheckBox createBillboardsPerm;
+    protected JCheckBox editUsersPerm;
+    protected JCheckBox editBillboardsPerm;
+    protected JCheckBox scheduleBillboardsPerm;
+    protected JLabel registerReplyMessage;
+    protected JButton registerUserButton;
     protected int rowToEdit;
+
     private Socket socket;
 
     protected ObjectOutputStream oos;
@@ -61,15 +67,15 @@ public class ControlPanelGUI {
         this.createBbMsg = controlPanelGUI.createBbMsg;
         this.createBbInfo = controlPanelGUI.createBbInfo;
         this.createBbImgLink = controlPanelGUI.createBbImgLink;
-        this.createSubmitButton = controlPanelGUI.createSubmitButton;
-        this.createPreviewButton = controlPanelGUI.createPreviewButton;
+        this.createBbSubmitButton = controlPanelGUI.createBbSubmitButton;
+        this.createBbPreviewButton = controlPanelGUI.createBbPreviewButton;
 
         this.editBbName = controlPanelGUI.editBbName;
         this.editBbMsg = controlPanelGUI.editBbMsg;
         this.editBbInfo = controlPanelGUI.editBbInfo;
         this.editBbImgLink = controlPanelGUI.editBbImgLink;
-        this.editUsersAdminCheckBox = controlPanelGUI.editUsersAdminCheckBox;
-        this.editBillboardsCheckBox = controlPanelGUI.editBillboardsCheckBox;
+        this.editUsersPerm = controlPanelGUI.editUsersPerm;
+        this.editBillboardsPerm = controlPanelGUI.editBillboardsPerm;
         this.editUpdateButton = controlPanelGUI.editUpdateButton;
         this.editDeleteButton = controlPanelGUI.editDeleteButton;
         this.editBbID = controlPanelGUI.editBbID;
@@ -86,12 +92,14 @@ public class ControlPanelGUI {
 
         this.menuPane = controlPanelGUI.menuPane;
         this.adminPane = controlPanelGUI.adminPane;
-        this.textField1 = controlPanelGUI.textField1;
-        this.passwordField1 = controlPanelGUI.passwordField1;
-        this.passwordField2 = controlPanelGUI.passwordField2;
-        this.createBillboardsCheckBox = controlPanelGUI.createBillboardsCheckBox;
-        this.scheduleBillboardsCheckBox = controlPanelGUI.scheduleBillboardsCheckBox;
-        this.errorMessage = controlPanelGUI.errorMessage;
+        this.registerUsernameField = controlPanelGUI.registerUsernameField;
+        this.registerPasswordField = controlPanelGUI.registerPasswordField;
+        this.registerReenterPasswordField = controlPanelGUI.registerReenterPasswordField;
+        this.registerUserButton = controlPanelGUI.registerUserButton;
+
+        this.createBillboardsPerm = controlPanelGUI.createBillboardsPerm;
+        this.scheduleBillboardsPerm = controlPanelGUI.scheduleBillboardsPerm;
+        this.registerReplyMessage = controlPanelGUI.registerReplyMessage;
         this.rowToEdit = controlPanelGUI.rowToEdit;
     }
 
@@ -106,14 +114,15 @@ public class ControlPanelGUI {
 
         this.oos = oos;
         this.ois = ois;
-        this.rowToEdit = 2;
         initControlPanelComponents();
     }
 
     private void initControlPanelComponents() throws IOException, ClassNotFoundException {
-        CreateBillboards createBillboards = new CreateBillboards(this);
-        EditBillboards editBillboards = new EditBillboards(this);
-        ScheduleBillboards scheduleBillboards = new ScheduleBillboards(this);
-        ViewBillboards viewBillboards =  new ViewBillboards(this);
+        new CreateBillboards(this);
+        new EditBillboards(this);
+        new ScheduleBillboards(this);
+        new ViewBillboards(this);
+
+        new AdminPane(this);
     }
 }

@@ -11,39 +11,65 @@ public class LoginReply implements Serializable{
     private Boolean success = false;
     private String errorMessage = null;
     private String sessionToken = null;
+    private UserPermissions permissions = null;
+
+    private static LoginRequest loginRequest;
 
     public Boolean isSuccess() { return success; }
     public String getErrorMessage() {return errorMessage;}
     public String getSessionToken() {return sessionToken;}
+    public UserPermissions getPermissions() { return permissions; }
 
     public LoginReply(LoginRequest loginRequest) throws SQLException  {
+       this.loginRequest = loginRequest;
+
        try {
            String username = loginRequest.getUsername();
-           String password = loginRequest.getPassword();
-           String query = ("SELECT password FROM user WHERE username='" + username + "';");
+           String passwordQuery = ("SELECT password FROM user WHERE username='" + username + "';");
+
            Statement statement = DBConnection.getInstance().createStatement();
-           ResultSet user = statement.executeQuery(query);
+           ResultSet getDBPassword = statement.executeQuery(passwordQuery);
 
-           Boolean userExists = user.next();
+           Boolean userExists = getDBPassword.next();
            if (userExists) {
-               String serverPassword = user.getString("password");
-               if (password.equals(serverPassword)){
-                   this.success = true;
-                   this.sessionToken = DataSecurity.randomString();
-                   UserSession.addSession(this.sessionToken,username);
-               }else{
-                   this.errorMessage = "Incorrect password.";
-               }
-
+               String userPassword = loginRequest.getPassword();
+               String serverPassword = getDBPassword.getString("password");
+               checkPassword(userPassword, serverPassword);
            } else {
                this.errorMessage = "User does not exist!";
            }
            statement.close();
 
-       }catch (Exception e){
-           System.out.println(e);
+       }catch (Exception exception){
+           System.out.println(exception);
        }
    }
 
+   public void checkPassword(String userPassword, String serverPassword) throws SQLException {
+       if (userPassword.equals(serverPassword)){
+           this.success = true;
+           this.sessionToken = DataSecurity.randomString();
+           retrievePermissions();
+           UserSession.addSession(this.sessionToken, loginRequest.getUsername());
+       }else{
+           this.errorMessage = "Incorrect password.";
+       }
+   }
+
+   public void retrievePermissions() throws SQLException {
+        String username = loginRequest.getUsername();
+        String permissionsQuery = ("SELECT * FROM permissions WHERE username='" + username + "';");
+        Statement statement = DBConnection.getInstance().createStatement();
+        ResultSet getDBUserPermissions = statement.executeQuery(permissionsQuery);
+        getDBUserPermissions.next();
+
+        boolean editUsersPerm = getDBUserPermissions.getBoolean(PermissionType.editUsers);
+        boolean createBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.createBillboards);
+        boolean editBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.editBillboards);
+        boolean scheduleBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.scheduleBillboards);
+
+        this.permissions = new UserPermissions(createBillboardsPerm,editBillboardsPerm,scheduleBillboardsPerm,editUsersPerm);
+       System.out.println( this.permissions);
+   }
 
 }

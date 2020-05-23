@@ -1,6 +1,7 @@
 package ControlPanel;
 
 import ControlPanel.GUI.ControlPanelGUI;
+import UserManagement.ClientUser;
 import UserManagement.LoginReply;
 import UserManagement.LoginRequest;
 
@@ -52,23 +53,28 @@ public class LoginGUI {
         ActionListener buttonPress = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try { login(); } catch (NoSuchAlgorithmException | IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
+                try { sendLoginRequest(); } catch (NoSuchAlgorithmException | IOException | ClassNotFoundException exception) { exception.printStackTrace(); }
             }
         };
         loginButton.addActionListener(buttonPress);
     }
 
-    private void login() throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
+    private void sendLoginRequest() throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
         String username = usernameField.getText();
         String password = passwordField.getText();
         LoginRequest login = new LoginRequest(username, password);
         oos.writeObject(login);
         oos.flush();
+        handleLoginReply();
+    }
+
+    private void handleLoginReply() throws IOException, ClassNotFoundException {
         LoginReply loginReply = (LoginReply) ois.readObject();
         if (loginReply.isSuccess()){
-            ControlPanelGUI controlPanel = new ControlPanelGUI(socket,oos,ois);
+            new ClientUser(loginReply.getSessionToken(), loginReply.getPermissions());
+            new ControlPanelGUI(socket,oos,ois);
             this.frame.dispose();
-            System.out.println("hello");
+            System.out.println("login Success");
         }else{
             messageLabel.setText(loginReply.getErrorMessage());
         }

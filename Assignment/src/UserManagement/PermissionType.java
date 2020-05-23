@@ -1,6 +1,8 @@
 package UserManagement;
 
-public final class PermissionType {
+import java.io.Serializable;
+
+public final class PermissionType implements Serializable {
 
     public static String createBillboards = "createBillboards";
     public static String editBillboards = "editBillboards";
