@@ -9,12 +9,13 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 
 public class LoginGUI {
-    private JFrame frame;
 
+    private JFrame frame;
     private JLabel usernameLabel;
     private JLabel passwordLabel;
     private JLabel loginLabel;
@@ -24,11 +25,9 @@ public class LoginGUI {
     private JTextField usernameField;
     private JLabel messageLabel;
     private JButton loginButton;
-
-    private Socket socket;
-    private ObjectOutputStream oos;
     private ObjectInputStream ois;
-
+    private ObjectOutputStream oos;
+    private Socket socket;
     public LoginGUI() throws IOException {
         this.frame = new JFrame("Login");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -36,18 +35,19 @@ public class LoginGUI {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-
-        createStreams();
         setLoginButton();
+        setStreams();
     }
 
-    private void createStreams() throws IOException {
-        this.socket = new Socket("localhost", 3310);
+    private void setStreams() throws IOException {
+        socket = new Socket("localhost",3310);
         OutputStream os = socket.getOutputStream();
-        InputStream inputStream = socket.getInputStream();
-        this.oos = new ObjectOutputStream(os);
-        this.ois = new ObjectInputStream(inputStream);
+        InputStream is = socket.getInputStream();
+        System.out.println("Connected to "+ socket.getInetAddress());
+        oos = new ObjectOutputStream(os);
+        ois = new ObjectInputStream(is);
     }
+
 
     private void setLoginButton(){
         ActionListener buttonPress = new ActionListener() {

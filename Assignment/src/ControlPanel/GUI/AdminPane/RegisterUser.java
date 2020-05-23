@@ -33,7 +33,7 @@ public class RegisterUser extends ControlPanelGUI {
 
     private void register() throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
         String registerIsSuccessMessage = "User successfully registered!";
-
+        System.out.println("yes");
         UserPermissions permissions = new UserPermissions(
                 createBillboardsPerm.isSelected(),
                 editBillboardsPerm.isSelected(),

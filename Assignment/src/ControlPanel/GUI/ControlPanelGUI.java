@@ -59,7 +59,6 @@ public class ControlPanelGUI {
     public ControlPanelGUI(ControlPanelGUI controlPanelGUI){
         this.oos = controlPanelGUI.oos;
         this.ois = controlPanelGUI.ois;
-
         this.controlPanel = controlPanelGUI.controlPanel;
         this.billboardsPane = controlPanelGUI.billboardsPane;
 
@@ -122,7 +121,6 @@ public class ControlPanelGUI {
         new EditBillboards(this);
         new ScheduleBillboards(this);
         new ViewBillboards(this);
-
-        new AdminPane(this);
+        new MenuPane(this);
     }
 }

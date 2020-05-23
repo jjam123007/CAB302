@@ -2,6 +2,7 @@ package ControlPanel.GUI.BillboardsPane;
 
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
+import ControlPanel.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
 import ControlPanel.SerializeArray;
 
@@ -19,12 +20,13 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 
 
-public class ViewBillboards extends ControlPanelGUI{
-    private Integer billboardID;
-    private int selectedRow;
+public class ViewBillboards extends ControlPanelGUI {
+    Integer billboardID;
+    int selectedRow;
 
     public ViewBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         super(controlPanelGUI);
+
         BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null,"");
         oos.writeObject(request);
         oos.flush();
@@ -107,4 +109,6 @@ public class ViewBillboards extends ControlPanelGUI{
             }
         });
     }
+
+
 }

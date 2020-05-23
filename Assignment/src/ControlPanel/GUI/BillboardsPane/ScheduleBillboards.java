@@ -2,6 +2,7 @@ package ControlPanel.GUI.BillboardsPane;
 
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
+import ControlPanel.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
 
 import javax.swing.*;
@@ -12,10 +13,8 @@ import java.net.UnknownHostException;
 
 public class ScheduleBillboards extends ControlPanelGUI {
 
-
     public ScheduleBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         super(controlPanelGUI);
-
 
         scheduleSubmitButton.addActionListener(new ActionListener() {
             @Override
@@ -39,4 +38,5 @@ public class ScheduleBillboards extends ControlPanelGUI {
             }
         });
     }
+
 }

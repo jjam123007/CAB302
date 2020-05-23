@@ -12,6 +12,7 @@ import java.io.IOException;
 public class EditBillboards extends ControlPanelGUI {
     public EditBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         super(controlPanelGUI);
+
         System.out.println(super.rowToEdit);
 
         editUpdateButton.addActionListener(new ActionListener() {

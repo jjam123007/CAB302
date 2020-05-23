@@ -6,15 +6,10 @@ import UserManagement.ClientUser;
 import java.io.IOException;
 
 public class AdminPane extends ControlPanelGUI {
+    private int adminPaneId = 1;
+
     public AdminPane(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         super(controlPanelGUI);
-        if (ClientUser.getPermissions().isAdmin()){
-            new RegisterUser(controlPanelGUI);
-            System.out.println("admin");
-        } else {
-            adminPane.setVisible(false);
-            System.out.println("notAdmin");
-        }
-
+        new RegisterUser(controlPanelGUI);
     }
 }

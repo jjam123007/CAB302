@@ -12,6 +12,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.sql.Statement;
 
@@ -103,7 +104,7 @@ public class Server {
                     oos.writeObject(registerReply);
                 }
 
-            } catch (EOFException e) {
+            } catch (EOFException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
 

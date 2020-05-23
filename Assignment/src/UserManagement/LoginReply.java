@@ -3,6 +3,7 @@ package UserManagement;
 import Database.DBConnection;
 
 import java.io.Serializable;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,28 +26,35 @@ public class LoginReply implements Serializable{
 
        try {
            String username = loginRequest.getUsername();
-           String passwordQuery = ("SELECT password FROM user WHERE username='" + username + "';");
+           String dbPasswordQuery = ("SELECT password, salt FROM user WHERE username='" + username + "';");
 
            Statement statement = DBConnection.getInstance().createStatement();
-           ResultSet getDBPassword = statement.executeQuery(passwordQuery);
+           ResultSet passwordResult = statement.executeQuery(dbPasswordQuery);
 
-           Boolean userExists = getDBPassword.next();
+           boolean userExists = passwordResult.next();
            if (userExists) {
-               String userPassword = loginRequest.getPassword();
-               String serverPassword = getDBPassword.getString("password");
-               checkPassword(userPassword, serverPassword);
+               String requestPassword = saltPassword(passwordResult);
+               String storedPassword = passwordResult.getString("password");
+               checkPassword(requestPassword, storedPassword);
            } else {
                this.errorMessage = "User does not exist!";
            }
            statement.close();
 
        }catch (Exception exception){
-           System.out.println(exception);
        }
    }
 
-   public void checkPassword(String userPassword, String serverPassword) throws SQLException {
-       if (userPassword.equals(serverPassword)){
+   public String saltPassword(ResultSet passwordResult) throws SQLException, NoSuchAlgorithmException {
+
+        String password = loginRequest.getPassword();
+        String salt = passwordResult.getString("salt");
+        String saltedPassword = DataSecurity.hash(password+salt);
+       return saltedPassword;
+   }
+
+   public void checkPassword(String requestPassword, String saltedPassword) throws SQLException {
+       if (requestPassword.equals(saltedPassword)){
            this.success = true;
            this.sessionToken = DataSecurity.randomString();
            retrievePermissions();
