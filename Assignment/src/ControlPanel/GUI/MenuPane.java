@@ -12,7 +12,9 @@ public class MenuPane implements ControlPanelComponent{
     private int adminPaneId = 1;
     JTabbedPane menuPane;
 
+
     public MenuPane(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException, SQLException {
+        setControlPanelComponents(controlPanelGUI);
         new BillboardsPane(controlPanelGUI);
 
         if (ClientUser.getPermissions().isAdmin()){
@@ -25,5 +27,6 @@ public class MenuPane implements ControlPanelComponent{
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
         this.menuPane = controlPanelGUI.menuPane;
+
     }
 }

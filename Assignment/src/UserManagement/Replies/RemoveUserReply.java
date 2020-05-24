@@ -20,10 +20,12 @@ public class RemoveUserReply extends Reply {
 
     private void removeUser(String username) {
         try {
-            String query = "DELETE FROM user WHERE username = '"+username+"';";
             Statement statement = DBConnection.getInstance().createStatement();
-            statement.executeQuery(query);
-            statement.close();
+            String removeUserCredentials = "DELETE FROM user WHERE username = '"+username+"';";
+            String removeUserPermissions = "DELETE FROM permissions WHERE username = '"+username+"';";
+            statement.executeQuery(removeUserCredentials);
+            statement.executeQuery(removeUserPermissions);
+
             this.success = true;
         } catch (SQLException exception) {
             this.errorMessage = "User has already been removed.";
