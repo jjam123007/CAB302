@@ -2,6 +2,7 @@ package ControlPanel.GUI.BillboardsPane;
 
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
+import UserManagement.ClientUser;
 
 import java.io.IOException;
 
