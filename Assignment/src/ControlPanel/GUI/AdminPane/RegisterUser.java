@@ -2,10 +2,11 @@ package ControlPanel.GUI.AdminPane;
 
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import UserManagement.ClientUser;
-import UserManagement.RegisterReply;
-import UserManagement.RegisterRequest;
-import UserManagement.UserPermissions;
+import UserManagement.Replies.RegisterReply;
+import UserManagement.Requests.RegisterRequest;
+import User.UserPermissions;
+import UserManagement.Requests.UserManagementRequest;
+import UserManagement.UserManagementRequestType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -66,8 +67,9 @@ public class RegisterUser implements ControlPanelComponent {
                 scheduleBillboardsPerm.isSelected(),
                 editUsersPerm.isSelected()
         );
+        RegisterRequest request = new RegisterRequest(username, password, permissions);
+        UserManagementRequest registerRequest = new UserManagementRequest(UserManagementRequestType.registerNewUser, request);
 
-        RegisterRequest registerRequest= new RegisterRequest(username, password, permissions, ClientUser.getToken());
         oos.writeObject(registerRequest);
         oos.flush();
         RegisterReply registerReply = (RegisterReply) ois.readObject();

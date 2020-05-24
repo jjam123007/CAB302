@@ -4,7 +4,7 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import UserManagement.ClientUser;
+import User.ClientUser;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

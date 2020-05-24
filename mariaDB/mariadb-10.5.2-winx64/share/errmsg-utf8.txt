@@ -3314,7 +3314,7 @@ ER_GRANT_WRONG_HOST_OR_USER 42000
         eng "The host or user argument to GRANT is too long"
         est "Masina või kasutaja nimi GRANT lauses on liiga pikk"
         fre "L'hôte ou l'utilisateur donné en argument à GRANT est trop long"
-        ger "Das Host- oder UserManagement-Argument für GRANT ist zu lang"
+        ger "Das Host- oder User-Argument für GRANT ist zu lang"
         hindi "GRANT के लिए होस्ट या यूज़र आर्गुमेंट बहुत लंबा है"
         hun "A host vagy felhasznalo argumentuma tul hosszu a GRANT parancsban"
         ita "L'argomento host o utente per la GRANT e` troppo lungo"
@@ -3358,7 +3358,7 @@ ER_NONEXISTING_TABLE_GRANT 42000
         eng "There is no such grant defined for user '%-.48s' on host '%-.64s' on table '%-.192s'"
         est "Sellist õigust ei ole defineeritud kasutajale '%-.48s' masinast '%-.64s' tabelile '%-.192s'"
         fre "Un tel droit n'est pas défini pour l'utilisateur '%-.48s' sur l'hôte '%-.64s' sur la table '%-.192s'"
-        ger "Eine solche Berechtigung ist für UserManagement '%-.48s' auf Host '%-.64s' an Tabelle '%-.192s' nicht definiert"
+        ger "Eine solche Berechtigung ist für User '%-.48s' auf Host '%-.64s' an Tabelle '%-.192s' nicht definiert"
         hun "A '%-.48s' felhasznalo szamara a '%-.64s' host '%-.192s' tablajaban ez a parancs nem engedelyezett"
         ita "GRANT non definita per l'utente '%-.48s' dalla macchina '%-.64s' sulla tabella '%-.192s'"
         jpn "ユーザー '%-.48s' (ホスト '%-.64s' 上) の表 '%-.192s' への権限は定義されていません。"
@@ -4331,7 +4331,7 @@ ER_SLAVE_THREAD
 ER_TOO_MANY_USER_CONNECTIONS 42000 
         dan "Brugeren %-.64s har allerede mere end 'max_user_connections' aktive forbindelser"
         nla "Gebruiker %-.64s heeft reeds meer dan 'max_user_connections' actieve verbindingen"
-        eng "UserManagement %-.64s already has more than 'max_user_connections' active connections"
+        eng "User %-.64s already has more than 'max_user_connections' active connections"
         est "Kasutajal %-.64s on juba rohkem ühendusi kui lubatud 'max_user_connections' muutujaga"
         fre "L'utilisateur %-.64s possède déjà plus de 'max_user_connections' connexions actives"
         ger "Benutzer '%-.64s' hat mehr als 'max_user_connections' aktive Verbindungen"
@@ -4638,7 +4638,7 @@ ER_DUP_ARGUMENT
         swe "Option '%s' användes två gånger"
 ER_USER_LIMIT_REACHED 42000 
         nla "Gebruiker '%-.64s' heeft het maximale gebruik van de '%s' faciliteit overschreden (huidige waarde: %ld)"
-        eng "UserManagement '%-.64s' has exceeded the '%s' resource (current value: %ld)"
+        eng "User '%-.64s' has exceeded the '%s' resource (current value: %ld)"
         ger "Benutzer '%-.64s' hat die Ressourcenbeschränkung '%s' überschritten (aktueller Wert: %ld)"
         ita "L'utente '%-.64s' ha ecceduto la risorsa '%s' (valore corrente: %ld)"
         jpn "ユーザー '%-.64s' はリソースの上限 '%s' に達しました。(現在値: %ld)"
@@ -4872,10 +4872,10 @@ ER_TABLENAME_NOT_ALLOWED_HERE 42000
         spa "Tabla '%-.192s' de uno de los SELECT no puede ser usada en %-.32s"
         swe "Tabell '%-.192s' från en SELECT kan inte användas i %-.32s"
 ER_NOT_SUPPORTED_AUTH_MODE 08004 
-        eng "UserManagement.LoginRequest does not support authentication protocol requested by server; consider upgrading MariaDB client"
-        ger "UserManagement.LoginRequest unterstützt das vom Server erwartete Authentifizierungsprotokoll nicht. Bitte aktualisieren Sie Ihren MariaDB-UserManagement.LoginRequest"
+        eng "User.LoginRequest does not support authentication protocol requested by server; consider upgrading MariaDB client"
+        ger "User.LoginRequest unterstützt das vom Server erwartete Authentifizierungsprotokoll nicht. Bitte aktualisieren Sie Ihren MariaDB-User.LoginRequest"
         jpn "クライアントはサーバーが要求する認証プロトコルに対応できません。MariaDBクライアントのアップグレードを検討してください。"
-        nla "UserManagement.LoginRequest ondersteunt het door de server verwachtte authenticatieprotocol niet. Overweeg een nieuwere MariaDB client te gebruiken"
+        nla "User.LoginRequest ondersteunt het door de server verwachtte authenticatieprotocol niet. Overweeg een nieuwere MariaDB client te gebruiken"
         por "Cliente não suporta o protocolo de autenticação exigido pelo servidor; considere a atualização do cliente MariaDB"
         spa "Cliente no soporta protocolo de autenticación solicitado por el servidor; considere actualizar el cliente MariaDB"
         swe "Klienten stöder inte autentiseringsprotokollet som begärts av servern; överväg uppgradering av klientprogrammet"
@@ -7913,7 +7913,7 @@ ER_BACKUP_STAGE_FAILED
 ER_BACKUP_UNKNOWN_STAGE
         eng "Unknown backup stage: '%s'. Stage should be one of START, FLUSH, BLOCK_DDL, BLOCK_COMMIT or END"
 ER_USER_IS_BLOCKED
-        eng "UserManagement is blocked because of too many credential errors; unblock with 'FLUSH PRIVILEGES'"
+        eng "User is blocked because of too many credential errors; unblock with 'FLUSH PRIVILEGES'"
 ER_ACCOUNT_HAS_BEEN_LOCKED
         eng "Access denied, this account is locked"
         rum "Acces refuzat, acest cont este blocat"

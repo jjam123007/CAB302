@@ -1,4 +1,4 @@
-import ControlPanel.LoginGUI;
+import ControlPanel.GUI.LoginGUI;
 
 import java.io.IOException;
 

@@ -7,6 +7,7 @@ import ControlPanel.GUI.BillboardsPane.*;
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
+import java.sql.SQLException;
 
 public class ControlPanelGUI {
     public JPanel controlPanel;
@@ -60,14 +61,14 @@ public class ControlPanelGUI {
     public JPasswordField editPasswordField;
     public JButton removeUserButton;
     public JButton changePasswordButton;
-    private JButton updateUserListButton;
+    public JButton updateUserListButton;
     public int rowToEdit;
 
     public Socket socket;
     public ObjectOutputStream oos;
     public ObjectInputStream ois;
 
-    public ControlPanelGUI(Socket socket, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException {
+    public ControlPanelGUI(Socket socket, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException, SQLException {
         JPanel root = this.controlPanel;
         JFrame frame = new JFrame();
         frame.setContentPane(root);
@@ -80,7 +81,7 @@ public class ControlPanelGUI {
         initControlPanelComponents();
     }
 
-    private void initControlPanelComponents() throws IOException, ClassNotFoundException {
+    private void initControlPanelComponents() throws IOException, ClassNotFoundException, SQLException {
         new MenuPane(this);
     }
 }

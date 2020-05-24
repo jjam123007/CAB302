@@ -5,7 +5,7 @@ import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
 import ControlPanel.SerializeArray;
-import UserManagement.ClientUser;
+import User.ClientUser;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
