@@ -103,6 +103,9 @@ public class Server {
                     RegisterReply registerReply = new RegisterReply(registerRequest);
                     oos.writeObject(registerReply);
                 }
+                else if (requestObject instanceof ViewUsersRequest){
+                    ViewUsersRequest viewUsersRequest = (ViewUsersRequest) requestObject;
+                }
 
             } catch (EOFException | NoSuchAlgorithmException e) {
                 e.printStackTrace();

@@ -2,7 +2,9 @@ package ControlPanel.GUI.BillboardsPane;
 
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
+import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
+import UserManagement.ClientUser;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,15 +14,25 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Base64;
 
-public class CreateBillboards extends ControlPanelGUI {
-    public CreateBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
-        super(controlPanelGUI);
+public class CreateBillboards implements ControlPanelComponent {
+    private ObjectOutputStream oos;
+    private JPanel controlPanel;
+    private JTextArea createBbName;
+    private JTextArea createBbMsg;
+    private JTextArea createBbInfo;
+    private JTextArea createBbImgLink;
+    private JButton createBbSubmitButton;
+    private JButton createBbPreviewButton;
 
+    public CreateBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
+        setControlPanelComponents(controlPanelGUI);
         createBbSubmitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -31,7 +43,7 @@ public class CreateBillboards extends ControlPanelGUI {
                     String url = createBbImgLink.getText();
                     String requestType = "addBillboard";
                     Object[] newTable = {billboardName,msg,info,url};
-                    BillboardRequest addBillboard = new BillboardRequest(BillboardRequestType.addBillboard,newTable,"");
+                    BillboardRequest addBillboard = new BillboardRequest(BillboardRequestType.addBillboard,newTable, ClientUser.getToken());
                     oos.writeObject(addBillboard);
                     oos.flush();
                     JOptionPane.showMessageDialog(controlPanel,"Success","message",JOptionPane.NO_OPTION);
@@ -44,7 +56,6 @@ public class CreateBillboards extends ControlPanelGUI {
 
             }
         });
-
         createBbPreviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -91,6 +102,18 @@ public class CreateBillboards extends ControlPanelGUI {
                 }
             }
         });
-        
+    }
+
+    @Override
+    public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
+        this.oos = controlPanelGUI.oos;
+        this.controlPanel = controlPanelGUI.controlPanel;
+
+        this.createBbName = controlPanelGUI.createBbName;
+        this.createBbMsg = controlPanelGUI.createBbMsg;
+        this.createBbInfo = controlPanelGUI.createBbInfo;
+        this.createBbImgLink = controlPanelGUI.createBbImgLink;
+        this.createBbSubmitButton = controlPanelGUI.createBbSubmitButton;
+        this.createBbPreviewButton = controlPanelGUI.createBbPreviewButton;
     }
 }

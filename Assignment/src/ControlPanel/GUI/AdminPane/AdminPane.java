@@ -1,15 +1,19 @@
 package ControlPanel.GUI.AdminPane;
 
+import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import UserManagement.ClientUser;
-
 import java.io.IOException;
 
-public class AdminPane extends ControlPanelGUI {
+public class AdminPane implements ControlPanelComponent {
     private int adminPaneId = 1;
 
     public AdminPane(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
-        super(controlPanelGUI);
         new RegisterUser(controlPanelGUI);
+        new ViewUsers(controlPanelGUI);
+    }
+
+    @Override
+    public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
+
     }
 }

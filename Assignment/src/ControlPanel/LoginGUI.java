@@ -48,7 +48,6 @@ public class LoginGUI {
         ois = new ObjectInputStream(is);
     }
 
-
     private void setLoginButton(){
         ActionListener buttonPress = new ActionListener() {
             @Override
@@ -60,8 +59,8 @@ public class LoginGUI {
     }
 
     private void sendLoginRequest() throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
-        String username = usernameField.getText();
-        String password = passwordField.getText();
+        String username = "test";//usernameField.getText();
+        String password = "password";//passwordField.getText();
         LoginRequest login = new LoginRequest(username, password);
         oos.writeObject(login);
         oos.flush();
@@ -73,7 +72,9 @@ public class LoginGUI {
         if (loginReply.isSuccess()){
             new ClientUser(loginReply.getSessionToken(), loginReply.getPermissions());
             new ControlPanelGUI(socket,oos,ois);
+            System.out.println(loginReply.getUsername());;
             this.frame.dispose();
+
             System.out.println("login Success");
         }else{
             messageLabel.setText(loginReply.getErrorMessage());

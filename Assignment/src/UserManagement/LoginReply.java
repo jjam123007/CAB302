@@ -12,6 +12,12 @@ public class LoginReply implements Serializable{
     private Boolean success = false;
     private String errorMessage = null;
     private String sessionToken = null;
+
+    public String getUsername() {
+        return username;
+    }
+
+    private String username;
     private UserPermissions permissions = null;
 
     private static LoginRequest loginRequest;
@@ -23,7 +29,7 @@ public class LoginReply implements Serializable{
 
     public LoginReply(LoginRequest loginRequest) throws SQLException  {
        this.loginRequest = loginRequest;
-
+       this.username = loginRequest.getUsername();
        try {
            String username = loginRequest.getUsername();
            String dbPasswordQuery = ("SELECT password, salt FROM user WHERE username='" + username + "';");

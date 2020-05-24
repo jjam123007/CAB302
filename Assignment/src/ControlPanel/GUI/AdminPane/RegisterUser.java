@@ -1,19 +1,35 @@
 package ControlPanel.GUI.AdminPane;
 
+import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
 import UserManagement.ClientUser;
 import UserManagement.RegisterReply;
 import UserManagement.RegisterRequest;
 import UserManagement.UserPermissions;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.security.NoSuchAlgorithmException;
 
-public class RegisterUser extends ControlPanelGUI {
-    public RegisterUser(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
-        super(controlPanelGUI);
+public class RegisterUser implements ControlPanelComponent {
+    public JTextField registerUsernameField;
+    public JPasswordField registerPasswordField;
+    public JCheckBox createBillboardsPerm;
+    public JCheckBox editUsersPerm;
+    public JCheckBox editBillboardsPerm;
+    public JCheckBox scheduleBillboardsPerm;
+    public JLabel registerReplyMessage;
+    public JButton registerUserButton;
+    public ObjectOutputStream oos;
+    public ObjectInputStream ois;
+    public JPasswordField registerReenterPasswordField;
+
+    protected RegisterUser(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
+        setControlPanelComponents(controlPanelGUI);
         setRegisterButton();
     }
 
@@ -22,7 +38,7 @@ public class RegisterUser extends ControlPanelGUI {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     try {
-                        register();
+                        registerUser();
                     } catch (IOException | NoSuchAlgorithmException | ClassNotFoundException exception) {
                         exception.printStackTrace();
                     }
@@ -31,17 +47,25 @@ public class RegisterUser extends ControlPanelGUI {
             registerUserButton.addActionListener(buttonPress);
     }
 
-    private void register() throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
-        String registerIsSuccessMessage = "User successfully registered!";
-        System.out.println("yes");
+    private void  registerUser() throws NoSuchAlgorithmException, IOException, ClassNotFoundException {
+        String username = registerUsernameField.getText();
+        String password = registerPasswordField.getText();
+        String passwordReenter = registerReenterPasswordField.getText();
+        if (password.equals(passwordReenter)){
+            sendRegisterRequest(username, password);
+        } else {
+            String errorMessage = "Passwords do not match!";
+            JOptionPane.showMessageDialog(null, errorMessage);
+        }
+    }
+
+    private void sendRegisterRequest(String username, String password) throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
         UserPermissions permissions = new UserPermissions(
                 createBillboardsPerm.isSelected(),
                 editBillboardsPerm.isSelected(),
                 scheduleBillboardsPerm.isSelected(),
                 editUsersPerm.isSelected()
         );
-        String username = registerUsernameField.getText();
-        String password = registerPasswordField.getText();
 
         RegisterRequest registerRequest= new RegisterRequest(username, password, permissions, ClientUser.getToken());
         oos.writeObject(registerRequest);
@@ -49,10 +73,27 @@ public class RegisterUser extends ControlPanelGUI {
         RegisterReply registerReply = (RegisterReply) ois.readObject();
 
         if (registerReply.isSuccess()){
-            registerReplyMessage.setText(registerIsSuccessMessage);
+            String registerIsSuccessMessage = "User '"+username+"' successfully registered!";
+            JOptionPane.showMessageDialog(null, registerIsSuccessMessage);
         } else {
-            registerReplyMessage.setEnabled(true);
-            registerReplyMessage.setText(registerReply.getErrorMessage());
+            String errorMessage = registerReply.getErrorMessage();
+            JOptionPane.showMessageDialog(null, errorMessage);
         }
+    }
+
+
+    @Override
+    public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
+        this.oos = controlPanelGUI.oos;
+        this.ois = controlPanelGUI.ois;
+        this.editUsersPerm = controlPanelGUI.editUsersPerm;
+        this.editBillboardsPerm = controlPanelGUI.editBillboardsPerm;
+        this.registerUsernameField = controlPanelGUI.registerUsernameField;
+        this.registerPasswordField = controlPanelGUI.registerPasswordField;
+        this.registerUserButton = controlPanelGUI.registerUserButton;
+        this.registerReenterPasswordField = controlPanelGUI.registerReenterPasswordField;
+        this.createBillboardsPerm = controlPanelGUI.createBillboardsPerm;
+        this.scheduleBillboardsPerm = controlPanelGUI.scheduleBillboardsPerm;
+        this.registerReplyMessage = controlPanelGUI.registerReplyMessage;
     }
 }

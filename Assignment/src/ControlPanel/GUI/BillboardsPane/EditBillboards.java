@@ -2,18 +2,36 @@ package ControlPanel.GUI.BillboardsPane;
 
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
+import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
+import UserManagement.ClientUser;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
-public class EditBillboards extends ControlPanelGUI {
+public class EditBillboards implements ControlPanelComponent {
+    private ObjectOutputStream oos;
+    private ObjectInputStream ois;
+
+    private JPanel controlPanel;
+    public JTabbedPane billboardsPane;
+    public JTextArea editBbName;
+    public JTextArea editBbMsg;
+    public JTextArea editBbInfo;
+    public JTextArea editBbImgLink;
+    public JButton editUpdateButton;
+    public JTextArea editBbID;
+    public JTable viewTable;
+    public int rowToEdit;
+
+
     public EditBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
-        super(controlPanelGUI);
-
-        System.out.println(super.rowToEdit);
+        setControlPanelComponents(controlPanelGUI);
+        System.out.println(rowToEdit);
 
         editUpdateButton.addActionListener(new ActionListener() {
             @Override
@@ -29,7 +47,7 @@ public class EditBillboards extends ControlPanelGUI {
 
                 try {
                     Object[] newTable = {billboardId,billboardName,billboardMessage,billboardInformation,billboardUrl};
-                    BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable,"");
+                    BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable, ClientUser.getToken());
                     oos.writeObject(edit);
                     oos.flush();
 
@@ -54,5 +72,22 @@ public class EditBillboards extends ControlPanelGUI {
                 billboardsPane.setSelectedIndex(0);
             }
         });
+    }
+
+
+    @Override
+    public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
+        this.oos = controlPanelGUI.oos;
+        this.ois = controlPanelGUI.ois;
+        this.controlPanel = controlPanelGUI.controlPanel;
+        this.billboardsPane = controlPanelGUI.billboardsPane;
+        this.editBbName = controlPanelGUI.editBbName;
+        this.editBbMsg = controlPanelGUI.editBbMsg;
+        this.editBbInfo = controlPanelGUI.editBbInfo;
+        this.editBbImgLink = controlPanelGUI.editBbImgLink;
+        this.editUpdateButton = controlPanelGUI.editUpdateButton;
+        this.editBbID = controlPanelGUI.editBbID;
+        this.viewTable = controlPanelGUI.viewTable;
+        this.rowToEdit = controlPanelGUI.rowToEdit;
     }
 }

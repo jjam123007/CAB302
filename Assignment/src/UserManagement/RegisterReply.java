@@ -23,7 +23,6 @@ public class RegisterReply implements Serializable {
         if (UserSession.hasPermission(sessionToken, PermissionType.editUsers))
         {
             registerUser();
-            this.success = true;
         } else {
             this.errorMessage = "User does not have permission";
         }
@@ -35,6 +34,7 @@ public class RegisterReply implements Serializable {
         if (canRegister(statement)){
             registerUserToDB(statement, username);
             registerUserPermsToDB(statement, username);
+            this.success = true;
         }
         statement.close();
     }
@@ -67,9 +67,11 @@ public class RegisterReply implements Serializable {
         ResultSet user = statement.executeQuery(userExistsQuery);
         boolean userExists = user.next();
         if (!userExists){
+            System.out.println("user does not exist");
+
             return true;
         } else{
-            this.success = false;
+            System.out.println("user exists");
             this.errorMessage = "Username already exists! Please use another.";
             return false;
         }

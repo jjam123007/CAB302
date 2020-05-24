@@ -2,9 +2,10 @@ package ControlPanel.GUI.BillboardsPane;
 
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
-import ControlPanel.ControlPanelComponent;
+import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
 import ControlPanel.SerializeArray;
+import UserManagement.ClientUser;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -17,17 +18,29 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 
 
-public class ViewBillboards extends ControlPanelGUI {
+public class ViewBillboards implements ControlPanelComponent {
     Integer billboardID;
     int selectedRow;
+    public ObjectOutputStream oos;
+    public ObjectInputStream ois;
+    public JTabbedPane billboardsPane;
+    public JTextArea editBbMsg;
+    public JTextArea editBbInfo;
+    public JTextArea editBbImgLink;
+    public JTextArea editBbName;
+    public JTextArea editBbID;
+    public JTable viewTable;
+    public JButton viewEditButton;
+    public JButton viewDeleteButton;
+    public int rowToEdit;
+
 
     public ViewBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
-        super(controlPanelGUI);
+        setControlPanelComponents(controlPanelGUI);
 
-        BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null,"");
+        BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
         oos.writeObject(request);
         oos.flush();
         System.out.println("hello345");
@@ -71,7 +84,7 @@ public class ViewBillboards extends ControlPanelGUI {
                 try {
                     System.out.println("hello345");
                     Object[] id = {billboardID};
-                    BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,"");
+                    BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
                     oos.writeObject(delete);
                     oos.flush();
 
@@ -111,4 +124,19 @@ public class ViewBillboards extends ControlPanelGUI {
     }
 
 
+    @Override
+    public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
+        this.oos = controlPanelGUI.oos;
+        this.ois = controlPanelGUI.ois;
+        this.billboardsPane = controlPanelGUI.billboardsPane;
+        this.editBbMsg = controlPanelGUI.editBbMsg;
+        this.editBbInfo = controlPanelGUI.editBbInfo;
+        this.editBbImgLink = controlPanelGUI.editBbImgLink;
+        this.editBbID = controlPanelGUI.editBbID;
+        this.editBbName = controlPanelGUI.editBbName;
+        this.viewTable = controlPanelGUI.viewTable;
+        this.viewEditButton = controlPanelGUI.viewEditButton;
+        this.viewDeleteButton = controlPanelGUI.viewDeleteButton;
+        this.rowToEdit = controlPanelGUI.rowToEdit;
+    }
 }
