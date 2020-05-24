@@ -7,6 +7,7 @@ import User.*;
 import Database.DBConnection;
 import UserManagement.*;
 import UserManagement.Replies.RegisterReply;
+import UserManagement.Replies.RemoveUserReply;
 import UserManagement.Replies.ViewUsersReply;
 import UserManagement.Requests.RegisterRequest;
 import UserManagement.Requests.UserManagementRequest;
@@ -120,16 +121,25 @@ public class Server {
 
     private static void handleUserManagementRequest(UserManagementRequest request) throws SQLException, NoSuchAlgorithmException, IOException {
         UserManagementRequestType requestType = request.getRequestType();
+        String sessionToken = request.getSessionToken();
         switch (requestType){
             case registerNewUser:{
                 RegisterRequest registerRequest = (RegisterRequest) request.getRequest();
-                RegisterReply registerReply = new RegisterReply(registerRequest, request.getSessionToken());
+                RegisterReply registerReply = new RegisterReply(registerRequest, sessionToken);
                 oos.writeObject(registerReply);
                 break;
             }
             case viewUsers:{
-                ViewUsersReply viewUsersReply = new ViewUsersReply(request.getSessionToken());
+                ViewUsersReply viewUsersReply = new ViewUsersReply(sessionToken);
                 oos.writeObject(viewUsersReply);
+                break;
+            }
+
+            case removeUser:{
+                String userToDelete = (String) request.getRequest();
+                RemoveUserReply removeUserReply = new RemoveUserReply(userToDelete,sessionToken);
+                oos.writeObject(removeUserReply);
+                break;
             }
 
         }

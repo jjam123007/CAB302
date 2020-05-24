@@ -11,29 +11,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewUsersReply implements Serializable {
-    private boolean success = false;
-    private String errorMessage = null;
-
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public String getErrorMessage() {
-        return errorMessage;
-    }
+public class ViewUsersReply extends Reply implements Serializable {
 
     public List<Object> getUsernames() {
         return usernames;
     }
     private List<Object> usernames;
 
-
     public ViewUsersReply(String sessionToken) throws SQLException {
         if (UserSession.hasPermission(sessionToken, PermissionType.editUsers)){
            getUsers();
         }else{
-            this.errorMessage = "User not authorized.";
+            this.errorMessage = ReplyError.userNotPermitted;
         }
     }
 

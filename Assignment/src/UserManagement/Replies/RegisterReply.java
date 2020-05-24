@@ -12,13 +12,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class RegisterReply implements Serializable {
-    private boolean success = false;
-    private String errorMessage = null;
+public class RegisterReply extends Reply implements Serializable {
     private static RegisterRequest registerRequest;
-
-    public boolean isSuccess() { return success; }
-    public String getErrorMessage() { return errorMessage; }
 
     public RegisterReply(RegisterRequest registerRequest, String sessionToken) throws SQLException, NoSuchAlgorithmException {
         this.registerRequest = registerRequest;
@@ -27,7 +22,7 @@ public class RegisterReply implements Serializable {
         {
             registerUser();
         } else {
-            this.errorMessage = "User does not have permission";
+            this.errorMessage = ReplyError.userNotPermitted;
         }
     }
 

@@ -3,7 +3,7 @@ package UserManagement;
 public enum  UserManagementRequestType {
     registerNewUser,
     viewUsers,
-    deleteUser,
+    removeUser,
     editUser,
     changePassword
 }
