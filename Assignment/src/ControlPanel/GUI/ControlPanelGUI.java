@@ -64,6 +64,11 @@ public class ControlPanelGUI {
     public JButton changePasswordButton;
     public JButton updateUserListButton;
     public JButton changePermissionsButton;
+    public JTabbedPane tabbedPane1;
+    public  JButton clientChangePasswordButton;
+    public  JPasswordField clientCurrentPasswordField;
+    public  JPasswordField clientReenterPasswordField;
+    public  JPasswordField clientNewPasswordField;
 
     public int rowToEdit;
     public Socket socket;

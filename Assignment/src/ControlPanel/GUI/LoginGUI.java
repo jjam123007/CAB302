@@ -60,7 +60,7 @@ public class LoginGUI {
 
     private void sendLoginRequest() throws IOException, NoSuchAlgorithmException, ClassNotFoundException, SQLException {
         String username = "RV";//usernameField.getText();
-        String password = "re";//passwordField.getText();
+        String password = "";//passwordField.getText();
         LoginRequest login = new LoginRequest(username, password);
         oos.writeObject(login);
         oos.flush();
@@ -70,9 +70,8 @@ public class LoginGUI {
     private void handleLoginReply() throws IOException, ClassNotFoundException, SQLException {
         LoginReply loginReply = (LoginReply) ois.readObject();
         if (loginReply.isSuccess()){
-            new ClientUser(loginReply.getSessionToken(), loginReply.getPermissions());
+            new ClientUser(loginReply.getSessionToken(), loginReply.getUsername(), loginReply.getPermissions());
             new ControlPanelGUI(socket,oos,ois);
-            System.out.println(loginReply.getUsername());;
             this.frame.dispose();
 
             System.out.println("login Success");

@@ -43,17 +43,19 @@ public class EditUserPassword implements ControlPanelComponent {
     }
 
     protected void checkPassword() throws NoSuchAlgorithmException, IOException, ClassNotFoundException {
+        int minPasswordLength = 8;
         String password = editPasswordField.getText();
         String confirmPassword = editReenterPasswordField.getText();
-        if (password.equals(confirmPassword)){
-            changePassword(selectedUser, password);
-        } else{
-            String errorMessage = "Passwords do not match!";
-            JOptionPane.showMessageDialog(null, errorMessage);
+        if (password.equals(confirmPassword) ){
+            JOptionPane.showMessageDialog(null, "Passwords do not match!");
+        } else if (password.equals(confirmPassword)){
+            changePassword(selectedUser, password, oos, ois);
+        } else {
+            JOptionPane.showMessageDialog(null, "Passwords do not match!");
         }
     }
 
-    private void changePassword(String username, String password) throws NoSuchAlgorithmException, IOException, ClassNotFoundException {
+    public static void changePassword(String username, String password, ObjectOutputStream oos, ObjectInputStream ois) throws NoSuchAlgorithmException, IOException, ClassNotFoundException {
         EditUserPropertyRequest editUserPropertyRequest = new EditUserPropertyRequest(username, password);
         UserManagementRequest userManagementRequest = new UserManagementRequest(UserManagementRequestType.changePassword, editUserPropertyRequest);
         oos.writeObject(userManagementRequest);
@@ -64,7 +66,6 @@ public class EditUserPassword implements ControlPanelComponent {
         }else{
             JOptionPane.showMessageDialog(null, changeUserPasswordReply.getErrorMessage());
         }
-
     }
 
     @Override
