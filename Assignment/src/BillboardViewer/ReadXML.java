@@ -15,13 +15,14 @@ import java.io.IOException;
 import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 
 public class ReadXML {
-    private static void createBillboard(String message, String info, String imgURL) throws IOException {
+    private static void createBillboard(Color billboardColour, String message, Color messageColour,
+                                        String info, Color infoColour, String imgURL) throws IOException {
         // Create an instance of the billboard
-        BillboardViewer billboard = new BillboardViewer();
+        BillboardViewer billboard = new BillboardViewer(billboardColour);
 
         // Change the information displayed
-        billboard.changeMessage(message);
-        billboard.changeInfo(info);
+        billboard.changeMessage(message, messageColour);
+        billboard.changeInfo(info, infoColour);
         billboard.changeImage(imgURL);
 
         // Show the billboard
@@ -51,14 +52,15 @@ public class ReadXML {
             DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             Document doc = builder.parse(inputFile);
             doc.getDocumentElement().normalize();
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+
+            // Get background color
+            Color billboardColour = Color.decode(doc.getDocumentElement().getAttribute("background"));
 
             // Get message data
             Element messageData = (Element) doc.getElementsByTagName("message").item(0);
             String message = messageData.getTextContent();
-            String messageColour = messageData.getAttribute("colour");
+            Color messageColour = Color.decode(messageData.getAttribute("colour"));
             System.out.println(message);
-            System.out.println(messageColour);
 
             // Get picture URL
             Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
@@ -68,12 +70,11 @@ public class ReadXML {
             // Get information data
             Element informationData = (Element) doc.getElementsByTagName("information").item(0);
             String information = informationData.getTextContent();
-            String informationColour = pictureData.getAttribute("colour");
+            Color informationColour = Color.decode(informationData.getAttribute("colour"));
             System.out.println(information);
-            System.out.println(informationColour);
 
             // View the billboard
-            createBillboard(message, information, pictureURL);
+            createBillboard(billboardColour, message, messageColour, information, informationColour, pictureURL);
 
         } catch (ParserConfigurationException e) {
             e.printStackTrace();

@@ -42,6 +42,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="William Tran &lt;william.tran.0701@gmail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="NikoDev" />
@@ -67,7 +72,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteManager.WIDTH" value="182" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="JAVA" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/mariaDB/mariadb-java-client-2.6.0.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -140,11 +145,11 @@
       </method>
     </configuration>
     <list>
+      <item itemvalue="Application.ControlPanelStartup" />
+      <item itemvalue="Application.LoginGUI" />
+      <item itemvalue="Application.Register" />
       <item itemvalue="Application.Server" />
       <item itemvalue="Application.Test" />
-      <item itemvalue="Application.Register" />
-      <item itemvalue="Application.LoginGUI" />
-      <item itemvalue="Application.ControlPanelStartup" />
     </list>
     <recent_temporary>
       <list>
@@ -295,11 +300,6 @@
         <entry key="MAIN">
           <value>
             <State>
-              <option name="CUSTOM_BOOLEAN_PROPERTIES">
-                <map>
-                  <entry key="Show.Git.Branches" value="false" />
-                </map>
-              </option>
               <option name="FILTERS">
                 <map>
                   <entry key="branch">
@@ -311,12 +311,12 @@
                   </entry>
                 </map>
               </option>
+              <option name="COLUMN_ORDER" />
             </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="- Changed how Server requests into a single object containing the request type, user session token and request data. This replaces the old method of doing a .writeUtf and .writeObject call to the Server. Additionally,individual casts on the request data are not required as they are already deserialized." />
@@ -387,14 +387,19 @@
     </state>
     <state x="834" y="404" key="#com.intellij.uiDesigner.palette.ComponentItemDialog.OneOff/0.0.1920.1040@0.0.1920.1040" timestamp="1590222651197" />
     <state x="741" y="299" key="#com.intellij.uiDesigner.palette.ComponentItemDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590170511105" />
+    <state x="365" y="7" key="CommitChangelistDialog2" timestamp="1590391677127">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="365" y="7" key="CommitChangelistDialog2/0.0.1536.824@0.0.1536.824" timestamp="1590391677127" />
     <state x="0" y="86" key="DiffContextDialog" timestamp="1590239391427">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="0" y="86" key="DiffContextDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590239391427" />
-    <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl" timestamp="1590065601054">
-      <screen x="0" y="0" width="1920" height="1040" />
+    <state x="454" y="166" width="649" height="592" key="FileChooserDialogImpl" timestamp="1590376900703">
+      <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="531" y="235" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1589005149560" />
+    <state x="454" y="166" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590376900703" />
     <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590065601054" />
     <state width="1877" height="262" key="GridCell.Tab.0.bottom" timestamp="1590347714858">
       <screen x="0" y="0" width="1920" height="1040" />

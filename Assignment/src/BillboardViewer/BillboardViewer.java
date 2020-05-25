@@ -12,6 +12,7 @@ import java.net.URL;
 /* Things that needs to be done:
 * - Handle when there are no message, img, info,
 * - Title: never have a line break (?)
+* - Connect to server
 * - Query based on database: info, schedule*/
 
 public class BillboardViewer {
@@ -20,15 +21,19 @@ public class BillboardViewer {
     private JLabel titleLabel;
     private JLabel infoLabel;
     private JLabel imageLabel;
+    private JPanel backgroundPanel;
 
     // Constructor for the viewer
-    public BillboardViewer() {
+    public BillboardViewer(Color billboardColour) {
+        billboardPanel.setBackground(billboardColour);
+        backgroundPanel.setBackground(billboardColour);
         closeBillboardSetup();
     }
 
-    // Change the title of the billboard
-    public void changeMessage(String message) {
+    // Change the title and its colour of the billboard
+    public void changeMessage(String message, Color messageColour) {
         titleLabel.setText(message);
+        titleLabel.setForeground(messageColour);
     }
 
     // Change the Image of the billboard
@@ -39,9 +44,10 @@ public class BillboardViewer {
         imageLabel.setText("");
     }
 
-    // Change the information text of the billboard
-    public void changeInfo(String info) {
+    // Change the information text and its colour of the billboard
+    public void changeInfo(String info, Color infoColour) {
         infoLabel.setText((info));
+        infoLabel.setForeground(infoColour);
     }
 
     // Export the billboard
