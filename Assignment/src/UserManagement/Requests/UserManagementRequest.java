@@ -1,7 +1,6 @@
 package UserManagement.Requests;
 
 import User.ClientUser;
-import UserManagement.UserManagementRequestType;
 
 import java.io.Serializable;
 

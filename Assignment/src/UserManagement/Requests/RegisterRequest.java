@@ -15,6 +15,7 @@ import java.security.NoSuchAlgorithmException;
         public String getPassword() { return password; }
         public UserPermissions getPermissions() { return permissions; }
 
+
         public RegisterRequest(String username, String password, UserPermissions permissions) throws NoSuchAlgorithmException {
             this.username = username;
             this.password = DataSecurity.hash(password);

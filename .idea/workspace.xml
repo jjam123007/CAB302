@@ -27,14 +27,24 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="-Renamed branch.">
+      <change afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/EditUserPermissions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/EditUserPermisionsReply.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ViewUserPermissionsReply.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/EditUserRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/LoginGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/LoginGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/MenuPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/MenuPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/AdminPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/AdminPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/EditUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/EditUsers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/RegisterUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/RegisterUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/ViewUsers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.form" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/User/UserSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/User/UserSession.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/RemoveUserReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/RemoveUserReply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ib_logfile0" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ib_logfile0" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/permissions.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/permissions.ibd" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/user.ibd" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/schedules/user.ibd" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ViewUsersReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ViewUsersReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/RegisterRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/UserManagementRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/UserManagementRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/UserManagementRequestType.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/UserManagementRequestType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -158,10 +168,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.ControlPanelStartup" />
+        <item itemvalue="Application.Server" />
         <item itemvalue="Application.LoginGUI" />
         <item itemvalue="Application.Register" />
         <item itemvalue="Application.Test" />
-        <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
   </component>
@@ -372,10 +382,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="718" y="322" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1590328460798" />
-    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1590344296590">
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1590390661025">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1590344296590" />
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1590390661025" />
     <state x="689" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1590222410840">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -392,10 +402,18 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="743" y="427" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1920.1040@0.0.1920.1040" timestamp="1590212161765" />
+    <state x="295" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1590390622159">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="295" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590390622159" />
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1590319469263">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590319469263" />
+    <state x="690" y="267" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1590387052105">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="267" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590387052105" />
     <state x="741" y="299" key="#com.intellij.uiDesigner.palette.ComponentItemDialog" timestamp="1590170511105">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -413,22 +431,22 @@
     </state>
     <state x="531" y="235" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1589005149560" />
     <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590065601054" />
-    <state width="1877" height="262" key="GridCell.Tab.0.bottom" timestamp="1590349308245">
+    <state width="1877" height="262" key="GridCell.Tab.0.bottom" timestamp="1590394121196">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="262" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590349308245" />
-    <state width="1877" height="262" key="GridCell.Tab.0.center" timestamp="1590349308245">
+    <state width="1877" height="262" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590394121196" />
+    <state width="1877" height="262" key="GridCell.Tab.0.center" timestamp="1590394121196">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="262" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590349308245" />
-    <state width="1877" height="262" key="GridCell.Tab.0.left" timestamp="1590349308245">
+    <state width="1877" height="262" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590394121196" />
+    <state width="1877" height="262" key="GridCell.Tab.0.left" timestamp="1590394121195">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="262" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590349308245" />
-    <state width="1877" height="262" key="GridCell.Tab.0.right" timestamp="1590349308245">
+    <state width="1877" height="262" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590394121195" />
+    <state width="1877" height="262" key="GridCell.Tab.0.right" timestamp="1590394121196">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="262" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590349308245" />
+    <state width="1877" height="262" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590394121196" />
     <state x="567" y="222" key="RollbackChangesDialog" timestamp="1590239395090">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -453,17 +471,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="730" y="400" key="com.intellij.uiDesigner.propertyInspector.editors.string.StringEditorDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589987839906" />
-    <state x="755" y="267" key="refactoring.ChangeSignatureDialog" timestamp="1590220254631">
+    <state x="755" y="267" key="refactoring.ChangeSignatureDialog" timestamp="1590386596288">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="755" y="267" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590220254631" />
+    <state x="755" y="267" key="refactoring.ChangeSignatureDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590386596288" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1590239111030">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1590239111030" />
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1590343846526">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1590389101219">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1590343846526" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1590389101219" />
   </component>
 </project>

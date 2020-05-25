@@ -24,6 +24,10 @@ public final class UserSession {
         }
     }
 
+    public static String getUsername(String sessionToken){
+        return users.get(sessionToken).username;
+    }
+
     public static void addSession(String sessionToken, String username){
         Date currentDate = new Date();
         Long currentTime = currentDate.getTime();

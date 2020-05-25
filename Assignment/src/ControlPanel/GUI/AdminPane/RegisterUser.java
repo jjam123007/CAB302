@@ -6,7 +6,7 @@ import UserManagement.Replies.RegisterReply;
 import UserManagement.Requests.RegisterRequest;
 import User.UserPermissions;
 import UserManagement.Requests.UserManagementRequest;
-import UserManagement.UserManagementRequestType;
+import UserManagement.Requests.UserManagementRequestType;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -50,6 +50,11 @@ public class RegisterUser implements ControlPanelComponent {
 
     private void  registerUser() throws NoSuchAlgorithmException, IOException, ClassNotFoundException {
         String username = registerUsernameField.getText();
+        if (username.contains(" ")){
+            String errorMessage = "Usernames cannot contain spaces.";
+            JOptionPane.showMessageDialog(null, errorMessage);
+        }
+
         String password = registerPasswordField.getText();
         String passwordReenter = registerReenterPasswordField.getText();
         if (password.equals(passwordReenter)){

@@ -12,9 +12,17 @@ public class RemoveUserReply extends Reply {
 
     public RemoveUserReply(String username, String sessionToken) throws SQLException {
         if (UserSession.hasPermission(sessionToken, PermissionType.editUsers)){
+            checkUser(username, sessionToken);
+        } else {
+            this.errorMessage = ReplyError.userNotPermitted;
+        }
+    }
+
+    private void checkUser(String username, String sessionToken){
+        if (!UserSession.getUsername(sessionToken).equals(username)){
             removeUser(username);
-        } else{
-            errorMessage = ReplyError.userNotPermitted;
+        } else {
+            this.errorMessage = "You cannot remove yourself!";
         }
     }
 

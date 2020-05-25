@@ -10,7 +10,7 @@ public class AdminPane implements ControlPanelComponent {
 
     public AdminPane(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException, SQLException {
         new RegisterUser(controlPanelGUI);
-        new ViewUsers(controlPanelGUI);
+        new EditUsers(controlPanelGUI);
     }
 
     @Override

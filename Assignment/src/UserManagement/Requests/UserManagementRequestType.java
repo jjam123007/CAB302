@@ -1,8 +1,9 @@
-package UserManagement;
+package UserManagement.Requests;
 
 public enum  UserManagementRequestType {
     registerNewUser,
-    viewUsers,
+    getUsernames,
+    getUserPermissions,
     removeUser,
     editUser,
     changePassword

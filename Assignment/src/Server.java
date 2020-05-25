@@ -5,13 +5,15 @@ import Billboard.ManageBillboards;
 import ControlPanel.SerializeArray;
 import User.*;
 import Database.DBConnection;
-import UserManagement.*;
 import UserManagement.Replies.RegisterReply;
 import UserManagement.Replies.RemoveUserReply;
+import UserManagement.Replies.ViewUserPermissionsReply;
 import UserManagement.Replies.ViewUsersReply;
 import UserManagement.Requests.RegisterRequest;
 import UserManagement.Requests.UserManagementRequest;
+import UserManagement.Requests.UserManagementRequestType;
 
+import javax.swing.text.View;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -129,9 +131,16 @@ public class Server {
                 oos.writeObject(registerReply);
                 break;
             }
-            case viewUsers:{
+            case getUsernames:{
                 ViewUsersReply viewUsersReply = new ViewUsersReply(sessionToken);
                 oos.writeObject(viewUsersReply);
+                break;
+            }
+
+            case getUserPermissions:{
+                String username = (String) request.getRequest();
+                ViewUserPermissionsReply viewUserPermissionsReply = new ViewUserPermissionsReply(username, sessionToken);
+                oos.writeObject(viewUserPermissionsReply);
                 break;
             }
 

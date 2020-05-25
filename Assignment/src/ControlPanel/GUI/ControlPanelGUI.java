@@ -57,13 +57,14 @@ public class ControlPanelGUI {
     public JCheckBox createBillboardsPermEdit;
     public JCheckBox scheduleBillboardsPermEdit;
     public JCheckBox editBillboardsPermEdit;
+
     public JPasswordField editReenterPasswordField;
     public JPasswordField editPasswordField;
     public JButton removeUserButton;
     public JButton changePasswordButton;
     public JButton updateUserListButton;
+    private JButton changePermissionsButton;
     public int rowToEdit;
-
     public Socket socket;
     public ObjectOutputStream oos;
     public ObjectInputStream ois;
