@@ -162,6 +162,12 @@ public class Server {
                 break;
             }
 
+            case logout:{
+                LogoutReply logoutReply = new LogoutReply(sessionToken);
+                oos.writeObject(logoutReply);
+                break;
+            }
+
         }
 
     }

@@ -57,11 +57,13 @@ public class RegisterUser implements ControlPanelComponent {
 
         String password = registerPasswordField.getText();
         String passwordReenter = registerReenterPasswordField.getText();
-        if (password.equals(passwordReenter)){
+        int minPasswordLength = 8;
+        if (password.length() < minPasswordLength) {
+            JOptionPane.showMessageDialog(null, "Passwords must be a least 8 characters long!");
+        } else if (password.equals(passwordReenter)){
             sendRegisterRequest(username, password);
         } else {
-            String errorMessage = "Passwords do not match!";
-            JOptionPane.showMessageDialog(null, errorMessage);
+            JOptionPane.showMessageDialog(null,"Passwords do not match!");
         }
     }
 

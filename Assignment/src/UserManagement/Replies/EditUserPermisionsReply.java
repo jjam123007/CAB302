@@ -3,29 +3,29 @@ package UserManagement.Replies;
 import Database.DBConnection;
 import User.PermissionType;
 import User.UserPermissions;
-import User.UserSession;
+import User.ServerUserSession;
 import UserManagement.Requests.EditUserPropertyRequest;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 
 public class EditUserPermisionsReply extends Reply{
     public EditUserPermisionsReply(EditUserPropertyRequest editUserPropertyRequest, String sessionToken) throws SQLException {
+        super(sessionToken);
         String username = editUserPropertyRequest.getUsername();
         UserPermissions userPermissions = editUserPropertyRequest.getPermissions();
 
-        if (UserSession.hasPermission(sessionToken, PermissionType.editUsers))
-        {
-            checkUserPermissions(username, userPermissions, sessionToken);
-        } else {
-            this.errorMessage = ReplyError.userNotPermitted;
+        if (!sessionExpired) {
+            if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)) {
+                checkUserPermissions(username, userPermissions, sessionToken);
+            } else {
+                this.errorMessage = ReplyError.userNotPermitted;
+            }
         }
     }
 
     private void checkUserPermissions(String username, UserPermissions userPermissions, String sessionToken) {
-        String clientUser = UserSession.getUsername(sessionToken);
+        String clientUser = ServerUserSession.getUsername(sessionToken);
 
         if (username.equals(clientUser) && userPermissions.canEditUsers() == false){
             this.errorMessage="You cant remove permission 'edit users' from your own account!";

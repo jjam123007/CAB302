@@ -6,5 +6,6 @@ public enum  UserManagementRequestType {
     getPermissions,
     remove,
     changePermissions,
-    changePassword
+    changePassword,
+    logout
 }

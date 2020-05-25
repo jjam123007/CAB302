@@ -2,7 +2,7 @@ package UserManagement.Replies;
 
 import Database.DBConnection;
 import User.PermissionType;
-import User.UserSession;
+import User.ServerUserSession;
 import UserManagement.DataSecurity;
 import UserManagement.Requests.RegisterRequest;
 
@@ -16,12 +16,14 @@ public class RegisterReply extends Reply implements Serializable {
     private static RegisterRequest registerRequest;
 
     public RegisterReply(RegisterRequest registerRequest, String sessionToken) throws SQLException, NoSuchAlgorithmException {
+        super(sessionToken);
         this.registerRequest = registerRequest;
-
-        if (UserSession.hasPermission(sessionToken, PermissionType.editUsers)) {
-            registerUser();
-        } else {
-            this.errorMessage = ReplyError.userNotPermitted;
+        if (!sessionExpired) {
+            if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)) {
+                registerUser();
+            } else {
+                this.errorMessage = ReplyError.userNotPermitted;
+            }
         }
     }
 

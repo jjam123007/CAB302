@@ -2,15 +2,13 @@ package UserManagement.Replies;
 
 import Database.DBConnection;
 import User.PermissionType;
-import User.UserPermissions;
-import User.UserSession;
+import User.ServerUserSession;
 
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class ViewUsersReply extends Reply implements Serializable {
@@ -21,10 +19,13 @@ public class ViewUsersReply extends Reply implements Serializable {
     }
 
     public ViewUsersReply(String sessionToken) throws SQLException {
-        if (UserSession.hasPermission(sessionToken, PermissionType.editUsers)){
-           retrieveUsers();
-        }else{
-            this.errorMessage = ReplyError.userNotPermitted;
+        super(sessionToken);
+        if (!sessionExpired) {
+            if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)){
+               retrieveUsers();
+            }else{
+                this.errorMessage = ReplyError.userNotPermitted;
+            }
         }
     }
 

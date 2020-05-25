@@ -3,7 +3,7 @@ package UserManagement.Replies;
 import Database.DBConnection;
 import User.PermissionType;
 import User.UserPermissions;
-import User.UserSession;
+import User.ServerUserSession;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,10 +14,13 @@ public class ViewUserPermissionsReply extends Reply{
     public UserPermissions getUserPermissions() { return userPermissions; }
 
     public ViewUserPermissionsReply(String username, String sessionToken) throws SQLException {
-        if (UserSession.hasPermission(sessionToken, PermissionType.editUsers)){
-            retrieveUserPermissions(username);
-        }else{
-            this.errorMessage = ReplyError.userNotPermitted;
+        super(sessionToken);
+        if (!sessionExpired) {
+            if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)){
+                retrieveUserPermissions(username);
+            }else{
+                this.errorMessage = ReplyError.userNotPermitted;
+            }
         }
     }
 

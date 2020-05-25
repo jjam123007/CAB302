@@ -9,11 +9,11 @@ import java.util.Date;
 import java.util.HashMap;
 
 
-public final class UserSession {
+public final class ServerUserSession {
     //Hash map maps session token to User object
     private static final HashMap<String, User> users = new HashMap<String, User>();
     //Expiration time (hours converted to milliseconds)
-    private static int expirationTime = 24 * (3600000);
+    private static int expirationTime = 24 * (3600000);//hours * milliseconds in an hour;
 
     private static class User{
         public String username;
@@ -25,9 +25,15 @@ public final class UserSession {
     }
 
     public static String getUsername(String sessionToken){
-        return users.get(sessionToken).username;
+        try {
+            return users.get(sessionToken).username;
+        } catch(Exception e) {
+            return null;
+        }
     }
-
+    public static boolean sessionExists(String sessionToken){
+        return users.containsKey(sessionToken);
+    }
     public static void addSession(String sessionToken, String username){
         Date currentDate = new Date();
         Long currentTime = currentDate.getTime();

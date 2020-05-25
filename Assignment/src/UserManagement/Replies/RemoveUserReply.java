@@ -2,25 +2,27 @@ package UserManagement.Replies;
 
 import Database.DBConnection;
 import User.PermissionType;
-import User.UserSession;
+import User.ServerUserSession;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
 public class RemoveUserReply extends Reply {
 
     public RemoveUserReply(String username, String sessionToken) throws SQLException {
-        if (UserSession.hasPermission(sessionToken, PermissionType.editUsers)){
-            checkUser(username, sessionToken);
-        } else {
-            this.errorMessage = ReplyError.userNotPermitted;
+        super(sessionToken);
+        if (!sessionExpired) {
+            if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)){
+                checkUser(username, sessionToken);
+            } else {
+                this.errorMessage = ReplyError.userNotPermitted;
+            }
         }
 
     }
 
     private void checkUser(String username, String sessionToken){
-        if (!UserSession.getUsername(sessionToken).equals(username)){
+        if (!ServerUserSession.getUsername(sessionToken).equals(username)){
             removeUser(username);
         } else {
             this.errorMessage = "You cannot remove yourself!";

@@ -69,15 +69,17 @@ public class ControlPanelGUI {
     public  JPasswordField clientCurrentPasswordField;
     public  JPasswordField clientReenterPasswordField;
     public  JPasswordField clientNewPasswordField;
+    public JButton logoutButton;
 
     public int rowToEdit;
     public Socket socket;
     public ObjectOutputStream oos;
     public ObjectInputStream ois;
+    protected JFrame frame;
 
     public ControlPanelGUI(Socket socket, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException, SQLException {
         JPanel root = this.controlPanel;
-        JFrame frame = new JFrame();
+        frame = new JFrame();
         frame.setContentPane(root);
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();

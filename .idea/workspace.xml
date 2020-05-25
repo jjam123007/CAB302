@@ -26,19 +26,28 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="-Added ability for admin to select and change user permissions and passwords.">
-      <change afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AccountPane.java" afterDir="false" />
+    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="-Added ability for users to change their passwords.">
+      <change afterPath="$PROJECT_DIR$/Assignment/src/ClientRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/LogoutReply.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AccountPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AccountPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/EditUserPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/EditUserPassword.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/RegisterUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/RegisterUser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.form" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.form" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/LoginGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/LoginGUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/MenuPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/MenuPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/User/ClientUser.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/User/ClientUser.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/User/LoginReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/User/LoginReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/User/UserSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/User/ServerUserSession.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ChangeUserPasswordReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ChangeUserPasswordReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/EditUserPermisionsReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/EditUserPermisionsReply.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/RegisterReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/RegisterReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/RemoveUserReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/RemoveUserReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/Reply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/Reply.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ReplyError.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ReplyError.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ViewUserPermissionsReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ViewUserPermissionsReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ViewUsersReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ViewUsersReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/UserManagementRequestType.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/UserManagementRequestType.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,6 +105,7 @@
       <recent name="ControlPanel.GUI.BillboardsPane" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="UserManagement.Replies" />
       <recent name="ControlPanel.GUI" />
       <recent name="" />
       <recent name="Billboard" />
@@ -332,7 +342,14 @@
       <option name="project" value="LOCAL" />
       <updated>1590404707925</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="-Added ability for users to change their passwords.">
+      <created>1590409172299</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1590409172299</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -380,7 +397,8 @@
     <MESSAGE value="-Renamed branch." />
     <MESSAGE value="-Selecting a user now shows their permissions." />
     <MESSAGE value="-Added ability for admin to select and change user permissions and passwords." />
-    <option name="LAST_COMMIT_MESSAGE" value="-Added ability for admin to select and change user permissions and passwords." />
+    <MESSAGE value="-Added ability for users to change their passwords." />
+    <option name="LAST_COMMIT_MESSAGE" value="-Added ability for users to change their passwords." />
   </component>
   <component name="WindowStateProjectService">
     <state x="343" y="139" key="#Project_Structure" timestamp="1589004292317">
@@ -453,22 +471,22 @@
     <state x="531" y="235" key="FileChooserDialogImpl/0.0.1500.960@0.0.1500.960" timestamp="1589005149560" />
     <state x="454" y="166" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1590376900703" />
     <state x="568" y="210" width="649" height="592" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1590065601054" />
-    <state width="1877" height="262" key="GridCell.Tab.0.bottom" timestamp="1590408358067">
+    <state width="1877" height="258" key="GridCell.Tab.0.bottom" timestamp="1590417454335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="262" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590408358067" />
-    <state width="1877" height="262" key="GridCell.Tab.0.center" timestamp="1590408358067">
+    <state width="1877" height="258" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1590417454335" />
+    <state width="1877" height="258" key="GridCell.Tab.0.center" timestamp="1590417454335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="262" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590408358067" />
-    <state width="1877" height="262" key="GridCell.Tab.0.left" timestamp="1590408358067">
+    <state width="1877" height="258" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1590417454335" />
+    <state width="1877" height="258" key="GridCell.Tab.0.left" timestamp="1590417454335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="262" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590408358067" />
-    <state width="1877" height="262" key="GridCell.Tab.0.right" timestamp="1590408358067">
+    <state width="1877" height="258" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1590417454335" />
+    <state width="1877" height="258" key="GridCell.Tab.0.right" timestamp="1590417454335">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="262" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590408358067" />
+    <state width="1877" height="258" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1590417454335" />
     <state x="567" y="222" key="RollbackChangesDialog" timestamp="1590239395090">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -481,10 +499,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="839" y="314" key="UIDesigner.ListEditorDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1590137275968" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590404747935">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1590409993932">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590404747935" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1590409993932" />
     <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1590347844091">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

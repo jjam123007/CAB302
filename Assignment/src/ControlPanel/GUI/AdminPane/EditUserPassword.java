@@ -34,7 +34,11 @@ public class EditUserPassword implements ControlPanelComponent {
     private void setChangePasswordButton() {
         ActionListener changePasswordButtonAction = e -> {
             try {
-                checkPassword();
+                String password = editPasswordField.getText();
+                if (canChangePasswords(password, editReenterPasswordField.getText()))
+                {
+                    changePassword(selectedUser, password, oos , ois);
+                }
             } catch (NoSuchAlgorithmException | IOException | ClassNotFoundException noSuchAlgorithmException) {
                 noSuchAlgorithmException.printStackTrace();
             }
@@ -42,17 +46,16 @@ public class EditUserPassword implements ControlPanelComponent {
         changePasswordButton.addActionListener(changePasswordButtonAction);
     }
 
-    protected void checkPassword() throws NoSuchAlgorithmException, IOException, ClassNotFoundException {
+    public static boolean canChangePasswords(String password, String passwordReenter) throws NoSuchAlgorithmException, IOException, ClassNotFoundException {
         int minPasswordLength = 8;
-        String password = editPasswordField.getText();
-        String confirmPassword = editReenterPasswordField.getText();
-        if (password.equals(confirmPassword) ){
-            JOptionPane.showMessageDialog(null, "Passwords do not match!");
-        } else if (password.equals(confirmPassword)){
-            changePassword(selectedUser, password, oos, ois);
+        if (password.length() < minPasswordLength){
+            JOptionPane.showMessageDialog(null, "Passwords must be a least 8 characters long!");
+        } else if (password.equals(passwordReenter)){
+            return true;
         } else {
             JOptionPane.showMessageDialog(null, "Passwords do not match!");
         }
+        return false;
     }
 
     public static void changePassword(String username, String password, ObjectOutputStream oos, ObjectInputStream ois) throws NoSuchAlgorithmException, IOException, ClassNotFoundException {

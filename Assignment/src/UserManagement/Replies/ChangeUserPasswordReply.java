@@ -2,7 +2,7 @@ package UserManagement.Replies;
 
 import Database.DBConnection;
 import User.PermissionType;
-import User.UserSession;
+import User.ServerUserSession;
 import UserManagement.DataSecurity;
 import UserManagement.Requests.EditUserPropertyRequest;
 
@@ -13,16 +13,20 @@ import java.sql.Statement;
 public class ChangeUserPasswordReply extends Reply{
 
     public ChangeUserPasswordReply(EditUserPropertyRequest editUserPropertyRequest, String sessionToken) throws SQLException, NoSuchAlgorithmException {
+        super(sessionToken);
         String username = editUserPropertyRequest.getUsername();
         String password = editUserPropertyRequest.getPassword();
         int minPasswordLength = 8;
-        boolean clientIsTargetUser = username.equals(UserSession.getUsername(sessionToken));
-        boolean userIsAdmin = UserSession.hasPermission(sessionToken, PermissionType.editUsers);
+        boolean clientIsTargetUser = username.equals(ServerUserSession.getUsername(sessionToken));
+        boolean userIsAdmin = ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers);
 
-        if (clientIsTargetUser || userIsAdmin){
-            changePassword(username, password);
-        } else {
-            this.errorMessage = ReplyError.userNotPermitted;
+        if (!sessionExpired)
+        {
+            if ((clientIsTargetUser || userIsAdmin)){
+                changePassword(username, password);
+            } else {
+                this.errorMessage = ReplyError.userNotPermitted;
+            }
         }
     }
 
