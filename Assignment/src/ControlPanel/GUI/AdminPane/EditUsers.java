@@ -33,10 +33,12 @@ public class EditUsers implements ControlPanelComponent {
     public EditUsers(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException, SQLException {
         setControlPanelComponents(controlPanelGUI);
         EditUserPermissions editUserPermissions = new EditUserPermissions(controlPanelGUI);
+        EditUserPassword editUserPassword = new EditUserPassword(controlPanelGUI);
+
         updateUsersTable();
         setUpdateUserListButton();
         setRemoveUserButton();
-        setUserSelection(editUserPermissions);
+        setUserSelection(editUserPermissions, editUserPassword);
     }
 
     private void setRemoveUserButton(){
@@ -61,22 +63,22 @@ public class EditUsers implements ControlPanelComponent {
         };
         updateUserListButton.addActionListener(updateUserList);
     }
-    private void setUserSelection(EditUserPermissions editUserPermissions){
+    private void setUserSelection(EditUserPermissions editUserPermissions, EditUserPassword editUserPassword){
         userSelection = e -> {
             selectedUser = usersTable.getValueAt(usersTable.getSelectedRow(), 0).toString();
             try {
                 getUserPermissions(selectedUser, editUserPermissions);
+                editUserPermissions.setSelectedUser(selectedUser);
+                editUserPassword.setSelectedUser(selectedUser);
             } catch (IOException | ClassNotFoundException ioException) {
                 ioException.printStackTrace();
             }
         };
 
-        editUserPermissions.selectedUser = selectedUser;
         usersTable.getSelectionModel().addListSelectionListener(userSelection);
     }
-
     private void getUserPermissions(String username, EditUserPermissions editUserPermissions) throws IOException, ClassNotFoundException {
-        UserManagementRequest getUserPermissionsRequest =  new UserManagementRequest(UserManagementRequestType.getUserPermissions, username);
+        UserManagementRequest getUserPermissionsRequest =  new UserManagementRequest(UserManagementRequestType.getPermissions, username);
         oos.writeObject(getUserPermissionsRequest);
         ViewUserPermissionsReply viewUserPermissionsReply = (ViewUserPermissionsReply) ois.readObject();
         if (viewUserPermissionsReply.isSuccess()){
@@ -85,11 +87,10 @@ public class EditUsers implements ControlPanelComponent {
             JOptionPane.showMessageDialog(null, viewUserPermissionsReply.getErrorMessage());
         }
     }
-
     private void removeUser() throws IOException, ClassNotFoundException {
         System.out.println("Fail1");
 
-        UserManagementRequest removeUserRequest = new UserManagementRequest(UserManagementRequestType.removeUser, selectedUser);
+        UserManagementRequest removeUserRequest = new UserManagementRequest(UserManagementRequestType.remove, selectedUser);
         System.out.println("Fail2");
         oos.writeObject(removeUserRequest);
         RemoveUserReply removeUserReply = (RemoveUserReply) ois.readObject();
@@ -101,7 +102,6 @@ public class EditUsers implements ControlPanelComponent {
         }
         System.out.println("Fail2");
     }
-
     private void updateUsersTable() throws SQLException, IOException, ClassNotFoundException {
         usersTable.getSelectionModel().removeListSelectionListener(userSelection);
         UserManagementRequest viewUsersRequest = new UserManagementRequest(UserManagementRequestType.getUsernames);

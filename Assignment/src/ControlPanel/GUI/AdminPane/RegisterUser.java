@@ -73,7 +73,7 @@ public class RegisterUser implements ControlPanelComponent {
                 editUsersPerm.isSelected()
         );
         RegisterRequest request = new RegisterRequest(username, password, permissions);
-        UserManagementRequest registerRequest = new UserManagementRequest(UserManagementRequestType.registerNewUser, request);
+        UserManagementRequest registerRequest = new UserManagementRequest(UserManagementRequestType.register, request);
 
         oos.writeObject(registerRequest);
         oos.flush();

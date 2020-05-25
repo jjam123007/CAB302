@@ -5,15 +5,12 @@ import Billboard.ManageBillboards;
 import ControlPanel.SerializeArray;
 import User.*;
 import Database.DBConnection;
-import UserManagement.Replies.RegisterReply;
-import UserManagement.Replies.RemoveUserReply;
-import UserManagement.Replies.ViewUserPermissionsReply;
-import UserManagement.Replies.ViewUsersReply;
+import UserManagement.Replies.*;
+import UserManagement.Requests.EditUserPropertyRequest;
 import UserManagement.Requests.RegisterRequest;
 import UserManagement.Requests.UserManagementRequest;
 import UserManagement.Requests.UserManagementRequestType;
 
-import javax.swing.text.View;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -125,7 +122,7 @@ public class Server {
         UserManagementRequestType requestType = request.getRequestType();
         String sessionToken = request.getSessionToken();
         switch (requestType){
-            case registerNewUser:{
+            case register:{
                 RegisterRequest registerRequest = (RegisterRequest) request.getRequest();
                 RegisterReply registerReply = new RegisterReply(registerRequest, sessionToken);
                 oos.writeObject(registerReply);
@@ -137,18 +134,30 @@ public class Server {
                 break;
             }
 
-            case getUserPermissions:{
+            case getPermissions:{
                 String username = (String) request.getRequest();
                 ViewUserPermissionsReply viewUserPermissionsReply = new ViewUserPermissionsReply(username, sessionToken);
                 oos.writeObject(viewUserPermissionsReply);
                 break;
             }
 
-            case removeUser:{
+            case remove:{
                 String userToDelete = (String) request.getRequest();
                 RemoveUserReply removeUserReply = new RemoveUserReply(userToDelete,sessionToken);
                 oos.writeObject(removeUserReply);
                 break;
+            }
+
+            case changePermissions:{
+                EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
+                EditUserPermisionsReply editUserPermisionsReply = new EditUserPermisionsReply(editUserPropertyRequest, sessionToken);
+                oos.writeObject(editUserPermisionsReply);
+            }
+
+            case changePassword:{
+                EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
+                ChangeUserPasswordReply changeUserPasswordReply = new ChangeUserPasswordReply(editUserPropertyRequest, sessionToken);
+                oos.writeObject(changeUserPasswordReply);
             }
 
         }

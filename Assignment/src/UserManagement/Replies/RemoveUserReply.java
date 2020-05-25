@@ -16,6 +16,7 @@ public class RemoveUserReply extends Reply {
         } else {
             this.errorMessage = ReplyError.userNotPermitted;
         }
+
     }
 
     private void checkUser(String username, String sessionToken){

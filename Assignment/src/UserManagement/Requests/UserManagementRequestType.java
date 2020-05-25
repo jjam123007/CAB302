@@ -1,10 +1,10 @@
 package UserManagement.Requests;
 
 public enum  UserManagementRequestType {
-    registerNewUser,
+    register,
     getUsernames,
-    getUserPermissions,
-    removeUser,
-    editUser,
+    getPermissions,
+    remove,
+    changePermissions,
     changePassword
 }

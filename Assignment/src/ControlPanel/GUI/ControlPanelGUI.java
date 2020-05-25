@@ -63,7 +63,8 @@ public class ControlPanelGUI {
     public JButton removeUserButton;
     public JButton changePasswordButton;
     public JButton updateUserListButton;
-    private JButton changePermissionsButton;
+    public JButton changePermissionsButton;
+
     public int rowToEdit;
     public Socket socket;
     public ObjectOutputStream oos;

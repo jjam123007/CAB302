@@ -18,6 +18,7 @@ public class RegisterReply extends Reply implements Serializable {
     public RegisterReply(RegisterRequest registerRequest, String sessionToken) throws SQLException, NoSuchAlgorithmException {
         this.registerRequest = registerRequest;
 
+
         if (UserSession.hasPermission(sessionToken, PermissionType.editUsers))
         {
             registerUser();
@@ -29,6 +30,7 @@ public class RegisterReply extends Reply implements Serializable {
     private void registerUser() throws SQLException, NoSuchAlgorithmException {
         Statement statement = DBConnection.getInstance().createStatement();
         String username = registerRequest.getUsername();
+
         if (canRegister(statement)){
             registerUserToDB(statement, username);
             registerUserPermsToDB(statement, username);
@@ -44,17 +46,18 @@ public class RegisterReply extends Reply implements Serializable {
         String registerQuery = "INSERT INTO user values('"+username+"', '"+saltedPassword+"', '"+salt+"');";
         statement.executeQuery(registerQuery);
     }
+
     private void registerUserPermsToDB(Statement statement, String username) throws SQLException {
-        int editUsersPerm = registerRequest.getPermissions().canEditUsers() ? 1 : 0;
-        int createBillboardsPerm = registerRequest.getPermissions().canCreateBillboards() ? 1 : 0;
-        int editBillboardsPerm = registerRequest.getPermissions().canEditBillboards() ? 1 : 0;
-        int scheduleBillboardsPerm = registerRequest.getPermissions().canScheduleBillboards() ? 1 : 0;
+        int p1 = registerRequest.getPermissions().canEditUsers() ? 1 : 0;
+        int p2 = registerRequest.getPermissions().canCreateBillboards() ? 1 : 0;
+        int p3 = registerRequest.getPermissions().canEditBillboards() ? 1 : 0;
+        int p4 = registerRequest.getPermissions().canScheduleBillboards() ? 1 : 0;
 
         String registerQuery = "INSERT INTO permissions values('"+username+"', " +
-                "'"+createBillboardsPerm+"'," +
-                " '"+editBillboardsPerm+"'," +
-                " '"+scheduleBillboardsPerm+"', " +
-                "'"+editUsersPerm+"');";
+                "'"+p2+"'," +
+                " '"+p3+"'," +
+                " '"+p4+"', " +
+                "'"+p1+"');";
 
         statement.executeQuery(registerQuery);
     }
