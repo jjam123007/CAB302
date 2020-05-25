@@ -2,6 +2,8 @@
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import Billboard.ManageBillboards;
+import BillboardViewer.ViewerRequest;
+import BillboardViewer.ViewerRequestType;
 import ControlPanel.SerializeArray;
 import User.*;
 import Database.DBConnection;
@@ -11,6 +13,7 @@ import UserManagement.Requests.RegisterRequest;
 import UserManagement.Requests.UserManagementRequest;
 import UserManagement.Requests.UserManagementRequestType;
 
+import javax.swing.text.View;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -43,6 +46,8 @@ public class Server {
                 }
                 else if (request instanceof UserManagementRequest){
                     handleUserManagementRequest((UserManagementRequest) request);
+                } else if (request instanceof ViewerRequest) {
+                    handleViewerRequest((ViewerRequest) request);
                 }
             } catch (EOFException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
@@ -159,11 +164,23 @@ public class Server {
                 ChangeUserPasswordReply changeUserPasswordReply = new ChangeUserPasswordReply(editUserPropertyRequest, sessionToken);
                 oos.writeObject(changeUserPasswordReply);
             }
-
         }
-
     }
 
+    // Handle requests from billboard viewer
+    private static void handleViewerRequest(ViewerRequest request) throws IOException {
+        // Get the request type
+        ViewerRequestType requestType = request.getRequestType();
+
+        // Act based on its type
+        switch (requestType) {
+            case getXML: {
+                oos.writeObject("aaaa");
+            }
+        }
+    }
+
+    // Setup streams to pass information between server and client
     private static void setStreams() throws IOException {
         ServerSocket serverSocket = new ServerSocket(3310);
         Socket socket = serverSocket.accept();

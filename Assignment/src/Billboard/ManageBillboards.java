@@ -18,9 +18,17 @@ public final class ManageBillboards implements Serializable {
         System.out.println("Info :" + info);
         System.out.println("Url :" + url);
 
+        // Create and store XML format to the database
+        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<billboard background=\"#0000FF\">\n" +
+                " <message colour=\"#FFFF00\">" + message + "</message>\n" +
+                " <picture url=\"" + url + "\" />\n" +
+                " <information colour=\"#00FFFF\">" + info + "</information>\n" +
+                "</billboard>";
+
         Statement statement = DBConnection.getInstance().createStatement();
-        statement.executeQuery("insert into billboard values(null,'" + name + "','" + message + "','" + info + "','" + url + "');");
-        statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + name + "','" + message + "','" + info + "','" + url + "');");
+        statement.executeQuery("insert into billboard values(null,'" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
+        statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
         statement.close();
     }
 

@@ -1,12 +1,15 @@
 package BillboardViewer;
 import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Base64;
+import java.util.Iterator;
 
 
 /* Things that needs to be done:
@@ -44,6 +47,33 @@ public class BillboardViewer {
         imageLabel.setText("");
     }
 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public void imageBase64() throws Exception {
+        File f =  new File("src/BillboardViewer/test_img.jpg");
+        String encodestring = encodeFileToBase64Binary(f);
+        byte[] btDataFile = Base64.getDecoder().decode(encodestring);
+        BufferedImage image = ImageIO.read(new ByteArrayInputStream(btDataFile));
+        ImageIcon img = new ImageIcon(image);
+        imageLabel.setIcon(img);
+        imageLabel.setText("");
+    }
+
+    private static String encodeFileToBase64Binary(File file) throws Exception{
+        FileInputStream fileInputStreamReader = new FileInputStream(file);
+        byte[] bytes = new byte[(int)file.length()];
+        fileInputStreamReader.read(bytes);
+        return new String(Base64.getEncoder().encodeToString(bytes));
+    }
+
+    public void imageURL() throws IOException {
+        URL url = new URL("https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png");
+        BufferedImage image = ImageIO.read(url);
+        ImageIcon img = new ImageIcon(image);
+        imageLabel.setIcon(img);
+        imageLabel.setText("");
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
     // Change the information text and its colour of the billboard
     public void changeInfo(String info, Color infoColour) {
         infoLabel.setText((info));
@@ -77,7 +107,7 @@ public class BillboardViewer {
     }
 
     // Function to resize the image
-    private ImageIcon resizeImage(ImageIcon image) {
+    private static ImageIcon resizeImage(ImageIcon image) {
         // Get the dimensions of the given image
         int imageHeight = image.getIconHeight();
         int imageWidth = image.getIconWidth();
@@ -95,9 +125,9 @@ public class BillboardViewer {
         // Check if the photo is landscape or portrait
         if (imageWidth >= imageHeight) { // Landscape or squared
             // Calculate the ratio
-            ratio = (screenWidth * 2/3) / imageWidth;
+            ratio = (screenWidth * 1/2) / imageWidth;
         } else { // Portrait
-            ratio = (screenHeight * 2/3) / imageHeight;
+            ratio = (screenHeight * 1/2) / imageHeight;
         }
 
         // Calculate new image size

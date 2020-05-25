@@ -18,7 +18,7 @@ public class DBConnection {
         FileInputStream in = null;
         try {
             System.out.println("Path: " + Paths.get(".").toAbsolutePath().normalize().toString());
-            in = new FileInputStream("Database/db.props");
+            in = new FileInputStream("src/Database/db.props");
             props.load(in);
             in.close();
             // specify the data source, username and password
