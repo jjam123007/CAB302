@@ -18,9 +18,7 @@ public class RegisterReply extends Reply implements Serializable {
     public RegisterReply(RegisterRequest registerRequest, String sessionToken) throws SQLException, NoSuchAlgorithmException {
         this.registerRequest = registerRequest;
 
-
-        if (UserSession.hasPermission(sessionToken, PermissionType.editUsers))
-        {
+        if (UserSession.hasPermission(sessionToken, PermissionType.editUsers)) {
             registerUser();
         } else {
             this.errorMessage = ReplyError.userNotPermitted;

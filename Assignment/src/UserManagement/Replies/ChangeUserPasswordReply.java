@@ -15,12 +15,11 @@ public class ChangeUserPasswordReply extends Reply{
     public ChangeUserPasswordReply(EditUserPropertyRequest editUserPropertyRequest, String sessionToken) throws SQLException, NoSuchAlgorithmException {
         String username = editUserPropertyRequest.getUsername();
         String password = editUserPropertyRequest.getPassword();
-
+        int minPasswordLength = 8;
         boolean clientIsTargetUser = username.equals(UserSession.getUsername(sessionToken));
         boolean userIsAdmin = UserSession.hasPermission(sessionToken, PermissionType.editUsers);
-        if (username.contains(" ")){
-            this.errorMessage = "Password cannot contain spaces!";
-        } else if (clientIsTargetUser || userIsAdmin){
+
+        if (clientIsTargetUser || userIsAdmin){
             changePassword(username, password);
         } else {
             this.errorMessage = ReplyError.userNotPermitted;

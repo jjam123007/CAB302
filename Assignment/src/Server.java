@@ -157,12 +157,14 @@ public class Server {
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
                 EditUserPermisionsReply editUserPermisionsReply = new EditUserPermisionsReply(editUserPropertyRequest, sessionToken);
                 oos.writeObject(editUserPermisionsReply);
+                break;
             }
 
             case changePassword:{
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
                 ChangeUserPasswordReply changeUserPasswordReply = new ChangeUserPasswordReply(editUserPropertyRequest, sessionToken);
                 oos.writeObject(changeUserPasswordReply);
+                break;
             }
         }
     }
