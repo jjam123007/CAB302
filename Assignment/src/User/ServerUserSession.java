@@ -19,6 +19,7 @@ public final class ServerUserSession {
         try {
             return users.get(sessionToken).getUsername();
         } catch(Exception e) {
+            e.printStackTrace();
             return null;
         }
     }

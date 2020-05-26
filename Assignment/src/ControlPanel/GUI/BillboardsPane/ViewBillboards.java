@@ -49,7 +49,7 @@ public class ViewBillboards implements ControlPanelComponent {
         System.out.println("hello345");
         viewTable.setModel(new DefaultTableModel(
                 data,
-                new String[]{"BillboardID","Billboard Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
+                new String[]{"BillboardID","Billboard Name","Creator Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
         ));
 
         viewTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {

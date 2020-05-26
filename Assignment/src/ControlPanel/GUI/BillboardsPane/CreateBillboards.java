@@ -1,5 +1,6 @@
 package ControlPanel.GUI.BillboardsPane;
 
+import Billboard.BillboardReply;
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
@@ -46,6 +47,9 @@ public class CreateBillboards implements ControlPanelComponent {
                     oos.writeObject(addBillboard);
                     oos.flush();
                     JOptionPane.showMessageDialog(controlPanel,"Success","message",JOptionPane.NO_OPTION);
+                    BillboardReply message = new BillboardReply("Success");
+                    oos.writeObject(message);
+                    oos.flush();
 
                 } catch (UnknownHostException ex) {
                     ex.printStackTrace();
