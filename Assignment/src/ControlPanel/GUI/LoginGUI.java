@@ -59,8 +59,8 @@ public class LoginGUI {
     }
 
     private void sendLoginRequest() throws IOException, NoSuchAlgorithmException, ClassNotFoundException, SQLException {
-        String username = "TT";//usernameField.getText();
-        String password = "11111111";//passwordField.getText();
+        String username = "willi";//usernameField.getText();
+        String password = "123";//passwordField.getText();
         LoginRequest login = new LoginRequest(username, password);
         oos.writeObject(login);
         oos.flush();
