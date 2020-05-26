@@ -7,13 +7,9 @@ import java.io.Serializable;
 
 public class ViewerRequest implements Serializable {
     private ViewerRequestType requestType;
-    private Object request = null;
 
     public ViewerRequestType getRequestType() {
         return requestType;
-    }
-    public Object getRequest() {
-        return request;
     }
 
     // Constructor
@@ -21,8 +17,4 @@ public class ViewerRequest implements Serializable {
         this.requestType = requestType;
     }
 
-    public ViewerRequest(ViewerRequestType requestType, Object request){
-        this.requestType = requestType;
-        this.request = request;
-    }
 }

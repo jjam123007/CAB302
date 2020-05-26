@@ -2,6 +2,8 @@
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import Billboard.ManageBillboards;
+import BillboardViewer.ViewerRequest;
+import BillboardViewer.ViewerRequestType;
 import ControlPanel.SerializeArray;
 import User.*;
 import Database.DBConnection;
@@ -43,6 +45,9 @@ public class Server {
                 }
                 else if (request instanceof UserManagementRequest){
                     handleUserManagementRequest((UserManagementRequest) request);
+                }
+                else if (request instanceof ViewerRequest) {
+                    handleViewerRequest((ViewerRequest) request);
                 }
             } catch (EOFException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
@@ -167,9 +172,31 @@ public class Server {
                 oos.writeObject(logoutReply);
                 break;
             }
-
         }
+    }
 
+    // Handle requests from billboard viewer
+    private static void handleViewerRequest(ViewerRequest request) throws IOException {
+        // Get the request type
+        ViewerRequestType requestType = request.getRequestType();
+
+        // Act based on its type
+        switch (requestType) {
+            case getXML: {
+                String query = "Select xml from billboard where BillboardName = \"Test billboard\";";
+
+                try {
+                    Statement statement = DBConnection.getInstance().createStatement();
+                    ResultSet sqlResult = statement.executeQuery(query);
+                    sqlResult.next();
+                    String result = sqlResult.getString(1);
+                    oos.writeObject(result);
+                    oos.flush();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private static void setStreams() throws IOException {

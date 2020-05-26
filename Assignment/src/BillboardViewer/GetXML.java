@@ -4,20 +4,44 @@ import java.io.*;
 import java.net.Socket;
 
 public class GetXML {
-    public static void main (String args[]) throws IOException, ClassNotFoundException {
-        Socket socket = new Socket("localhost", 3310);
+    String currentXML = null;
+    public Boolean getXMLError = false;
 
-        OutputStream os = socket.getOutputStream();
-        InputStream is = socket.getInputStream();
+//    public static void main (String args[]) throws IOException, ClassNotFoundException {
+//
+//    }
 
-        ObjectOutputStream oos = new ObjectOutputStream(os);
-        ObjectInputStream ois = new ObjectInputStream(is);
+    // Contact the server
+    public void sendXMLRequest() {
+        Socket socket = null;
+        try {
+            socket = new Socket("localhost", 3310);
 
-        ViewerRequest request = new ViewerRequest(ViewerRequestType.getXML);
+            OutputStream os = socket.getOutputStream();
+            InputStream is = socket.getInputStream();
 
-        oos.writeObject(request);
-        oos.flush();
-        String aa = (String) ois.readObject();
-        System.out.println(aa);
+            ObjectOutputStream oos = new ObjectOutputStream(os);
+            ObjectInputStream ois = new ObjectInputStream(is);
+
+            ViewerRequest request = new ViewerRequest(ViewerRequestType.getXML);
+
+            oos.writeObject(request);
+            oos.flush();
+            String result = (String) ois.readObject();
+            System.out.println(result);
+
+            // Set the result
+            currentXML = result;
+
+            // Set the error to false
+            getXMLError = false;
+        } catch (IOException | ClassNotFoundException e) {
+            getXMLError = true;
+            e.printStackTrace();
+        }
+    }
+
+    public String returnXML() {
+        return currentXML;
     }
 }

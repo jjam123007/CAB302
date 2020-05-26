@@ -37,32 +37,4 @@ public class Test {
         fileInputStreamReader.read(bytes);
         return new String(Base64.getEncoder().encodeToString(bytes));
     }
-
-
-    private static void createBillboard(Color billboardColour, String message, Color messageColour,
-                                        String info, Color infoColour) throws Exception {
-        // Create an instance of the billboard
-        BillboardViewer billboard = new BillboardViewer(billboardColour);
-
-        // Change the information displayed
-        billboard.changeMessage(message, messageColour);
-        billboard.changeInfo(info, infoColour);
-        billboard.imageURL();
-
-        // Show the billboard
-        JPanel newBillboard = billboard.ExportBillboard();
-        JFrame frame = new JFrame();
-
-        frame.setUndecorated(true);
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setContentPane(newBillboard);
-        frame.pack();
-
-        // Show the billboard fullscreen
-        // Adapted from https://www.tutorialspoint.com/how-to-set-fullscreen-mode-for-java-swing-application
-        GraphicsEnvironment graphics = getLocalGraphicsEnvironment();
-        GraphicsDevice device = graphics.getDefaultScreenDevice();
-        device.setFullScreenWindow(frame);
-    }
 }

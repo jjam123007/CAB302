@@ -11,6 +11,8 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.Iterator;
 
+import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
+
 
 /* Things that needs to be done:
 * - Handle when there are no message, img, info,
@@ -33,6 +35,23 @@ public class BillboardViewer {
         closeBillboardSetup();
     }
 
+    // Show billboard
+    public void showBillboard() {
+        JFrame frame = new JFrame();
+
+        frame.setUndecorated(true);
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setContentPane(billboardPanel);
+        frame.pack();
+
+        // Show the billboard fullscreen
+        // Adapted from https://www.tutorialspoint.com/how-to-set-fullscreen-mode-for-java-swing-application
+        GraphicsEnvironment graphics = getLocalGraphicsEnvironment();
+        GraphicsDevice device = graphics.getDefaultScreenDevice();
+        device.setFullScreenWindow(frame);
+    }
+
     // Change the title and its colour of the billboard
     public void changeMessage(String message, Color messageColour) {
         titleLabel.setText(message);
@@ -40,20 +59,25 @@ public class BillboardViewer {
     }
 
     // Change the Image of the billboard
-    public void changeImage(String imgURL) throws IOException {
-        ImageIcon img = resizeImage(new ImageIcon(imgURL));
-
-        imageLabel.setIcon(img);
-        imageLabel.setText("");
+    public void changeImage(String imgInfo) throws Exception {
+        // Check if the image is from an URL or Base64 encoded
+        if (imgInfo.contains("http")) {
+            // URL
+            setImageFromURL(imgInfo);
+        }
+//        else {
+//            // Base64
+//            setImageFromBase64(imgInfo);
+//        }
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public void imageBase64() throws Exception {
-        File f =  new File("src/BillboardViewer/test_img.jpg");
-        String encodestring = encodeFileToBase64Binary(f);
-        byte[] btDataFile = Base64.getDecoder().decode(encodestring);
+    // Functions to set image to the billboard
+    private void setImageFromBase64(String encodedString) throws Exception {
+//        File f =  new File("src/BillboardViewer/test_img.jpg");
+//        String encodestring = encodeFileToBase64Binary(f);
+        byte[] btDataFile = Base64.getDecoder().decode(encodedString);
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(btDataFile));
-        ImageIcon img = new ImageIcon(image);
+        ImageIcon img = resizeImage(new ImageIcon(image));
         imageLabel.setIcon(img);
         imageLabel.setText("");
     }
@@ -65,14 +89,13 @@ public class BillboardViewer {
         return new String(Base64.getEncoder().encodeToString(bytes));
     }
 
-    public void imageURL() throws IOException {
-        URL url = new URL("https://www.talkwalker.com/images/2020/blog-headers/image-analysis.png");
-        BufferedImage image = ImageIO.read(url);
-        ImageIcon img = new ImageIcon(image);
+    private void setImageFromURL(String url) throws IOException {
+        URL imageURL = new URL(url);
+        BufferedImage image = ImageIO.read(imageURL);
+        ImageIcon img = resizeImage(new ImageIcon(image));
         imageLabel.setIcon(img);
         imageLabel.setText("");
     }
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     // Change the information text and its colour of the billboard
     public void changeInfo(String info, Color infoColour) {
