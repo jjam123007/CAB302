@@ -23,41 +23,43 @@ public class DisplayBillboardViewer {
     private static Color billboardColour, messageColour, informationColour;
 
     public static void main (String args[]) throws Exception {
+        // Create initial billboard
+        createBillboard(Color.decode("#ffffff"), "Loading...",
+                Color.decode("#000000"), "Loading...", Color.decode("#000000"),
+                "https://i.ytimg.com/vi/Gu24piLwtOg/maxresdefault.jpg");
 
-        try {
-            setStreams();
+        // Constantly receive data from the server
+        for (;;) {
+            try {
+                // Setup communication with the server
+                setStreams();
 
-            // Get XML
-            GetXML newXML = new GetXML();
-            newXML.sendXMLRequest(oos, ois);
-            String input = newXML.returnXML();
+                // Get XML
+                GetXML newXML = new GetXML();
+                newXML.sendXMLRequest(oos, ois);
+                String input = newXML.returnXML();
 
-            // Check if the string sent is null or not
-            if (input == null) {
-                createBillboard(Color.decode("#ffffff"), "The server is currently in maintenance",
+                // Check if the string sent is null or not
+                if (input == null) {
+                    renewBillboard(Color.decode("#ffffff"), "The server is currently in maintenance",
+                            Color.decode("#000000"), information, Color.decode("#000000"),
+                            "https://media.noria.com/sites/Uploads/2018/12/20/73c77e51-97d0-4ec5-81dc-e80c0b265dcf_Images_ProactiveMaintenanceApproach_31035_1234x694_large.jpeg");
+                } else {
+                    // Setup billboard
+                    readXML(input);
+
+                    // View the billboard
+                    renewBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
+                }
+
+                // Delay
+                Thread.sleep(3000);
+
+            } catch (Exception e) {
+                renewBillboard(Color.decode("#ffffff"), "The server is currently in maintenance",
                         Color.decode("#000000"), information, Color.decode("#000000"),
                         "https://media.noria.com/sites/Uploads/2018/12/20/73c77e51-97d0-4ec5-81dc-e80c0b265dcf_Images_ProactiveMaintenanceApproach_31035_1234x694_large.jpeg");
-            } else {
-                // Setup billboard
-                readXML(input);
-
-                // View the billboard
-                createBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
             }
-
-
-            for(;;) {
-                Thread.sleep(5000);
-//                newXML.sendXMLRequest();
-                renewBillboard(messageColour,"Sometesting", messageColour, "NewTesting", informationColour, pictureInfo);
-            }
-
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
