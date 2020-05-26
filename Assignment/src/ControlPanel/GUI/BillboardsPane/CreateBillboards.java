@@ -5,10 +5,13 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
+import ControlPanel.SerializeArray;
 import User.ClientUser;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +33,7 @@ public class CreateBillboards implements ControlPanelComponent {
     private JTextArea createBbImgLink;
     private JButton createBbSubmitButton;
     private JButton createBbPreviewButton;
+
 
     public CreateBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
@@ -59,6 +63,8 @@ public class CreateBillboards implements ControlPanelComponent {
 
             }
         });
+
+
         createBbPreviewButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
