@@ -35,17 +35,14 @@ public class RegisterUser implements ControlPanelComponent {
     }
 
     private void setRegisterButton(){
-            ActionListener buttonPress = new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    try {
-                        registerUser();
-                    } catch (IOException | NoSuchAlgorithmException | ClassNotFoundException exception) {
-                        exception.printStackTrace();
-                    }
-                }
-            };
-            registerUserButton.addActionListener(buttonPress);
+        ActionListener buttonPress = e -> {
+            try {
+                registerUser();
+            } catch (IOException | NoSuchAlgorithmException | ClassNotFoundException exception) {
+                exception.printStackTrace();
+            }
+        };
+        registerUserButton.addActionListener(buttonPress);
     }
 
     private void  registerUser() throws NoSuchAlgorithmException, IOException, ClassNotFoundException {
