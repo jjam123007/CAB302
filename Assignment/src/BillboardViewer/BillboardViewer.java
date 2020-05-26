@@ -1,15 +1,12 @@
 package BillboardViewer;
 import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Base64;
-import java.util.Iterator;
 
 import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 
@@ -26,12 +23,13 @@ public class BillboardViewer {
     private JLabel titleLabel;
     private JLabel infoLabel;
     private JLabel imageLabel;
-    private JPanel backgroundPanel;
+    private JPanel infoPanel;
+    private JPanel imagePanel;
+    private JPanel titlePanel;
 
     // Constructor for the viewer
     public BillboardViewer(Color billboardColour) {
-        billboardPanel.setBackground(billboardColour);
-        backgroundPanel.setBackground(billboardColour);
+        changeBackground(billboardColour);
         closeBillboardSetup();
     }
 
@@ -55,29 +53,50 @@ public class BillboardViewer {
     // Change the background colour
     public void changeBackground(Color billboardColour) {
         billboardPanel.setBackground(billboardColour);
-        backgroundPanel.setBackground(billboardColour);
+        titlePanel.setBackground(billboardColour);
+        imagePanel.setBackground(billboardColour);
+        infoPanel.setBackground(billboardColour);
     }
 
     // Change the title and its colour of the billboard
     public void changeMessage(String message, Color messageColour) {
-        titleLabel.setText(message);
-        titleLabel.setForeground(messageColour);
+        if (message == null) {
+            titlePanel.setVisible(false);
+        } else {
+            titleLabel.setText(message);
+            titleLabel.setForeground(messageColour);
+            titlePanel.setVisible(true);
+        }
     }
 
     // Change the Image of the billboard
     public void changeImage(String imgInfo) throws Exception {
-        // Check if the image is from an URL or Base64 encoded
-        if (imgInfo.contains("http")) {
-            // URL
-            setImageFromURL(imgInfo);
-        }
+        if (imgInfo == null) {
+            imagePanel.setVisible(false);
+        } else {
+            // Check if the image is from an URL or Base64 encoded
+            if (imgInfo.contains("http")) {
+                // URL
+                setImageFromURL(imgInfo);
+            }
 //        else {
 //            // Base64
 //            setImageFromBase64(imgInfo);
 //        }
+            imagePanel.setVisible(true);
+        }
     }
 
     // Functions to set image to the billboard
+    private void setImageFromURL(String url) throws IOException {
+        URL imageURL = new URL(url);
+        BufferedImage image = ImageIO.read(imageURL);
+        ImageIcon img = resizeImage(new ImageIcon(image));
+        imageLabel.setIcon(img);
+        imageLabel.setText("");
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
     private void setImageFromBase64(String encodedString) throws Exception {
 //        File f =  new File("src/BillboardViewer/test_img.jpg");
 //        String encodestring = encodeFileToBase64Binary(f);
@@ -88,25 +107,24 @@ public class BillboardViewer {
         imageLabel.setText("");
     }
 
+
     private static String encodeFileToBase64Binary(File file) throws Exception{
         FileInputStream fileInputStreamReader = new FileInputStream(file);
         byte[] bytes = new byte[(int)file.length()];
         fileInputStreamReader.read(bytes);
         return new String(Base64.getEncoder().encodeToString(bytes));
     }
-
-    private void setImageFromURL(String url) throws IOException {
-        URL imageURL = new URL(url);
-        BufferedImage image = ImageIO.read(imageURL);
-        ImageIcon img = resizeImage(new ImageIcon(image));
-        imageLabel.setIcon(img);
-        imageLabel.setText("");
-    }
+//////////////////////////////////////////////////////////////////////////////////////////////
 
     // Change the information text and its colour of the billboard
     public void changeInfo(String info, Color infoColour) {
-        infoLabel.setText((info));
-        infoLabel.setForeground(infoColour);
+        if (info == null) {
+            infoPanel.setVisible(false);
+        } else {
+            infoLabel.setText((info));
+            infoLabel.setForeground(infoColour);
+            infoPanel.setVisible(true);
+        }
     }
 
     // Export the billboard

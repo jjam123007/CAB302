@@ -19,7 +19,7 @@ public class DisplayBillboardViewer {
     private static Socket socket;
 
     private static BillboardViewer billboard = null;
-    private static String message, pictureInfo, information;
+    private static String message = null, pictureInfo = null, information = null;
     private static Color billboardColour, messageColour, informationColour;
 
     public static void main (String args[]) throws Exception {
@@ -42,7 +42,7 @@ public class DisplayBillboardViewer {
                 // Check if the string sent is null or not
                 if (input == null) {
                     renewBillboard(Color.decode("#ffffff"), "The server is currently in maintenance",
-                            Color.decode("#000000"), information, Color.decode("#000000"),
+                            Color.decode("#000000"), "Something something", Color.decode("#000000"),
                             "https://media.noria.com/sites/Uploads/2018/12/20/73c77e51-97d0-4ec5-81dc-e80c0b265dcf_Images_ProactiveMaintenanceApproach_31035_1234x694_large.jpeg");
                 } else {
                     // Setup billboard
@@ -56,7 +56,7 @@ public class DisplayBillboardViewer {
                 Thread.sleep(3000);
 
             } catch (Exception e) {
-                renewBillboard(Color.decode("#ffffff"), "The server is currently in maintenance",
+                renewBillboard(Color.decode("#f2fc92"), "The server is currently in maintenance",
                         Color.decode("#000000"), information, Color.decode("#000000"),
                         "https://media.noria.com/sites/Uploads/2018/12/20/73c77e51-97d0-4ec5-81dc-e80c0b265dcf_Images_ProactiveMaintenanceApproach_31035_1234x694_large.jpeg");
             }
@@ -70,23 +70,38 @@ public class DisplayBillboardViewer {
         doc.getDocumentElement().normalize();
 
         // Get background color
-        billboardColour = Color.decode(doc.getDocumentElement().getAttribute("background"));
+        String billboardColourString = doc.getDocumentElement().getAttribute("background");
+        billboardColour = Color.decode(billboardColourString != "" ? billboardColourString : "#ffffff");
 
         // Get message data
-        Element messageData = (Element) doc.getElementsByTagName("message").item(0);
-        message = messageData.getTextContent();
-        messageColour = Color.decode(messageData.getAttribute("colour"));
+        try {
+            Element messageData = (Element) doc.getElementsByTagName("message").item(0);
+            message = messageData.getTextContent();
+            String messageColourString = messageData.getAttribute("colour");
+            messageColour = Color.decode(messageColourString != "" ? messageColourString : "#000000");
+        } catch (NullPointerException e) {
+            message = null;
+        }
         System.out.println(message);
 
         // Get picture URL
-        Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
-        pictureInfo = pictureData.getAttribute("url");
+        try {
+            Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
+            pictureInfo = pictureData.getAttribute("url");
+        } catch (NullPointerException e) {
+            pictureInfo = null;
+        }
         System.out.println(pictureInfo);
 
         // Get information data
-        Element informationData = (Element) doc.getElementsByTagName("information").item(0);
-        information = informationData.getTextContent();
-        informationColour = Color.decode(informationData.getAttribute("colour"));
+        try {
+            Element informationData = (Element) doc.getElementsByTagName("information").item(0);
+            information = informationData.getTextContent();
+            String informationColourString = informationData.getAttribute("colour");
+            informationColour = Color.decode(informationColourString != "" ? informationColourString : "#000000");
+        } catch (NullPointerException e) {
+            information = null;
+        }
         System.out.println(information);
     }
 

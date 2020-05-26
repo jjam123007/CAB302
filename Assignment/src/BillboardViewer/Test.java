@@ -1,11 +1,16 @@
 package BillboardViewer;
 
 import Database.DBConnection;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
 
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -22,30 +27,68 @@ import java.util.Iterator;
 import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 
 public class Test {
+    private static BillboardViewer billboard = null;
+    private static String message = null, pictureInfo = null, information = null;
+    private static Color billboardColour, messageColour, informationColour;
+
     public static void main(String[] args) throws Exception {
-        LocalDate myObj = LocalDate.now(); // Create a date object
-        String date = myObj.toString(); // Display the current date
-        String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+        File a = new File("src/BillboardViewer/text-only.xml");
 
-        System.out.println(time);
+        // Create a document builder to parse the XML file
+        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+        Document doc = builder.parse(a);
+        doc.getDocumentElement().normalize();
 
-        String query = "Select billboardID from schedule where scheduleDate = \"" + date + "\"" +
-                " and (startTime <= \"" + time + "\" and endTime >= \"" + time + "\");";
+        // Get background color
+        String billboardColourString = doc.getDocumentElement().getAttribute("background");
+        Color billboardColour = Color.decode(billboardColourString != "" ? billboardColourString : "#ffffff");
 
-        System.out.println(query);
-
+        // Get message data
         try {
-            Statement statement = DBConnection.getInstance().createStatement();
-            ResultSet sqlResult = statement.executeQuery(query);
-            sqlResult.afterLast();
-            sqlResult.previous();
-            String result = sqlResult.getString(1);
-            System.out.println(result);
-            statement.close();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+            Element messageData = (Element) doc.getElementsByTagName("message").item(0);
+            message = messageData.getTextContent();
+            String messageColourString = messageData.getAttribute("colour");
+            messageColour = Color.decode(messageColourString != "" ? messageColourString : "#000000");
+        } catch (NullPointerException e) {
+            message = null;
         }
+        System.out.println(message);
+
+        // Get picture URL
+        try {
+            Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
+            pictureInfo = pictureData.getAttribute("url");
+        } catch (NullPointerException e) {
+            pictureInfo = null;
+        }
+        System.out.println(pictureInfo);
+
+        // Get information data
+        try {
+            Element informationData = (Element) doc.getElementsByTagName("information").item(0);
+            information = informationData.getTextContent();
+            String informationColourString = informationData.getAttribute("colour");
+            informationColour = Color.decode(informationColourString != "" ? informationColourString : "#000000");
+        } catch (NullPointerException e) {
+            information = null;
+        }
+        System.out.println(information);
+
+        createBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
+    }
+
+    private static void createBillboard(Color billboardColour, String message, Color messageColour,
+                                        String info, Color infoColour, String imgURL) throws Exception {
+        // Create an instance of the billboard
+        billboard = new BillboardViewer(billboardColour);
+
+        // Change the information displayed
+        billboard.changeMessage(message, messageColour);
+        billboard.changeInfo(info, infoColour);
+        billboard.changeImage(imgURL);
+
+        // Show the billboard
+        billboard.showBillboard();
     }
 
     private static String encodeFileToBase64Binary(File file) throws Exception{
