@@ -1,6 +1,7 @@
 package Billboard;
 
 import Database.DBConnection;
+import User.ServerUserSession;
 
 import java.io.Serializable;
 import java.sql.SQLException;
@@ -8,11 +9,17 @@ import java.sql.Statement;
 
 public final class ManageBillboards implements Serializable {
 
-    public static void addBillboard(Object[] data) throws SQLException{
+    public static void addBillboard(Object[] data, String token) throws SQLException{
         String name = (String) data[0];
         String message = (String) data[1];
         String info = (String) data[2];
         String url = (String) data[3];
+        ServerUserSession.addSession("1","1");
+        System.out.println(ServerUserSession.getUsername("1"));
+        String username = ServerUserSession.getUsername(token);
+
+        System.out.println("Token: "+token);
+        System.out.println("CreatorName: "+ username);
         System.out.println("Name :" + name);
         System.out.println("Msg :" + message);
         System.out.println("Info :" + info);
@@ -27,8 +34,10 @@ public final class ManageBillboards implements Serializable {
                 "</billboard>";
 
         Statement statement = DBConnection.getInstance().createStatement();
-        statement.executeQuery("insert into billboard values(null,'" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
-        statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
+        statement.executeQuery("insert into billboard values(null,'" + name + "','" + username + "',' " + message + "','" + info + "','" + url + "');");
+        statement.executeQuery("insert into billboard_info (BillboardName,creatorName, message, information, url) values('" + name + "','" + username + "',' " + message + "','" + info + "','" + url  + "');");
+        //statement.executeQuery("insert into billboard values(null,'" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
+        //statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
         statement.close();
     }
 

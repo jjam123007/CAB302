@@ -1,4 +1,5 @@
 
+import Billboard.BillboardReply;
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import Billboard.ManageBillboards;
@@ -67,7 +68,14 @@ public class Server {
 
         switch (request) {
             case addBillboard: {
-                ManageBillboards.addBillboard(billboard);
+                try {
+                    ManageBillboards.addBillboard(billboard, token);
+                    BillboardReply messageObject = (BillboardReply) ois.readObject();
+                    String message = messageObject.getMessage();
+                    System.out.println("Message: "+message);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
                 break;
             }
             case addView: {
@@ -78,7 +86,7 @@ public class Server {
                 Object[][] tableData;
 
                 Statement statement = DBConnection.getInstance().createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM view");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM billboard_info");
 
                 int rowcount = 0;
 
@@ -86,19 +94,20 @@ public class Server {
                     rowcount = resultSet.getRow();
                     resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
                 }
-                tableData = new Object[rowcount][8];
+                tableData = new Object[rowcount][9];
 
                 for (int i = 0; i < rowcount; i++) {
                     resultSet.next();
                     String billboardID = Integer.toString(resultSet.getInt(1));
                     String BillboardName = resultSet.getString(2);
-                    String info = resultSet.getString(3);
-                    String msg = resultSet.getString(4);
-                    String url = resultSet.getString(5);
-                    String schduledDate = resultSet.getString(6);
-                    Time startTime = resultSet.getTime(7);
-                    Time endTime = resultSet.getTime(8);
-                    Object[] myString = {billboardID, BillboardName, info, msg, url, schduledDate, startTime, endTime};
+                    String creatorName = resultSet.getString(3);
+                    String info = resultSet.getString(4);
+                    String msg = resultSet.getString(5);
+                    String url = resultSet.getString(6);
+                    String schduledDate = resultSet.getString(7);
+                    Time startTime = resultSet.getTime(8);
+                    Time endTime = resultSet.getTime(9);
+                    Object[] myString = {billboardID, BillboardName,creatorName,info, msg, url, schduledDate, startTime, endTime};
                     tableData[i] = myString;
                 }
                 statement.close();
