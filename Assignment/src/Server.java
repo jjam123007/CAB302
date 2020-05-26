@@ -2,8 +2,9 @@
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import Billboard.ManageBillboards;
-import BillboardViewer.ViewerRequest;
-import BillboardViewer.ViewerRequestType;
+import BillboardViewer.Replies.QueryXML;
+import BillboardViewer.Requests.ViewerRequest;
+import BillboardViewer.Requests.ViewerRequestType;
 import ControlPanel.SerializeArray;
 import User.*;
 import Database.DBConnection;
@@ -183,18 +184,9 @@ public class Server {
         // Act based on its type
         switch (requestType) {
             case getXML: {
-                String query = "Select xml from billboard where BillboardName = \"Test billboard\";";
-
-                try {
-                    Statement statement = DBConnection.getInstance().createStatement();
-                    ResultSet sqlResult = statement.executeQuery(query);
-                    sqlResult.next();
-                    String result = sqlResult.getString(1);
-                    oos.writeObject(result);
-                    oos.flush();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                String xml = QueryXML.queryXML();
+                oos.writeObject(xml);
+                break;
             }
         }
     }

@@ -52,6 +52,12 @@ public class BillboardViewer {
         device.setFullScreenWindow(frame);
     }
 
+    // Change the background colour
+    public void changeBackground(Color billboardColour) {
+        billboardPanel.setBackground(billboardColour);
+        backgroundPanel.setBackground(billboardColour);
+    }
+
     // Change the title and its colour of the billboard
     public void changeMessage(String message, Color messageColour) {
         titleLabel.setText(message);
