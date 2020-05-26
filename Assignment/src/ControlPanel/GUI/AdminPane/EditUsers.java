@@ -42,10 +42,15 @@ public class EditUsers implements ControlPanelComponent {
     }
 
     private void setRemoveUserButton(){
+        String confirmMessage = "Are you sure that you want to remove user '"+selectedUser+"'?";
         ActionListener removeUserButtonAction = e -> {
             try {
-                removeUser();
-                updateUsersTable();
+                int confirm = JOptionPane.showConfirmDialog(null, confirmMessage);
+                if (confirm == JOptionPane.YES_OPTION)
+                {
+                    removeUser();
+                    updateUsersTable();
+                }
             } catch (IOException | ClassNotFoundException | SQLException ioException) {
                 ioException.printStackTrace();
             }

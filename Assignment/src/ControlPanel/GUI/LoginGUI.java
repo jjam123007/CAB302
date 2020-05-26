@@ -6,6 +6,7 @@ import User.LoginReply;
 import User.LoginRequest;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -59,8 +60,8 @@ public class LoginGUI {
     }
 
     private void sendLoginRequest() throws IOException, NoSuchAlgorithmException, ClassNotFoundException, SQLException {
-        String username = "willi";//usernameField.getText();
-        String password = "123";//passwordField.getText();
+        String username = "TT";//usernameField.getText();
+        String password = "11111111";//passwordField.getText();
         LoginRequest login = new LoginRequest(username, password);
         oos.writeObject(login);
         oos.flush();
@@ -76,7 +77,9 @@ public class LoginGUI {
 
             System.out.println("login Success");
         }else{
+            messageLabel.setForeground(Color.red);
             messageLabel.setText(loginReply.getErrorMessage());
+            this.frame.pack();
         }
     }
 
