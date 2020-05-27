@@ -98,16 +98,16 @@ public class Server {
 
                 for (int i = 0; i < rowcount; i++) {
                     resultSet.next();
-                    String billboardID = Integer.toString(resultSet.getInt(1));
+                    String viewID = Integer.toString(resultSet.getInt(1));
                     String BillboardName = resultSet.getString(2);
                     String creatorName = resultSet.getString(3);
-                    String info = resultSet.getString(4);
-                    String msg = resultSet.getString(5);
+                    String msg = resultSet.getString(4);
+                    String info = resultSet.getString(5);
                     String url = resultSet.getString(6);
                     String schduledDate = resultSet.getString(7);
                     Time startTime = resultSet.getTime(8);
                     Time endTime = resultSet.getTime(9);
-                    Object[] myString = {billboardID, BillboardName,creatorName,info, msg, url, schduledDate, startTime, endTime};
+                    Object[] myString = {viewID, BillboardName,creatorName, msg,info, url, schduledDate, startTime, endTime};
                     tableData[i] = myString;
                 }
                 statement.close();

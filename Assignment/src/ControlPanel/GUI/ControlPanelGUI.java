@@ -1,3 +1,4 @@
+
 package ControlPanel.GUI;
 
 import ControlPanel.GUI.AdminPane.AdminPane;
@@ -70,6 +71,8 @@ public class ControlPanelGUI {
     public  JPasswordField clientReenterPasswordField;
     public  JPasswordField clientNewPasswordField;
     public JButton logoutButton;
+    public JTextArea toEditRow;
+    public JLabel RowToEdit;
 
     public int rowToEdit;
     public Socket socket;

@@ -14,8 +14,6 @@ public final class ManageBillboards implements Serializable {
         String message = (String) data[1];
         String info = (String) data[2];
         String url = (String) data[3];
-        ServerUserSession.addSession("1","1");
-        System.out.println(ServerUserSession.getUsername("1"));
         String username = ServerUserSession.getUsername(token);
 
         System.out.println("Token: "+token);
@@ -35,7 +33,7 @@ public final class ManageBillboards implements Serializable {
 
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery("insert into billboard values(null,'" + name + "','" + username + "',' " + message + "','" + info + "','" + url + "');");
-        statement.executeQuery("insert into billboard_info (BillboardName,creatorName, message, information, url) values('" + name + "','" + username + "',' " + message + "','" + info + "','" + url  + "');");
+        statement.executeQuery("insert into billboard_info (billboardName,creatorName, message, information, url) values('" + name + "','" + username + "',' " + message + "','" + info + "','" + url  + "');");
         //statement.executeQuery("insert into billboard values(null,'" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
         //statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
         statement.close();
@@ -46,7 +44,7 @@ public final class ManageBillboards implements Serializable {
 
         System.out.println("ID :" + id);
         Statement statement = DBConnection.getInstance().createStatement();
-        statement.executeQuery("delete from view where billboardID=(" + id+ ");");
+        statement.executeQuery("delete from billboard_info where viewID=(" + id+ ");");
         statement.close();
     }
 
@@ -57,7 +55,7 @@ public final class ManageBillboards implements Serializable {
         String endTime = (String) data[3];
 
         Statement statement = DBConnection.getInstance().createStatement();
-        statement.executeQuery("update view set scheduleddate='" + scheduledDate + "', starttime='" + startTime + "', endtime='" + endTime + "'Where billboardId='" + id + "';");
+        statement.executeQuery("update billboard_info set scheduleddate='" + scheduledDate + "', starttime='" + startTime + "', endtime='" + endTime + "'Where viewID='" + id + "';");
         statement.close();
     }
 
@@ -72,7 +70,8 @@ public final class ManageBillboards implements Serializable {
         System.out.println("ID to edit :"+id);
         Statement statement = DBConnection.getInstance().createStatement();
         //System.out.println("update billboard set BillboardName="name", message="message"+ data[2]+",info="+ data[3]+",url="+ data[4]+" where billboardID="+ data[0]+";");
-        statement.executeQuery("update billboard set BillboardName='"+ name+"', message='"+ message+"',info='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
+        statement.executeQuery("update billboard set billboardName='"+ name+"', message='"+ message+"',info='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
+        statement.executeQuery("update billboard_info set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where viewID='"+ id+"';");
         statement.close();
     }
 

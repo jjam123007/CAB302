@@ -26,32 +26,34 @@ public class EditBillboards implements ControlPanelComponent {
     public JButton editUpdateButton;
     public JTextArea editBbID;
     public JTable viewTable;
-    public int rowToEdit;
+    public JTextArea toEditRow;
 
+    public int rowToEdit;
 
     public EditBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
-        System.out.println(rowToEdit);
 
         editUpdateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int billboardId = Integer.valueOf(editBbID.getText());
+                int viewId = Integer.valueOf(editBbID.getText());
                 String billboardName = editBbName.getText();
                 String billboardMessage = editBbMsg.getText();
                 String billboardInformation = editBbInfo.getText();
                 String billboardUrl = editBbImgLink.getText();
+                rowToEdit = Integer.valueOf(toEditRow.getText());
+
                 System.out.println("Data Updated");
                 System.out.println(billboardName+" "+billboardMessage+" "+billboardInformation+" "+billboardUrl);
 
                 try {
-                    Object[] newTable = {billboardId,billboardName,billboardMessage,billboardInformation,billboardUrl};
+                    Object[] newTable = {viewId,billboardName,billboardMessage,billboardInformation,billboardUrl};
                     BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable, ClientUser.getToken());
                     oos.writeObject(edit);
                     oos.flush();
-
-                    viewTable.getModel().setValueAt(billboardId,rowToEdit,0);
+                    System.out.println("ROW TO EDIT"+rowToEdit);
+                    viewTable.getModel().setValueAt(viewId,rowToEdit,0);
                     viewTable.getModel().setValueAt(billboardName,rowToEdit,1);
                     viewTable.getModel().setValueAt(billboardMessage,rowToEdit,2);
                     viewTable.getModel().setValueAt(billboardInformation,rowToEdit,3);
@@ -88,6 +90,7 @@ public class EditBillboards implements ControlPanelComponent {
         this.editUpdateButton = controlPanelGUI.editUpdateButton;
         this.editBbID = controlPanelGUI.editBbID;
         this.viewTable = controlPanelGUI.viewTable;
-        this.rowToEdit = controlPanelGUI.rowToEdit;
+        this.toEditRow = controlPanelGUI.toEditRow;
+
     }
 }

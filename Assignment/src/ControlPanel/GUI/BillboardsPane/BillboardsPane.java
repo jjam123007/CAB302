@@ -48,7 +48,7 @@ public class BillboardsPane implements ControlPanelComponent {
 
                         viewTable.setModel(new DefaultTableModel(
                                 data,
-                                new String[]{"BillboardID","Billboard Name","Creator Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
+                                new String[]{"View ID","Billboard Name","Creator Name","Message","Information", "Url", "Scheduled Date", "Start time", "End time"}
                         ));
 
                     } catch (IOException | ClassNotFoundException ex) {
