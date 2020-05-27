@@ -24,9 +24,9 @@ public class DisplayBillboardViewer {
 
     public static void main (String args[]) throws Exception {
         // Create initial billboard
-        createBillboard(Color.decode("#ffffff"), "Loading...",
-                Color.decode("#000000"), "Loading...", Color.decode("#000000"),
-                "https://i.ytimg.com/vi/Gu24piLwtOg/maxresdefault.jpg");
+        setupBillboard(Color.decode("#ffffff"), "Loading...",
+                Color.decode("#000000"), "The billboard is booting up...", Color.decode("#000000"),
+                "https://hackernoon.com/drafts/pp6p36ml.png");
 
         // Constantly receive data from the server
         for (;;) {
@@ -41,7 +41,7 @@ public class DisplayBillboardViewer {
 
                 // Check if the string sent is null or not
                 if (input == null) {
-                    renewBillboard(Color.decode("#ffffff"), "The server is currently in maintenance",
+                    billboard.renewBillboard(Color.decode("#ffffff"), "The server is currently in maintenance",
                             Color.decode("#000000"), "Something something", Color.decode("#000000"),
                             "https://media.noria.com/sites/Uploads/2018/12/20/73c77e51-97d0-4ec5-81dc-e80c0b265dcf_Images_ProactiveMaintenanceApproach_31035_1234x694_large.jpeg");
                 } else {
@@ -49,14 +49,14 @@ public class DisplayBillboardViewer {
                     readXML(input);
 
                     // View the billboard
-                    renewBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
+                    billboard.renewBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
                 }
 
                 // Delay
                 Thread.sleep(3000);
 
             } catch (Exception e) {
-                renewBillboard(Color.decode("#f2fc92"), "The server is currently in maintenance",
+                billboard.renewBillboard(Color.decode("#f2fc92"), "The server is currently in maintenance",
                         Color.decode("#000000"), information, Color.decode("#000000"),
                         "https://media.noria.com/sites/Uploads/2018/12/20/73c77e51-97d0-4ec5-81dc-e80c0b265dcf_Images_ProactiveMaintenanceApproach_31035_1234x694_large.jpeg");
             }
@@ -105,7 +105,7 @@ public class DisplayBillboardViewer {
         System.out.println(information);
     }
 
-    private static void createBillboard(Color billboardColour, String message, Color messageColour,
+    private static void setupBillboard(Color billboardColour, String message, Color messageColour,
                                         String info, Color infoColour, String imgURL) throws Exception {
         // Create an instance of the billboard
         billboard = new BillboardViewer(billboardColour);
@@ -113,19 +113,10 @@ public class DisplayBillboardViewer {
         // Change the information displayed
         billboard.changeMessage(message, messageColour);
         billboard.changeInfo(info, infoColour);
-        billboard.changeImage(imgURL);
+        billboard.changeImage(imgURL, 1.0/3);
 
         // Show the billboard
         billboard.showBillboard();
-    }
-
-    private static void renewBillboard(Color billboardColour, String message, Color messageColour,
-                                       String info, Color infoColour, String imgURL) throws Exception {
-        // Change the information displayed
-        billboard.changeBackground(billboardColour);
-        billboard.changeMessage(message, messageColour);
-        billboard.changeInfo(info, infoColour);
-        billboard.changeImage(imgURL);
     }
 
     private static void setStreams() throws IOException {

@@ -1,5 +1,6 @@
-package BillboardViewer;
+package BillboardViewer.Test;
 
+import BillboardViewer.BillboardViewer;
 import Database.DBConnection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -32,7 +33,7 @@ public class Test {
     private static Color billboardColour, messageColour, informationColour;
 
     public static void main(String[] args) throws Exception {
-        File a = new File("src/BillboardViewer/text-only.xml");
+        File a = new File("src/BillboardViewer/Test/info-only.xml");
 
         // Create a document builder to parse the XML file
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -74,7 +75,16 @@ public class Test {
         }
         System.out.println(information);
 
-        createBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
+        createBillboard(Color.decode("#ffffff"), "Loading...",
+                Color.decode("#000000"), "Loading...", Color.decode("#000000"),
+                "https://i.ytimg.com/vi/Gu24piLwtOg/maxresdefault.jpg");
+        billboard.renewBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
+//        Thread.sleep(5000);
+//        billboard.renewBillboard(Color.decode("#ffffff"), "Loading...",
+//                Color.decode("#000000"), "Loading...", Color.decode("#000000"),
+//                "https://i.ytimg.com/vi/Gu24piLwtOg/maxresdefault.jpg");
+//        Thread.sleep(3000);
+//        billboard.renewBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
     }
 
     private static void createBillboard(Color billboardColour, String message, Color messageColour,
@@ -85,7 +95,7 @@ public class Test {
         // Change the information displayed
         billboard.changeMessage(message, messageColour);
         billboard.changeInfo(info, infoColour);
-        billboard.changeImage(imgURL);
+        billboard.changeImage(imgURL, 1.0/3);
 
         // Show the billboard
         billboard.showBillboard();
