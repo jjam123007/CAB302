@@ -8,8 +8,11 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
+/**
+ * @author Nikolai Taufao | N10481087
+ */
 public class LoginReply implements Serializable{
+
     private Boolean success = false;
     private String errorMessage = null;
     private String sessionToken = null;
@@ -28,12 +31,18 @@ public class LoginReply implements Serializable{
     public String getSessionToken() {return sessionToken;}
     public UserPermissions getPermissions() { return permissions; }
 
+
+    /**
+     * Send back the client's username, password and permissions if the request credentials are correct.
+     * @param loginRequest the login request.
+     * @throws SQLException
+     */
     public LoginReply(LoginRequest loginRequest) throws SQLException  {
        this.loginRequest = loginRequest;
        this.username = loginRequest.getUsername();
        try {
            String username = loginRequest.getUsername();
-           String dbPasswordQuery = ("SELECT password, salt FROM user WHERE username='" + username + "';");
+           String dbPasswordQuery = ("SELECT password, salt FROM users WHERE username='" + username + "';");
 
            Statement statement = DBConnection.getInstance().createStatement();
            ResultSet passwordResult = statement.executeQuery(dbPasswordQuery);
@@ -49,9 +58,17 @@ public class LoginReply implements Serializable{
            statement.close();
 
        }catch (Exception exception){
+           exception.printStackTrace();
        }
    }
 
+    /***
+     * Salt and hash the user's password from the database and return it.
+     * @param passwordResult the sql result set from the user table.
+     * @return the hashed salted password.
+     * @throws SQLException
+     * @throws NoSuchAlgorithmException
+     */
    public String saltPassword(ResultSet passwordResult) throws SQLException, NoSuchAlgorithmException {
         String password = loginRequest.getPassword();
         String salt = passwordResult.getString("salt");
@@ -59,11 +76,17 @@ public class LoginReply implements Serializable{
         return saltedPassword;
    }
 
+    /***
+     * Retrieve the user's permissions if the client's password matches the salted password in the database.
+     * @param requestPassword the password sent by the client which was hashed and salted.
+     * @param saltedPassword the salted password stored in the database.
+     * @throws SQLException
+     */
+
    public void checkPassword(String requestPassword, String saltedPassword) throws SQLException {
        if (requestPassword.equals(saltedPassword)){
            this.success = true;
            this.sessionToken = DataSecurity.randomString();
-
            retrievePermissions();
            ServerUserSession.addSession(this.sessionToken, loginRequest.getUsername());
            ServerUserSession.getUsername(this.sessionToken);
@@ -73,6 +96,10 @@ public class LoginReply implements Serializable{
        }
    }
 
+    /***
+     * Retrieve the user's permissions from the database and send it to the client.
+     * @throws SQLException
+     */
    public void retrievePermissions() throws SQLException {
         String username = loginRequest.getUsername();
         String permissionsQuery = ("SELECT * FROM permissions WHERE username='" + username + "';");

@@ -5,12 +5,21 @@ import User.PermissionType;
 import User.UserPermissions;
 import User.ServerUserSession;
 import UserManagement.Requests.EditUserPropertyRequest;
-
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class EditUserPermisionsReply extends Reply{
-    public EditUserPermisionsReply(EditUserPropertyRequest editUserPropertyRequest, String sessionToken) throws SQLException {
+/**
+ * @author Nikolai Taufao | N10481087
+ */
+public class EditUserPermissionsReply extends Reply{
+
+    /**
+     * Change the permissions of a user specified in the request only if the request client user is an admin.
+     * @param editUserPropertyRequest object containing the target user and their new permissions.
+     * @param sessionToken
+     * @throws SQLException
+     */
+    public EditUserPermissionsReply(EditUserPropertyRequest editUserPropertyRequest, String sessionToken) throws SQLException {
         super(sessionToken);
         String username = editUserPropertyRequest.getUsername();
         UserPermissions userPermissions = editUserPropertyRequest.getPermissions();
@@ -24,10 +33,18 @@ public class EditUserPermisionsReply extends Reply{
         }
     }
 
+    /**
+     * Check if the target user is same as the user that made the request and is also admin. If this is the case, send back an
+     * error message to the client.
+     * @param username target user.
+     * @param userPermissions new user permissions.
+     * @param sessionToken
+     */
     private void checkUserPermissions(String username, UserPermissions userPermissions, String sessionToken) {
         String clientUser = ServerUserSession.getUsername(sessionToken);
+        boolean targetUserIsClientUser = username.equals(clientUser);
 
-        if (username.equals(clientUser) && userPermissions.canEditUsers() == false){
+        if (targetUserIsClientUser && userPermissions.canEditUsers() == false){
             this.errorMessage="You cant remove permission 'edit users' from your own account!";
         }else{
             changeUserPermissions(username, userPermissions);
@@ -35,6 +52,11 @@ public class EditUserPermisionsReply extends Reply{
 
     }
 
+    /**
+     * Execute the sql query to change the specified user's permissions.
+     * @param username target user.
+     * @param userPermissions new user permissions.
+     */
     private void changeUserPermissions(String username, UserPermissions userPermissions) {
         try {
             int p1 = userPermissions.canCreateBillboards() ? 1 : 0;
@@ -42,14 +64,14 @@ public class EditUserPermisionsReply extends Reply{
             int p3 = userPermissions.canScheduleBillboards()? 1 : 0;
             int p4 = userPermissions.canEditUsers()? 1 : 0;
 
-            String query = "UPDATE permissions SET " +
+            String updatePermissions = "UPDATE permissions SET " +
                     "createBillboards='"+p1+"'," +
                     "editBillboards='"+p2+"'," +
                     "scheduleBillboards='"+p3+"'," +
                     "editUsers='"+p4+"' WHERE username='"+username+"'; ";
 
             Statement statement = DBConnection.getInstance().createStatement();
-            statement.executeQuery(query);
+            statement.executeQuery(updatePermissions);
             statement.close();
             this.success = true;
 

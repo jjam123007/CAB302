@@ -11,6 +11,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Nikolai Taufao | N10481087
+ */
 public class ViewUsersReply extends Reply implements Serializable {
 
     private List<Object> userDataTable;
@@ -18,6 +21,11 @@ public class ViewUsersReply extends Reply implements Serializable {
         return userDataTable;
     }
 
+    /**
+     * Send all of the usernames within the database to the request client only if the client user is an admin.
+     * @param sessionToken
+     * @throws SQLException
+     */
     public ViewUsersReply(String sessionToken) throws SQLException {
         super(sessionToken);
         if (!sessionExpired) {

@@ -1,15 +1,14 @@
 
 package ControlPanel.GUI;
 
-import ControlPanel.GUI.AdminPane.AdminPane;
-import ControlPanel.GUI.AdminPane.RegisterUser;
-import ControlPanel.GUI.BillboardsPane.*;
-
 import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 
+/**
+ * This class contains all of the java swing components that form the control panel GUI.
+ */
 public class ControlPanelGUI {
     public JPanel controlPanel;
     public JTabbedPane billboardsPane;
@@ -67,19 +66,24 @@ public class ControlPanelGUI {
     public JButton changePermissionsButton;
     public JTabbedPane tabbedPane1;
     public  JButton clientChangePasswordButton;
-    public  JPasswordField clientCurrentPasswordField;
     public  JPasswordField clientReenterPasswordField;
     public  JPasswordField clientNewPasswordField;
     public JButton logoutButton;
     public JTextArea toEditRow;
-    public JLabel RowToEdit;
-
-    public int rowToEdit;
     public Socket socket;
     public ObjectOutputStream oos;
     public ObjectInputStream ois;
     protected JFrame frame;
 
+    /**
+     * Create the control panel GUI display it on screen.
+     * @param socket the client socket connected to the server.
+     * @param oos the client object output stream connected to the server.
+     * @param ois the client object input stream connected to the server.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public ControlPanelGUI(Socket socket, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException, SQLException {
         JPanel root = this.controlPanel;
         frame = new JFrame();

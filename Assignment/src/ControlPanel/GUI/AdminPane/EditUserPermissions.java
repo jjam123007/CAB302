@@ -3,7 +3,7 @@ package ControlPanel.GUI.AdminPane;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
 import User.UserPermissions;
-import UserManagement.Replies.EditUserPermisionsReply;
+import UserManagement.Replies.EditUserPermissionsReply;
 import UserManagement.Requests.EditUserPropertyRequest;
 import UserManagement.Requests.UserManagementRequest;
 import UserManagement.Requests.UserManagementRequestType;
@@ -13,17 +13,25 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
+/**
+ * @author Nikolai Taufao | N10481087
+ */
 public class EditUserPermissions implements ControlPanelComponent {
 
     public ObjectOutputStream oos;
     public ObjectInputStream ois;
 
     private String selectedUser = null;
+
     protected void setSelectedUser(String selectedUser){
         this.selectedUser = selectedUser;
     }
 
+
+    /**
+     * Set the checkboxes within the edit users panel to selected according to the client admin's chosen user's permissions.
+     * @param userPermissions
+     */
     protected void setUserPermissions(UserPermissions userPermissions) {
         editUsersAdminPermEdit.setSelected(userPermissions.canEditUsers());
         createBillboardsPermEdit.setSelected(userPermissions.canCreateBillboards());
@@ -38,6 +46,10 @@ public class EditUserPermissions implements ControlPanelComponent {
 
     public JButton changePermissionsButton;
 
+    /**
+     * Create the permissions section of the edit users panel which allows admins to change the permissions of a selected user.
+     * @param controlPanelGUI
+     */
     public EditUserPermissions(ControlPanelGUI controlPanelGUI){
         setControlPanelComponents(controlPanelGUI);
         setChangePermissionsButton();
@@ -64,7 +76,7 @@ public class EditUserPermissions implements ControlPanelComponent {
         EditUserPropertyRequest editUserPropertyRequest = new EditUserPropertyRequest(selectedUser, userPermissions);
         UserManagementRequest editUserPermissionsRequest = new UserManagementRequest(UserManagementRequestType.changePermissions, editUserPropertyRequest);
         oos.writeObject(editUserPermissionsRequest);
-        EditUserPermisionsReply editUserPermisionsReply = (EditUserPermisionsReply) ois.readObject();
+        EditUserPermissionsReply editUserPermisionsReply = (EditUserPermissionsReply) ois.readObject();
 
         if (editUserPermisionsReply.isSuccess()){
             String successMessage = "Permissions successfully changed for user '"+selectedUser+"'.";

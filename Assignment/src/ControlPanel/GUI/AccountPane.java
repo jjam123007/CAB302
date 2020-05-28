@@ -13,6 +13,9 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author Nikolai Taufao | N10481087
+ */
 public class AccountPane implements ControlPanelComponent {
     public ObjectOutputStream oos;
     public ObjectInputStream ois;
@@ -23,6 +26,10 @@ public class AccountPane implements ControlPanelComponent {
     public  JPasswordField clientNewPasswordField;
     public JButton logoutButton;
 
+    /**
+     * Create the account pane which allows client users to change their own password or logout.
+     * @param controlPanelGUI
+     */
     public AccountPane(ControlPanelGUI controlPanelGUI){
         setControlPanelComponents(controlPanelGUI);
         setChangePasswordPane();
@@ -40,6 +47,12 @@ public class AccountPane implements ControlPanelComponent {
         logoutButton.addActionListener(logoutButtonAction);
     }
 
+
+    /**
+     * Send a logout request to the server. This will log the user out of the client system and remove their session token from the server.
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     private void logout() throws IOException, ClassNotFoundException {
         UserManagementRequest logoutRequest = new UserManagementRequest(UserManagementRequestType.logout);
         oos.writeObject(logoutRequest);
@@ -57,6 +70,7 @@ public class AccountPane implements ControlPanelComponent {
     }
 
     private void setChangePasswordButton() {
+        // Change the password of the current client user.
         ActionListener changePasswordButtonAction = e -> {
             try {
                 String password = clientNewPasswordField.getText();

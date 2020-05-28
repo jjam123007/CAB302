@@ -1,7 +1,9 @@
 package User;
 
 import java.io.Serializable;
-
+/**
+ * @author Nikolai Taufao | N10481087
+ */
 public class UserPermissions implements Serializable {
     private boolean createBillboards;
     private boolean editBillboards;
@@ -23,6 +25,13 @@ public class UserPermissions implements Serializable {
     }
     public boolean isAdmin() { return admin; }
 
+    /**
+     * Arrange the permissions associated with a user.
+     * @param createBillboards
+     * @param editBillboards
+     * @param scheduleBillboards
+     * @param editUsers
+     */
     public UserPermissions(boolean createBillboards, boolean editBillboards, boolean scheduleBillboards, boolean editUsers){
         this.createBillboards = createBillboards;
         this.editBillboards = editBillboards;

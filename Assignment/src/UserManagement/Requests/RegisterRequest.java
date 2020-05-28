@@ -5,7 +5,9 @@ import UserManagement.DataSecurity;
 
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
-
+/**
+ * @author Nikolai Taufao | N10481087
+ */
     public class RegisterRequest implements Serializable {
         private String username;
         private String password;
@@ -16,6 +18,13 @@ import java.security.NoSuchAlgorithmException;
         public UserPermissions getPermissions() { return permissions; }
 
 
+    /**
+     * Send a request to the server to register a user's username, password and permissions to the database.
+     * @param username new user's username.
+     * @param password new user's password.
+     * @param permissions new user's permissions.
+     * @throws NoSuchAlgorithmException
+     */
         public RegisterRequest(String username, String password, UserPermissions permissions) throws NoSuchAlgorithmException {
             this.username = username;
             this.password = DataSecurity.hash(password);

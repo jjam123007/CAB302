@@ -24,6 +24,7 @@ import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.sql.Statement;
+import java.util.Map;
 
 
 public class Server {
@@ -83,36 +84,8 @@ public class Server {
                 break;
             }
             case showTable: {
-                Object[][] tableData;
-
-                Statement statement = DBConnection.getInstance().createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM billboard_info");
-
-                int rowcount = 0;
-
-                if (resultSet.last()) {
-                    rowcount = resultSet.getRow();
-                    resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
-                }
-                tableData = new Object[rowcount][9];
-
-                for (int i = 0; i < rowcount; i++) {
-                    resultSet.next();
-                    String viewID = Integer.toString(resultSet.getInt(1));
-                    String BillboardName = resultSet.getString(2);
-                    String creatorName = resultSet.getString(3);
-                    String msg = resultSet.getString(4);
-                    String info = resultSet.getString(5);
-                    String url = resultSet.getString(6);
-                    String schduledDate = resultSet.getString(7);
-                    Time startTime = resultSet.getTime(8);
-                    Time endTime = resultSet.getTime(9);
-                    Object[] myString = {viewID, BillboardName,creatorName, msg,info, url, schduledDate, startTime, endTime};
-                    tableData[i] = myString;
-                }
-                statement.close();
-                SerializeArray d2 = new SerializeArray(tableData);
-                oos.writeObject(d2);
+                SerializeArray tableData = ManageBillboards.showBillboards();
+                oos.writeObject(tableData);
                 oos.flush();
                 break;
             }
@@ -165,7 +138,7 @@ public class Server {
 
             case changePermissions:{
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
-                EditUserPermisionsReply editUserPermisionsReply = new EditUserPermisionsReply(editUserPropertyRequest, sessionToken);
+                EditUserPermissionsReply editUserPermisionsReply = new EditUserPermissionsReply(editUserPropertyRequest, sessionToken);
                 oos.writeObject(editUserPermisionsReply);
                 break;
             }

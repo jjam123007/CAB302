@@ -12,7 +12,9 @@ import java.io.*;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
-
+/**
+ * @author Nikolai Taufao | N10481087
+ */
 public class LoginGUI {
 
     private JFrame frame;
@@ -28,6 +30,12 @@ public class LoginGUI {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private Socket socket;
+
+
+    /**
+     * Create the login form which appears on control panel startup.
+     * @throws IOException
+     */
     public LoginGUI() throws IOException {
         this.frame = new JFrame("Login");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -39,6 +47,7 @@ public class LoginGUI {
         setStreams();
     }
 
+    // Set the streams be between the client and server.
     private void setStreams() throws IOException {
         socket = new Socket("localhost",3310);
         OutputStream os = socket.getOutputStream();
@@ -49,13 +58,12 @@ public class LoginGUI {
     }
 
     private void setLoginButton(){
-        ActionListener buttonPress = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try { sendLoginRequest(); } catch (NoSuchAlgorithmException | IOException | ClassNotFoundException | SQLException exception) { exception.printStackTrace(); }
-            }
+        ActionListener login = e -> {
+            try { sendLoginRequest(); }
+            catch (NoSuchAlgorithmException | IOException | ClassNotFoundException | SQLException exception)
+            { exception.printStackTrace(); }
         };
-        loginButton.addActionListener(buttonPress);
+        loginButton.addActionListener(login);
     }
 
     private void sendLoginRequest() throws IOException, NoSuchAlgorithmException, ClassNotFoundException, SQLException {
@@ -70,6 +78,7 @@ public class LoginGUI {
     private void handleLoginReply() throws IOException, ClassNotFoundException, SQLException {
         LoginReply loginReply = (LoginReply) ois.readObject();
         if (loginReply.isSuccess()){
+            // Store the client user's session token, username and permissions in memory.
             new ClientUser(loginReply.getSessionToken(), loginReply.getUsername(), loginReply.getPermissions());
             new ControlPanelGUI(socket,oos,ois);
             this.frame.dispose();

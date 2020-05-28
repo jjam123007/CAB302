@@ -1,11 +1,14 @@
 package Billboard;
 
+import ControlPanel.SerializeArray;
 import Database.DBConnection;
 import User.ServerUserSession;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Time;
 
 public final class ManageBillboards implements Serializable {
 
@@ -73,6 +76,39 @@ public final class ManageBillboards implements Serializable {
         statement.executeQuery("update billboard set billboardName='"+ name+"', message='"+ message+"',info='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
         statement.executeQuery("update billboard_info set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where viewID='"+ id+"';");
         statement.close();
+    }
+
+    public static SerializeArray showBillboards() throws SQLException {
+        Object[][] tableData;
+
+        Statement statement = DBConnection.getInstance().createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM billboard_info");
+
+        int rowcount = 0;
+
+        if (resultSet.last()) {
+            rowcount = resultSet.getRow();
+            resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+        }
+        tableData = new Object[rowcount][9];
+
+        for (int i = 0; i < rowcount; i++) {
+            resultSet.next();
+            String viewID = Integer.toString(resultSet.getInt(1));
+            String BillboardName = resultSet.getString(2);
+            String creatorName = resultSet.getString(3);
+            String msg = resultSet.getString(4);
+            String info = resultSet.getString(5);
+            String url = resultSet.getString(6);
+            String scheduledDate = resultSet.getString(7);
+            Time startTime = resultSet.getTime(8);
+            Time endTime = resultSet.getTime(9);
+            Object[] myString = {viewID, BillboardName,creatorName, msg,info, url, scheduledDate, startTime, endTime};
+            tableData[i] = myString;
+        }
+        statement.close();
+        SerializeArray tableDataArray = new SerializeArray(tableData);
+        return tableDataArray;
     }
 
 }
