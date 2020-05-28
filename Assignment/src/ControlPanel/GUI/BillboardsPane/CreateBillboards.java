@@ -60,6 +60,11 @@ public class CreateBillboards implements ControlPanelComponent {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+                createBbName.setText("");
+                createBbMsg.setText("");
+                createBbInfo.setText("");
+                createBbImgLink.setText("");
+
 
             }
         });

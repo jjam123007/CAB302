@@ -46,6 +46,10 @@ public class ScheduleBillboards implements ControlPanelComponent {
                 } catch (IOException ex) {
                     ex.printStackTrace();
                 }
+                scheduleBbID.setText("");
+                scheduleBbDate.setText("");
+                scheduleStartTime.setText("");
+                scheduleEndTime.setText("");
             }
         });
     }
