@@ -9,7 +9,19 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Contains two static functions to query the billboard that needs to be display at
+ * local machine's time and return its XML formatted string stored to the database
+ *
+ * @author William Tran - 10306234
+ */
+
 public final class QueryXML {
+    /**
+     * Get XML formatted string from the database based on local machine's time
+     *
+     * @return
+     */
     public static String queryXML() {
         // Retrieve billboard ID
         String billboardID = getBillboardFromSchedule();
@@ -57,7 +69,7 @@ public final class QueryXML {
             System.out.println("Displaying billboard: " + billboardID);
             statement.close();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("There is no billboard to be displayed right now");
         }
         return billboardID;
     }

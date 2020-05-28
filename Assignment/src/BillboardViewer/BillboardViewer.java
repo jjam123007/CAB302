@@ -70,78 +70,80 @@ public class BillboardViewer {
 
     public void renewBillboard(Color billboardColour, String message, Color messageColour,
                                 String info, Color infoColour, String imgURL) throws Exception {
-        // Temporarily turn the billboard down
-        billboardPanel.setVisible(false);
+        // Check if the billboard needs to be renew or not
+        if (billboardHasChanged(billboardColour, message, messageColour, info, infoColour)) {
+            // Default image ratio
+            double ratio = 1.0/3;
 
-        // Default image ratio
-        double ratio = 1.0/3;
+            // Change the properties of the components
+            Boolean noMessage = (message == null);
+            Boolean noInfo = (info == null);
+            Boolean noImage = (imgURL == null);
 
-        // Change the properties of the components
-        Boolean noMessage = (message == null);
-        Boolean noInfo = (info == null);
-        Boolean noImage = (imgURL == null);
+            // Calculate message size in every situation
+            int messageFontSize = (int) (message != null? Math.round((screenWidth/message.length())/CAMBRIA_WIDTH_RATIO) : 0);
+            if (messageFontSize > screenHeight / 9) {
+                messageFontSize = (int) Math.round(screenHeight / 9);
+            }
 
-        System.out.println(screenHeight + "x" + screenWidth);
-        // Calculate message size in every situation
-        int messageFontSize = (int) (message != null? Math.round((screenWidth/message.length())/CAMBRIA_WIDTH_RATIO) : 0);
-        if (messageFontSize > screenHeight / 9) {
-            messageFontSize = (int) Math.round(screenHeight / 9);
-        }
+            // Check the existence of data
+            if (noMessage) {
+                if (noImage) {
+                    // Only information
+                    // Calculate the font size
+                    int fontSize = (int) Math.round((screenWidth/info.length())/CAMBRIA_WIDTH_RATIO * 3);
+                    System.out.println(fontSize);
+                    infoTextPane.setFont(new Font("Cambria", Font.PLAIN, fontSize));
+                } else if (noInfo) {
+                    // Only image
+                    ratio = 1.0/2;
+                } else {
+                    // Information and image
+                    ratio = 1.0/2;
 
-        // Check the existence of data
-        if (noMessage) {
-            if (noImage) {
-                // Only information
-                // Calculate the font size
-                int fontSize = (int) Math.round((screenWidth/info.length())/CAMBRIA_WIDTH_RATIO * 3);
-                System.out.println(fontSize);
-                infoTextPane.setFont(new Font("Cambria", Font.PLAIN, fontSize));
+                    // Set the image panel size
+                    imagePanel.setPreferredSize(new Dimension((int) screenWidth, (int) screenHeight/3));
+                }
+            } else if (noImage) {
+                // Set message font size
+                titleLabel.setFont(new Font("Cambria", Font.PLAIN, messageFontSize));
+                if (!noInfo) {
+                    // Message and information
+                    // Calculate the font size
+
+                    // Set back the panel size
+                    infoPanel.setPreferredSize(new Dimension((int) screenWidth, (int) screenHeight/10));
+                }
+                // Else -> message only: do nothing
             } else if (noInfo) {
-                // Only image
-                ratio = 1.0/2;
-            } else {
-                // Information and image
+                // Message and image
+                // Set message font size
+                titleLabel.setFont(new Font("Cambria", Font.PLAIN, messageFontSize));
+
+                // Set image ratio
                 ratio = 1.0/2;
 
                 // Set the image panel size
                 imagePanel.setPreferredSize(new Dimension((int) screenWidth, (int) screenHeight/3));
+
+            } else {
+                // Has all 3 of them
+                // Set message font size
+                titleLabel.setFont(new Font("Cambria", Font.PLAIN, messageFontSize));
             }
-        } else if (noImage) {
-            // Set message font size
-            titleLabel.setFont(new Font("Cambria", Font.PLAIN, messageFontSize));
-            if (!noInfo) {
-                // Message and information
-                // Calculate the font size
 
-                // Set back the panel size
-                infoPanel.setPreferredSize(new Dimension((int) screenWidth, (int) screenHeight/10));
-            }
-            // Else -> message only: do nothing
-        } else if (noInfo) {
-            // Message and image
-            // Set message font size
-            titleLabel.setFont(new Font("Cambria", Font.PLAIN, messageFontSize));
+            // Temporarily turn the billboard down to make changes to the components
+            billboardPanel.setVisible(false);
 
-            // Set image ratio
-            ratio = 1.0/2;
+            // Change the information displayed
+            changeBackground(billboardColour);
+            changeMessage(message, messageColour);
+            changeInfo(info, infoColour);
+            changeImage(imgURL, ratio);
 
-            // Set the image panel size
-            imagePanel.setPreferredSize(new Dimension((int) screenWidth, (int) screenHeight/3));
-
-        } else {
-            // Has all 3 of them
-            // Set message font size
-            titleLabel.setFont(new Font("Cambria", Font.PLAIN, messageFontSize));
+            // Turn the billboard up again
+            billboardPanel.setVisible(true);
         }
-
-        // Change the information displayed
-        changeBackground(billboardColour);
-        changeMessage(message, messageColour);
-        changeInfo(info, infoColour);
-        changeImage(imgURL, ratio);
-
-        // Turn the billboard up again
-        billboardPanel.setVisible(true);
     }
 
     // Check the content and display in appropriate way
@@ -152,6 +154,7 @@ public class BillboardViewer {
         titlePanel.setBackground(billboardColour);
         imagePanel.setBackground(billboardColour);
         infoPanel.setBackground(billboardColour);
+        infoTextPane.setBackground(billboardColour);
     }
 
     // Change the title and its colour of the billboard
@@ -224,9 +227,16 @@ public class BillboardViewer {
         }
     }
 
-    // Export the billboard
-    public JPanel ExportBillboard() {
-        return billboardPanel;
+    // Check if the information in the billboard is new or not
+    private Boolean billboardHasChanged(Color billboardColour, String message, Color messageColour,
+                                               String info, Color infoColour) {
+        if (billboardColour.equals(billboardPanel.getBackground()) && (message.equals(titleLabel.getText()))
+                && messageColour.equals(titleLabel.getForeground()) && (info.equals(infoTextPane.getText()))
+                && infoColour.equals(infoTextPane.getForeground())) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     // Function to close the billboard viewer
