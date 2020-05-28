@@ -20,57 +20,84 @@ public final class QueryXML {
     /**
      * Get XML formatted string from the database based on local machine's time
      *
-     * @return
+     * @return billboard XML formatted string if found, null otherwise
      */
     public static String queryXML() {
         // Retrieve billboard ID
         String billboardID = getBillboardFromSchedule();
 
-        // Generate query to get the xml
-        String query = "Select xml from billboard where billboardID = " + billboardID + ";";
+        // Check if there is any billboard required to be displayed
+        if (billboardID != null) {
+            // Generate query to get the xml
+            String query = "Select xml from billboard where billboardID = " + billboardID + ";";
 
-        // Initial result
-        String result = null;
+            // Setup initial result
+            String result = null;
 
-        // Execute SQL
-        try {
-            Statement statement = DBConnection.getInstance().createStatement();
-            ResultSet sqlResult = statement.executeQuery(query);
-            sqlResult.next();
-            result = sqlResult.getString(1);
-            statement.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                // Establish a connection to the database
+                Statement statement = DBConnection.getInstance().createStatement();
+
+                // Execute the SQL query
+                ResultSet sqlResult = statement.executeQuery(query);
+
+                // Retrieve the result
+                sqlResult.next();
+                result = sqlResult.getString(1);
+
+                // Close the connection
+                statement.close();
+            } catch (SQLException e) {
+                // If the billboard is not found, print a message to the server
+                System.out.println("Billboard not found. Please check the billboard from the control panel.");
+            }
+
+            // Return the result
+            return result;
+        } else {
+            // If there is no billboard to be displayed, return null
+            return null;
         }
-
-        // Return the result
-        return result;
     }
 
+    /**
+     * Retrieve local machine date and time and determine which billboard should be
+     * displayed from the schedule stored in the database
+     *
+     * @return the billboard ID that should be displayed, null if there aren't any
+     */
     public static String getBillboardFromSchedule() {
         // Get system date and time
         String date = LocalDate.now().toString();
         String time = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        // Setup initial result
         String billboardID = null;
 
         // Generate query
         String query = "Select billboardID from schedule where scheduleDate = \"" + date + "\"" +
                 " and (startTime <= \"" + time + "\" and endTime >= \"" + time + "\");";
 
-        // Execute query
         try {
+            // Establish a connection to the database
             Statement statement = DBConnection.getInstance().createStatement();
+
+            // Execute the SQL query
             ResultSet sqlResult = statement.executeQuery(query);
 
-            // Get the latest entry
+            // Get the latest entry and retrieve the result
             sqlResult.afterLast();
             sqlResult.previous();
             billboardID = sqlResult.getString(1);
-            System.out.println("Displaying billboard: " + billboardID);
+
+            // Close the connection
             statement.close();
         } catch (SQLException e) {
-            System.out.println("There is no billboard to be displayed right now");
+            // If there is no billboard to be displayed, print a message
+            System.out.println("There is no billboard to be displayed right now.");
         }
+
+        // Return the result
         return billboardID;
     }
 }
