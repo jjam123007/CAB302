@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
-
+/**@author Jun Chen(n10240977)&Haoze He(n10100351) */
 public class ScheduleBillboards implements ControlPanelComponent {
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
@@ -24,11 +24,25 @@ public class ScheduleBillboards implements ControlPanelComponent {
     public JTextArea scheduleBbDate;
     public JButton scheduleSubmitButton;
 
+    /**
+     *
+     *
+     * @param controlPanelGUI
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public ScheduleBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
 
         scheduleSubmitButton.addActionListener(new ActionListener() {
+            /**
+             *Implements a ActionListener for submitButton to upload scheduleDate, startTime, endTime to database and show in view interface
+             * @param e
+             */
             @Override
+            /**
+             * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
+             */
             public void actionPerformed(ActionEvent e) {
                 try {
                     String billboardId = scheduleBbID.getText();
@@ -54,6 +68,10 @@ public class ScheduleBillboards implements ControlPanelComponent {
         });
     }
 
+    /**
+     *setter function to set value for GUI elements and variables
+     * @param controlPanelGUI
+     */
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
         this.oos = controlPanelGUI.oos;

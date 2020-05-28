@@ -81,9 +81,7 @@ public class ViewBillboards implements ControlPanelComponent {
         viewDeleteButton.addActionListener(new ActionListener() {
             /**@param e */
             @Override
-            /**
-             *
-             * @see java.awt.event.addActionListner#actionPerformed(java.awt.event.ActionEvent)*/
+            /**@see javax.awt.event.addActionListner#actionPerformed(javax.awt.event.ActionEvent)*/
             public void actionPerformed(ActionEvent e) {
                 try {
                     Object[] id = {billboardID};
@@ -108,9 +106,7 @@ public class ViewBillboards implements ControlPanelComponent {
         viewEditButton.addActionListener(new ActionListener() {
             /**@param e*/
             @Override
-            /**
-             *
-             * @see java.awt.event.addActionListener#actionPerformed(java.awt.event.ActionListener)*/
+            /**@see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)*/
             public void actionPerformed(ActionEvent e) {
 
                 String billboardId = viewTable.getModel().getValueAt(selectedRow,0).toString();
@@ -139,7 +135,7 @@ public class ViewBillboards implements ControlPanelComponent {
             @Override
             /**
              *
-             * @see java.awt.event.addChangeListener#stateChanged(java.awt.event.ChangeListener) */
+             * @see javax.awt.event.addChangeListener#stateChanged(javax.awt.event.ChangeListener) */
             public void stateChanged(ChangeEvent e) {
                 if(billboardsPane.getSelectedIndex() == 0){
                     try {
