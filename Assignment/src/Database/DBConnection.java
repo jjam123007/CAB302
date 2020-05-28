@@ -1,12 +1,12 @@
 package Database;
 
+import Billboard.BillboardDataSource;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.Properties;
 
 public class DBConnection {
@@ -31,11 +31,34 @@ public class DBConnection {
             instance = DriverManager.getConnection(url + "/" + schema, username,
                     password);
         } catch (SQLException sqle) {
+            System.out.println("Unable to make connection with DB");
             System.err.println(sqle);
         } catch (FileNotFoundException fnfe) {
             System.err.println(fnfe);
         } catch (IOException ex) {
             ex.printStackTrace();
+        }
+    }
+    public static void checkTableExists() throws SQLException {
+        //check if required tables exists
+        Connection conn = DBConnection.getInstance();
+        DatabaseMetaData md = conn.getMetaData();
+        boolean checkBBInfoTable = (md.getTables(null, null, "billboards_info", null).next());
+        boolean checkBillboardsTable = (md.getTables(null, null, "billboards", null).next());
+        boolean checkSchedulesTable= (md.getTables(null, null, "schedules", null).next());
+        boolean checkUserTable = (md.getTables(null, null, "users", null).next());
+        boolean checkPermissionsTable = (md.getTables(null, null, "permissions", null).next());
+
+        if(!checkBBInfoTable){
+            BillboardDataSource.create_viewTable();
+        }else if(!checkBillboardsTable){
+            BillboardDataSource.create_billboardTable();
+        }else if(!checkSchedulesTable){
+            BillboardDataSource.create_schedulesTable();
+        }else if(!checkUserTable){
+            BillboardDataSource.create_usersTable();
+        }else if(!checkPermissionsTable){
+            BillboardDataSource.create_permissionsTable();
         }
     }
 
@@ -50,4 +73,5 @@ public class DBConnection {
         }
         return instance;
     }
+
 }

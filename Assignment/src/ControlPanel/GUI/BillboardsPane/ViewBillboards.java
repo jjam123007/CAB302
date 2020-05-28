@@ -59,18 +59,11 @@ public class ViewBillboards implements ControlPanelComponent {
                         billboardID = Integer.parseInt(viewTable.getValueAt(viewTable.getSelectedRow(),0).toString());
                         selectedRow = viewTable.getSelectedRow();
                         System.out.println("listener selected row "+selectedRow);
-
                     }
                 }
             }
         });
-        viewTable.getModel().addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                int row = e.getFirstRow();
-                billboardID = Integer.valueOf(viewTable.getModel().getValueAt(row,0).toString());
-            }
-        });
+
 
         viewDeleteButton.addActionListener(new ActionListener() {
             @Override

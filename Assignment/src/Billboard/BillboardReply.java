@@ -12,5 +12,4 @@ public class BillboardReply implements Serializable {
     public BillboardReply(String message){
         this.message = message;
     }
-
 }

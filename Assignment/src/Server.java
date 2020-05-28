@@ -33,6 +33,7 @@ public class Server {
 
     public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException {
         setStreams();
+        DBConnection.checkTableExists();
 
         for(;;){
             try {
@@ -86,7 +87,7 @@ public class Server {
                 Object[][] tableData;
 
                 Statement statement = DBConnection.getInstance().createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM billboard_info");
+                ResultSet resultSet = statement.executeQuery("SELECT * FROM billboards_info");
 
                 int rowcount = 0;
 
