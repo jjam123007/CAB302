@@ -24,6 +24,9 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Base64;
 
+/**
+ * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ */
 public class CreateBillboards implements ControlPanelComponent {
     private ObjectOutputStream oos;
     private JPanel controlPanel;
@@ -34,11 +37,24 @@ public class CreateBillboards implements ControlPanelComponent {
     private JButton createBbSubmitButton;
     private JButton createBbPreviewButton;
 
-
+    /**
+     *
+     * @param controlPanelGUI
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public CreateBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
         createBbSubmitButton.addActionListener(new ActionListener() {
+            /**
+             * Implements a ActionListener for submitButton to add new data in database while showing in the view interface,
+             * and clear all input after submitted
+             * @param e
+             */
             @Override
+            /**
+             * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
+             */
             public void actionPerformed(ActionEvent e) {
                 try {
                     String billboardName = createBbName.getText();
@@ -68,10 +84,15 @@ public class CreateBillboards implements ControlPanelComponent {
 
             }
         });
-
-
         createBbPreviewButton.addActionListener(new ActionListener() {
+            /**
+             *Implements a ActionListener for previewButton to show added data on dialog
+             * @param e
+             */
             @Override
+            /**
+             * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
+             */
             public void actionPerformed(ActionEvent e) {
                 String billboardName = createBbName.getText();
                 String msg = createBbMsg.getText();
@@ -118,6 +139,10 @@ public class CreateBillboards implements ControlPanelComponent {
         });
     }
 
+    /**
+     * setter function to set value for GUI elements and variables
+     * @param controlPanelGUI
+     */
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
         this.oos = controlPanelGUI.oos;

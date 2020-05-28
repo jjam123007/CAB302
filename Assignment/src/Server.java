@@ -25,12 +25,21 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.sql.Statement;
 
-
+/**
+ * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ */
 public class Server {
 
     private static ObjectOutputStream oos;
     private static ObjectInputStream ois;
 
+    /**
+     *
+     * @param args
+     * @throws IOException
+     * @throws ClassNotFoundException
+     * @throws SQLException
+     */
     public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException {
         setStreams();
         DBConnection.checkTableExists();
@@ -55,25 +64,25 @@ public class Server {
             } catch (EOFException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-
-
-
-
         }
     }
 
+    /**
+     *
+     * @param billboardRequest
+     * @throws SQLException
+     * @throws IOException
+     */
     private static void handleBillboardRequests(BillboardRequest billboardRequest) throws SQLException, IOException {
         BillboardRequestType request = (billboardRequest).getRequest();  System.out.println("Request type :"+ request);
         String token = (billboardRequest).getSessionToken();
         Object[] billboard = (billboardRequest).getData();
-
         switch (request) {
             case addBillboard: {
                 try {
                     ManageBillboards.addBillboard(billboard, token);
                     BillboardReply messageObject = (BillboardReply) ois.readObject();
                     String message = messageObject.getMessage();
-                    System.out.println("Message: "+message);
                 } catch (ClassNotFoundException e) {
                     e.printStackTrace();
                 }
@@ -85,18 +94,14 @@ public class Server {
             }
             case showTable: {
                 Object[][] tableData;
-
                 Statement statement = DBConnection.getInstance().createStatement();
                 ResultSet resultSet = statement.executeQuery("SELECT * FROM billboards_info");
-
                 int rowcount = 0;
-
                 if (resultSet.last()) {
                     rowcount = resultSet.getRow();
                     resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
                 }
                 tableData = new Object[rowcount][9];
-
                 for (int i = 0; i < rowcount; i++) {
                     resultSet.next();
                     String viewID = Integer.toString(resultSet.getInt(1));

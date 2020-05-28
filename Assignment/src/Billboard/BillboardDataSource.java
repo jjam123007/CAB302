@@ -7,11 +7,18 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+/**
+ * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ */
 public class BillboardDataSource {
 
     //set up the database
     public static final String create_billboardDB = "create database if not exists `billboardscheduler`;";
 
+    /**
+     *
+     * @throws SQLException
+     */
     public static void create_billboardTable() throws SQLException {
         //create billboards table
         String create_billboardTable = "CREATE TABLE IF NOT EXISTS billboards " +
@@ -27,6 +34,11 @@ public class BillboardDataSource {
         statement.executeQuery(create_billboardTable);
         statement.close();
     }
+
+    /**
+     *
+     * @throws SQLException
+     */
     public static void create_viewTable() throws SQLException {
         //create billboards_info table for (view)
         String create_viewTable =
@@ -45,6 +57,11 @@ public class BillboardDataSource {
         statement.executeQuery(create_viewTable);
         statement.close();
     }
+
+    /**
+     *
+     * @throws SQLException
+     */
     public static void create_schedulesTable() throws SQLException {
         //create schedules table
         String create_scheduleTable =
@@ -59,6 +76,11 @@ public class BillboardDataSource {
         statement.executeQuery(create_scheduleTable);
         statement.close();
     }
+
+    /**
+     *
+     * @throws SQLException
+     */
     public static void create_usersTable() throws SQLException {
         //create users table
         String create_userInfo =
@@ -72,6 +94,11 @@ public class BillboardDataSource {
         statement.executeQuery(create_userInfo);
         statement.close();
     }
+
+    /**
+     *
+     * @throws SQLException
+     */
     public static void create_permissionsTable() throws SQLException {
         //create permissions table
         String create_permissions ="CREATE TABLE IF NOT EXISTS permissions (" +

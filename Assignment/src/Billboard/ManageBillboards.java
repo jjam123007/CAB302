@@ -7,8 +7,16 @@ import java.io.Serializable;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ */
 public final class ManageBillboards implements Serializable {
-
+    /**
+     *
+     * @param data
+     * @param token
+     * @throws SQLException
+     */
     public static void addBillboard(Object[] data, String token) throws SQLException{
         String name = (String) data[0];
         String message = (String) data[1];
@@ -39,6 +47,11 @@ public final class ManageBillboards implements Serializable {
         statement.close();
     }
 
+    /**
+     *
+     * @param data
+     * @throws SQLException
+     */
     public static void delete(Object[] data) throws SQLException{
         int id = (int) data[0];
 
@@ -49,6 +62,11 @@ public final class ManageBillboards implements Serializable {
         statement.close();
     }
 
+    /**
+     *
+     * @param data
+     * @throws SQLException
+     */
     public static void addView (Object[] data) throws SQLException {
         String id = (String) data[0];
         String scheduledDate = (String) data[1];
@@ -60,6 +78,11 @@ public final class ManageBillboards implements Serializable {
         statement.close();
     }
 
+    /**
+     *
+     * @param data
+     * @throws SQLException
+     */
     public static void edit(Object[] data) throws SQLException {
         System.out.println("Data0: "+data[0]);
         int id = (int) data[0];
@@ -67,10 +90,7 @@ public final class ManageBillboards implements Serializable {
         String message = (String) data[2];
         String info = (String) data[3];
         String url = (String) data[4];
-
-        System.out.println("ID to edit :"+id);
         Statement statement = DBConnection.getInstance().createStatement();
-        //System.out.println("update billboard set BillboardName="name", message="message"+ data[2]+",info="+ data[3]+",url="+ data[4]+" where billboardID="+ data[0]+";");
         statement.executeQuery("update billboards set billboardName='"+ name+"', message='"+ message+"',info='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
         statement.executeQuery("update billboards_info set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where viewID='"+ id+"';");
         statement.close();

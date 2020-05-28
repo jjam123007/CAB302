@@ -13,6 +13,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ *
+ * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ */
 public class EditBillboards implements ControlPanelComponent {
     private ObjectOutputStream oos;
     private ObjectInputStream ois;
@@ -30,11 +34,24 @@ public class EditBillboards implements ControlPanelComponent {
 
     public int rowToEdit;
 
+    /**
+     *
+     * @param controlPanelGUI
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public EditBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
 
         editUpdateButton.addActionListener(new ActionListener() {
+            /**
+             * Implements a ActionListener for updateButton to update data is changed in view interface
+             * @param e
+             */
             @Override
+            /**
+             * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
+             */
             public void actionPerformed(ActionEvent e) {
 
                 int viewId = Integer.valueOf(editBbID.getText());
@@ -43,10 +60,6 @@ public class EditBillboards implements ControlPanelComponent {
                 String billboardInformation = editBbInfo.getText();
                 String billboardUrl = editBbImgLink.getText();
                 rowToEdit = Integer.valueOf(toEditRow.getText());
-
-                System.out.println("Data Updated");
-                System.out.println(billboardName+" "+billboardMessage+" "+billboardInformation+" "+billboardUrl);
-
                 try {
                     Object[] newTable = {viewId,billboardName,billboardMessage,billboardInformation,billboardUrl};
                     BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable, ClientUser.getToken());
@@ -76,7 +89,10 @@ public class EditBillboards implements ControlPanelComponent {
         });
     }
 
-
+    /**
+     * setter function to set value for GUI elements and variables
+     * @param controlPanelGUI
+     */
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
         this.oos = controlPanelGUI.oos;

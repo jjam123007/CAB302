@@ -26,7 +26,6 @@ public class ControlPanelGUI {
     public JTextArea editBbInfo;
     public JTextArea editBbImgLink;
     public JButton editUpdateButton;
-    public JButton editDeleteButton;
     public JTextArea editBbID;
 
     public JTextArea scheduleBbID;
