@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-
+/**@author Jun Chen(n10240977)&Haoze He(n10100351) */
 public class ViewBillboards implements ControlPanelComponent {
     Integer billboardID;
     int selectedRow;
@@ -34,7 +34,12 @@ public class ViewBillboards implements ControlPanelComponent {
     public JTextArea toEditRow;
     public int rowToEdit;
 
-
+    /**
+     *
+     * @param controlPanelGUI
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public ViewBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
 
@@ -50,8 +55,14 @@ public class ViewBillboards implements ControlPanelComponent {
                 new String[]{"BillboardID","Billboard Name","Creator Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
         ));
 
+
+        /**
+         * Implements a ListSelectionListener for making the UI respond when a
+         * different row is selected from the table.
+         */
         viewTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
+            /*** @see javax.awt.event.addListSelectionListener#valueChanged(javax.awt.event.ListSelectionEvent) */
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {//This line prevents double events
                     int i = viewTable.getSelectedRow();
@@ -59,26 +70,29 @@ public class ViewBillboards implements ControlPanelComponent {
                         billboardID = Integer.parseInt(viewTable.getValueAt(viewTable.getSelectedRow(),0).toString());
                         selectedRow = viewTable.getSelectedRow();
                         System.out.println("listener selected row "+selectedRow);
+
                     }
                 }
             }
         });
-
-
+        /**
+         * Implements a ActionListener for viewDeleteButton to delete the selected row.
+         */
         viewDeleteButton.addActionListener(new ActionListener() {
+            /**@param e */
             @Override
+            /**
+             *
+             * @see java.awt.event.addActionListner#actionPerformed(java.awt.event.ActionEvent)*/
             public void actionPerformed(ActionEvent e) {
                 try {
-                    System.out.println("hello345");
                     Object[] id = {billboardID};
                     BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
                     oos.writeObject(delete);
                     oos.flush();
 
                     if(billboardID != null){
-                        System.out.println("Selected id "+billboardID);
                         DefaultTableModel dm = (DefaultTableModel) viewTable.getModel();
-                        System.out.println("row "+selectedRow);
                         dm.removeRow(selectedRow);
                     }
                 } catch (IOException ex) {
@@ -87,9 +101,16 @@ public class ViewBillboards implements ControlPanelComponent {
             }
 
         });
-
+        /**
+         * Implements a ActionListener for BillboardButton to get data from the selected row
+         * then put these into edit interface.
+         */
         viewEditButton.addActionListener(new ActionListener() {
+            /**@param e*/
             @Override
+            /**
+             *
+             * @see java.awt.event.addActionListener#actionPerformed(java.awt.event.ActionListener)*/
             public void actionPerformed(ActionEvent e) {
 
                 String billboardId = viewTable.getModel().getValueAt(selectedRow,0).toString();
@@ -109,18 +130,22 @@ public class ViewBillboards implements ControlPanelComponent {
                 billboardsPane.setSelectedIndex(2);
             }
         });
-
+        /**
+         * Implements a ChangeListener for tab change,
+         * when tab changed to view tab, all data in viewTable get refreshed
+         */
         billboardsPane.addChangeListener(new ChangeListener() {
+            /**@param e */
             @Override
+            /**
+             *
+             * @see java.awt.event.addChangeListener#stateChanged(java.awt.event.ChangeListener) */
             public void stateChanged(ChangeEvent e) {
-                System.out.println("tab: " + billboardsPane.getSelectedIndex());
                 if(billboardsPane.getSelectedIndex() == 0){
-
                     try {
                         BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
                         oos.writeObject(request);
                         oos.flush();
-                        System.out.println("table tabbed");
                         SerializeArray tableData = (SerializeArray) ois.readObject();
                         Object[][]  data = tableData.getData();
 
@@ -138,7 +163,9 @@ public class ViewBillboards implements ControlPanelComponent {
         });
     }
 
-
+    /**
+     * setter function to set value for GUI elements and variables
+     * @param controlPanelGUI */
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
         this.oos = controlPanelGUI.oos;
