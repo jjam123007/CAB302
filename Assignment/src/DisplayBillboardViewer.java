@@ -34,9 +34,7 @@ public class DisplayBillboardViewer {
      */
     public static void main (String args[]) throws Exception {
         // Create initial billboard
-        billboard = new BillboardViewer(Color.decode("#ffffff"), "Loading...",
-                Color.decode("#000000"), "The billboard is booting up...", Color.decode("#000000"),
-                "https://hackernoon.com/drafts/pp6p36ml.png");
+        createBillboard();
 
         // Setup communication with the server
         setStreams();
@@ -53,9 +51,8 @@ public class DisplayBillboardViewer {
                 // Check if the XML string  is null or not
                 if (input == null) {
                     // If null, display an alternative billboard instead
-                    billboard.renewBillboard(Color.decode("#ffffff"), "The billboard is having a break...",
-                            Color.decode("#000000"), "There is nothing to be displayed right now.", Color.decode("#000000"),
-                            "https://miro.medium.com/max/10886/1*DFaRILoVj4jv0AAVb6EmDw.jpeg");
+                    setIdleBillboard();
+
                 } else {
                     // Setup billboard
                     readXML(input);
@@ -71,6 +68,27 @@ public class DisplayBillboardViewer {
             // Delay 15 seconds
             Thread.sleep(15000);
         }
+    }
+
+    // Function to create a billboard and display the initial loading page
+    private static void createBillboard() throws Exception {
+        billboard = new BillboardViewer(Color.decode("#ffffff"), "Loading...",
+                Color.decode("#000000"), "The billboard is booting up...", Color.decode("#000000"),
+                "https://hackernoon.com/drafts/pp6p36ml.png");
+    }
+
+    // Function to display the idle billboard
+    private static void setIdleBillboard() throws Exception {
+        billboard.renewBillboard(Color.decode("#ffffff"), "The billboard is having a break...",
+                Color.decode("#000000"), "There is nothing to be displayed right now.", Color.decode("#000000"),
+                "https://miro.medium.com/max/10886/1*DFaRILoVj4jv0AAVb6EmDw.jpeg");
+    }
+
+    // Function to display the notification billboard saying that it could not connect to the server
+    private static void setMaintenanceBillboard() throws Exception {
+        billboard.renewBillboard(Color.decode("#f2fc92"), "The server is currently in maintenance.",
+                Color.decode("#000000"), null, null,
+                "https://media.noria.com/sites/Uploads/2018/12/20/73c77e51-97d0-4ec5-81dc-e80c0b265dcf_Images_ProactiveMaintenanceApproach_31035_1234x694_large.jpeg");
     }
 
     // Function to read XML string and extract its elements for the billboard
@@ -139,9 +157,7 @@ public class DisplayBillboardViewer {
                 break;
             } catch (Exception e) {
                 // If could not connect to the server, display a notification billboard
-                billboard.renewBillboard(Color.decode("#f2fc92"), "The server is currently in maintenance.",
-                        Color.decode("#000000"), null, null,
-                        "https://media.noria.com/sites/Uploads/2018/12/20/73c77e51-97d0-4ec5-81dc-e80c0b265dcf_Images_ProactiveMaintenanceApproach_31035_1234x694_large.jpeg");
+                setMaintenanceBillboard();
             }
 
             // Delay for 15 seconds
