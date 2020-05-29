@@ -15,10 +15,15 @@ Request implements Serializable{
         return OIS;
     }
 
+    /**
+     * Create a server request.
+     * @throws IOException
+     */
     public Request() throws IOException {
         setStreams();
     }
 
+    //Set the object output and input streams between the client and the server.
     private void setStreams() throws IOException {
         this.socket = new Socket("localhost",3310);
         OutputStream os = socket.getOutputStream();
@@ -28,10 +33,18 @@ Request implements Serializable{
         this.OIS = new ObjectInputStream(is);
     }
 
+    /**
+     * Close the current client-to-server connection.
+     * @throws IOException
+     */
     public void closeConnection() throws IOException {
         this.socket.close();
     }
 
+    /**
+     * Send the request to the server.
+     * @throws IOException
+     */
     public void sendRequest(Request request) throws IOException {
         this.OOS.writeObject(request);
         this.OOS.flush();
