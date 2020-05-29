@@ -1,5 +1,6 @@
 package ControlPanel.GUI.BillboardsPane;
 
+import Billboard.BillboardReply;
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
@@ -20,6 +21,8 @@ import java.io.ObjectOutputStream;
 public class ViewBillboards implements ControlPanelComponent {
     Integer billboardID;
     int selectedRow;
+    public ObjectOutputStream oos;
+    public ObjectInputStream ois;
     public JTabbedPane billboardsPane;
     public JTextArea editBbMsg;
     public JTextArea editBbInfo;
@@ -30,6 +33,8 @@ public class ViewBillboards implements ControlPanelComponent {
     public JButton viewEditButton;
     public JButton viewDeleteButton;
     public JTextArea toEditRow;
+    public JPanel controlPanel;
+
     public int rowToEdit;
 
 
@@ -37,11 +42,10 @@ public class ViewBillboards implements ControlPanelComponent {
         setControlPanelComponents(controlPanelGUI);
 
         BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
-        System.out.println("hello345");
-        SerializeArray tableData = (SerializeArray) request.getOIS().readObject();
-        request.closeConnection();
+        oos.writeObject(request);
+        oos.flush();
+        SerializeArray tableData = (SerializeArray) ois.readObject();
         Object[][]  data = tableData.getData();
-        System.out.println("hello345");
         viewTable.setModel(new DefaultTableModel(
                 data,
                 new String[]{"BillboardID","Billboard Name","Creator Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
@@ -56,35 +60,37 @@ public class ViewBillboards implements ControlPanelComponent {
                         billboardID = Integer.parseInt(viewTable.getValueAt(viewTable.getSelectedRow(),0).toString());
                         selectedRow = viewTable.getSelectedRow();
                         System.out.println("listener selected row "+selectedRow);
-
                     }
                 }
             }
         });
-        viewTable.getModel().addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                int row = e.getFirstRow();
-                billboardID = Integer.valueOf(viewTable.getModel().getValueAt(row,0).toString());
-            }
-        });
+
 
         viewDeleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    System.out.println("hello345");
                     Object[] id = {billboardID};
                     BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
-                    delete.closeConnection();
+                    oos.writeObject(delete);
+                    oos.flush();
 
                     if(billboardID != null){
                         System.out.println("Selected id "+billboardID);
                         DefaultTableModel dm = (DefaultTableModel) viewTable.getModel();
                         System.out.println("row "+selectedRow);
                         dm.removeRow(selectedRow);
+                        //read the reply from the server
+                        BillboardReply messageObject = (BillboardReply) ois.readObject();
+                        String message = messageObject.getMessage();
+                        JOptionPane.showMessageDialog(controlPanel,message,"Success",JOptionPane.NO_OPTION);
+                    }else{
+                        //read the reply from the server
+                        BillboardReply messageObject = (BillboardReply) ois.readObject();
+                        String message = messageObject.getMessage();
+                        JOptionPane.showMessageDialog(controlPanel,message,"Warning",JOptionPane.NO_OPTION);
                     }
-                } catch (IOException ex) {
+                } catch (IOException | ClassNotFoundException ex) {
                     ex.printStackTrace();
                 }
             }
@@ -101,12 +107,14 @@ public class ViewBillboards implements ControlPanelComponent {
                 String billboardInformation = (String) viewTable.getModel().getValueAt(selectedRow,4);
                 String billboardUrl = (String) viewTable.getModel().getValueAt(selectedRow,5);
 
+
                 editBbID.setText(billboardId);
                 editBbID.setEditable(false);
                 editBbName.setText(billboardName);
                 editBbMsg.setText(billboardMessage);
                 editBbInfo.setText(billboardInformation);
                 editBbImgLink.setText(billboardUrl);
+
                 toEditRow.setText(String.valueOf(selectedRow));
                 toEditRow.setEditable(false);
                 billboardsPane.setSelectedIndex(2);
@@ -120,10 +128,10 @@ public class ViewBillboards implements ControlPanelComponent {
                 if(billboardsPane.getSelectedIndex() == 0){
 
                     try {
-                        BillboardRequest showBillboardsRequest = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
-                        System.out.println("table tabbed");
-                        SerializeArray tableData = (SerializeArray) showBillboardsRequest.getOIS().readObject();
-                        showBillboardsRequest.closeConnection();
+                        BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
+                        oos.writeObject(request);
+                        oos.flush();
+                        SerializeArray tableData = (SerializeArray) ois.readObject();
                         Object[][]  data = tableData.getData();
 
                         viewTable.setModel(new DefaultTableModel(
@@ -143,6 +151,8 @@ public class ViewBillboards implements ControlPanelComponent {
 
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
+        this.oos = controlPanelGUI.oos;
+        this.ois = controlPanelGUI.ois;
         this.billboardsPane = controlPanelGUI.billboardsPane;
         this.editBbMsg = controlPanelGUI.editBbMsg;
         this.editBbInfo = controlPanelGUI.editBbInfo;
@@ -153,5 +163,6 @@ public class ViewBillboards implements ControlPanelComponent {
         this.viewEditButton = controlPanelGUI.viewEditButton;
         this.viewDeleteButton = controlPanelGUI.viewDeleteButton;
         this.toEditRow = controlPanelGUI.toEditRow;
+
     }
 }

@@ -27,13 +27,20 @@ import java.util.Iterator;
 
 import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 
+/* A test class when developing the billboard viewer
+Really similar to DisplayBillboardViewer.java
+Using the xml files in the same folder for testing purposes */
 public class Test {
     private static BillboardViewer billboard = null;
     private static String message = null, pictureInfo = null, information = null;
     private static Color billboardColour, messageColour, informationColour;
 
+    // The path for testing
+    private static String filePath = "src/BillboardViewer/Test/all.xml";
+
+    // The main function
     public static void main(String[] args) throws Exception {
-        File a = new File("src/BillboardViewer/Test/info-only.xml");
+        File a = new File(filePath);
 
         // Create a document builder to parse the XML file
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -75,7 +82,7 @@ public class Test {
         }
         System.out.println(information);
 
-        createBillboard(Color.decode("#ffffff"), "Loading...",
+        billboard = new BillboardViewer(Color.decode("#ffffff"), "Loading...",
                 Color.decode("#000000"), "Loading...", Color.decode("#000000"),
                 "https://i.ytimg.com/vi/Gu24piLwtOg/maxresdefault.jpg");
         billboard.renewBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
@@ -85,20 +92,6 @@ public class Test {
 //                "https://i.ytimg.com/vi/Gu24piLwtOg/maxresdefault.jpg");
 //        Thread.sleep(3000);
 //        billboard.renewBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
-    }
-
-    private static void createBillboard(Color billboardColour, String message, Color messageColour,
-                                        String info, Color infoColour, String imgURL) throws Exception {
-        // Create an instance of the billboard
-        billboard = new BillboardViewer(billboardColour);
-
-        // Change the information displayed
-        billboard.changeMessage(message, messageColour);
-        billboard.changeInfo(info, infoColour);
-        billboard.changeImage(imgURL, 1.0/3);
-
-        // Show the billboard
-        billboard.showBillboard();
     }
 
     private static String encodeFileToBase64Binary(File file) throws Exception{

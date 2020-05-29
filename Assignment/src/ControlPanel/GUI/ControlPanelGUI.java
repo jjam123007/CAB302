@@ -70,6 +70,17 @@ public class ControlPanelGUI {
     public  JPasswordField clientNewPasswordField;
     public JButton logoutButton;
     public JTextArea toEditRow;
+    public JButton exportToXMLButton;
+    public JPanel EditJPanel;
+    private JPanel CreateJPanel;
+    private JPanel ViewJPanel;
+    private JPanel ScheduleJPanel;
+    public JLabel RowToEdit;
+
+    public int rowToEdit;
+    public Socket socket;
+    public ObjectOutputStream oos;
+    public ObjectInputStream ois;
     protected JFrame frame;
 
     /**
