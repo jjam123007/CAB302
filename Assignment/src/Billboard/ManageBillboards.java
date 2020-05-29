@@ -71,7 +71,7 @@ public final class ManageBillboards implements Serializable {
         System.out.println("ID to edit :"+id);
         Statement statement = DBConnection.getInstance().createStatement();
         //System.out.println("update billboard set BillboardName="name", message="message"+ data[2]+",info="+ data[3]+",url="+ data[4]+" where billboardID="+ data[0]+";");
-        statement.executeQuery("update billboards set billboardName='"+ name+"', message='"+ message+"',info='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
+        statement.executeQuery("update billboards set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
         statement.executeQuery("update billboards_info set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where viewID='"+ id+"';");
         statement.close();
     }

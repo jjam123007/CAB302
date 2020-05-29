@@ -1,5 +1,6 @@
 package ControlPanel.GUI.BillboardsPane;
 
+import Billboard.BillboardReply;
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
@@ -23,6 +24,7 @@ public class ScheduleBillboards implements ControlPanelComponent {
     public JTextArea scheduleStartTime;
     public JTextArea scheduleBbDate;
     public JButton scheduleSubmitButton;
+    public JTabbedPane billboardsPane;
 
     public ScheduleBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
@@ -40,16 +42,25 @@ public class ScheduleBillboards implements ControlPanelComponent {
                     BillboardRequest addview = new BillboardRequest(BillboardRequestType.addView, submitData, ClientUser.getToken());
                     oos.writeObject(addview);
                     oos.flush();
-                    JOptionPane.showMessageDialog(controlPanel,"Success","message",JOptionPane.NO_OPTION);
+                    //read the reply from the server
+                    BillboardReply messageObject = (BillboardReply) ois.readObject();
+                    String message = messageObject.getMessage();
+                    System.out.println("Message: "+message);
+                    JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
+
                 } catch (UnknownHostException ex) {
                     ex.printStackTrace();
                 } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (ClassNotFoundException ex) {
                     ex.printStackTrace();
                 }
                 scheduleBbID.setText("");
                 scheduleBbDate.setText("");
                 scheduleStartTime.setText("");
                 scheduleEndTime.setText("");
+                billboardsPane.setSelectedIndex(0);
+
             }
         });
     }
@@ -64,5 +75,6 @@ public class ScheduleBillboards implements ControlPanelComponent {
         this.scheduleStartTime = controlPanelGUI.scheduleStartTime;
         this.scheduleBbDate = controlPanelGUI.scheduleBbDate;
         this.scheduleSubmitButton = controlPanelGUI.scheduleSubmitButton;
+        this.billboardsPane=controlPanelGUI.billboardsPane;
     }
 }

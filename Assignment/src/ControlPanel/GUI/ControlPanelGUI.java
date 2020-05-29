@@ -26,7 +26,6 @@ public class ControlPanelGUI {
     public JTextArea editBbInfo;
     public JTextArea editBbImgLink;
     public JButton editUpdateButton;
-    public JButton editDeleteButton;
     public JTextArea editBbID;
 
     public JTextArea scheduleBbID;
@@ -72,6 +71,11 @@ public class ControlPanelGUI {
     public  JPasswordField clientNewPasswordField;
     public JButton logoutButton;
     public JTextArea toEditRow;
+    public JButton exportToXMLButton;
+    public JPanel EditJPanel;
+    private JPanel CreateJPanel;
+    private JPanel ViewJPanel;
+    private JPanel ScheduleJPanel;
     public JLabel RowToEdit;
 
     public int rowToEdit;

@@ -1,5 +1,6 @@
 package ControlPanel.GUI.BillboardsPane;
 
+import Billboard.BillboardReply;
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
@@ -27,16 +28,17 @@ public class EditBillboards implements ControlPanelComponent {
     public JTextArea editBbID;
     public JTable viewTable;
     public JTextArea toEditRow;
+    public JPanel EditJPanel;
 
     public int rowToEdit;
 
     public EditBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
-
+        toEditRow.setText("Edit through create billboard menu");
+        toEditRow.setEnabled(false);
         editUpdateButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 int viewId = Integer.valueOf(editBbID.getText());
                 String billboardName = editBbName.getText();
                 String billboardMessage = editBbMsg.getText();
@@ -59,18 +61,22 @@ public class EditBillboards implements ControlPanelComponent {
                     viewTable.getModel().setValueAt(billboardInformation,rowToEdit,3);
                     viewTable.getModel().setValueAt(billboardUrl,rowToEdit,4);
                     rowToEdit = -1;
+                    //read the reply from the server
+                    BillboardReply messageObject = (BillboardReply) ois.readObject();
+                    String message = messageObject.getMessage();
+                    System.out.println("Message: "+message);
+                    editBbName.setText("");
+                    editBbMsg.setText("");
+                    editBbInfo.setText("");
+                    editBbImgLink.setText("");
+                    editBbID.setText("");
 
-                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(controlPanel,message,"message",JOptionPane.NO_OPTION);
+
+
+                } catch (IOException | ClassNotFoundException ex) {
                     ex.printStackTrace();
                 }
-
-
-                editBbName.setText("");
-                editBbMsg.setText("");
-                editBbInfo.setText("");
-                editBbImgLink.setText("");
-                editBbID.setText("");
-                JOptionPane.showMessageDialog(controlPanel,"Success","message",JOptionPane.NO_OPTION);
                 billboardsPane.setSelectedIndex(0);
             }
         });
@@ -91,6 +97,7 @@ public class EditBillboards implements ControlPanelComponent {
         this.editBbID = controlPanelGUI.editBbID;
         this.viewTable = controlPanelGUI.viewTable;
         this.toEditRow = controlPanelGUI.toEditRow;
+        this.EditJPanel = controlPanelGUI.EditJPanel;
 
     }
 }

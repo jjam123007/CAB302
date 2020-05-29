@@ -55,10 +55,6 @@ public class Server {
             } catch (EOFException | NoSuchAlgorithmException e) {
                 e.printStackTrace();
             }
-
-
-
-
         }
     }
 
@@ -69,18 +65,31 @@ public class Server {
 
         switch (request) {
             case addBillboard: {
-                try {
+                try{
                     ManageBillboards.addBillboard(billboard, token);
-                    BillboardReply messageObject = (BillboardReply) ois.readObject();
-                    String message = messageObject.getMessage();
-                    System.out.println("Message: "+message);
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    BillboardReply message = new BillboardReply("Success");
+                    oos.writeObject(message);
+                    oos.flush();
+                }catch (SQLException e){
+                    BillboardReply message = new BillboardReply("Failure, please check inputs are valid");
+                    oos.writeObject(message);
+                    oos.flush();
                 }
                 break;
             }
             case addView: {
-                ManageBillboards.addView(billboard);
+                try{
+                    ManageBillboards.addView(billboard);
+                    BillboardReply message = new BillboardReply("Success");
+                    oos.writeObject(message);
+                    oos.flush();
+                }catch (SQLException e){
+                    BillboardReply message = new BillboardReply("Please ensure the input are in correct format and valid \n"+
+                            "Date: yyyy-mm-dd \n"+
+                            "Time: hh:mm:ss");
+                    oos.writeObject(message);
+                    oos.flush();
+                }
                 break;
             }
             case showTable: {
@@ -118,11 +127,29 @@ public class Server {
                 break;
             }
             case delete: {
-                ManageBillboards.delete(billboard);
+                try{
+                    ManageBillboards.delete(billboard);
+                    BillboardReply message = new BillboardReply("Success");
+                    oos.writeObject(message);
+                    oos.flush();
+                }catch (NullPointerException e){
+                    BillboardReply message = new BillboardReply("No rows was selected");
+                    oos.writeObject(message);
+                    oos.flush();
+                }
                 break;
             }
             case edit: {
-                ManageBillboards.edit(billboard);
+                try {
+                    ManageBillboards.edit(billboard);
+                    BillboardReply message = new BillboardReply("Success");
+                    oos.writeObject(message);
+                    oos.flush();
+                }catch(SQLException e){
+                    BillboardReply message = new BillboardReply("Please ensure the inputs are valid");
+                    oos.writeObject(message);
+                    oos.flush();
+                }
                 break;
             }
 
