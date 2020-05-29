@@ -1,9 +1,10 @@
 package UserManagement.Requests;
 
+import Networking.Request;
 import User.UserPermissions;
 import UserManagement.DataSecurity;
-import UserManagement.Replies.Reply;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 
@@ -26,7 +27,7 @@ public class EditUserPropertyRequest implements Serializable {
      * @param username target user.
      * @param permissions new user permissions..
      */
-    public EditUserPropertyRequest(String username, UserPermissions permissions) {
+    public EditUserPropertyRequest(String username, UserPermissions permissions) throws IOException {
         this.username = username;
         this.permissions = permissions;
     }
@@ -36,7 +37,7 @@ public class EditUserPropertyRequest implements Serializable {
      * @param username target user.
      * @param password new user password.
      */
-    public EditUserPropertyRequest(String username, String password) throws NoSuchAlgorithmException {
+    public EditUserPropertyRequest(String username, String password) throws NoSuchAlgorithmException, IOException {
         this.username = username;
         this.password = DataSecurity.hash(password);
     }

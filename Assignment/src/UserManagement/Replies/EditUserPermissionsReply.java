@@ -1,6 +1,7 @@
 package UserManagement.Replies;
 
 import Database.DBConnection;
+import Networking.Reply;
 import User.PermissionType;
 import User.UserPermissions;
 import User.ServerUserSession;
@@ -11,7 +12,7 @@ import java.sql.Statement;
 /**
  * @author Nikolai Taufao | N10481087
  */
-public class EditUserPermissionsReply extends Reply{
+public class EditUserPermissionsReply extends Reply {
 
     /**
      * Change the permissions of a user specified in the request only if the request client user is an admin.

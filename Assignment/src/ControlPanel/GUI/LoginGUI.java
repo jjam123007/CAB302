@@ -1,12 +1,11 @@
 package ControlPanel.GUI;
 
-import ControlPanel.GUI.ControlPanelGUI;
 import User.ClientUser;
-import User.LoginReply;
-import User.LoginRequest;
+import UserManagement.Replies.LoginReply;
+import UserManagement.Requests.LoginRequest;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
+import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
@@ -27,10 +26,6 @@ public class LoginGUI {
     private JTextField usernameField;
     private JLabel messageLabel;
     private JButton loginButton;
-    private ObjectInputStream ois;
-    private ObjectOutputStream oos;
-    private Socket socket;
-
 
     /**
      * Create the login form which appears on control panel startup.
@@ -44,17 +39,6 @@ public class LoginGUI {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         setLoginButton();
-        setStreams();
-    }
-
-    // Set the streams be between the client and server.
-    private void setStreams() throws IOException {
-        socket = new Socket("localhost",3310);
-        OutputStream os = socket.getOutputStream();
-        InputStream is = socket.getInputStream();
-        System.out.println("Connected to "+ socket.getInetAddress());
-        oos = new ObjectOutputStream(os);
-        ois = new ObjectInputStream(is);
     }
 
     private void setLoginButton(){
@@ -68,24 +52,24 @@ public class LoginGUI {
 
     private void sendLoginRequest() throws IOException, NoSuchAlgorithmException, ClassNotFoundException, SQLException {
         String username = "willi";//usernameField.getText();
-        String password = "123";//passwordField.getText();
+        String password = "11111111";//passwordField.getText();
         LoginRequest login = new LoginRequest(username, password);
-        oos.writeObject(login);
-        oos.flush();
-        handleLoginReply();
+        handleLoginReply(login);
     }
 
-    private void handleLoginReply() throws IOException, ClassNotFoundException, SQLException {
-        LoginReply loginReply = (LoginReply) ois.readObject();
+    private void handleLoginReply(LoginRequest login) throws IOException, ClassNotFoundException, SQLException {
+        LoginReply loginReply = (LoginReply) login.getOIS().readObject();
+        login.closeConnection();
         if (loginReply.isSuccess()){
             // Store the client user's session token, username and permissions in memory.
             new ClientUser(loginReply.getSessionToken(), loginReply.getUsername(), loginReply.getPermissions());
-            new ControlPanelGUI(socket,oos,ois);
+            new ControlPanelGUI();
             this.frame.dispose();
-
             System.out.println("login Success");
         }else{
             messageLabel.setText(loginReply.getErrorMessage());
+            frame.pack();
+            messageLabel.setForeground(Color.red);
         }
     }
 

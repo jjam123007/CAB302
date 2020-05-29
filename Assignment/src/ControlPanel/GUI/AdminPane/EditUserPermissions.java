@@ -18,9 +18,6 @@ import java.io.ObjectOutputStream;
  */
 public class EditUserPermissions implements ControlPanelComponent {
 
-    public ObjectOutputStream oos;
-    public ObjectInputStream ois;
-
     private String selectedUser = null;
 
     protected void setSelectedUser(String selectedUser){
@@ -75,21 +72,21 @@ public class EditUserPermissions implements ControlPanelComponent {
         UserPermissions userPermissions = new UserPermissions(p1,p2,p3,p4);
         EditUserPropertyRequest editUserPropertyRequest = new EditUserPropertyRequest(selectedUser, userPermissions);
         UserManagementRequest editUserPermissionsRequest = new UserManagementRequest(UserManagementRequestType.changePermissions, editUserPropertyRequest);
-        oos.writeObject(editUserPermissionsRequest);
-        EditUserPermissionsReply editUserPermisionsReply = (EditUserPermissionsReply) ois.readObject();
 
-        if (editUserPermisionsReply.isSuccess()){
+        //Get the server reply.
+        EditUserPermissionsReply editUserPermissionsReply = (EditUserPermissionsReply) editUserPermissionsRequest.getOIS().readObject();
+        editUserPermissionsRequest.closeConnection();
+        
+        if (editUserPermissionsReply.isSuccess()){
             String successMessage = "Permissions successfully changed for user '"+selectedUser+"'.";
             JOptionPane.showMessageDialog(null, successMessage);
         }else{
-            JOptionPane.showMessageDialog(null, editUserPermisionsReply.getErrorMessage());
+            JOptionPane.showMessageDialog(null, editUserPermissionsReply.getErrorMessage());
         }
     }
 
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-         this.oos = controlPanelGUI.oos;
-         this.ois = controlPanelGUI.ois;
 
          this.changePermissionsButton = controlPanelGUI.changePermissionsButton;
          this.editUsersAdminPermEdit = controlPanelGUI.editUsersAdminPermEdit;

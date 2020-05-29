@@ -1,5 +1,6 @@
 package UserManagement.Replies;
 
+import Networking.Reply;
 import User.ServerUserSession;
 
 import java.io.Serializable;

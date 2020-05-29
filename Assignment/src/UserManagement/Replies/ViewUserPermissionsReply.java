@@ -1,6 +1,7 @@
 package UserManagement.Replies;
 
 import Database.DBConnection;
+import Networking.Reply;
 import User.PermissionType;
 import User.UserPermissions;
 import User.ServerUserSession;
@@ -12,7 +13,7 @@ import java.sql.Statement;
  * @author Nikolai Taufao | N10481087
  */
 
-public class ViewUserPermissionsReply extends Reply{
+public class ViewUserPermissionsReply extends Reply {
     private UserPermissions userPermissions;
     public UserPermissions getUserPermissions() { return userPermissions; }
 

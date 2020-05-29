@@ -17,8 +17,6 @@ import java.io.ObjectOutputStream;
 
 
 public class BillboardsPane implements ControlPanelComponent {
-    private static ObjectOutputStream oos;
-    private static ObjectInputStream ois;
     public JTabbedPane billboardsPane;
     public JTable viewTable;
 
@@ -31,31 +29,27 @@ public class BillboardsPane implements ControlPanelComponent {
 
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-        billboardsPane.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                System.out.println("tab: " + billboardsPane.getSelectedIndex());
-                if(billboardsPane.getSelectedIndex() == 0){
+        billboardsPane.addChangeListener(e -> {
+            System.out.println("tab: " + billboardsPane.getSelectedIndex());
+            if(billboardsPane.getSelectedIndex() == 0){
 
-                    try {
+                try {
 
-                        BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
-                        oos.writeObject(request);
-                        oos.flush();
-                        System.out.println("table tabbed");
-                        SerializeArray tableData = (SerializeArray) ois.readObject();
-                        Object[][]  data = tableData.getData();
+                    BillboardRequest showTableRequest = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
+                    System.out.println("table tabbed");
+                    SerializeArray tableData = (SerializeArray) showTableRequest.getOIS().readObject();
+                    showTableRequest.closeConnection();
+                    Object[][]  data = tableData.getData();
 
-                        viewTable.setModel(new DefaultTableModel(
-                                data,
-                                new String[]{"View ID","Billboard Name","Creator Name","Message","Information", "Url", "Scheduled Date", "Start time", "End time"}
-                        ));
+                    viewTable.setModel(new DefaultTableModel(
+                            data,
+                            new String[]{"View ID","Billboard Name","Creator Name","Message","Information", "Url", "Scheduled Date", "Start time", "End time"}
+                    ));
 
-                    } catch (IOException | ClassNotFoundException ex) {
-                        ex.printStackTrace();
-                    }
-
+                } catch (IOException | ClassNotFoundException ex) {
+                    ex.printStackTrace();
                 }
+
             }
         });
 

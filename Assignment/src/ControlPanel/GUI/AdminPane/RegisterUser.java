@@ -27,8 +27,6 @@ public class RegisterUser implements ControlPanelComponent {
     public JCheckBox scheduleBillboardsPerm;
     public JLabel registerReplyMessage;
     public JButton registerUserButton;
-    public ObjectOutputStream oos;
-    public ObjectInputStream ois;
     public JPasswordField registerReenterPasswordField;
 
     /**
@@ -96,9 +94,8 @@ public class RegisterUser implements ControlPanelComponent {
         RegisterRequest request = new RegisterRequest(username, password, permissions);
         UserManagementRequest registerRequest = new UserManagementRequest(UserManagementRequestType.register, request);
 
-        oos.writeObject(registerRequest);
-        oos.flush();
-        RegisterReply registerReply = (RegisterReply) ois.readObject();
+        RegisterReply registerReply = (RegisterReply) registerRequest.getOIS().readObject();
+        registerRequest.closeConnection();
 
         if (registerReply.isSuccess()){
             String registerIsSuccessMessage = "User '"+username+"' successfully registered!";
@@ -111,8 +108,6 @@ public class RegisterUser implements ControlPanelComponent {
     
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-        this.oos = controlPanelGUI.oos;
-        this.ois = controlPanelGUI.ois;
         this.editUsersPerm = controlPanelGUI.editUsersPerm;
         this.editBillboardsPerm = controlPanelGUI.editBillboardsPerm;
         this.registerUsernameField = controlPanelGUI.registerUsernameField;

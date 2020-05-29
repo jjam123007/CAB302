@@ -29,8 +29,6 @@ public class EditUsers implements ControlPanelComponent {
     public JButton updateUserListButton;
     public JButton removeUserButton;
     public String[] usernameColumn = {"Username"};
-    public ObjectOutputStream oos;
-    public ObjectInputStream ois;
     ListSelectionListener userSelection;
 
 
@@ -107,8 +105,10 @@ public class EditUsers implements ControlPanelComponent {
      */
     private void getUserPermissions(String username, EditUserPermissions editUserPermissions) throws IOException, ClassNotFoundException {
         UserManagementRequest getUserPermissionsRequest =  new UserManagementRequest(UserManagementRequestType.getPermissions, username);
-        oos.writeObject(getUserPermissionsRequest);
-        ViewUserPermissionsReply viewUserPermissionsReply = (ViewUserPermissionsReply) ois.readObject();
+        //Get the server reply.
+        ViewUserPermissionsReply viewUserPermissionsReply = (ViewUserPermissionsReply) getUserPermissionsRequest.getOIS().readObject();
+        getUserPermissionsRequest.closeConnection();
+
         if (viewUserPermissionsReply.isSuccess()){
             // Pass the user permissions to the edit user permissions section.
             editUserPermissions.setUserPermissions(viewUserPermissionsReply.getUserPermissions());
@@ -119,8 +119,10 @@ public class EditUsers implements ControlPanelComponent {
     private void removeUser() throws IOException, ClassNotFoundException {
         // Remove the user that was selected by the admin in the users JTable.
         UserManagementRequest removeUserRequest = new UserManagementRequest(UserManagementRequestType.remove, selectedUser);
-        oos.writeObject(removeUserRequest);
-        RemoveUserReply removeUserReply = (RemoveUserReply) ois.readObject();
+        //Get the server reply.
+        RemoveUserReply removeUserReply = (RemoveUserReply) removeUserRequest.getOIS().readObject();
+        removeUserRequest.closeConnection();
+
         if (removeUserReply.isSuccess()){
             String successMessage = "User '"+selectedUser+"' successfully removed";
             JOptionPane.showMessageDialog(null, successMessage);
@@ -139,8 +141,9 @@ public class EditUsers implements ControlPanelComponent {
     private void updateUsersTable() throws SQLException, IOException, ClassNotFoundException {
         usersTable.getSelectionModel().removeListSelectionListener(userSelection);
         UserManagementRequest viewUsersRequest = new UserManagementRequest(UserManagementRequestType.getUsernames);
-        oos.writeObject(viewUsersRequest);
-        ViewUsersReply viewUsersReply = (ViewUsersReply) ois.readObject();
+        //Get the server reply.
+        ViewUsersReply viewUsersReply = (ViewUsersReply) viewUsersRequest.getOIS().readObject();
+        viewUsersRequest.closeConnection();
 
         if (viewUsersReply.isSuccess()){
             Object[][] usernames = listToTableData(viewUsersReply.getUserDataTable());
@@ -176,7 +179,5 @@ public class EditUsers implements ControlPanelComponent {
         this.removeUserButton = controlPanelGUI.removeUserButton;
         this.usersTable = controlPanelGUI.usersTable;
         this.updateUserListButton = controlPanelGUI.updateUserListButton;
-        this.oos = controlPanelGUI.oos;
-        this.ois = controlPanelGUI.ois;
     }
 }

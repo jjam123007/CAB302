@@ -14,9 +14,6 @@ import java.io.*;
 import java.net.Socket;
 
 public class DisplayBillboardViewer {
-    private static ObjectInputStream ois;
-    private static ObjectOutputStream oos;
-    private static Socket socket;
 
     private static BillboardViewer billboard = null;
     private static String message = null, pictureInfo = null, information = null;
@@ -31,12 +28,10 @@ public class DisplayBillboardViewer {
         // Constantly receive data from the server
         for (;;) {
             try {
-                // Setup communication with the server
-                setStreams();
 
                 // Get XML
                 GetXML newXML = new GetXML();
-                newXML.sendXMLRequest(oos, ois);
+                newXML.sendXMLRequest();
                 String input = newXML.returnXML();
 
                 // Check if the string sent is null or not
@@ -119,12 +114,4 @@ public class DisplayBillboardViewer {
         billboard.showBillboard();
     }
 
-    private static void setStreams() throws IOException {
-        socket = new Socket("localhost",3310);
-        OutputStream os = socket.getOutputStream();
-        InputStream is = socket.getInputStream();
-        System.out.println("Connected to "+ socket.getInetAddress());
-        oos = new ObjectOutputStream(os);
-        ois = new ObjectInputStream(is);
-    }
 }

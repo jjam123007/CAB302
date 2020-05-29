@@ -1,13 +1,15 @@
 package UserManagement.Requests;
 
+import Networking.Request;
 import User.ClientUser;
 
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
  * @author Nikolai Taufao | N10481087
  */
-public class UserManagementRequest implements Serializable {
+public class UserManagementRequest extends Request implements Serializable {
     private String sessionToken;
     private UserManagementRequestType requestType;
     private Object request = null;
@@ -26,9 +28,11 @@ public class UserManagementRequest implements Serializable {
      * Send a request to the server that involves retrieving details of registered users or managing user sessions.
      * @param requestType the type of user management request.
      */
-    public UserManagementRequest(UserManagementRequestType requestType){
+    public UserManagementRequest(UserManagementRequestType requestType) throws IOException {
+        super();
         this.sessionToken = ClientUser.getToken();
         this.requestType = requestType;
+        sendRequest(this);
     }
 
     /**
@@ -36,9 +40,11 @@ public class UserManagementRequest implements Serializable {
      * @param requestType the type of user management request.
      * @param request the object holding the request data, such as target user details.
      */
-    public UserManagementRequest(UserManagementRequestType requestType, Object request){
+    public UserManagementRequest(UserManagementRequestType requestType, Object request) throws IOException {
+        super();
         this.sessionToken = ClientUser.getToken();
         this.requestType = requestType;
         this.request = request;
+        sendRequest(this);
     }
 }

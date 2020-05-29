@@ -17,9 +17,6 @@ import java.security.NoSuchAlgorithmException;
  * @author Nikolai Taufao | N10481087
  */
 public class AccountPane implements ControlPanelComponent {
-    public ObjectOutputStream oos;
-    public ObjectInputStream ois;
-
     public JFrame frame;
     public JButton clientChangePasswordButton;
     public  JPasswordField clientReenterPasswordField;
@@ -55,8 +52,9 @@ public class AccountPane implements ControlPanelComponent {
      */
     private void logout() throws IOException, ClassNotFoundException {
         UserManagementRequest logoutRequest = new UserManagementRequest(UserManagementRequestType.logout);
-        oos.writeObject(logoutRequest);
-        LogoutReply logoutReply = (LogoutReply) ois.readObject();
+        LogoutReply logoutReply = (LogoutReply) logoutRequest.getOIS().readObject();
+        logoutRequest.closeConnection();
+
         if (logoutReply.isSuccess()){
             JOptionPane.showMessageDialog(null,"You have successfully logged out!");
             frame.dispose();
@@ -75,7 +73,7 @@ public class AccountPane implements ControlPanelComponent {
             try {
                 String password = clientNewPasswordField.getText();
                 if (EditUserPassword.canChangePasswords(password, clientReenterPasswordField.getText())){
-                    EditUserPassword.changePassword(ClientUser.getUsername(), password, oos, ois);
+                    EditUserPassword.changePassword(ClientUser.getUsername(), password);
                 }
             } catch (NoSuchAlgorithmException | IOException | ClassNotFoundException noSuchAlgorithmException) {
                 noSuchAlgorithmException.printStackTrace();
@@ -86,8 +84,6 @@ public class AccountPane implements ControlPanelComponent {
 
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-        this.oos = controlPanelGUI.oos;
-        this.ois = controlPanelGUI.ois;
 
         this.frame = controlPanelGUI.frame;
         this.logoutButton = controlPanelGUI.logoutButton;

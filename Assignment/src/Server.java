@@ -7,13 +7,8 @@ import BillboardViewer.Replies.QueryXML;
 import BillboardViewer.Requests.ViewerRequest;
 import BillboardViewer.Requests.ViewerRequestType;
 import ControlPanel.SerializeArray;
-import User.*;
-import Database.DBConnection;
 import UserManagement.Replies.*;
-import UserManagement.Requests.EditUserPropertyRequest;
-import UserManagement.Requests.RegisterRequest;
-import UserManagement.Requests.UserManagementRequest;
-import UserManagement.Requests.UserManagementRequestType;
+import UserManagement.Requests.*;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -23,8 +18,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.sql.Statement;
-import java.util.Map;
 
 
 public class Server {
@@ -33,11 +26,12 @@ public class Server {
     private static ObjectInputStream ois;
 
     public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException {
-        setStreams();
-
+        ServerSocket serverSocket = new ServerSocket(3310);
         for(;;){
             try {
+                setStreams(serverSocket);
                 Object request = ois.readObject();
+                System.out.println("request received");
                 if (request instanceof LoginRequest)
                 {
                     handleLoginRequest((LoginRequest) request);
@@ -53,6 +47,7 @@ public class Server {
                     handleViewerRequest((ViewerRequest) request);
                 }
             } catch (EOFException | NoSuchAlgorithmException e) {
+                System.out.println("Connection closed.");
                 e.printStackTrace();
             }
 
@@ -114,11 +109,13 @@ public class Server {
                 RegisterRequest registerRequest = (RegisterRequest) request.getRequest();
                 RegisterReply registerReply = new RegisterReply(registerRequest, sessionToken);
                 oos.writeObject(registerReply);
+                oos.flush();
                 break;
             }
             case getUsernames:{
                 ViewUsersReply viewUsersReply = new ViewUsersReply(sessionToken);
                 oos.writeObject(viewUsersReply);
+                oos.flush();
                 break;
             }
 
@@ -126,6 +123,7 @@ public class Server {
                 String username = (String) request.getRequest();
                 ViewUserPermissionsReply viewUserPermissionsReply = new ViewUserPermissionsReply(username, sessionToken);
                 oos.writeObject(viewUserPermissionsReply);
+                oos.flush();
                 break;
             }
 
@@ -133,6 +131,7 @@ public class Server {
                 String userToDelete = (String) request.getRequest();
                 RemoveUserReply removeUserReply = new RemoveUserReply(userToDelete,sessionToken);
                 oos.writeObject(removeUserReply);
+                oos.flush();
                 break;
             }
 
@@ -140,6 +139,7 @@ public class Server {
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
                 EditUserPermissionsReply editUserPermisionsReply = new EditUserPermissionsReply(editUserPropertyRequest, sessionToken);
                 oos.writeObject(editUserPermisionsReply);
+                oos.flush();
                 break;
             }
 
@@ -147,12 +147,14 @@ public class Server {
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
                 ChangeUserPasswordReply changeUserPasswordReply = new ChangeUserPasswordReply(editUserPropertyRequest, sessionToken);
                 oos.writeObject(changeUserPasswordReply);
+                oos.flush();
                 break;
             }
 
             case logout:{
                 LogoutReply logoutReply = new LogoutReply(sessionToken);
                 oos.writeObject(logoutReply);
+                oos.flush();
                 break;
             }
         }
@@ -168,13 +170,13 @@ public class Server {
             case getXML: {
                 String xml = QueryXML.queryXML();
                 oos.writeObject(xml);
+                oos.flush();
                 break;
             }
         }
     }
 
-    private static void setStreams() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(3310);
+    private static void setStreams(ServerSocket serverSocket) throws IOException {
         Socket socket = serverSocket.accept();
         System.out.println("Connected to "+ socket.getInetAddress());
         oos = new ObjectOutputStream(socket.getOutputStream());

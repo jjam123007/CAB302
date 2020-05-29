@@ -5,19 +5,16 @@ import BillboardViewer.BillboardViewer;
 import java.io.*;
 import java.net.Socket;
 
-public class GetXML {
+public class GetXML{
     String currentXML = null;
     public Boolean getXMLError = false;
 
     // Contact the server
-    public void sendXMLRequest(ObjectOutputStream oos, ObjectInputStream ois) {
-        Socket socket = null;
+    public void sendXMLRequest() {
         try {
             ViewerRequest request = new ViewerRequest(ViewerRequestType.getXML);
-
-            oos.writeObject(request);
-            oos.flush();
-            String result = (String) ois.readObject();
+            String result = (String) request.getOIS().readObject();
+            request.closeConnection();
             System.out.println(result);
 
             // Set the result

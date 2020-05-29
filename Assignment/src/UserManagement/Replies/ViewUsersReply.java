@@ -1,6 +1,7 @@
 package UserManagement.Replies;
 
 import Database.DBConnection;
+import Networking.Reply;
 import User.PermissionType;
 import User.ServerUserSession;
 

@@ -14,8 +14,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class EditBillboards implements ControlPanelComponent {
-    private ObjectOutputStream oos;
-    private ObjectInputStream ois;
 
     private JPanel controlPanel;
     public JTabbedPane billboardsPane;
@@ -33,54 +31,49 @@ public class EditBillboards implements ControlPanelComponent {
     public EditBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
 
-        editUpdateButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        editUpdateButton.addActionListener(e -> {
 
-                int viewId = Integer.valueOf(editBbID.getText());
-                String billboardName = editBbName.getText();
-                String billboardMessage = editBbMsg.getText();
-                String billboardInformation = editBbInfo.getText();
-                String billboardUrl = editBbImgLink.getText();
-                rowToEdit = Integer.valueOf(toEditRow.getText());
+            int viewId = Integer.valueOf(editBbID.getText());
+            String billboardName = editBbName.getText();
+            String billboardMessage = editBbMsg.getText();
+            String billboardInformation = editBbInfo.getText();
+            String billboardUrl = editBbImgLink.getText();
+            rowToEdit = Integer.valueOf(toEditRow.getText());
 
-                System.out.println("Data Updated");
-                System.out.println(billboardName+" "+billboardMessage+" "+billboardInformation+" "+billboardUrl);
+            System.out.println("Data Updated");
+            System.out.println(billboardName+" "+billboardMessage+" "+billboardInformation+" "+billboardUrl);
 
-                try {
-                    Object[] newTable = {viewId,billboardName,billboardMessage,billboardInformation,billboardUrl};
-                    BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable, ClientUser.getToken());
-                    oos.writeObject(edit);
-                    oos.flush();
-                    System.out.println("ROW TO EDIT"+rowToEdit);
-                    viewTable.getModel().setValueAt(viewId,rowToEdit,0);
-                    viewTable.getModel().setValueAt(billboardName,rowToEdit,1);
-                    viewTable.getModel().setValueAt(billboardMessage,rowToEdit,2);
-                    viewTable.getModel().setValueAt(billboardInformation,rowToEdit,3);
-                    viewTable.getModel().setValueAt(billboardUrl,rowToEdit,4);
-                    rowToEdit = -1;
+            try {
+                Object[] newTable = {viewId,billboardName,billboardMessage,billboardInformation,billboardUrl};
+                BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable, ClientUser.getToken());;
+                edit.closeConnection();
 
-                } catch (IOException ex) {
-                    ex.printStackTrace();
-                }
+                System.out.println("ROW TO EDIT"+rowToEdit);
+                viewTable.getModel().setValueAt(viewId,rowToEdit,0);
+                viewTable.getModel().setValueAt(billboardName,rowToEdit,1);
+                viewTable.getModel().setValueAt(billboardMessage,rowToEdit,2);
+                viewTable.getModel().setValueAt(billboardInformation,rowToEdit,3);
+                viewTable.getModel().setValueAt(billboardUrl,rowToEdit,4);
+                rowToEdit = -1;
 
-
-                editBbName.setText("");
-                editBbMsg.setText("");
-                editBbInfo.setText("");
-                editBbImgLink.setText("");
-                editBbID.setText("");
-                JOptionPane.showMessageDialog(controlPanel,"Success","message",JOptionPane.NO_OPTION);
-                billboardsPane.setSelectedIndex(0);
+            } catch (IOException ex) {
+                ex.printStackTrace();
             }
+
+
+            editBbName.setText("");
+            editBbMsg.setText("");
+            editBbInfo.setText("");
+            editBbImgLink.setText("");
+            editBbID.setText("");
+            JOptionPane.showMessageDialog(controlPanel,"Success","message",JOptionPane.NO_OPTION);
+            billboardsPane.setSelectedIndex(0);
         });
     }
 
 
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-        this.oos = controlPanelGUI.oos;
-        this.ois = controlPanelGUI.ois;
         this.controlPanel = controlPanelGUI.controlPanel;
         this.billboardsPane = controlPanelGUI.billboardsPane;
         this.editBbName = controlPanelGUI.editBbName;

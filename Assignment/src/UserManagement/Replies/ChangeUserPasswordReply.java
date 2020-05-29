@@ -1,6 +1,7 @@
 package UserManagement.Replies;
 
 import Database.DBConnection;
+import Networking.Reply;
 import User.PermissionType;
 import User.ServerUserSession;
 import UserManagement.DataSecurity;
@@ -12,7 +13,7 @@ import java.sql.Statement;
 /**
  * @author Nikolai Taufao | N10481087
  */
-public class ChangeUserPasswordReply extends Reply{
+public class ChangeUserPasswordReply extends Reply {
 
     /***
      * Changed the password of the user specified in the request only if the request client user is an admin.
