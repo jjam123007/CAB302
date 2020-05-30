@@ -10,9 +10,6 @@ import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 
-/**
- * @author  @author Jun Chen(n10240977)&Haoze He(n10100351)
- */
 public class ControlPanelGUI {
     public JPanel controlPanel;
     public JTabbedPane billboardsPane;
@@ -82,15 +79,6 @@ public class ControlPanelGUI {
     public ObjectInputStream ois;
     protected JFrame frame;
 
-    /**
-     *
-     * @param socket
-     * @param oos
-     * @param ois
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws SQLException
-     */
     public ControlPanelGUI(Socket socket, ObjectOutputStream oos, ObjectInputStream ois) throws IOException, ClassNotFoundException, SQLException {
         JPanel root = this.controlPanel;
         frame = new JFrame();
@@ -104,12 +92,6 @@ public class ControlPanelGUI {
         initControlPanelComponents();
     }
 
-    /**
-     * 
-     * @throws IOException
-     * @throws ClassNotFoundException
-     * @throws SQLException
-     */
     private void initControlPanelComponents() throws IOException, ClassNotFoundException, SQLException {
         new MenuPane(this);
     }
