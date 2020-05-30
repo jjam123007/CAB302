@@ -1,11 +1,14 @@
 package Billboard;
 
+import Networking.Request;
+
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
-public class BillboardRequest implements Serializable {
+public class BillboardRequest extends Request implements Serializable {
     BillboardRequestType request;
     String sessionToken;
     Object[] data;
@@ -33,10 +36,12 @@ public class BillboardRequest implements Serializable {
      * @param data
      * @param sessionToken
      */
-    public BillboardRequest(BillboardRequestType request, Object[] data, String sessionToken){
+    public BillboardRequest(BillboardRequestType request, Object[] data, String sessionToken) throws IOException {
+        super();
         this.request = request;
         this.sessionToken = sessionToken;
         this.data = data;
+        sendRequest(this);
     }
 
 

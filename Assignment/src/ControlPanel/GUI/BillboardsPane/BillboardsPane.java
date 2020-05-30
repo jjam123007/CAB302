@@ -18,8 +18,7 @@ import java.io.IOException;
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
 public class BillboardsPane implements ControlPanelComponent {
-    private static ObjectOutputStream oos;
-    private static ObjectInputStream ois;
+
     public JTabbedPane billboardsPane;
     public JTable viewTable;
 

@@ -5,20 +5,20 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
+import Networking.Request;
 import User.ClientUser;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 
 /**
  *
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
-public class EditBillboards implements ControlPanelComponent {
+public class EditBillboards extends Request implements ControlPanelComponent {
 
     private JPanel controlPanel;
     public JTabbedPane billboardsPane;
@@ -44,6 +44,7 @@ public class EditBillboards implements ControlPanelComponent {
         setControlPanelComponents(controlPanelGUI);
         toEditRow.setText("Edit through create billboard menu");
         toEditRow.setEnabled(false);
+
         editUpdateButton.addActionListener(new ActionListener() {
             /**
              * Implements a ActionListener for updateButton to update data is changed in view interface
@@ -63,8 +64,7 @@ public class EditBillboards implements ControlPanelComponent {
                 try {
                     Object[] newTable = {viewId,billboardName,billboardMessage,billboardInformation,billboardUrl};
                     BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable, ClientUser.getToken());
-                    oos.writeObject(edit);
-                    oos.flush();
+
                     System.out.println("ROW TO EDIT"+rowToEdit);
                     viewTable.getModel().setValueAt(viewId,rowToEdit,0);
                     viewTable.getModel().setValueAt(billboardName,rowToEdit,1);
@@ -73,7 +73,8 @@ public class EditBillboards implements ControlPanelComponent {
                     viewTable.getModel().setValueAt(billboardUrl,rowToEdit,4);
                     rowToEdit = -1;
                     //read the reply from the server
-                    BillboardReply messageObject = (BillboardReply) ois.readObject();
+                    BillboardReply messageObject = (BillboardReply) edit.getOIS().readObject();
+                    edit.closeConnection();
                     String message = messageObject.getMessage();
                     System.out.println("Message: "+message);
                     editBbName.setText("");

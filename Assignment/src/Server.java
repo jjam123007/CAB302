@@ -10,10 +10,7 @@ import ControlPanel.SerializeArray;
 import User.*;
 import Database.DBConnection;
 import UserManagement.Replies.*;
-import UserManagement.Requests.EditUserPropertyRequest;
-import UserManagement.Requests.RegisterRequest;
-import UserManagement.Requests.UserManagementRequest;
-import UserManagement.Requests.UserManagementRequestType;
+import UserManagement.Requests.*;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -41,12 +38,14 @@ public class Server {
      * @throws SQLException
      */
     public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException {
-        setStreams();
+        ServerSocket serverSocket = new ServerSocket(3310);
         DBConnection.checkTableExists();
 
         for(;;){
             try {
+                setStreams(serverSocket);
                 Object request = ois.readObject();
+                System.out.println("request received");
                 if (request instanceof LoginRequest)
                 {
                     handleLoginRequest((LoginRequest) request);
@@ -62,6 +61,7 @@ public class Server {
                     handleViewerRequest((ViewerRequest) request);
                 }
             } catch (EOFException | NoSuchAlgorithmException e) {
+                System.out.println("Connection closed.");
                 e.printStackTrace();
             }
         }
@@ -81,53 +81,61 @@ public class Server {
             case addBillboard: {
                 try {
                     ManageBillboards.addBillboard(billboard, token);
-                    BillboardReply messageObject = (BillboardReply) ois.readObject();
-                    String message = messageObject.getMessage();
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                    BillboardReply message = new BillboardReply("Success");
+                    oos.writeObject(message);
+                    oos.flush();
+                }catch (SQLException e){
+                    BillboardReply message = new BillboardReply("Failure, please check inputs are valid");
+                    oos.writeObject(message);
+                    oos.flush();
                 }
                 break;
             }
             case addView: {
-                ManageBillboards.addView(billboard);
+                try{
+                    ManageBillboards.addView(billboard);
+                    BillboardReply message = new BillboardReply("Success");
+                    oos.writeObject(message);
+                    oos.flush();
+                }catch (SQLException e){
+                    BillboardReply message = new BillboardReply("Please ensure the input are in correct format and valid \n"+
+                            "Date: yyyy-mm-dd \n"+
+                            "Time: hh:mm:ss");
+                    oos.writeObject(message);
+                    oos.flush();
+                }
                 break;
             }
             case showTable: {
-                Object[][] tableData;
-                Statement statement = DBConnection.getInstance().createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT * FROM billboards_info");
-                int rowcount = 0;
-                if (resultSet.last()) {
-                    rowcount = resultSet.getRow();
-                    resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
-                }
-                tableData = new Object[rowcount][9];
-                for (int i = 0; i < rowcount; i++) {
-                    resultSet.next();
-                    String viewID = Integer.toString(resultSet.getInt(1));
-                    String BillboardName = resultSet.getString(2);
-                    String creatorName = resultSet.getString(3);
-                    String msg = resultSet.getString(4);
-                    String info = resultSet.getString(5);
-                    String url = resultSet.getString(6);
-                    String schduledDate = resultSet.getString(7);
-                    Time startTime = resultSet.getTime(8);
-                    Time endTime = resultSet.getTime(9);
-                    Object[] myString = {viewID, BillboardName,creatorName, msg,info, url, schduledDate, startTime, endTime};
-                    tableData[i] = myString;
-                }
-                statement.close();
-                SerializeArray d2 = new SerializeArray(tableData);
-                oos.writeObject(d2);
+                SerializeArray tableData = ManageBillboards.showBillboards();
+                oos.writeObject(tableData);
                 oos.flush();
                 break;
             }
             case delete: {
-                ManageBillboards.delete(billboard);
+                try{
+                    ManageBillboards.delete(billboard);
+                    BillboardReply message = new BillboardReply("Success");
+                    oos.writeObject(message);
+                    oos.flush();
+                }catch (NullPointerException e){
+                    BillboardReply message = new BillboardReply("No rows was selected");
+                    oos.writeObject(message);
+                    oos.flush();
+                }
                 break;
             }
             case edit: {
-                ManageBillboards.edit(billboard);
+                try {
+                    ManageBillboards.edit(billboard);
+                    BillboardReply message = new BillboardReply("Success");
+                    oos.writeObject(message);
+                    oos.flush();
+                }catch(SQLException e){
+                    BillboardReply message = new BillboardReply("Please ensure the inputs are valid");
+                    oos.writeObject(message);
+                    oos.flush();
+                }
                 break;
             }
 
@@ -137,6 +145,7 @@ public class Server {
     private static void handleLoginRequest(LoginRequest loginRequest) throws SQLException, IOException {
         LoginReply loginReply = new LoginReply(loginRequest);
         oos.writeObject(loginReply);
+        oos.flush();
     }
 
     private static void handleUserManagementRequest(UserManagementRequest request) throws SQLException, NoSuchAlgorithmException, IOException {
@@ -147,11 +156,13 @@ public class Server {
                 RegisterRequest registerRequest = (RegisterRequest) request.getRequest();
                 RegisterReply registerReply = new RegisterReply(registerRequest, sessionToken);
                 oos.writeObject(registerReply);
+                oos.flush();
                 break;
             }
             case getUsernames:{
                 ViewUsersReply viewUsersReply = new ViewUsersReply(sessionToken);
                 oos.writeObject(viewUsersReply);
+                oos.flush();
                 break;
             }
 
@@ -159,6 +170,7 @@ public class Server {
                 String username = (String) request.getRequest();
                 ViewUserPermissionsReply viewUserPermissionsReply = new ViewUserPermissionsReply(username, sessionToken);
                 oos.writeObject(viewUserPermissionsReply);
+                oos.flush();
                 break;
             }
 
@@ -166,13 +178,15 @@ public class Server {
                 String userToDelete = (String) request.getRequest();
                 RemoveUserReply removeUserReply = new RemoveUserReply(userToDelete,sessionToken);
                 oos.writeObject(removeUserReply);
+                oos.flush();
                 break;
             }
 
             case changePermissions:{
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
-                EditUserPermisionsReply editUserPermisionsReply = new EditUserPermisionsReply(editUserPropertyRequest, sessionToken);
-                oos.writeObject(editUserPermisionsReply);
+                EditUserPermissionsReply editUserPermissionsReply = new EditUserPermissionsReply(editUserPropertyRequest, sessionToken);
+                oos.writeObject(editUserPermissionsReply);
+                oos.flush();
                 break;
             }
 
@@ -180,12 +194,14 @@ public class Server {
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
                 ChangeUserPasswordReply changeUserPasswordReply = new ChangeUserPasswordReply(editUserPropertyRequest, sessionToken);
                 oos.writeObject(changeUserPasswordReply);
+                oos.flush();
                 break;
             }
 
             case logout:{
                 LogoutReply logoutReply = new LogoutReply(sessionToken);
                 oos.writeObject(logoutReply);
+                oos.flush();
                 break;
             }
         }
@@ -206,8 +222,7 @@ public class Server {
         }
     }
 
-    private static void setStreams() throws IOException {
-        ServerSocket serverSocket = new ServerSocket(3310);
+    private static void setStreams(ServerSocket serverSocket) throws IOException {
         Socket socket = serverSocket.accept();
         System.out.println("Connected to "+ socket.getInetAddress());
         oos = new ObjectOutputStream(socket.getOutputStream());
