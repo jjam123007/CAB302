@@ -15,7 +15,7 @@ import java.io.IOException;
 
 
 /**
- *
+ *This class used to edit exist billBoards
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
 public class EditBillboards extends Request implements ControlPanelComponent {

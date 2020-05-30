@@ -11,6 +11,7 @@ import java.sql.Statement;
 import java.sql.Time;
 
 /**
+ * This class used to show what is the correct format for filling in the data
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
 public final class ManageBillboards implements Serializable {

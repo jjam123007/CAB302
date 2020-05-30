@@ -23,6 +23,29 @@ import java.sql.*;
 import java.sql.Statement;
 
 /**
+ * Check request from client,
+ *      * addBillboard
+ *      * if request is addBillboard the project will execute addBillboard request,
+ *      * if the addBillboard request is successful, the client will show success message,
+ *      * if the addBillboard request is failure, the client will show error message
+ *      * that will prompt the user to check inputs are valid,
+ *      * addView
+ *      * if request is addView the project will execute addView request,
+ *      * if the addView request is successful, the client will show success message,
+ *      * if the addView request is failure, the client will show error message
+ *      * that will prompt the user what is correct format.
+ *      * showTable
+ *      * if request is showTable the project will call showBillboard()function.
+ *      * delete
+ *      * if request is delete the project will execute delete request,
+ *      * if the delete request is successful, the client will show success message,
+ *      * if the delete request is failure, the client will show error message
+ *      * that will prompt the user no rows was selected.
+ *      * edit
+ *      * if request is edit the project will execute edit request,
+ *      * if the edit request is successful, the client will show success message,
+ *      * if the edit request is failure, the client will show error message
+ *      * that will prompt the user inputs are valid.
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
 public class Server {

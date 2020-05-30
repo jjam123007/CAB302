@@ -15,7 +15,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
-/**@author Jun Chen(n10240977)&Haoze He(n10100351) */
+/**
+ * This class used to edit or add scheduleDate,
+ * scheduledStartTime and scheduledEndTime for exist billBoards or new billBoards
+ *
+ * @author Jun Chen(n10240977)&Haoze He(n10100351) */
 public class ScheduleBillboards extends Request implements ControlPanelComponent {
 
     private JPanel controlPanel;

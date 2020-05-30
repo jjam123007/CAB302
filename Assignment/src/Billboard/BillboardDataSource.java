@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.Properties;
 
 /**
+ *This class used to create table for store data of billBoard and users
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
 public class BillboardDataSource {
@@ -16,7 +17,8 @@ public class BillboardDataSource {
     public static final String create_billboardDB = "create database if not exists `billboardscheduler`;";
 
     /**
-     *
+     *This function used to create a billBoardTable,
+     * it sets seven title and value types to store data of billBoard in dataBase
      * @throws SQLException
      */
     public static void create_billboardTable() throws SQLException {
@@ -36,7 +38,7 @@ public class BillboardDataSource {
     }
 
     /**
-     *
+     *This function used to crate a viewTable to show and store some billBoard data presented to users in dataBase.
      * @throws SQLException
      */
     public static void create_viewTable() throws SQLException {
@@ -59,7 +61,7 @@ public class BillboardDataSource {
     }
 
     /**
-     *
+     *This function used to create a schedulesTable to store schedulesData
      * @throws SQLException
      */
     public static void create_schedulesTable() throws SQLException {
@@ -78,7 +80,7 @@ public class BillboardDataSource {
     }
 
     /**
-     *
+     *This function used to create a usersTable to store user data
      * @throws SQLException
      */
     public static void create_usersTable() throws SQLException {
@@ -96,7 +98,7 @@ public class BillboardDataSource {
     }
 
     /**
-     *
+     * This function used to create a permissionsTable to store permissions data of users
      * @throws SQLException
      */
     public static void create_permissionsTable() throws SQLException {

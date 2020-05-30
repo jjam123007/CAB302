@@ -25,6 +25,7 @@ import java.net.UnknownHostException;
 import java.util.Base64;
 
 /**
+ * This class used to create and preview a new billBoard
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
 public class CreateBillboards extends Request implements ControlPanelComponent {
@@ -125,7 +126,14 @@ public class CreateBillboards extends Request implements ControlPanelComponent {
             }
         });
         exportToXMLButton.addActionListener(new ActionListener() {
+            /**
+             * Implements a ActionListener for xmlButton to added billBoard data from xml form file.
+             * @param e
+             */
             @Override
+            /**
+             * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
+             */
             public void actionPerformed(ActionEvent e) {
                 String billboardName = createBbName.getText();
                 String msg = createBbMsg.getText();
@@ -246,7 +254,7 @@ public class CreateBillboards extends Request implements ControlPanelComponent {
         });
         createBbPreviewButton.addActionListener(new ActionListener() {
             /**
-             *Implements a ActionListener for previewButton to show added data on dialog
+             *Implements a ActionListener for previewButton to show added data on dialogBox
              * @param e
              */
             @Override
