@@ -98,7 +98,7 @@ public class CreateBillboards extends Request implements ControlPanelComponent {
                     String msg = createBbMsg.getText();
                     String info = createBbInfo.getText();
                     String url = createBbImgLink.getText();
-                    String requestType = "addBillboard";
+
                     Object[] newTable = {billboardName,msg,info,url};
                     BillboardRequest addBillboard = new BillboardRequest(BillboardRequestType.addBillboard,newTable, ClientUser.getToken());
                     //read the reply from the server

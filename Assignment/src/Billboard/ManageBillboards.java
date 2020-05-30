@@ -94,7 +94,7 @@ public final class ManageBillboards implements Serializable {
         String info = (String) data[3];
         String url = (String) data[4];
         Statement statement = DBConnection.getInstance().createStatement();
-        statement.executeQuery("update billboards set billboardName='"+ name+"', message='"+ message+"',info='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
+        statement.executeQuery("update billboards set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
         statement.executeQuery("update billboards_info set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where viewID='"+ id+"';");
         statement.close();
     }
@@ -102,7 +102,7 @@ public final class ManageBillboards implements Serializable {
         Object[][] tableData;
 
         Statement statement = DBConnection.getInstance().createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM billboard_info");
+        ResultSet resultSet = statement.executeQuery("SELECT * FROM billboards_info");
 
         int rowcount = 0;
 
