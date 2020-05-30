@@ -1,6 +1,7 @@
 package UserManagement.Replies;
 
 import Database.DBConnection;
+import Networking.Reply;
 import User.PermissionType;
 import User.UserPermissions;
 import User.ServerUserSession;
@@ -8,11 +9,20 @@ import User.ServerUserSession;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+/**
+ * @author Nikolai Taufao | N10481087
+ */
 
-public class ViewUserPermissionsReply extends Reply{
+public class ViewUserPermissionsReply extends Reply {
     private UserPermissions userPermissions;
     public UserPermissions getUserPermissions() { return userPermissions; }
 
+    /**
+     * Send the permissions associated with the given username to the request client only if the client user is an admin.
+     * @param username
+     * @param sessionToken
+     * @throws SQLException
+     */
     public ViewUserPermissionsReply(String username, String sessionToken) throws SQLException {
         super(sessionToken);
         if (!sessionExpired) {
@@ -24,21 +34,27 @@ public class ViewUserPermissionsReply extends Reply{
         }
     }
 
+    /**
+     * Retrieve the target user's permissions from the database.
+     * @param username
+     * @throws SQLException
+     */
     private void retrieveUserPermissions(String username) throws SQLException {
         String query = "SELECT * FROM permissions WHERE username = '"+username+"';";
         Statement statement = DBConnection.getInstance().createStatement();
         ResultSet userRows = statement.executeQuery(query);
         if (userRows.next()){
             try {
-                boolean p1 = userRows.getBoolean(2);
-                boolean p2 = userRows.getBoolean(3);
-                boolean p3 = userRows.getBoolean(4);
-                boolean p4 = userRows.getBoolean(5);
-                userPermissions = new UserPermissions(p1,p2,p3,p4);
+                boolean canCreateBillboards = userRows.getBoolean(2);
+                boolean canEditBillboards = userRows.getBoolean(3);
+                boolean canScheduleBillboards = userRows.getBoolean(4);
+                boolean canEditUsers = userRows.getBoolean(5);
+                userPermissions = new UserPermissions(canCreateBillboards,canEditBillboards,canScheduleBillboards,canEditUsers);
                 statement.close();
                 this.success = true;
             } catch (SQLException exception){
-                System.out.println("errorCol");
+                this.errorMessage = exception.getMessage();
+                exception.printStackTrace();
             }
         }
     }

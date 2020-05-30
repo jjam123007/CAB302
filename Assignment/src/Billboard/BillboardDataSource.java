@@ -43,16 +43,16 @@ public class BillboardDataSource {
         //create billboards_info table for (view)
         String create_viewTable =
                 "CREATE TABLE IF NOT EXISTS billboards_info (" +
-                        "    viewID int NOT NULL auto_increment primary key," +
-                        "    billboardName varchar(60)," +
-                        "    creatorName varchar(60)," +
-                        "    message varchar(2000)," +
-                        "    information varchar(2000)," +
-                        "    url varchar(2000)," +
-                        "    scheduledDate Date," +
-                        "    startTime Time," +
-                        "    endTime Time" +
-                        "	);";
+                        "viewID int NOT NULL auto_increment primary key," +
+                        "billboardName varchar(60)," +
+                        "creatorName varchar(60)," +
+                        "message varchar(2000)," +
+                        "information varchar(2000)," +
+                        "url varchar(2000)," +
+                        "scheduledDate Date," +
+                        "startTime Time," +
+                        "endTime Time" +
+                        ");";
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery(create_viewTable);
         statement.close();
@@ -66,12 +66,12 @@ public class BillboardDataSource {
         //create schedules table
         String create_scheduleTable =
                 "CREATE TABLE IF NOT EXISTS schedules (" +
-                        "    scheduleID int NOT NULL auto_increment primary key," +
-                        "    billboardID int," +
-                        "    scheduledDate Date," +
-                        "    startTime Time," +
-                        "    endTime Time" +
-                        "	);";
+                        "scheduleID int NOT NULL auto_increment primary key," +
+                        "billboardID int," +
+                        "scheduledDate Date," +
+                        "startTime Time," +
+                        "endTime Time" +
+                        ");";
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery(create_scheduleTable);
         statement.close();
@@ -85,11 +85,11 @@ public class BillboardDataSource {
         //create users table
         String create_userInfo =
                 "CREATE TABLE IF NOT EXISTS users (" +
-                        "    username varchar (256) NOT NULL," +
-                        "    password varchar(256) NOT NULL," +
-                        "    session varchar(256)," +
-                        "    primary key (username)" +
-                        "	);";
+                        "username varchar (256) NOT NULL," +
+                        "password varchar(256) NOT NULL," +
+                        "session varchar(256)," +
+                        "primary key (username)" +
+                        ");";
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery(create_userInfo);
         statement.close();
@@ -102,13 +102,13 @@ public class BillboardDataSource {
     public static void create_permissionsTable() throws SQLException {
         //create permissions table
         String create_permissions ="CREATE TABLE IF NOT EXISTS permissions (" +
-                "    username varchar (256) NOT NULL," +
-                "    createBillboards tinyint(4)," +
-                "    editBillboards tinyint(4)," +
-                "    scheduleBillboards tinyint(4)," +
-                "    editUsers tinyint(4)," +
-                "    primary key (username)" +
-                "	);";
+                "username varchar (256) NOT NULL," +
+                "createBillboards tinyint(4)," +
+                "editBillboards tinyint(4)," +
+                "scheduleBillboards tinyint(4)," +
+                "editUsers tinyint(4)," +
+                "primary key (username)" +
+                ");";
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery(create_permissions);
         statement.close();

@@ -1,5 +1,6 @@
 package ControlPanel.GUI.BillboardsPane;
 
+import Billboard.BillboardReply;
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
@@ -32,6 +33,8 @@ public class ViewBillboards implements ControlPanelComponent {
     public JButton viewEditButton;
     public JButton viewDeleteButton;
     public JTextArea toEditRow;
+    public JPanel controlPanel;
+
     public int rowToEdit;
 
     /**
@@ -46,10 +49,8 @@ public class ViewBillboards implements ControlPanelComponent {
         BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
         oos.writeObject(request);
         oos.flush();
-        System.out.println("hello345");
         SerializeArray tableData = (SerializeArray) ois.readObject();
         Object[][]  data = tableData.getData();
-        System.out.println("hello345");
         viewTable.setModel(new DefaultTableModel(
                 data,
                 new String[]{"BillboardID","Billboard Name","Creator Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
@@ -92,8 +93,17 @@ public class ViewBillboards implements ControlPanelComponent {
                     if(billboardID != null){
                         DefaultTableModel dm = (DefaultTableModel) viewTable.getModel();
                         dm.removeRow(selectedRow);
+                        //read the reply from the server
+                        BillboardReply messageObject = (BillboardReply) ois.readObject();
+                        String message = messageObject.getMessage();
+                        JOptionPane.showMessageDialog(controlPanel,message,"Success",JOptionPane.NO_OPTION);
+                    }else{
+                        //read the reply from the server
+                        BillboardReply messageObject = (BillboardReply) ois.readObject();
+                        String message = messageObject.getMessage();
+                        JOptionPane.showMessageDialog(controlPanel,message,"Warning",JOptionPane.NO_OPTION);
                     }
-                } catch (IOException ex) {
+                } catch (IOException | ClassNotFoundException ex) {
                     ex.printStackTrace();
                 }
             }
@@ -115,12 +125,14 @@ public class ViewBillboards implements ControlPanelComponent {
                 String billboardInformation = (String) viewTable.getModel().getValueAt(selectedRow,4);
                 String billboardUrl = (String) viewTable.getModel().getValueAt(selectedRow,5);
 
+
                 editBbID.setText(billboardId);
                 editBbID.setEditable(false);
                 editBbName.setText(billboardName);
                 editBbMsg.setText(billboardMessage);
                 editBbInfo.setText(billboardInformation);
                 editBbImgLink.setText(billboardUrl);
+
                 toEditRow.setText(String.valueOf(selectedRow));
                 toEditRow.setEditable(false);
                 billboardsPane.setSelectedIndex(2);
@@ -176,5 +188,6 @@ public class ViewBillboards implements ControlPanelComponent {
         this.viewEditButton = controlPanelGUI.viewEditButton;
         this.viewDeleteButton = controlPanelGUI.viewDeleteButton;
         this.toEditRow = controlPanelGUI.toEditRow;
+
     }
 }

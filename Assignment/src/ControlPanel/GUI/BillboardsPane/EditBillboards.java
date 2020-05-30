@@ -1,5 +1,6 @@
 package ControlPanel.GUI.BillboardsPane;
 
+import Billboard.BillboardReply;
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
@@ -18,8 +19,6 @@ import java.io.ObjectOutputStream;
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
 public class EditBillboards implements ControlPanelComponent {
-    private ObjectOutputStream oos;
-    private ObjectInputStream ois;
 
     private JPanel controlPanel;
     public JTabbedPane billboardsPane;
@@ -31,6 +30,7 @@ public class EditBillboards implements ControlPanelComponent {
     public JTextArea editBbID;
     public JTable viewTable;
     public JTextArea toEditRow;
+    public JPanel EditJPanel;
 
     public int rowToEdit;
 
@@ -42,7 +42,8 @@ public class EditBillboards implements ControlPanelComponent {
      */
     public EditBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
-
+        toEditRow.setText("Edit through create billboard menu");
+        toEditRow.setEnabled(false);
         editUpdateButton.addActionListener(new ActionListener() {
             /**
              * Implements a ActionListener for updateButton to update data is changed in view interface
@@ -53,7 +54,6 @@ public class EditBillboards implements ControlPanelComponent {
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
             public void actionPerformed(ActionEvent e) {
-
                 int viewId = Integer.valueOf(editBbID.getText());
                 String billboardName = editBbName.getText();
                 String billboardMessage = editBbMsg.getText();
@@ -72,18 +72,22 @@ public class EditBillboards implements ControlPanelComponent {
                     viewTable.getModel().setValueAt(billboardInformation,rowToEdit,3);
                     viewTable.getModel().setValueAt(billboardUrl,rowToEdit,4);
                     rowToEdit = -1;
+                    //read the reply from the server
+                    BillboardReply messageObject = (BillboardReply) ois.readObject();
+                    String message = messageObject.getMessage();
+                    System.out.println("Message: "+message);
+                    editBbName.setText("");
+                    editBbMsg.setText("");
+                    editBbInfo.setText("");
+                    editBbImgLink.setText("");
+                    editBbID.setText("");
 
-                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(controlPanel,message,"message",JOptionPane.NO_OPTION);
+
+
+                } catch (IOException | ClassNotFoundException ex) {
                     ex.printStackTrace();
                 }
-
-
-                editBbName.setText("");
-                editBbMsg.setText("");
-                editBbInfo.setText("");
-                editBbImgLink.setText("");
-                editBbID.setText("");
-                JOptionPane.showMessageDialog(controlPanel,"Success","message",JOptionPane.NO_OPTION);
                 billboardsPane.setSelectedIndex(0);
             }
         });
@@ -95,8 +99,6 @@ public class EditBillboards implements ControlPanelComponent {
      */
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-        this.oos = controlPanelGUI.oos;
-        this.ois = controlPanelGUI.ois;
         this.controlPanel = controlPanelGUI.controlPanel;
         this.billboardsPane = controlPanelGUI.billboardsPane;
         this.editBbName = controlPanelGUI.editBbName;
@@ -107,6 +109,7 @@ public class EditBillboards implements ControlPanelComponent {
         this.editBbID = controlPanelGUI.editBbID;
         this.viewTable = controlPanelGUI.viewTable;
         this.toEditRow = controlPanelGUI.toEditRow;
+        this.EditJPanel = controlPanelGUI.EditJPanel;
 
     }
 }

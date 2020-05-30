@@ -4872,10 +4872,10 @@ ER_TABLENAME_NOT_ALLOWED_HERE 42000
         spa "Tabla '%-.192s' de uno de los SELECT no puede ser usada en %-.32s"
         swe "Tabell '%-.192s' från en SELECT kan inte användas i %-.32s"
 ER_NOT_SUPPORTED_AUTH_MODE 08004 
-        eng "User.LoginRequest does not support authentication protocol requested by server; consider upgrading MariaDB client"
-        ger "User.LoginRequest unterstützt das vom Server erwartete Authentifizierungsprotokoll nicht. Bitte aktualisieren Sie Ihren MariaDB-User.LoginRequest"
+        eng "UserManagement.Requests.LoginRequest does not support authentication protocol requested by server; consider upgrading MariaDB client"
+        ger "UserManagement.Requests.LoginRequest unterstützt das vom Server erwartete Authentifizierungsprotokoll nicht. Bitte aktualisieren Sie Ihren MariaDB-UserManagement.Requests.LoginRequest"
         jpn "クライアントはサーバーが要求する認証プロトコルに対応できません。MariaDBクライアントのアップグレードを検討してください。"
-        nla "User.LoginRequest ondersteunt het door de server verwachtte authenticatieprotocol niet. Overweeg een nieuwere MariaDB client te gebruiken"
+        nla "UserManagement.Requests.LoginRequest ondersteunt het door de server verwachtte authenticatieprotocol niet. Overweeg een nieuwere MariaDB client te gebruiken"
         por "Cliente não suporta o protocolo de autenticação exigido pelo servidor; considere a atualização do cliente MariaDB"
         spa "Cliente no soporta protocolo de autenticación solicitado por el servidor; considere actualizar el cliente MariaDB"
         swe "Klienten stöder inte autentiseringsprotokollet som begärts av servern; överväg uppgradering av klientprogrammet"
