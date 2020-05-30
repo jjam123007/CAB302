@@ -65,7 +65,7 @@ public class BillboardDataSource {
                 "CREATE TABLE IF NOT EXISTS users (" +
                         "username varchar (256) NOT NULL," +
                         "password varchar(256) NOT NULL," +
-                        "session varchar(256)," +
+                        "salt varchar(256) NOT NULL," +
                         "primary key (username)" +
                         ");";
         Statement statement = DBConnection.getInstance().createStatement();

@@ -1,11 +1,12 @@
 
 package Billboard;
 
+import Networking.Reply;
+
 import java.io.Serializable;
 
 public class BillboardReply implements Serializable {
     String message;
-
 
     public String getMessage() {return message;}
 

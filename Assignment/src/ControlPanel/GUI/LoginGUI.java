@@ -1,7 +1,10 @@
 package ControlPanel.GUI;
 
+import Database.DBConnection;
 import User.ClientUser;
+import UserManagement.DataSecurity;
 import UserManagement.Replies.LoginReply;
+import UserManagement.Replies.RegisterReply;
 import UserManagement.Requests.LoginRequest;
 
 import javax.swing.*;
@@ -11,6 +14,8 @@ import java.io.*;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  * @author Nikolai Taufao | N10481087
  */
@@ -51,8 +56,10 @@ public class LoginGUI {
     }
 
     private void sendLoginRequest() throws IOException, NoSuchAlgorithmException, ClassNotFoundException, SQLException {
-        String username = "willi";//usernameField.getText();
-        String password = "11111111";//passwordField.getText();
+
+
+        String username = "hello";//usernameField.getText();
+        String password = "";//passwordField.getText();
         LoginRequest login = new LoginRequest(username, password);
         handleLoginReply(login);
     }

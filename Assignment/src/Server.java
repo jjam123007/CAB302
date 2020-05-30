@@ -7,6 +7,7 @@ import BillboardViewer.Replies.QueryXML;
 import BillboardViewer.Requests.ViewerRequest;
 import BillboardViewer.Requests.ViewerRequestType;
 import ControlPanel.SerializeArray;
+import Database.DBConnection;
 import UserManagement.Replies.*;
 import UserManagement.Requests.*;
 
@@ -27,6 +28,7 @@ public class Server {
 
     public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException {
         ServerSocket serverSocket = new ServerSocket(3310);
+        DBConnection.checkTableExists();
         for(;;){
             try {
                 setStreams(serverSocket);

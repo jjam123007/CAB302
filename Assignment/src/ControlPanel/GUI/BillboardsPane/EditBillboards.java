@@ -5,6 +5,7 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
+import Networking.Request;
 import User.ClientUser;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class EditBillboards implements ControlPanelComponent {
+public class EditBillboards extends Request implements ControlPanelComponent{
 
     private JPanel controlPanel;
     public JTabbedPane billboardsPane;
@@ -27,6 +28,8 @@ public class EditBillboards implements ControlPanelComponent {
     public JTable viewTable;
     public JTextArea toEditRow;
     public JPanel EditJPanel;
+    private ObjectOutputStream oos;
+
 
     public int rowToEdit;
 
@@ -50,8 +53,7 @@ public class EditBillboards implements ControlPanelComponent {
                 try {
                     Object[] newTable = {viewId,billboardName,billboardMessage,billboardInformation,billboardUrl};
                     BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable, ClientUser.getToken());
-                    oos.writeObject(edit);
-                    oos.flush();
+
                     System.out.println("ROW TO EDIT"+rowToEdit);
                     viewTable.getModel().setValueAt(viewId,rowToEdit,0);
                     viewTable.getModel().setValueAt(billboardName,rowToEdit,1);
@@ -59,8 +61,10 @@ public class EditBillboards implements ControlPanelComponent {
                     viewTable.getModel().setValueAt(billboardInformation,rowToEdit,3);
                     viewTable.getModel().setValueAt(billboardUrl,rowToEdit,4);
                     rowToEdit = -1;
+
                     //read the reply from the server
-                    BillboardReply messageObject = (BillboardReply) ois.readObject();
+                    BillboardReply messageObject = (BillboardReply) edit.getOIS().readObject();
+                    edit.closeConnection();
                     String message = messageObject.getMessage();
                     System.out.println("Message: "+message);
                     editBbName.setText("");
@@ -70,7 +74,6 @@ public class EditBillboards implements ControlPanelComponent {
                     editBbID.setText("");
 
                     JOptionPane.showMessageDialog(controlPanel,message,"message",JOptionPane.NO_OPTION);
-
 
                 } catch (IOException | ClassNotFoundException ex) {
                     ex.printStackTrace();
@@ -94,6 +97,5 @@ public class EditBillboards implements ControlPanelComponent {
         this.viewTable = controlPanelGUI.viewTable;
         this.toEditRow = controlPanelGUI.toEditRow;
         this.EditJPanel = controlPanelGUI.EditJPanel;
-
     }
 }

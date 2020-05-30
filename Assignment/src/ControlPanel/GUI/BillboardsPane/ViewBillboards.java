@@ -6,6 +6,7 @@ import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
 import ControlPanel.SerializeArray;
+import Networking.Request;
 import User.ClientUser;
 
 import javax.swing.*;
@@ -18,11 +19,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
-public class ViewBillboards implements ControlPanelComponent {
+public class ViewBillboards extends Request implements ControlPanelComponent {
     Integer billboardID;
     int selectedRow;
-    public ObjectOutputStream oos;
-    public ObjectInputStream ois;
+
     public JTabbedPane billboardsPane;
     public JTextArea editBbMsg;
     public JTextArea editBbInfo;
@@ -35,21 +35,19 @@ public class ViewBillboards implements ControlPanelComponent {
     public JTextArea toEditRow;
     public JPanel controlPanel;
 
-    public int rowToEdit;
-
 
     public ViewBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
 
         BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
-        oos.writeObject(request);
-        oos.flush();
-        SerializeArray tableData = (SerializeArray) ois.readObject();
+
+        SerializeArray tableData = (SerializeArray) request.getOIS().readObject();
         Object[][]  data = tableData.getData();
         viewTable.setModel(new DefaultTableModel(
                 data,
                 new String[]{"BillboardID","Billboard Name","Creator Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
         ));
+        request.closeConnection();
 
         viewTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
@@ -72,8 +70,6 @@ public class ViewBillboards implements ControlPanelComponent {
                 try {
                     Object[] id = {billboardID};
                     BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
-                    oos.writeObject(delete);
-                    oos.flush();
 
                     if(billboardID != null){
                         System.out.println("Selected id "+billboardID);
@@ -81,12 +77,14 @@ public class ViewBillboards implements ControlPanelComponent {
                         System.out.println("row "+selectedRow);
                         dm.removeRow(selectedRow);
                         //read the reply from the server
-                        BillboardReply messageObject = (BillboardReply) ois.readObject();
+                        BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
+                        delete.closeConnection();
                         String message = messageObject.getMessage();
                         JOptionPane.showMessageDialog(controlPanel,message,"Success",JOptionPane.NO_OPTION);
                     }else{
                         //read the reply from the server
-                        BillboardReply messageObject = (BillboardReply) ois.readObject();
+                        BillboardReply messageObject = (BillboardReply) delete.getOIS().readObject();
+                        delete.closeConnection();
                         String message = messageObject.getMessage();
                         JOptionPane.showMessageDialog(controlPanel,message,"Warning",JOptionPane.NO_OPTION);
                     }
@@ -128,10 +126,9 @@ public class ViewBillboards implements ControlPanelComponent {
                 if(billboardsPane.getSelectedIndex() == 0){
 
                     try {
-                        BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
-                        oos.writeObject(request);
-                        oos.flush();
-                        SerializeArray tableData = (SerializeArray) ois.readObject();
+                        BillboardRequest showTableRequest = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
+
+                        SerializeArray tableData = (SerializeArray) showTableRequest.getOIS().readObject();
                         Object[][]  data = tableData.getData();
 
                         viewTable.setModel(new DefaultTableModel(
@@ -151,8 +148,7 @@ public class ViewBillboards implements ControlPanelComponent {
 
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-        this.oos = controlPanelGUI.oos;
-        this.ois = controlPanelGUI.ois;
+
         this.billboardsPane = controlPanelGUI.billboardsPane;
         this.editBbMsg = controlPanelGUI.editBbMsg;
         this.editBbInfo = controlPanelGUI.editBbInfo;

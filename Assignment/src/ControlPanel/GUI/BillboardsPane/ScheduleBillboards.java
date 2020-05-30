@@ -5,6 +5,7 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
+import Networking.Request;
 import User.ClientUser;
 
 import javax.swing.*;
@@ -15,9 +16,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
 
-public class ScheduleBillboards implements ControlPanelComponent {
-    private ObjectOutputStream oos;
-    private ObjectInputStream ois;
+public class ScheduleBillboards extends Request implements ControlPanelComponent {
+
     private JPanel controlPanel;
     public JTextArea scheduleBbID;
     public JTextArea scheduleEndTime;
@@ -40,10 +40,10 @@ public class ScheduleBillboards implements ControlPanelComponent {
                     String requestType = "addView";
                     Object[] submitData = {billboardId, scheduledDate,startTime,endTime,requestType};
                     BillboardRequest addview = new BillboardRequest(BillboardRequestType.addView, submitData, ClientUser.getToken());
-                    oos.writeObject(addview);
-                    oos.flush();
+
                     //read the reply from the server
-                    BillboardReply messageObject = (BillboardReply) ois.readObject();
+                    BillboardReply messageObject = (BillboardReply) addview.getOIS().readObject();
+                    addview.closeConnection();
                     String message = messageObject.getMessage();
                     System.out.println("Message: "+message);
                     JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
@@ -67,8 +67,6 @@ public class ScheduleBillboards implements ControlPanelComponent {
 
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-        this.oos = controlPanelGUI.oos;
-        this.ois = controlPanelGUI.ois;
         this.controlPanel = controlPanelGUI.controlPanel;
         this.scheduleBbID = controlPanelGUI.scheduleBbID;
         this.scheduleEndTime = controlPanelGUI.scheduleEndTime;

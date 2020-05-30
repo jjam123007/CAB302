@@ -6,6 +6,7 @@ import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
 import ControlPanel.SerializeArray;
+import Networking.Request;
 import User.ClientUser;
 
 import javax.imageio.ImageIO;
@@ -23,9 +24,8 @@ import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Base64;
 
-public class CreateBillboards implements ControlPanelComponent {
-    private ObjectOutputStream oos;
-    private ObjectInputStream ois;
+public class CreateBillboards extends Request implements ControlPanelComponent {
+
     private JPanel controlPanel;
     private JTextArea createBbName;
     private JTextArea createBbMsg;
@@ -85,17 +85,14 @@ public class CreateBillboards implements ControlPanelComponent {
                     String msg = createBbMsg.getText();
                     String info = createBbInfo.getText();
                     String url = createBbImgLink.getText();
-                    String requestType = "addBillboard";
                     Object[] newTable = {billboardName,msg,info,url};
                     BillboardRequest addBillboard = new BillboardRequest(BillboardRequestType.addBillboard,newTable, ClientUser.getToken());
-                    oos.writeObject(addBillboard);
-                    oos.flush();
 
                     //read the reply from the server
-                    BillboardReply messageObject = (BillboardReply) ois.readObject();
+                    BillboardReply messageObject = (BillboardReply) addBillboard.getOIS().readObject();
+                    addBillboard.closeConnection();
                     String message = messageObject.getMessage();
                     System.out.println("Message: "+message);
-
 
                     JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
 
@@ -293,8 +290,7 @@ public class CreateBillboards implements ControlPanelComponent {
 
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-        this.oos = controlPanelGUI.oos;
-        this.ois = controlPanelGUI.ois;
+
         this.controlPanel = controlPanelGUI.controlPanel;
         this.createBbName = controlPanelGUI.createBbName;
         this.createBbMsg = controlPanelGUI.createBbMsg;
