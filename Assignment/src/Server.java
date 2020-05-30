@@ -26,7 +26,7 @@ import java.sql.Statement;
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
 public class Server {
-
+    private static Socket socket;
     private static ObjectOutputStream oos;
     private static ObjectInputStream ois;
 
@@ -43,9 +43,14 @@ public class Server {
 
         for(;;){
             try {
+                // Accept request from the client
                 setStreams(serverSocket);
+
+                // Read request
                 Object request = ois.readObject();
                 System.out.println("request received");
+
+                // Handle request
                 if (request instanceof LoginRequest)
                 {
                     handleLoginRequest((LoginRequest) request);
@@ -60,6 +65,9 @@ public class Server {
                 else if (request instanceof ViewerRequest) {
                     handleViewerRequest((ViewerRequest) request);
                 }
+
+                // Close the connection
+                closeStreams();
             } catch (EOFException | NoSuchAlgorithmException e) {
                 System.out.println("Connection closed.");
                 e.printStackTrace();
@@ -223,12 +231,17 @@ public class Server {
     }
 
     private static void setStreams(ServerSocket serverSocket) throws IOException {
-        Socket socket = serverSocket.accept();
+        socket = serverSocket.accept();
         System.out.println("Connected to "+ socket.getInetAddress());
         oos = new ObjectOutputStream(socket.getOutputStream());
         ois = new ObjectInputStream( socket.getInputStream());
     }
 
+    private static void closeStreams() throws IOException {
+        ois.close();
+        oos.close();
+        socket.close();
+    }
 }
 
 

@@ -45,6 +45,12 @@ public class DisplayBillboardViewer {
                 // Establishing connection to the server
                 socket = new Socket("localhost",3310);
 
+                // Set up streams to read and write data
+                OutputStream os = socket.getOutputStream();
+                InputStream is = socket.getInputStream();
+                oos = new ObjectOutputStream(os);
+                ois = new ObjectInputStream(is);
+
                 // Get XML
                 String input = GetXML.sendXMLRequest(oos, ois);
 
@@ -60,6 +66,11 @@ public class DisplayBillboardViewer {
                     // View the billboard
                     billboard.renewBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
                 }
+
+                // Close the connection
+                oos.close();
+                ois.close();
+                socket.close();
             } catch (Exception e) {
                 // If the server shuts down, display a notification and try to reconnect to the server again
                 setStreams();
@@ -154,6 +165,14 @@ public class DisplayBillboardViewer {
                 InputStream is = socket.getInputStream();
                 oos = new ObjectOutputStream(os);
                 ois = new ObjectInputStream(is);
+
+                // Send some dummy data to not throw an exception
+                oos.writeObject("Dummy data");
+
+                // Close the connection
+                oos.close();
+                ois.close();
+                socket.close();
                 break;
             } catch (Exception e) {
                 // If could not connect to the server, display a notification billboard
