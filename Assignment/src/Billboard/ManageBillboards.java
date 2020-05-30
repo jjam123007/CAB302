@@ -1,17 +1,22 @@
 package Billboard;
 
-import ControlPanel.SerializeArray;
 import Database.DBConnection;
 import User.ServerUserSession;
 
 import java.io.Serializable;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.Time;
 
+/**
+ * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ */
 public final class ManageBillboards implements Serializable {
-
+    /**
+     *
+     * @param data
+     * @param token
+     * @throws SQLException
+     */
     public static void addBillboard(Object[] data, String token) throws SQLException{
         String name = (String) data[0];
         String message = (String) data[1];
@@ -42,6 +47,11 @@ public final class ManageBillboards implements Serializable {
         statement.close();
     }
 
+    /**
+     *
+     * @param data
+     * @throws SQLException
+     */
     public static void delete(Object[] data) throws SQLException{
         int id = (int) data[0];
 
@@ -52,6 +62,11 @@ public final class ManageBillboards implements Serializable {
         statement.close();
     }
 
+    /**
+     *
+     * @param data
+     * @throws SQLException
+     */
     public static void addView (Object[] data) throws SQLException {
         String id = (String) data[0];
         String scheduledDate = (String) data[1];
@@ -63,6 +78,11 @@ public final class ManageBillboards implements Serializable {
         statement.close();
     }
 
+    /**
+     *
+     * @param data
+     * @throws SQLException
+     */
     public static void edit(Object[] data) throws SQLException {
         System.out.println("Data0: "+data[0]);
         int id = (int) data[0];
@@ -70,46 +90,10 @@ public final class ManageBillboards implements Serializable {
         String message = (String) data[2];
         String info = (String) data[3];
         String url = (String) data[4];
-
-        System.out.println("ID to edit :"+id);
         Statement statement = DBConnection.getInstance().createStatement();
-        //System.out.println("update billboard set BillboardName="name", message="message"+ data[2]+",info="+ data[3]+",url="+ data[4]+" where billboardID="+ data[0]+";");
-        statement.executeQuery("update billboards set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
+        statement.executeQuery("update billboards set billboardName='"+ name+"', message='"+ message+"',info='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
         statement.executeQuery("update billboards_info set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where viewID='"+ id+"';");
         statement.close();
-    }
-
-    public static SerializeArray showBillboards() throws SQLException {
-        Object[][] tableData;
-
-        Statement statement = DBConnection.getInstance().createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT * FROM billboard_info");
-
-        int rowcount = 0;
-
-        if (resultSet.last()) {
-            rowcount = resultSet.getRow();
-            resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
-        }
-        tableData = new Object[rowcount][9];
-
-        for (int i = 0; i < rowcount; i++) {
-            resultSet.next();
-            String viewID = Integer.toString(resultSet.getInt(1));
-            String BillboardName = resultSet.getString(2);
-            String creatorName = resultSet.getString(3);
-            String msg = resultSet.getString(4);
-            String info = resultSet.getString(5);
-            String url = resultSet.getString(6);
-            String scheduledDate = resultSet.getString(7);
-            Time startTime = resultSet.getTime(8);
-            Time endTime = resultSet.getTime(9);
-            Object[] myString = {viewID, BillboardName,creatorName, msg,info, url, scheduledDate, startTime, endTime};
-            tableData[i] = myString;
-        }
-        statement.close();
-        SerializeArray tableDataArray = new SerializeArray(tableData);
-        return tableDataArray;
     }
 
 }

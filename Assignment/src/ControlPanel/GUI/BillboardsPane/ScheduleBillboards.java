@@ -5,7 +5,6 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import Networking.Request;
 import User.ClientUser;
 
 import javax.swing.*;
@@ -15,9 +14,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.UnknownHostException;
-
-public class ScheduleBillboards extends Request implements ControlPanelComponent {
-
+/**@author Jun Chen(n10240977)&Haoze He(n10100351) */
+public class ScheduleBillboards implements ControlPanelComponent {
+    private ObjectOutputStream oos;
+    private ObjectInputStream ois;
     private JPanel controlPanel;
     public JTextArea scheduleBbID;
     public JTextArea scheduleEndTime;
@@ -26,11 +26,25 @@ public class ScheduleBillboards extends Request implements ControlPanelComponent
     public JButton scheduleSubmitButton;
     public JTabbedPane billboardsPane;
 
+    /**
+     *
+     *
+     * @param controlPanelGUI
+     * @throws IOException
+     * @throws ClassNotFoundException
+     */
     public ScheduleBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
 
         scheduleSubmitButton.addActionListener(new ActionListener() {
+            /**
+             *Implements a ActionListener for submitButton to upload scheduleDate, startTime, endTime to database and show in view interface
+             * @param e
+             */
             @Override
+            /**
+             * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
+             */
             public void actionPerformed(ActionEvent e) {
                 try {
                     String billboardId = scheduleBbID.getText();
@@ -40,10 +54,10 @@ public class ScheduleBillboards extends Request implements ControlPanelComponent
                     String requestType = "addView";
                     Object[] submitData = {billboardId, scheduledDate,startTime,endTime,requestType};
                     BillboardRequest addview = new BillboardRequest(BillboardRequestType.addView, submitData, ClientUser.getToken());
-
+                    oos.writeObject(addview);
+                    oos.flush();
                     //read the reply from the server
-                    BillboardReply messageObject = (BillboardReply) addview.getOIS().readObject();
-                    addview.closeConnection();
+                    BillboardReply messageObject = (BillboardReply) ois.readObject();
                     String message = messageObject.getMessage();
                     System.out.println("Message: "+message);
                     JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
@@ -65,8 +79,14 @@ public class ScheduleBillboards extends Request implements ControlPanelComponent
         });
     }
 
+    /**
+     *setter function to set value for GUI elements and variables
+     * @param controlPanelGUI
+     */
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
+        this.oos = controlPanelGUI.oos;
+        this.ois = controlPanelGUI.ois;
         this.controlPanel = controlPanelGUI.controlPanel;
         this.scheduleBbID = controlPanelGUI.scheduleBbID;
         this.scheduleEndTime = controlPanelGUI.scheduleEndTime;
