@@ -8,6 +8,8 @@ import java.net.Socket;
 /**
  * Contains a function to send a request to the server for retrieving the
  * billboard to be displayed to the viewer
+ *
+ * @author William Tran (10306234)
  */
 public class GetXML {
     /**

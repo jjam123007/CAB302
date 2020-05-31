@@ -15,6 +15,8 @@ import java.net.Socket;
 /**
  * The billboard viewer of the program, works by getting information from the
  * server and display the billboard to the screen
+ *
+ * @author William Tran (10306234)
  */
 public class DisplayBillboardViewer {
     // Global variables for establishing and maintaining connection to the server

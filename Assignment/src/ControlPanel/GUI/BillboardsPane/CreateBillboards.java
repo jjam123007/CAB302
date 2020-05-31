@@ -26,7 +26,7 @@ import java.util.Base64;
 
 /**
  * This class used to create and preview a new billBoard
- * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ * @author Jun Chen(n10240977) & Haoze He(n10100351) & William Tran (n10306234)
  */
 public class CreateBillboards implements ControlPanelComponent {
 
@@ -99,9 +99,11 @@ public class CreateBillboards implements ControlPanelComponent {
                     String msg = createBbMsg.getText();
                     String info = createBbInfo.getText();
                     String url = createBbImgLink.getText();
+                    String xml = createXMLString("", msg, "", info, "", url);
 
-                    Object[] newTable = {billboardName,msg,info,url};
-                    BillboardRequest addBillboard = new BillboardRequest(BillboardRequestType.addBillboard,newTable, ClientUser.getToken());
+
+                    Object[] newTable = {billboardName,msg,info,url,xml};
+                    BillboardRequest addBillboard = new BillboardRequest(BillboardRequestType.addBillboard, newTable, ClientUser.getToken());
                     //read the reply from the server
                     BillboardReply messageObject = (BillboardReply) addBillboard.getOIS().readObject();
                     addBillboard.closeConnection();
@@ -120,7 +122,6 @@ public class CreateBillboards implements ControlPanelComponent {
                 createBbMsg.setText("");
                 createBbInfo.setText("");
                 createBbImgLink.setText("");
-                billboardsPane.setSelectedIndex(0);
 
 
             }
@@ -308,6 +309,71 @@ public class CreateBillboards implements ControlPanelComponent {
             }
             }
         });
+    }
+
+
+    private static String createXMLString(String billboardColour, String message, String messageColour,
+                                          String info, String infoColour, String imgData) {
+        // Initial result, open the billboard tag
+        String result = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<billboard";
+
+        // Check if there is any background colour
+        if (billboardColour.length() > 0) {
+            // Add background colour to the XML file
+            result += " background=\"" + billboardColour + "\"";
+        }
+
+        // Close the bracket
+        result += ">";
+
+        // Check if there is any message
+        if (message.length() > 0) {
+            // Add message tag
+            result += "\n<message";
+
+            // Check if there is any message colour
+            if (messageColour.length() > 0) {
+                result += " colour=\"" + messageColour + "\"";
+            }
+
+            // Add message
+            result += ">" + message + "</message>";
+        }
+
+        // Check if there is any image
+        if (imgData.length() > 4) {
+            // Add message tag
+            result += "\n<picture ";
+
+            // Check if it is an URL or Base64
+            if (imgData.substring(0,4).contains("http")) {
+                // URL
+                result += "url=\"" + imgData + "\" />";
+            } else {
+                result += "data=\"" + imgData + "\" />";
+            }
+        }
+
+        // Check if there is any information
+        if (info.length() > 0) {
+            // Add information tag
+            result += "\n<information";
+
+            // Check if there is any information colour
+            if (infoColour.length() > 0) {
+                result += " colour=\"" + infoColour + "\"";
+            }
+
+            // Add information
+            result += ">" + info + "</information>";
+        }
+
+        // Close the billboard tag
+        result += "\n</billboard>";
+
+        // Return the result
+        return result;
     }
 
     /**

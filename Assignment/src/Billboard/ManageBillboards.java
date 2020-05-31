@@ -26,6 +26,7 @@ public final class ManageBillboards implements Serializable {
         String message = (String) data[1];
         String info = (String) data[2];
         String url = (String) data[3];
+        String xml = (String) data[4];
         String username = ServerUserSession.getUsername(token);
 
         System.out.println("Token: "+token);
@@ -35,16 +36,8 @@ public final class ManageBillboards implements Serializable {
         System.out.println("Info :" + info);
         System.out.println("Url :" + url);
 
-        // Create and store XML format to the database
-        String xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<billboard background=\"#0000FF\">\n" +
-                " <message colour=\"#FFFF00\">" + message + "</message>\n" +
-                " <picture url=\"" + url + "\" />\n" +
-                " <information colour=\"#00FFFF\">" + info + "</information>\n" +
-                "</billboard>";
-
         Statement statement = DBConnection.getInstance().createStatement();
-        statement.executeQuery("insert into billboards(billboardID, billboardName, creatorName,message,information, url) values(null,'" + name + "','" + username + "',' " + message + "','" + info + "','" + url + "');");
+        statement.executeQuery("insert into billboards(billboardID, billboardName, creatorName,message,information, url, xml) values(null,'" + name + "','" + username + "',' " + message + "','" + info + "','" + url + "','" + xml +"');");
         statement.executeQuery("insert into billboards_info (billboardName,creatorName, message, information, url) values('" + name + "','" + username + "',' " + message + "','" + info + "','" + url  + "');");
         //statement.executeQuery("insert into billboard values(null,'" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
         //statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");

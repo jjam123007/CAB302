@@ -9,6 +9,8 @@ import java.io.Serializable;
 /**
  * A class containing the requests that the viewer could make
  * (Only 1 for now, but can be expanded later on)
+ *
+ * @author William Tran (10306234)
  * @see ViewerRequestType
  */
 public class ViewerRequest implements Serializable {

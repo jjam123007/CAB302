@@ -16,6 +16,8 @@ import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 /**
  * Contains the GUI of the billboard viewer, along with numerous functions
  * to calculating and updating the contents of it
+ *
+ * @author William Tran (10306234)
  */
 
 public class BillboardViewer {
