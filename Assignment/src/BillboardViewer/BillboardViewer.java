@@ -54,10 +54,9 @@ public class BillboardViewer {
         setupInfoPane();
 
         // Change the data of the components
-        changeBackground(billboardColour);
-        changeMessage(message, messageColour);
-        changeInfo(info, infoColour);
-        changeImage(imgURL, 1.0/3);
+        renewBillboard(billboardColour, message, messageColour, info, infoColour, imgURL);
+
+        // Setup event listeners to close the billboard viewer
         closeBillboardSetup();
 
         // Show the billboard
