@@ -2,6 +2,7 @@ package ControlPanel.GUI.AdminPane;
 
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
+import Networking.Reply;
 import UserManagement.Replies.RegisterReply;
 import UserManagement.Requests.RegisterRequest;
 import User.UserPermissions;
@@ -15,6 +16,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.security.NoSuchAlgorithmException;
+import java.sql.SQLException;
+
 /**
  * @author Nikolai Taufao | N10481087
  */
@@ -45,7 +48,7 @@ public class RegisterUser implements ControlPanelComponent {
         ActionListener buttonPress = e -> {
             try {
                 registerUser();
-            } catch (IOException | NoSuchAlgorithmException | ClassNotFoundException exception) {
+            } catch (IOException | NoSuchAlgorithmException | ClassNotFoundException | SQLException exception) {
                 exception.printStackTrace();
             }
         };
@@ -53,7 +56,7 @@ public class RegisterUser implements ControlPanelComponent {
     }
 
 
-    private void  registerUser() throws NoSuchAlgorithmException, IOException, ClassNotFoundException {
+    private void  registerUser() throws NoSuchAlgorithmException, IOException, ClassNotFoundException, SQLException {
         String username = registerUsernameField.getText();
         if (username.contains(" ")){
             String errorMessage = "Usernames cannot contain spaces.";
@@ -83,7 +86,7 @@ public class RegisterUser implements ControlPanelComponent {
      * @throws NoSuchAlgorithmException
      * @throws ClassNotFoundException
      */
-    private void sendRegisterRequest(String username, String password) throws IOException, NoSuchAlgorithmException, ClassNotFoundException {
+    private void sendRegisterRequest(String username, String password) throws IOException, NoSuchAlgorithmException, ClassNotFoundException, SQLException {
         // Get the selected permissions from this class's GUI permissions checkboxes.
         UserPermissions permissions = new UserPermissions(
                 createBillboardsPerm.isSelected(),

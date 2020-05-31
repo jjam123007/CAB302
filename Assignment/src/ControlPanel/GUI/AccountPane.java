@@ -58,6 +58,7 @@ public class AccountPane implements ControlPanelComponent {
         if (logoutReply.isSuccess()){
             JOptionPane.showMessageDialog(null,"You have successfully logged out!");
             frame.dispose();
+            new LoginGUI();
         } else{
             JOptionPane.showMessageDialog(null, logoutReply.getErrorMessage());
         };

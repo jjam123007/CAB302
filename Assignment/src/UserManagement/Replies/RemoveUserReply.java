@@ -2,6 +2,7 @@ package UserManagement.Replies;
 
 import Database.DBConnection;
 import Networking.Reply;
+import Networking.ReplyError;
 import User.PermissionType;
 import User.ServerUserSession;
 
@@ -21,12 +22,12 @@ public class RemoveUserReply extends Reply {
      */
     public RemoveUserReply(String username, String sessionToken) throws SQLException {
         super(sessionToken);
-        if (!sessionExpired) {
-            if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)){
-                checkUser(username, sessionToken);
-            } else {
-                this.errorMessage = ReplyError.userNotPermitted;
-            }
+        if (tokenExpired) return;
+
+        if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)){
+            checkUser(username, sessionToken);
+        } else {
+            this.errorMessage = ReplyError.userNotPermitted;
         }
     }
 

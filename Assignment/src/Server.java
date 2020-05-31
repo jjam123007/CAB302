@@ -7,6 +7,8 @@ import BillboardViewer.Replies.QueryXML;
 import BillboardViewer.Requests.ViewerRequest;
 import BillboardViewer.Requests.ViewerRequestType;
 import ControlPanel.SerializeArray;
+import Networking.Reply;
+import Networking.ReplyError;
 import User.*;
 import Database.DBConnection;
 import UserManagement.Replies.*;
@@ -20,7 +22,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
-import java.sql.Statement;
 
 /**
  * Check request from client,
@@ -47,6 +48,7 @@ import java.sql.Statement;
  *      * if the edit request is failure, the client will show error message
  *      * that will prompt the user inputs are valid.
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ * @author Nikolai Taufao(n10481087);
  */
 public class Server {
     private static Socket socket;
@@ -106,71 +108,80 @@ public class Server {
      */
     private static void handleBillboardRequests(BillboardRequest billboardRequest) throws SQLException, IOException {
         BillboardRequestType request = (billboardRequest).getRequest();  System.out.println("Request type :"+ request);
-        String token = (billboardRequest).getSessionToken();
+        String sessionToken = (billboardRequest).getSessionToken();
+        boolean sessionValid = ServerUserSession.isValid(sessionToken);
         Object[] billboard = (billboardRequest).getData();
-        switch (request) {
-            case addBillboard: {
-                try {
-                    ManageBillboards.addBillboard(billboard, token);
-                    BillboardReply message = new BillboardReply("Success");
-                    oos.writeObject(message);
-                    oos.flush();
-                }catch (SQLException e){
-                    BillboardReply message = new BillboardReply("Failure, please check inputs are valid");
-                    oos.writeObject(message);
-                    oos.flush();
+        BillboardReply replyMessage = null;
+        System.out.println(sessionValid);
+        if (sessionValid){
+            switch (request) {
+                case addBillboard: {
+                    try {
+                        if (ServerUserSession.hasPermission(sessionToken, PermissionType.createBillboards)){
+                            ManageBillboards.addBillboard(billboard, sessionToken);
+                            replyMessage = new BillboardReply("Success");
+                        } else {
+                            replyMessage = new BillboardReply(ReplyError.userNotPermitted);
+                        }
+                    }catch (SQLException e){
+                        replyMessage = new BillboardReply("Failure, please check inputs are valid");
+                    }
+                    break;
                 }
-                break;
-            }
-            case addView: {
-                try{
-                    ManageBillboards.addView(billboard);
-                    BillboardReply message = new BillboardReply("Success");
-                    oos.writeObject(message);
-                    oos.flush();
-                }catch (SQLException e){
-                    BillboardReply message = new BillboardReply("Please ensure the input are in correct format and valid \n"+
-                            "Date: yyyy-mm-dd \n"+
-                            "Time: hh:mm:ss");
-                    oos.writeObject(message);
-                    oos.flush();
+                case addView: {
+                    try{
+                        if (ServerUserSession.hasPermission(sessionToken, PermissionType.scheduleBillboards)){
+                            ManageBillboards.addView(billboard);
+                            replyMessage = new BillboardReply("Success");
+                        } else {
+                            replyMessage = new BillboardReply(ReplyError.userNotPermitted);
+                        }
+                    }catch (SQLException e){
+                         replyMessage = new BillboardReply("Please ensure the input are in correct format and valid \n"+
+                                "Date: yyyy-mm-dd \n"+
+                                "Time: hh:mm:ss");
+                    }
+                    break;
                 }
-                break;
-            }
-            case showTable: {
-                SerializeArray tableData = ManageBillboards.showBillboards();
-                oos.writeObject(tableData);
-                oos.flush();
-                break;
-            }
-            case delete: {
-                try{
-                    ManageBillboards.delete(billboard);
-                    BillboardReply message = new BillboardReply("Success");
-                    oos.writeObject(message);
+                case showTable: {
+                    SerializeArray tableData = ManageBillboards.showBillboards();
+                    oos.writeObject(tableData);
                     oos.flush();
-                }catch (NullPointerException e){
-                    BillboardReply message = new BillboardReply("No rows was selected");
-                    oos.writeObject(message);
-                    oos.flush();
+                    break;
                 }
-                break;
-            }
-            case edit: {
-                try {
-                    ManageBillboards.edit(billboard);
-                    BillboardReply message = new BillboardReply("Success");
-                    oos.writeObject(message);
-                    oos.flush();
-                }catch(SQLException e){
-                    BillboardReply message = new BillboardReply("Please ensure the inputs are valid");
-                    oos.writeObject(message);
-                    oos.flush();
+                case delete: {
+                    try{
+                        if (ServerUserSession.hasPermission(sessionToken, PermissionType.editBillboards)){
+                            ManageBillboards.delete(billboard);
+                            replyMessage = new BillboardReply("Success");
+                        } else {
+                            replyMessage = new BillboardReply(ReplyError.userNotPermitted);
+                        }
+                    }catch (NullPointerException e){
+                        replyMessage = new BillboardReply("No rows was selected");
+                    }
+                    break;
                 }
-                break;
+                case edit: {
+                    try {
+                        if (ServerUserSession.hasPermission(sessionToken, PermissionType.editBillboards))
+                        {
+                            ManageBillboards.edit(billboard);
+                            replyMessage = new BillboardReply("Success");
+                        } else{
+                            replyMessage = new BillboardReply(ReplyError.userNotPermitted);
+                        }
+                    }catch(SQLException e){
+                        replyMessage = new BillboardReply("Please ensure the inputs are valid");
+                    }
+                    break;
+                }
             }
-
+        } else {
+            replyMessage = new BillboardReply(ReplyError.expiredSessionToken);
         }
+        oos.writeObject(replyMessage);
+        oos.flush();
     }
 
     private static void handleLoginRequest(LoginRequest loginRequest) throws SQLException, IOException {
@@ -182,60 +193,58 @@ public class Server {
     private static void handleUserManagementRequest(UserManagementRequest request) throws SQLException, NoSuchAlgorithmException, IOException {
         UserManagementRequestType requestType = request.getRequestType();
         String sessionToken = request.getSessionToken();
+        Object reply = null;
+
         switch (requestType){
             case register:{
                 RegisterRequest registerRequest = (RegisterRequest) request.getRequest();
                 RegisterReply registerReply = new RegisterReply(registerRequest, sessionToken);
-                oos.writeObject(registerReply);
-                oos.flush();
+                reply = registerReply;
                 break;
             }
             case getUsernames:{
                 ViewUsersReply viewUsersReply = new ViewUsersReply(sessionToken);
-                oos.writeObject(viewUsersReply);
-                oos.flush();
+                reply = viewUsersReply;
                 break;
             }
 
             case getPermissions:{
                 String username = (String) request.getRequest();
                 ViewUserPermissionsReply viewUserPermissionsReply = new ViewUserPermissionsReply(username, sessionToken);
-                oos.writeObject(viewUserPermissionsReply);
-                oos.flush();
+                reply = viewUserPermissionsReply;
                 break;
             }
 
             case remove:{
                 String userToDelete = (String) request.getRequest();
                 RemoveUserReply removeUserReply = new RemoveUserReply(userToDelete,sessionToken);
-                oos.writeObject(removeUserReply);
-                oos.flush();
+                reply = removeUserReply;
                 break;
             }
 
             case changePermissions:{
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
                 EditUserPermissionsReply editUserPermissionsReply = new EditUserPermissionsReply(editUserPropertyRequest, sessionToken);
-                oos.writeObject(editUserPermissionsReply);
-                oos.flush();
+                reply = editUserPermissionsReply;
                 break;
             }
 
             case changePassword:{
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
                 ChangeUserPasswordReply changeUserPasswordReply = new ChangeUserPasswordReply(editUserPropertyRequest, sessionToken);
-                oos.writeObject(changeUserPasswordReply);
-                oos.flush();
+                reply = changeUserPasswordReply;
                 break;
             }
 
             case logout:{
                 LogoutReply logoutReply = new LogoutReply(sessionToken);
-                oos.writeObject(logoutReply);
-                oos.flush();
+                reply = logoutReply;
                 break;
             }
         }
+
+        oos.writeObject(reply);
+        oos.flush();
     }
 
     // Handle requests from billboard viewer

@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.function.BooleanSupplier;
 
 /**
  * @author Nikolai Taufao | N10481087
@@ -16,10 +15,10 @@ public final class ServerUserSession {
     //Map a session token to its user.
     private static final HashMap<String, ServerUser> users = new HashMap<>();
 
-    private static int millisecondsInHours = 3600000;
-    private static int hoursUntilExpiration = 24;
+    private static final int millisecondsInHour = 4000;//3600000;
+    private static final int hoursUntilExpiration = 100;
     //The expiration time in milliseconds.
-    private static int expirationTime = hoursUntilExpiration*millisecondsInHours;
+    private static final int expirationTime = hoursUntilExpiration* millisecondsInHour;
 
     /**
      * Return the username associated with the given session token.
@@ -33,15 +32,6 @@ public final class ServerUserSession {
             e.printStackTrace();
             return null;
         }
-    }
-
-    /**
-     * Return true if the session token is valid.
-     * @param sessionToken
-     * @return true or false.
-     */
-    public static boolean sessionExists(String sessionToken){
-        return users.containsKey(sessionToken);
     }
 
     /**
@@ -66,36 +56,11 @@ public final class ServerUserSession {
     }
 
     /**
-     * Return true if the provided session token is valid and the user associated with the token
-     * has the specified permission.
-     * @param sessionToken
-     * @param permission
-     * @return true or false.
-     * @throws SQLException
-     */
-    public static boolean hasPermission(String sessionToken, String permission) throws SQLException {
-        if (isValid(sessionToken)){
-            ServerUser user = users.get(sessionToken);
-            String query = ("SELECT "+permission+" FROM permissions WHERE username='"+user.getUsername()+"';");
-            Statement statement = DBConnection.getInstance().createStatement();
-            ResultSet row = statement.executeQuery(query);
-            row.next();
-            //Get the boolean value of the user's permission from the database.
-            boolean isPermitted = row.getBoolean(permission);
-            statement.close();
-            if (isPermitted) {return true;} else {return false;}
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     * Check if the provided session token is stored within the server and has
-     * not yet expired.
+     * Check if the provided session token is stored within the server and has not yet expired.
      * @param sessionToken
      * @return
      */
-    private static boolean isValid(String sessionToken){
+    public static boolean isValid(String sessionToken){
         if (users.containsKey(sessionToken)) {
             Date currentDate = new Date();
             //The current time in milliseconds,
@@ -118,4 +83,30 @@ public final class ServerUserSession {
             return false;
         }
     }
+
+    /**
+     * Return true if the provided session token is valid and the user associated with the token
+     * has the specified permission.
+     * @param sessionToken
+     * @param permission
+     * @return true or false.
+     * @throws SQLException
+     */
+    public static boolean hasPermission(String sessionToken, String permission) throws SQLException {
+        if (isValid(sessionToken)){
+        ServerUser user = users.get(sessionToken);
+        String query = ("SELECT "+permission+" FROM permissions WHERE username='"+user.getUsername()+"';");
+        Statement statement = DBConnection.getInstance().createStatement();
+        ResultSet row = statement.executeQuery(query);
+        row.next();
+        //Get the boolean value of the user's permission from the database.
+        boolean isPermitted = row.getBoolean(permission);
+        statement.close();
+        if (isPermitted) {return true;} else {return false;}
+        }else{
+            return false;
+        }
+    }
+
+
 }

@@ -2,6 +2,7 @@ package UserManagement.Replies;
 
 import Database.DBConnection;
 import Networking.Reply;
+import Networking.ReplyError;
 import User.PermissionType;
 import User.ServerUserSession;
 import UserManagement.DataSecurity;
@@ -24,19 +25,18 @@ public class ChangeUserPasswordReply extends Reply {
      */
     public ChangeUserPasswordReply(EditUserPropertyRequest editUserPropertyRequest, String sessionToken) throws SQLException, NoSuchAlgorithmException {
         super(sessionToken);
+        if (tokenExpired) return;
+
         String username = editUserPropertyRequest.getUsername();
         String password = editUserPropertyRequest.getPassword();
         //Check if the user that send the request is trying to change their own password.
         boolean clientIsTargetUser = username.equals(ServerUserSession.getUsername(sessionToken));
         //Check if the user that send the request is an admin.
         boolean clientUserIsAdmin = ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers);
-        if (!sessionExpired)
-        {
-            if ((clientIsTargetUser || clientUserIsAdmin)){
-                changePassword(username, password);
-            } else {
-                this.errorMessage = ReplyError.userNotPermitted;
-            }
+        if ((clientIsTargetUser || clientUserIsAdmin)){
+            changePassword(username, password);
+        } else {
+            this.errorMessage = ReplyError.userNotPermitted;
         }
     }
 

@@ -28,8 +28,7 @@ import java.util.Base64;
  * This class used to create and preview a new billBoard
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
-public class CreateBillboards extends Request implements ControlPanelComponent {
-
+public class CreateBillboards  implements ControlPanelComponent {
     private JPanel controlPanel;
     private JTextArea createBbName;
     private JTextArea createBbMsg;
@@ -39,7 +38,6 @@ public class CreateBillboards extends Request implements ControlPanelComponent {
     private JButton createBbPreviewButton;
     public JButton exportToXMLButton;
     public JTabbedPane billboardsPane;
-
 
 
     String msgBillboard = "<billboard>\n" +
@@ -82,6 +80,7 @@ public class CreateBillboards extends Request implements ControlPanelComponent {
      * @throws ClassNotFoundException
      */
     public CreateBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
+
         setControlPanelComponents(controlPanelGUI);
         createBbSubmitButton.addActionListener(new ActionListener() {
             /**
@@ -120,9 +119,6 @@ public class CreateBillboards extends Request implements ControlPanelComponent {
                 createBbMsg.setText("");
                 createBbInfo.setText("");
                 createBbImgLink.setText("");
-                billboardsPane.setSelectedIndex(0);
-
-
             }
         });
         exportToXMLButton.addActionListener(new ActionListener() {

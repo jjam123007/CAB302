@@ -2,6 +2,7 @@ package UserManagement.Replies;
 
 import Database.DBConnection;
 import Networking.Reply;
+import Networking.ReplyError;
 import User.PermissionType;
 import User.ServerUserSession;
 
@@ -29,12 +30,12 @@ public class ViewUsersReply extends Reply implements Serializable {
      */
     public ViewUsersReply(String sessionToken) throws SQLException {
         super(sessionToken);
-        if (!sessionExpired) {
-            if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)){
-               retrieveUsers();
-            }else{
-                this.errorMessage = ReplyError.userNotPermitted;
-            }
+        if (tokenExpired) return;
+
+        if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)){
+           retrieveUsers();
+        }else{
+            this.errorMessage = ReplyError.userNotPermitted;
         }
     }
 
@@ -56,16 +57,4 @@ public class ViewUsersReply extends Reply implements Serializable {
             this.errorMessage = exception.getMessage();
         }
     }
-
-    //private HashMap<String, UserPermissions> userPermissionsHashMap = new HashMap<>();
-    /*String username = userRows.getString(1);
-                boolean p1 = userRows.getBoolean(2);
-                boolean p2 = userRows.getBoolean(3);
-                boolean p3 = userRows.getBoolean(4);
-                boolean p4 = userRows.getBoolean(5);
-                UserPermissions userPermissions = new UserPermissions(p1,p2,p3,p4);
-                userPermissionsHashMap.put(username, userPermissions);*/
-
-
-
 }

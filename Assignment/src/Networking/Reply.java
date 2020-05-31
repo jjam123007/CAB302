@@ -9,7 +9,7 @@ import java.io.Serializable;
  */
 public class Reply implements Serializable {
     protected boolean success = false;
-    protected boolean sessionExpired = false;
+    protected boolean tokenExpired = false;
     protected String errorMessage = null;
 
     public boolean isSuccess() {
@@ -18,17 +18,16 @@ public class Reply implements Serializable {
     public String getErrorMessage() {
         return errorMessage;
     }
-
+    public void setErrorMessage(String errorMessage) { this.errorMessage = errorMessage; }
 
     /**
      * Notify the user that their session token has expired or is invalid if it is not in the server.
-     * @param sessionToken
+     * @param message
      */
     public Reply(String sessionToken){
-        if (!ServerUserSession.sessionExists(sessionToken)){
-            this.sessionExpired = true;
-            this.errorMessage = "Your session token has expired or is invalid. Please log in again.";
+        if (!ServerUserSession.isValid(sessionToken)){
+            this.tokenExpired = true;
+            this.errorMessage = ReplyError.expiredSessionToken;
         }
     }
-
 }

@@ -2,6 +2,7 @@ package UserManagement.Replies;
 
 import Database.DBConnection;
 import Networking.Reply;
+import Networking.ReplyError;
 import User.PermissionType;
 import User.ServerUserSession;
 import UserManagement.DataSecurity;
@@ -28,13 +29,13 @@ public class RegisterReply extends Reply implements Serializable {
      */
     public RegisterReply(RegisterRequest registerRequest, String sessionToken) throws SQLException, NoSuchAlgorithmException {
         super(sessionToken);
+        if (tokenExpired) return;
+
         this.registerRequest = registerRequest;
-        if (!sessionExpired) {
-            if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)) {
-                registerUser();
-            } else {
-                this.errorMessage = ReplyError.userNotPermitted;
-            }
+        if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)) {
+            registerUser();
+        } else {
+            this.errorMessage = ReplyError.userNotPermitted;
         }
     }
 

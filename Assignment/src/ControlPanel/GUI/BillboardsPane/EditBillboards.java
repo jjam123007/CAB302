@@ -18,7 +18,7 @@ import java.io.IOException;
  *This class used to edit exist billBoards
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
-public class EditBillboards extends Request implements ControlPanelComponent {
+public class EditBillboards implements ControlPanelComponent {
 
     private JPanel controlPanel;
     public JTabbedPane billboardsPane;
@@ -44,7 +44,6 @@ public class EditBillboards extends Request implements ControlPanelComponent {
         setControlPanelComponents(controlPanelGUI);
         toEditRow.setText("Edit through create billboard menu");
         toEditRow.setEnabled(false);
-
         editUpdateButton.addActionListener(new ActionListener() {
             /**
              * Implements a ActionListener for updateButton to update data is changed in view interface

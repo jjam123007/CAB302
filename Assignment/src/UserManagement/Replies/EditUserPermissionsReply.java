@@ -2,6 +2,7 @@ package UserManagement.Replies;
 
 import Database.DBConnection;
 import Networking.Reply;
+import Networking.ReplyError;
 import User.PermissionType;
 import User.UserPermissions;
 import User.ServerUserSession;
@@ -22,15 +23,14 @@ public class EditUserPermissionsReply extends Reply {
      */
     public EditUserPermissionsReply(EditUserPropertyRequest editUserPropertyRequest, String sessionToken) throws SQLException {
         super(sessionToken);
+        if (tokenExpired) return;
         String username = editUserPropertyRequest.getUsername();
         UserPermissions userPermissions = editUserPropertyRequest.getPermissions();
 
-        if (!sessionExpired) {
-            if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)) {
-                checkUserPermissions(username, userPermissions, sessionToken);
-            } else {
-                this.errorMessage = ReplyError.userNotPermitted;
-            }
+        if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)) {
+            checkUserPermissions(username, userPermissions, sessionToken);
+        } else {
+            this.errorMessage = ReplyError.userNotPermitted;
         }
     }
 

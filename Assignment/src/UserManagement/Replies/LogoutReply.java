@@ -18,8 +18,9 @@ public class LogoutReply extends Reply implements Serializable {
      */
     public LogoutReply(String sessionToken) throws SQLException {
         super(sessionToken);
+        if (tokenExpired) return;
         ServerUserSession.removeSession(sessionToken);
-        if (ServerUserSession.sessionExists(sessionToken) == false) {
+        if (!ServerUserSession.isValid(sessionToken)) {
             this.success = true;
         } else {
             this.errorMessage = "We could not log you out. Please try again.";

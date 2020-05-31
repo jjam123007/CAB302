@@ -23,7 +23,7 @@ import java.io.IOException;
  * and display the added or edited data
  *
  * @author Jun Chen(n10240977)&Haoze He(n10100351) */
-public class ViewBillboards extends Request implements ControlPanelComponent {
+public class ViewBillboards implements ControlPanelComponent {
     Integer billboardID;
     int selectedRow;
 
