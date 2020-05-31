@@ -16,6 +16,8 @@ import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 /**
  * Contains the GUI of the billboard viewer, along with numerous functions
  * to calculating and updating the contents of it
+ *
+ * @author William Tran (10306234)
  */
 
 public class BillboardViewer {
@@ -46,34 +48,36 @@ public class BillboardViewer {
      * @param info Specifies the information text of the billboard
      * @param infoColour Specifies the information colour of the billboard
      * @param imgURL Specifies the image URL or Base64 encoded data of the billboard
+     * @param isViewer Specifies if this is used for the viewer or not to setup
+     *                 an appropriate closing method
      * @throws Exception if the image cannot be read
      */
     public BillboardViewer(Color billboardColour, String message, Color messageColour,
-                           String info, Color infoColour, String imgURL) throws Exception {
+                           String info, Color infoColour, String imgURL, Boolean isViewer) throws Exception {
         // Setup the styles of the information text pane
         setupInfoPane();
 
         // Change the data of the components
-        changeBackground(billboardColour);
-        changeMessage(message, messageColour);
-        changeInfo(info, infoColour);
-        changeImage(imgURL, 1.0/3);
-        closeBillboardSetup();
+        renewBillboard(billboardColour, message, messageColour, info, infoColour, imgURL);
 
         // Show the billboard
-        showBillboard();
+        showBillboard(isViewer);
     }
 
     // Set up and display the billboard in fullscreen
-    private void showBillboard() {
+    private void showBillboard(Boolean isViewer) {
+
         // Create a new frame to contain all the components
         JFrame frame = new JFrame();
 
         // Some initial setups
         frame.setUndecorated(true); // Not showing the window bar
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Exit the frame on close
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Exit the frame on close
         frame.setContentPane(billboardPanel); // Set the contents
         frame.pack(); // Pack the contents
+
+        // Setup event listeners to close the billboard viewer
+        closeBillboardSetup(isViewer, frame);
 
         // Show the billboard fullscreen
         // Adapted from https://www.tutorialspoint.com/how-to-set-fullscreen-mode-for-java-swing-application
@@ -113,9 +117,9 @@ public class BillboardViewer {
             double ratio = 1.0/3;
 
             // Change the properties of the components
-            Boolean noMessage = (message == null);
-            Boolean noInfo = (info == null);
-            Boolean noImage = (imgURL == null);
+            Boolean noMessage = (message == null || message.length() == 0);
+            Boolean noInfo = (info == null || info.length() == 0);
+            Boolean noImage = (imgURL == null || imgURL.length() == 0);
 
             // Calculate message size in every situation
             int messageFontSize = (int) (message != null? Math.round((screenWidth/message.length())/CAMBRIA_WIDTH_RATIO) : 0);
@@ -195,7 +199,7 @@ public class BillboardViewer {
 
     // Change the title and its colour of the billboard
     private void changeMessage(String message, Color messageColour) {
-        if (message == null) {
+        if (message == null || message.length() == 0) {
             // If there is no message
             // Set the message panel invincible
             titlePanel.setVisible(false);
@@ -211,23 +215,23 @@ public class BillboardViewer {
 
     // Change the image of the billboard
     private void changeImage(String imgInfo, double ratio){
-        if (imgInfo == null) {
+        if (imgInfo == null || imgInfo.length() == 0) {
             // If there is no image
             // Set the image panel invincible
             imagePanel.setVisible(false);
         } else {
             // Check if the image is from an URL or Base64 encoded
             try {
-                if (imgInfo.contains("http")) {
+                if (imgInfo.substring(0,4).contains("http")) {
                     // URL
                     setImageFromURL(imgInfo, ratio);
                 }
-//                else {
-//                    // Base64
-//                    setImageFromBase64(imgInfo);
-//                }
+                else {
+                    // Base64
+                    setImageFromBase64(imgInfo, ratio);
+                }
                 imagePanel.setVisible(true);
-            } catch (IOException e) {
+            } catch (Exception e) {
                 // If the image cannot be read, print out a message to the console and set image invincible
                 System.out.println("There's something wrong with the image");
                 imagePanel.setVisible(false);
@@ -249,29 +253,30 @@ public class BillboardViewer {
         imageLabel.setText("");
     }
 
-    ////////////////////////////////////////////////////////////////////////////////////////
-    private void setImageFromBase64(String encodedString) throws Exception {
+    // Function to set image from Base64 encoded string to the billboard
+    private void setImageFromBase64(String encodedString, double ratio) throws Exception {
 //        File f =  new File("src/BillboardViewer/test_img.jpg");
-//        String encodestring = encodeFileToBase64Binary(f);
+//        String encodeString = encodeFileToBase64Binary(f);
         byte[] btDataFile = Base64.getDecoder().decode(encodedString);
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(btDataFile));
-//        ImageIcon img = resizeImage(new ImageIcon(image));
-//        imageLabel.setIcon(img);
+        ImageIcon img = resizeImage(new ImageIcon(image), ratio);
+        imageLabel.setIcon(img);
         imageLabel.setText("");
     }
 
-
+////////////////////////////////////////////////////////////////////////////////////
+    // Encode image to string
     private static String encodeFileToBase64Binary(File file) throws Exception{
         FileInputStream fileInputStreamReader = new FileInputStream(file);
         byte[] bytes = new byte[(int)file.length()];
         fileInputStreamReader.read(bytes);
-        return new String(Base64.getEncoder().encodeToString(bytes));
+        return Base64.getEncoder().encodeToString(bytes);
     }
-//////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////
 
     // Change the information text and its colour of the billboard
     private void changeInfo(String info, Color infoColour) {
-        if (info == null) {
+        if (info == null || info.length() == 0) {
             // If there is no information
             // Set the information panel invincible
             infoPanel.setVisible(false);
@@ -289,76 +294,140 @@ public class BillboardViewer {
     private Boolean billboardHasChanged(Color billboardColour, String message, Color messageColour,
                                                String info, Color infoColour) {
         // Check if each component is still the same
-        if (billboardColour.equals(billboardPanel.getBackground()) && (message.equals(titleLabel.getText()))
-                && messageColour.equals(titleLabel.getForeground()) && (info.equals(infoTextPane.getText()))
-                && infoColour.equals(infoTextPane.getForeground())) {
-            return false; // not changed
-        } else {
-            return true; // has changed
+        try{
+            // has changed
+            return !billboardColour.equals(billboardPanel.getBackground()) || (!message.equals(titleLabel.getText()))
+                    || !messageColour.equals(titleLabel.getForeground()) || (!info.equals(infoTextPane.getText()))
+                    || !infoColour.equals(infoTextPane.getForeground()); // not changed
+        } catch (Exception e) {
+            return true;
         }
     }
 
     // Function to close the billboard viewer
-    private void closeBillboardSetup() {
-        // Close on mouse click for each components
-        billboardPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
-        });
+    private void closeBillboardSetup(Boolean isViewer, JFrame currentFrame) {
+        // If this is used for the billboard viewer
+        if (isViewer) {
+            // Close on mouse click for each components
+            billboardPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.exit(0);
+                }
+            });
 
-        titleLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
-        });
+            titleLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.exit(0);
+                }
+            });
 
-        infoTextPane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
-        });
+            infoTextPane.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.exit(0);
+                }
+            });
 
-        imageLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
-        });
+            imageLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.exit(0);
+                }
+            });
 
-        infoPanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
-        });
+            infoPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.exit(0);
+                }
+            });
 
-        imagePanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
-        });
+            imagePanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.exit(0);
+                }
+            });
 
-        titlePanel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                System.exit(0);
-            }
-        });
+            titlePanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    System.exit(0);
+                }
+            });
 
-        // Close on ESC key
-        // Adapted from http://www.java2s.com/Code/Java/Swing-JFC/JFramethatcloseswhensomeonepressestheESCkey.htm
-        billboardPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
-                .put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
-        billboardPanel.getActionMap().put("Cancel", new AbstractAction(){
-            public void actionPerformed(ActionEvent e){
-                System.exit(0);
-            }
-        });
+            // Close on ESC key
+            // Adapted from http://www.java2s.com/Code/Java/Swing-JFC/JFramethatcloseswhensomeonepressestheESCkey.htm
+            billboardPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                    .put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
+            billboardPanel.getActionMap().put("Cancel", new AbstractAction(){
+                public void actionPerformed(ActionEvent e){
+                    System.exit(0);
+                }
+            });
+        } else { // If this is used for the preview button
+            // Dispose on mouse click for each components
+            billboardPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    currentFrame.dispose();
+                }
+            });
+
+            titleLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    currentFrame.dispose();
+                }
+            });
+
+            infoTextPane.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    currentFrame.dispose();
+                }
+            });
+
+            imageLabel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    currentFrame.dispose();
+                }
+            });
+
+            infoPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    currentFrame.dispose();
+                }
+            });
+
+            imagePanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    currentFrame.dispose();
+                }
+            });
+
+            titlePanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    currentFrame.dispose();
+                }
+            });
+
+            // Dispose on ESC key
+            // Adapted from http://www.java2s.com/Code/Java/Swing-JFC/JFramethatcloseswhensomeonepressestheESCkey.htm
+            billboardPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW)
+                    .put(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), "Cancel");
+            billboardPanel.getActionMap().put("Cancel", new AbstractAction(){
+                public void actionPerformed(ActionEvent e){
+                    currentFrame.dispose();
+                }
+            });
+        }
     }
 
     // Function to resize the image

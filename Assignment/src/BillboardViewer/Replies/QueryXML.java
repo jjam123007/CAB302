@@ -29,7 +29,7 @@ public final class QueryXML {
         // Check if there is any billboard required to be displayed
         if (billboardID != null) {
             // Generate query to get the xml
-            String query = "Select xml from billboard where billboardID = " + billboardID + ";";
+            String query = "Select xml from billboards where billboardID = " + billboardID + ";";
 
             // Setup initial result
             String result = null;

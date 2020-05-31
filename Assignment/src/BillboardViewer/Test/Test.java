@@ -36,7 +36,7 @@ public class Test {
     private static Color billboardColour, messageColour, informationColour;
 
     // The path for testing
-    private static String filePath = "src/BillboardViewer/Test/all.xml";
+    private static String filePath = "src/BillboardViewer/Test/img-only.xml";
 
     // The main function
     public static void main(String[] args) throws Exception {
@@ -65,7 +65,11 @@ public class Test {
         // Get picture URL
         try {
             Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
-            pictureInfo = pictureData.getAttribute("url");
+            if (pictureData.hasAttribute("url")){
+                pictureInfo = pictureData.getAttribute("url");
+            } else {
+                pictureInfo = pictureData.getAttribute("data");
+            }
         } catch (NullPointerException e) {
             pictureInfo = null;
         }
@@ -84,7 +88,7 @@ public class Test {
 
         billboard = new BillboardViewer(Color.decode("#ffffff"), "Loading...",
                 Color.decode("#000000"), "Loading...", Color.decode("#000000"),
-                "https://i.ytimg.com/vi/Gu24piLwtOg/maxresdefault.jpg");
+                "https://i.ytimg.com/vi/Gu24piLwtOg/maxresdefault.jpg", true);
         billboard.renewBillboard(billboardColour, message, messageColour, information, informationColour, pictureInfo);
 //        Thread.sleep(5000);
 //        billboard.renewBillboard(Color.decode("#ffffff"), "Loading...",

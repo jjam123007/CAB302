@@ -57,10 +57,15 @@ public class LoginGUI {
 
     private void sendLoginRequest() throws IOException, NoSuchAlgorithmException, ClassNotFoundException, SQLException {
 
-        String username = "test";//usernameField.getText();
-        String password = "a";//passwordField.getText();
+
+        String username = "willi";//usernameField.getText();
+        String password = "123";//passwordField.getText();
         LoginRequest login = new LoginRequest(username, password);
-        handleLoginReply(login);
+        try{
+            handleLoginReply(login);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleLoginReply(LoginRequest login) throws IOException, ClassNotFoundException, SQLException {

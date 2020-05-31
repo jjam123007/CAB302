@@ -24,6 +24,7 @@ public class MenuPane implements ControlPanelComponent{
      */
     public MenuPane(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException, SQLException {
         setControlPanelComponents(controlPanelGUI);
+
         new BillboardsPane(controlPanelGUI);
         new AccountPane(controlPanelGUI);
         //Only show the admin pane if the client user is an admin.

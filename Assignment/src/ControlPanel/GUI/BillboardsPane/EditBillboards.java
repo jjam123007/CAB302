@@ -41,6 +41,7 @@ public class EditBillboards implements ControlPanelComponent {
      * @throws ClassNotFoundException
      */
     public EditBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
+        super();
         setControlPanelComponents(controlPanelGUI);
         toEditRow.setText("Edit through create billboard menu");
         toEditRow.setEnabled(false);

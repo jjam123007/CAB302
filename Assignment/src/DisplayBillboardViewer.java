@@ -15,6 +15,8 @@ import java.net.Socket;
 /**
  * The billboard viewer of the program, works by getting information from the
  * server and display the billboard to the screen
+ *
+ * @author William Tran (10306234)
  */
 public class DisplayBillboardViewer {
     // Global variables for establishing and maintaining connection to the server
@@ -36,20 +38,11 @@ public class DisplayBillboardViewer {
         // Create initial billboard
         createBillboard();
 
-        // Setup communication with the server
-        setStreams();
-
         // Constantly receive data from the server
         for (;;) {
             try {
                 // Establishing connection to the server
-                socket = new Socket("localhost",3310);
-
-                // Set up streams to read and write data
-                OutputStream os = socket.getOutputStream();
-                InputStream is = socket.getInputStream();
-                oos = new ObjectOutputStream(os);
-                ois = new ObjectInputStream(is);
+                setStreams();
 
                 // Get XML
                 String input = GetXML.sendXMLRequest(oos, ois);
@@ -68,12 +61,10 @@ public class DisplayBillboardViewer {
                 }
 
                 // Close the connection
-                oos.close();
-                ois.close();
-                socket.close();
+                closeStreams();
             } catch (Exception e) {
                 // If the server shuts down, display a notification and try to reconnect to the server again
-                setStreams();
+                setMaintenanceBillboard();
             }
 
             // Delay 15 seconds
@@ -83,9 +74,9 @@ public class DisplayBillboardViewer {
 
     // Function to create a billboard and display the initial loading page
     private static void createBillboard() throws Exception {
-        billboard = new BillboardViewer(Color.decode("#ffffff"), "Loading...",
-                Color.decode("#000000"), "The billboard is booting up...", Color.decode("#000000"),
-                "https://hackernoon.com/drafts/pp6p36ml.png");
+        billboard = new BillboardViewer(Color.decode("#ffffff"), null,
+                null, null, null,
+                "https://hackernoon.com/drafts/pp6p36ml.png", true);
     }
 
     // Function to display the idle billboard
@@ -127,10 +118,15 @@ public class DisplayBillboardViewer {
             message = null;
         }
 
-        // Get picture URL
+        // Get picture data
         try {
             Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
-            pictureInfo = pictureData.getAttribute("url");
+            // URL
+            if (pictureData.hasAttribute("url")){
+                pictureInfo = pictureData.getAttribute("url");
+            } else { // Base64 encoded
+                pictureInfo = pictureData.getAttribute("data");
+            }
         } catch (NullPointerException e) {
             // If there is nothing, return null
             pictureInfo = null;
@@ -153,34 +149,21 @@ public class DisplayBillboardViewer {
 
     // Setup connection to the server
     private static void setStreams() throws Exception {
-        // Constantly try to reconnect to the server every 15 seconds
-        for (;;) {
-            try {
-                // Establishing a new connection
-                socket = new Socket("localhost",3310);
-                System.out.println("Connected to "+ socket.getInetAddress());
+        // Establishing a new connection
+        socket = new Socket("localhost",3310);
 
-                // Set up streams to read and write data
-                OutputStream os = socket.getOutputStream();
-                InputStream is = socket.getInputStream();
-                oos = new ObjectOutputStream(os);
-                ois = new ObjectInputStream(is);
+        // Set up streams to read and write data
+        OutputStream os = socket.getOutputStream();
+        InputStream is = socket.getInputStream();
+        oos = new ObjectOutputStream(os);
+        ois = new ObjectInputStream(is);
+    }
 
-                // Send some dummy data to not throw an exception
-                oos.writeObject("Dummy data");
-
-                // Close the connection
-                oos.close();
-                ois.close();
-                socket.close();
-                break;
-            } catch (Exception e) {
-                // If could not connect to the server, display a notification billboard
-                setMaintenanceBillboard();
-            }
-
-            // Delay for 15 seconds
-            Thread.sleep(15000);
-        }
+    // Close the connection to the server
+    private static void closeStreams() throws IOException {
+        // Close the connection
+        oos.close();
+        ois.close();
+        socket.close();
     }
 }
