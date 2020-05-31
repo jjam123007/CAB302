@@ -3,6 +3,7 @@ package ControlPanel.GUI.BillboardsPane;
 import Billboard.BillboardReply;
 import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
+import BillboardViewer.BillboardViewer;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
 import ControlPanel.SerializeArray;
@@ -39,41 +40,6 @@ public class CreateBillboards implements ControlPanelComponent {
     private JButton createBbPreviewButton;
     public JButton exportToXMLButton;
     public JTabbedPane billboardsPane;
-
-
-
-    String msgBillboard = "<billboard>\n" +
-            "<message>" + "msg" + "</message>\n" +
-            "</billboard>";
-    String infoBillboard = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<billboard background=\"#0000FF\">\n" +
-            " <information colour=\"#00FFFF\">" + "replaceinfo"  + "</information>\n" +
-            "</billboard>";
-    String picBillboard = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<billboard background=\"#0000FF\">\n" +
-            " <picture url=\"" + "data" + "\" />\n" +
-            "</billboard>";
-    String msgAndinfo = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<billboard background=\"#0000FF\">\n" +
-            "<message>" + "msg" + "</message>\n" +
-            " <information colour=\"#00FFFF\">" + "replaceinfo" + "</information>\n" +
-            "</billboard>";
-    String msgAndpic = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<billboard background=\"#0000FF\">\n" +
-            "<message>" + "msg" + "</message>\n" +
-            " <picture url=\"" + "data" + "\" />\n" +
-            "</billboard>";
-    String infoAndpic = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<billboard background=\"#0000FF\">\n" +
-            " <information colour=\"#00FFFF\">" + "replaceinfo"  + "</information>\n" +
-            " <picture url=\"" + "data" + "\" />\n" +
-            "</billboard>";
-    String allformat = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-            "<billboard background=\"#0000FF\">\n" +
-            " <message colour=\"#FFFF00\">" + "msg" + "</message>\n" +
-            " <picture url=\"" + "data" + "\" />\n" +
-            " <information colour=\"#00FFFF\">" + "replaceinfo" + "</information>\n" +
-            "</billboard>";
 
     /**
      *
@@ -143,17 +109,18 @@ public class CreateBillboards implements ControlPanelComponent {
 
                 if (!billboardName.contentEquals("")){
                     try(OutputStream out = new FileOutputStream(billboardName+".xml")) {
-                        //when there is no input
-                        if (info.isEmpty() && url.isEmpty() && msg.isEmpty()){
-                            JOptionPane.showMessageDialog(controlPanel,"Empty input in: \n"
+                        // when there is no input
+                        if (info.isEmpty() && url.isEmpty() && msg.isEmpty()) {
+                            JOptionPane.showMessageDialog(controlPanel, "Empty input in: \n"
                                             + "1. message\n" + "2. information\n" + "3. image link"
-                                    ,"Warning",JOptionPane.NO_OPTION);
+                                    , "Warning", JOptionPane.NO_OPTION);
 
                         }
-                        //message, information and url field have value
-                        else if (info.length()>0 && url.length()>0 && msg.length()>0){
-                            String allXML = allformat.replace("msg",msg).replace("replaceinfo",info).replace("data",url);
-                            byte[] format = allXML.getBytes();
+                        // When there is input
+                        else {
+                            // Create an XML string
+                            String xml = createXMLString("", msg, "", info, "", url);
+                            byte[] format = xml.getBytes();
                             out.write(format);
                             out.close();
                             createBbName.setText("");
@@ -163,84 +130,6 @@ public class CreateBillboards implements ControlPanelComponent {
                             JOptionPane.showMessageDialog(controlPanel,"Exported Successful into: "+billboardName+".xml"
                                     ,"Information",JOptionPane.NO_OPTION);
 
-                        }
-                        //message and information field have value
-                        else if(msg.length()>0 && info.length()>0 ){ //message and info
-                            String msginfoXML = msgAndinfo.replace("msg",msg).replace("replaceinfo",info);
-                            byte[] format = msginfoXML.getBytes();
-                            out.write(format);
-                            out.close();
-                            createBbName.setText("");
-                            createBbMsg.setText("");
-                            createBbInfo.setText("");
-                            createBbImgLink.setText("");
-                            JOptionPane.showMessageDialog(controlPanel,"Exported Successful into: "+billboardName+".xml"
-                                    ,"Information",JOptionPane.NO_OPTION);
-                        }
-                        //message and url field have value
-                        else if(msg.length()>0 && url.length()>0 ){ //message and url
-                            String msgurlXML = msgAndpic.replace("msg",msg).replace("data",url);
-                            byte[] format = msgurlXML.getBytes();
-                            out.write(format);
-                            out.close();
-                            createBbName.setText("");
-                            createBbMsg.setText("");
-                            createBbInfo.setText("");
-                            createBbImgLink.setText("");
-                            JOptionPane.showMessageDialog(controlPanel,"Exported Successful into: "+billboardName+".xml"
-                                    ,"Information",JOptionPane.NO_OPTION);
-                        }
-                        //url and information field have value
-                        else if(info.length()>0 && url.length()>0 ){ //info and url
-                            String infourlXML = infoAndpic.replace("replaceinfo",info).replace("data",url);
-                            byte[] format = infourlXML.getBytes();
-                            out.write(format);
-                            out.close();
-                            createBbName.setText("");
-                            createBbMsg.setText("");
-                            createBbInfo.setText("");
-                            createBbImgLink.setText("");
-                            JOptionPane.showMessageDialog(controlPanel,"Exported Successful into: "+billboardName+".xml"
-                                    ,"Information",JOptionPane.NO_OPTION);
-                        }
-                        //only information field have value
-                        else if(info.length()>0){ //only info
-                            String infoXML = infoBillboard.replace("replaceinfo",info);
-                            byte[] format = infoXML.getBytes();
-                            out.write(format);
-                            out.close();
-                            createBbName.setText("");
-                            createBbMsg.setText("");
-                            createBbInfo.setText("");
-                            createBbImgLink.setText("");
-                            JOptionPane.showMessageDialog(controlPanel,"Exported Successful into: "+billboardName+".xml"
-                                    ,"Information",JOptionPane.NO_OPTION);
-                        }
-                        //only url field have value
-                        else if(url.length()>0){ //only url
-                            String urlXML = picBillboard.replace("data",url);
-                            byte[] format = urlXML.getBytes();
-                            out.write(format);
-                            out.close();
-                            createBbName.setText("");
-                            createBbMsg.setText("");
-                            createBbInfo.setText("");
-                            createBbImgLink.setText("");
-                            JOptionPane.showMessageDialog(controlPanel,"Exported Successful into: "+billboardName+".xml"
-                                    ,"Information",JOptionPane.NO_OPTION);
-                        }
-                        //only message field have value
-                        else if (msg.length()>0) { //only message
-                            String msgXML = msgBillboard.replace("msg",msg);
-                            byte[] format = msgXML.getBytes();
-                            out.write(format);
-                            out.close();
-                            createBbName.setText("");
-                            createBbMsg.setText("");
-                            createBbInfo.setText("");
-                            createBbImgLink.setText("");
-                            JOptionPane.showMessageDialog(controlPanel,"Exported Successful into: "+billboardName+".xml"
-                                    ,"Information",JOptionPane.NO_OPTION);
                         }
                     } catch (FileNotFoundException ex) {
                         ex.printStackTrace();
@@ -263,50 +152,17 @@ public class CreateBillboards implements ControlPanelComponent {
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
             public void actionPerformed(ActionEvent e) {
-                String billboardName = createBbName.getText();
+                // Get information from the fields
                 String msg = createBbMsg.getText();
-                String imagelink = createBbImgLink.getText();
+                String imageLink = createBbImgLink.getText();
                 String info = createBbInfo.getText();
 
-                if(imagelink.length()>0){
+                // Create an instance of the billboard viewer
                 try {
-                    if(!imagelink.substring(0,4).contentEquals("http")){
-                        BufferedImage img = ImageIO.read(new ByteArrayInputStream(Base64.getDecoder().decode(imagelink)));
-                        ImageIcon billboard = new ImageIcon(img);
-                        Image image =  billboard.getImage();
-                        Image newimg = image.getScaledInstance(240,120, Image.SCALE_SMOOTH);
-                        billboard = new ImageIcon(newimg);
-                        System.out.println("not base64");
-
-                        JFrame frame1 = new JFrame("preview");
-                        JOptionPane.showMessageDialog(null,
-                                "Billboard Name: " + billboardName + '\n'+"Message:" + msg + '\n'+"Information: " + info,
-                                "Preview",
-                                JOptionPane.INFORMATION_MESSAGE,billboard);
-                    }
-                    else{
-
-                        URL url2 = new URL(imagelink);
-                        BufferedImage img1 = ImageIO.read(url2);
-                        ImageIcon billboardimage = new ImageIcon(img1);
-
-                        Image image =  billboardimage.getImage();
-                        Image newimg = image.getScaledInstance(240,120, Image.SCALE_SMOOTH);
-                        billboardimage = new ImageIcon(newimg);
-
-                        JFrame frame2 = new JFrame("preview");
-                        JOptionPane.showMessageDialog(null,
-                                "Billboard Name: " + billboardName + '\n'+"Message:" + msg+ '\n'+"Information: " + info,
-                                "Preview",
-                                JOptionPane.INFORMATION_MESSAGE,billboardimage);
-
-                    }
-                } catch (MalformedURLException ex) {
-                    ex.printStackTrace();
-                } catch (IOException ex) {
-                    ex.printStackTrace();
+                    new BillboardViewer(Color.decode("#ffffff"), msg, null, info, null, imageLink, false);
+                } catch (Exception exc) {
+                    exc.printStackTrace();
                 }
-            }
             }
         });
     }

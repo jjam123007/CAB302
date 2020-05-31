@@ -76,7 +76,7 @@ public class DisplayBillboardViewer {
     private static void createBillboard() throws Exception {
         billboard = new BillboardViewer(Color.decode("#ffffff"), null,
                 null, null, null,
-                "https://hackernoon.com/drafts/pp6p36ml.png");
+                "https://hackernoon.com/drafts/pp6p36ml.png", true);
     }
 
     // Function to display the idle billboard
@@ -118,10 +118,15 @@ public class DisplayBillboardViewer {
             message = null;
         }
 
-        // Get picture URL
+        // Get picture data
         try {
             Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
-            pictureInfo = pictureData.getAttribute("url");
+            // URL
+            if (pictureData.hasAttribute("url")){
+                pictureInfo = pictureData.getAttribute("url");
+            } else { // Base64 encoded
+                pictureInfo = pictureData.getAttribute("data");
+            }
         } catch (NullPointerException e) {
             // If there is nothing, return null
             pictureInfo = null;
