@@ -28,7 +28,7 @@ import java.util.Base64;
  * This class used to create and preview a new billBoard
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
-public class CreateBillboards extends Request implements ControlPanelComponent {
+public class CreateBillboards implements ControlPanelComponent {
 
     private JPanel controlPanel;
     private JTextArea createBbName;

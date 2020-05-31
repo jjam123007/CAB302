@@ -20,7 +20,7 @@ import java.net.UnknownHostException;
  * scheduledStartTime and scheduledEndTime for exist billBoards or new billBoards
  *
  * @author Jun Chen(n10240977)&Haoze He(n10100351) */
-public class ScheduleBillboards extends Request implements ControlPanelComponent {
+public class ScheduleBillboards implements ControlPanelComponent {
 
     private JPanel controlPanel;
     public JTextArea scheduleBbID;
