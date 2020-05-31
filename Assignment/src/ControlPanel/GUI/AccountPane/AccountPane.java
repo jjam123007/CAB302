@@ -1,6 +1,9 @@
-package ControlPanel.GUI;
+package ControlPanel.GUI.AccountPane;
 
 import ControlPanel.GUI.AdminPane.EditUserPassword;
+import ControlPanel.GUI.ControlPanelComponent;
+import ControlPanel.GUI.ControlPanelGUI;
+import ControlPanel.GUI.LoginGUI;
 import User.ClientUser;
 import UserManagement.Replies.LogoutReply;
 import UserManagement.Requests.UserManagementRequest;
@@ -24,13 +27,14 @@ public class AccountPane implements ControlPanelComponent {
     public JButton logoutButton;
 
     /**
-     * Create the account pane which allows client users to change their own password or logout.
+     * Create the account pane which allows client users to change their own password, view their permissions and logout.
      * @param controlPanelGUI
      */
-    public AccountPane(ControlPanelGUI controlPanelGUI){
+    public AccountPane(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
         setChangePasswordPane();
         setLogoutButton();
+        new ViewPermissions(controlPanelGUI);
     }
 
     private void setLogoutButton() {

@@ -58,7 +58,7 @@ public class ChangeUserPasswordReply extends Reply {
             this.success = true;
         } catch (SQLException exception){
             exception.printStackTrace();
-            this.errorMessage = exception.getMessage();
+            this.errorMessage = ReplyError.databaseError;
         }
     }
 

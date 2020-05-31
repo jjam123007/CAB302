@@ -54,7 +54,7 @@ public class ViewUsersReply extends Reply implements Serializable {
             this.success = true;
         } catch (SQLException exception){
             exception.printStackTrace();
-            this.errorMessage = exception.getMessage();
+            this.errorMessage = ReplyError.databaseError;
         }
     }
 }

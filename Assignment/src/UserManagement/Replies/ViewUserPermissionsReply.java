@@ -54,7 +54,7 @@ public class ViewUserPermissionsReply extends Reply {
                 statement.close();
                 this.success = true;
             } catch (SQLException exception){
-                this.errorMessage = exception.getMessage();
+                this.errorMessage = ReplyError.databaseError;
                 exception.printStackTrace();
             }
         }

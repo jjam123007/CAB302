@@ -78,7 +78,7 @@ public class EditUserPermissionsReply extends Reply {
 
         } catch (SQLException exception){
             exception.printStackTrace();
-            this.errorMessage = exception.getMessage();
+            this.errorMessage = ReplyError.databaseError;
         }
     }
 

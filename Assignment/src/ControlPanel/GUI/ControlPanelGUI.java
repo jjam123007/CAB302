@@ -78,13 +78,19 @@ public class ControlPanelGUI {
     private JPanel ViewJPanel;
     private JPanel ScheduleJPanel;
     public JButton importXMLButton;
+    public JCheckBox detailsCreateBillboardsPerm;
+    public JLabel accountUsernameLabel;
+    public JButton updatePermissionsButton;
+    public JCheckBox detailsEditBillboardsPerm;
+    public JCheckBox detailsScheduleBillboardsPerm;
+    public JCheckBox detailsEditUsersPerm;
     public JLabel RowToEdit;
 
     public int rowToEdit;
     public Socket socket;
     public ObjectOutputStream oos;
     public ObjectInputStream ois;
-    protected JFrame frame;
+    public JFrame frame;
 
     /**
      * Create the control panel GUI display it on screen.

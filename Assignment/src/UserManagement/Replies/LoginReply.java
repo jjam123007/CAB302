@@ -117,7 +117,7 @@ public class LoginReply implements Serializable{
         boolean scheduleBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.scheduleBillboards);
 
         this.permissions = new UserPermissions(createBillboardsPerm,editBillboardsPerm,scheduleBillboardsPerm,editUsersPerm);
-       System.out.println( this.permissions);
+        System.out.println( this.permissions);
    }
 
 }
