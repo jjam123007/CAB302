@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 /**
  * This class used to create and preview a new billBoard
- * @author Jun Chen(n10240977) & Haoze He(n10100351) & William Tran (n10306234)
+ * @author Haoze He(n10100351) & William Tran (n10306234)
  */
 public class CreateBillboards implements ControlPanelComponent {
 
@@ -81,7 +81,6 @@ public class CreateBillboards implements ControlPanelComponent {
                     BillboardReply messageObject = (BillboardReply) addBillboard.getOIS().readObject();
                     addBillboard.closeConnection();
                     String message = messageObject.getMessage();
-                    System.out.println("Message: "+message);
                     JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
 
                 } catch (UnknownHostException ex) {
@@ -100,7 +99,15 @@ public class CreateBillboards implements ControlPanelComponent {
             }
         });
         importXMLButton.addActionListener(new ActionListener() {
+            /**
+             * Implements a ActionListener for importXmlButton to get billBoard data,
+             * then put into create interface from xml form file.
+             * @param e
+             */
             @Override
+            /**
+             * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
+             */
             public void actionPerformed(ActionEvent e) {
 
                 try{
@@ -109,8 +116,8 @@ public class CreateBillboards implements ControlPanelComponent {
                 fc.showOpenDialog(null);
                 File file = fc.getSelectedFile();
                 String filename = file.getAbsolutePath();
+                //check if its xml file
                 if(getFileExtension(filename).contentEquals("xml")){
-                    System.out.println("file type: "+ filename);
                     Scanner x = new Scanner(new File(filename));
 
                     while (x.hasNext()){
@@ -133,7 +140,8 @@ public class CreateBillboards implements ControlPanelComponent {
                     }
 
                 }else{
-                    System.out.println("NOT XML: "+ filename);
+                    //if its not xml file. error
+                    JOptionPane.showMessageDialog(controlPanel,"Only XML formatted files are allowed","Error",JOptionPane.NO_OPTION);
                 }
                 }catch (NullPointerException | FileNotFoundException error){
                     error.printStackTrace();
@@ -141,12 +149,14 @@ public class CreateBillboards implements ControlPanelComponent {
                 createBbMsg.setText(msg);
                 createBbInfo.setText(info);
                 createBbImgLink.setText(imagelink);
+                JOptionPane.showMessageDialog(controlPanel,"Successful imported","Information",JOptionPane.NO_OPTION);
 
             }
         });
         exportToXMLButton.addActionListener(new ActionListener() {
             /**
-             * Implements a ActionListener for xmlButton to added billBoard data from xml form file.
+             * Implements a ActionListener for exportXmlButton to get all billBoard data filled by the user,
+             * then store in a file.
              * @param e
              */
             @Override
@@ -196,7 +206,7 @@ public class CreateBillboards implements ControlPanelComponent {
         });
         createBbPreviewButton.addActionListener(new ActionListener() {
             /**
-             *Implements a ActionListener for previewButton to show added data on dialogBox
+             *Implements a ActionListener for previewButton to show added billBoardData
              * @param e
              */
             @Override
@@ -218,13 +228,29 @@ public class CreateBillboards implements ControlPanelComponent {
             }
         });
     }
+
+    /**
+     *This function used to check if the chosen file is xml file.
+     * @param fullName
+     * @return
+     */
     private static String getFileExtension(String fullName) {
         String fileName = new File(fullName).getName();
         int dotIndex = fileName.lastIndexOf('.');
         return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
     }
 
-
+    /**
+     * This function used to make billBoard data filled by user,
+     * change to xml form
+     * @param billboardColour
+     * @param message
+     * @param messageColour
+     * @param info
+     * @param infoColour
+     * @param imgData
+     * @return
+     */
     private static String createXMLString(String billboardColour, String message, String messageColour,
                                           String info, String infoColour, String imgData) {
         // Initial result, open the billboard tag

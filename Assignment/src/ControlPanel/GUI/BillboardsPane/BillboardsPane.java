@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  * This class create a pane to store view, create, edit, schedule for billBoard.
- * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ * @author Jun Chen(n10240977)
  */
 public class BillboardsPane implements ControlPanelComponent {
 

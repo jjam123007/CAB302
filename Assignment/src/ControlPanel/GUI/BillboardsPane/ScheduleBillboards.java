@@ -19,7 +19,7 @@ import java.net.UnknownHostException;
  * This class used to edit or add scheduleDate,
  * scheduledStartTime and scheduledEndTime for exist billBoards or new billBoards
  *
- * @author Jun Chen(n10240977)&Haoze He(n10100351) */
+ * @author Jun Chen(n10240977) */
 public class ScheduleBillboards implements ControlPanelComponent {
 
     private JPanel controlPanel;
@@ -63,7 +63,6 @@ public class ScheduleBillboards implements ControlPanelComponent {
                     BillboardReply messageObject = (BillboardReply) addview.getOIS().readObject();
                     addview.closeConnection();
                     String message = messageObject.getMessage();
-                    System.out.println("Message: "+message);
                     JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
 
                 } catch (UnknownHostException ex) {

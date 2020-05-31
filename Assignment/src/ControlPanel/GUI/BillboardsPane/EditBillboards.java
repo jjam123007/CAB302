@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  *This class used to edit exist billBoards
- * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ * @author Haoze He(n10100351)
  */
 public class EditBillboards implements ControlPanelComponent {
 
@@ -65,7 +65,6 @@ public class EditBillboards implements ControlPanelComponent {
                     Object[] newTable = {viewId,billboardName,billboardMessage,billboardInformation,billboardUrl};
                     BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable, ClientUser.getToken());
 
-                    System.out.println("ROW TO EDIT"+rowToEdit);
                     viewTable.getModel().setValueAt(viewId,rowToEdit,0);
                     viewTable.getModel().setValueAt(billboardName,rowToEdit,1);
                     viewTable.getModel().setValueAt(billboardMessage,rowToEdit,2);
@@ -76,7 +75,6 @@ public class EditBillboards implements ControlPanelComponent {
                     BillboardReply messageObject = (BillboardReply) edit.getOIS().readObject();
                     edit.closeConnection();
                     String message = messageObject.getMessage();
-                    System.out.println("Message: "+message);
                     editBbName.setText("");
                     editBbMsg.setText("");
                     editBbInfo.setText("");
