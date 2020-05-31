@@ -24,6 +24,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Base64;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * This class used to create and preview a new billBoard
@@ -38,8 +41,12 @@ public class CreateBillboards implements ControlPanelComponent {
     private JTextArea createBbImgLink;
     private JButton createBbSubmitButton;
     private JButton createBbPreviewButton;
-    public JButton exportToXMLButton;
+    private JButton exportToXMLButton;
+    private JButton importXMLButton;
     public JTabbedPane billboardsPane;
+    private String msg;
+    private String info;
+    private String imagelink;
 
     /**
      *
@@ -89,6 +96,53 @@ public class CreateBillboards implements ControlPanelComponent {
                 createBbInfo.setText("");
                 createBbImgLink.setText("");
 
+
+            }
+        });
+        importXMLButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                try{
+                //Create a file chooser
+                final JFileChooser fc = new JFileChooser();
+                fc.showOpenDialog(null);
+                File file = fc.getSelectedFile();
+                String filename = file.getAbsolutePath();
+                if(getFileExtension(filename).contentEquals("xml")){
+                    System.out.println("file type: "+ filename);
+                    Scanner x = new Scanner(new File(filename));
+
+                    while (x.hasNext()){
+                        String a =x.next();
+                        final Pattern pattern = Pattern.compile("<message>(.+?)</message>", Pattern.DOTALL);
+                        final Pattern pattern1 = Pattern.compile("<information>(.+?)</information>", Pattern.DOTALL);
+                        final Pattern pattern2 = Pattern.compile("<picture (.*)>", Pattern.DOTALL);
+
+
+                        final Matcher matcher = pattern.matcher(a);
+                        final Matcher matcher1 = pattern1.matcher(a);
+                        final Matcher matcher2 = pattern2.matcher(a);
+                        if(matcher.find()){
+                            msg = matcher.group(1);
+                        }if(matcher1.find()){
+                            info = matcher1.group(1);
+                        }if(matcher2.find()){
+                            imagelink = matcher2.group(1);
+                            System.out.println("context: "+imagelink);
+                        }
+
+                    }
+
+                }else{
+                    System.out.println("NOT XML: "+ filename);
+                }
+                }catch (NullPointerException | FileNotFoundException error){
+                    error.printStackTrace();
+                }
+                createBbMsg.setText(msg);
+                createBbInfo.setText(info);
+                createBbImgLink.setText(imagelink);
 
             }
         });
@@ -165,6 +219,11 @@ public class CreateBillboards implements ControlPanelComponent {
                 }
             }
         });
+    }
+    private static String getFileExtension(String fullName) {
+        String fileName = new File(fullName).getName();
+        int dotIndex = fileName.lastIndexOf('.');
+        return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
     }
 
 
@@ -246,5 +305,6 @@ public class CreateBillboards implements ControlPanelComponent {
         this.createBbSubmitButton = controlPanelGUI.createBbSubmitButton;
         this.createBbPreviewButton = controlPanelGUI.createBbPreviewButton;
         this.exportToXMLButton =controlPanelGUI.exportToXMLButton;
+        this.importXMLButton = controlPanelGUI.importXMLButton;
     }
 }

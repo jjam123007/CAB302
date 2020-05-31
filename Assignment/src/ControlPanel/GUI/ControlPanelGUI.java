@@ -2,6 +2,8 @@
 package ControlPanel.GUI;
 
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -75,6 +77,7 @@ public class ControlPanelGUI {
     private JPanel CreateJPanel;
     private JPanel ViewJPanel;
     private JPanel ScheduleJPanel;
+    public JButton importXMLButton;
     public JLabel RowToEdit;
 
     public int rowToEdit;
@@ -98,6 +101,7 @@ public class ControlPanelGUI {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         initControlPanelComponents();
+
     }
 
     private void initControlPanelComponents() throws IOException, ClassNotFoundException, SQLException {
