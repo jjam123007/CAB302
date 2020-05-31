@@ -11,12 +11,14 @@ import java.sql.Statement;
 import java.sql.Time;
 
 /**
- * This class used to show what is the correct format for filling in the data
+ * This class used to create some functions to feedback user's request to databases,
+ * and perform corresponding operations in databases
  * @author Jun Chen(n10240977)&Haoze He(n10100351)
  */
 public final class ManageBillboards implements Serializable {
     /**
-     *
+     *This function used to put new billBoard data into dataBases,
+     * when request of user is create a new Billboard.
      * @param data
      * @param token
      * @throws SQLException
@@ -45,7 +47,8 @@ public final class ManageBillboards implements Serializable {
     }
 
     /**
-     *
+     *This function used to delete a billBoard from dataBases,
+     * when request of user is delete.
      * @param data
      * @throws SQLException
      */
@@ -60,6 +63,8 @@ public final class ManageBillboards implements Serializable {
     }
 
     /**
+     *This function used to update schedule according to view id in dataBases,
+     * when request of user is insert or edit schedule for created billBoard or existed billBoard
      *
      * @param data
      * @throws SQLException
@@ -76,7 +81,8 @@ public final class ManageBillboards implements Serializable {
     }
 
     /**
-     *
+     *This function used to update existed billBoard data in dataBases,
+     * when request of user is edit for billBoard.
      * @param data
      * @throws SQLException
      */
@@ -92,6 +98,13 @@ public final class ManageBillboards implements Serializable {
         statement.executeQuery("update billboards_info set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where viewID='"+ id+"';");
         statement.close();
     }
+
+    /**
+     * This function used to get all billBoard data from dataBases,
+     * then show in view interface.
+     * @return tableDataArray
+     * @throws SQLException
+     */
     public static SerializeArray showBillboards() throws SQLException {
         Object[][] tableData;
 

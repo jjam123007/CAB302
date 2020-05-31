@@ -7,6 +7,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 /**
+ * @author Jun Chen(n10240977)&Haoze He(n10100351)
  * This class contains all of the java swing components that form the control panel GUI.
  */
 public class ControlPanelGUI {
