@@ -184,58 +184,75 @@ public class Server {
         oos.flush();
     }
 
+
+    /**
+     * Send a reply back to and notify the control panel client on whether their entered credentials were valid or not.
+     * @param loginRequest
+     * @throws SQLException
+     * @throws IOException
+     */
     private static void handleLoginRequest(LoginRequest loginRequest) throws SQLException, IOException {
         LoginReply loginReply = new LoginReply(loginRequest);
         oos.writeObject(loginReply);
         oos.flush();
     }
 
+    /**
+     * Handle requests that involve adding, removing, changing the permissions and retrieving the details of users.
+     * This method also includes the handling of user session tokens, namely expiring a session token when a user sends a request to log out.
+     * @param request
+     * @throws SQLException
+     * @throws NoSuchAlgorithmException
+     * @throws IOException
+     */
     private static void handleUserManagementRequest(UserManagementRequest request) throws SQLException, NoSuchAlgorithmException, IOException {
         UserManagementRequestType requestType = request.getRequestType();
         String sessionToken = request.getSessionToken();
         Object reply = null;
 
         switch (requestType){
+            //Register a new user specified in the request to the database.
             case register:{
                 RegisterRequest registerRequest = (RegisterRequest) request.getRequest();
                 RegisterReply registerReply = new RegisterReply(registerRequest, sessionToken);
                 reply = registerReply;
                 break;
             }
+            //Retrieve all users registered to the database and send it to the client.
             case getUsernames:{
                 ViewUsersReply viewUsersReply = new ViewUsersReply(sessionToken);
                 reply = viewUsersReply;
                 break;
             }
-
+            //Retrieve the permissions of a user specified in the request and send it to the client.
             case getPermissions:{
                 String username = (String) request.getRequest();
                 ViewUserPermissionsReply viewUserPermissionsReply = new ViewUserPermissionsReply(username, sessionToken);
                 reply = viewUserPermissionsReply;
                 break;
             }
-
+            //Remove the user designated in the request from the database.
             case remove:{
                 String userToDelete = (String) request.getRequest();
                 RemoveUserReply removeUserReply = new RemoveUserReply(userToDelete,sessionToken);
                 reply = removeUserReply;
                 break;
             }
-
+            //Alter the permissions of a user specified in the request.
             case changePermissions:{
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
                 EditUserPermissionsReply editUserPermissionsReply = new EditUserPermissionsReply(editUserPropertyRequest, sessionToken);
                 reply = editUserPermissionsReply;
                 break;
             }
-
+            //Alter the password of a user specified in the request.
             case changePassword:{
                 EditUserPropertyRequest editUserPropertyRequest = (EditUserPropertyRequest) request.getRequest();
                 ChangeUserPasswordReply changeUserPasswordReply = new ChangeUserPasswordReply(editUserPropertyRequest, sessionToken);
                 reply = changeUserPasswordReply;
                 break;
             }
-
+            //Log the user associated with the session token out of the system by expiring their session token.
             case logout:{
                 LogoutReply logoutReply = new LogoutReply(sessionToken);
                 reply = logoutReply;
