@@ -117,8 +117,7 @@ public class CreateBillboards implements ControlPanelComponent {
                         String a =x.next();
                         final Pattern pattern = Pattern.compile("<message>(.+?)</message>", Pattern.DOTALL);
                         final Pattern pattern1 = Pattern.compile("<information>(.+?)</information>", Pattern.DOTALL);
-                        final Pattern pattern2 = Pattern.compile("<picture (.*)>", Pattern.DOTALL);
-
+                        final Pattern pattern2 = Pattern.compile(".*=\"(.+?)\"", Pattern.DOTALL);
 
                         final Matcher matcher = pattern.matcher(a);
                         final Matcher matcher1 = pattern1.matcher(a);
@@ -129,7 +128,6 @@ public class CreateBillboards implements ControlPanelComponent {
                             info = matcher1.group(1);
                         }if(matcher2.find()){
                             imagelink = matcher2.group(1);
-                            System.out.println("context: "+imagelink);
                         }
 
                     }
