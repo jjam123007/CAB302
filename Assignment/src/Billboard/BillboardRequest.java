@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 /**
  * This class used to serialize the data needed
- *  @author Jun Chen(n10240977)&Haoze He(n10100351)
+ *  @author Haoze He(n10100351)
  */
 public class BillboardRequest extends Request implements Serializable {
     BillboardRequestType request;

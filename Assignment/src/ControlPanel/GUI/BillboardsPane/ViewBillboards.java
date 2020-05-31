@@ -22,7 +22,7 @@ import java.io.IOException;
  * This class is used to let the user choose the way to process the data (delete or edit),
  * and display the added or edited data
  *
- * @author Jun Chen(n10240977)&Haoze He(n10100351) */
+ * @author Jun Chen(n10240977) */
 public class ViewBillboards implements ControlPanelComponent {
     Integer billboardID;
     int selectedRow;

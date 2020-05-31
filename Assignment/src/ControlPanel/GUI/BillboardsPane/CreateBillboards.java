@@ -30,7 +30,7 @@ import java.util.regex.Pattern;
 
 /**
  * This class used to create and preview a new billBoard
- * @author Jun Chen(n10240977) & Haoze He(n10100351) & William Tran (n10306234)
+ * @author Haoze He(n10100351) & William Tran (n10306234)
  */
 public class CreateBillboards implements ControlPanelComponent {
 
