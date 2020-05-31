@@ -81,7 +81,6 @@ public class CreateBillboards implements ControlPanelComponent {
                     BillboardReply messageObject = (BillboardReply) addBillboard.getOIS().readObject();
                     addBillboard.closeConnection();
                     String message = messageObject.getMessage();
-                    System.out.println("Message: "+message);
                     JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
 
                 } catch (UnknownHostException ex) {
@@ -117,8 +116,8 @@ public class CreateBillboards implements ControlPanelComponent {
                 fc.showOpenDialog(null);
                 File file = fc.getSelectedFile();
                 String filename = file.getAbsolutePath();
+                //check if its xml file
                 if(getFileExtension(filename).contentEquals("xml")){
-                    System.out.println("file type: "+ filename);
                     Scanner x = new Scanner(new File(filename));
 
                     while (x.hasNext()){
@@ -141,7 +140,8 @@ public class CreateBillboards implements ControlPanelComponent {
                     }
 
                 }else{
-                    System.out.println("NOT XML: "+ filename);
+                    //if its not xml file. error
+                    JOptionPane.showMessageDialog(controlPanel,"Only XML formatted files are allowed","Error",JOptionPane.NO_OPTION);
                 }
                 }catch (NullPointerException | FileNotFoundException error){
                     error.printStackTrace();
@@ -149,6 +149,7 @@ public class CreateBillboards implements ControlPanelComponent {
                 createBbMsg.setText(msg);
                 createBbInfo.setText(info);
                 createBbImgLink.setText(imagelink);
+                JOptionPane.showMessageDialog(controlPanel,"Successful imported","Information",JOptionPane.NO_OPTION);
 
             }
         });

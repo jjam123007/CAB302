@@ -63,7 +63,6 @@ public class ScheduleBillboards implements ControlPanelComponent {
                     BillboardReply messageObject = (BillboardReply) addview.getOIS().readObject();
                     addview.closeConnection();
                     String message = messageObject.getMessage();
-                    System.out.println("Message: "+message);
                     JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
 
                 } catch (UnknownHostException ex) {
