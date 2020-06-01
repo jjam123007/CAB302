@@ -87,7 +87,7 @@ public class ControlPanelGUI {
     public JButton billboardColourButton;
     public JButton messageColourButton;
     public JButton informationColourButton;
-    public JButton chooseAFileButton;
+    public JButton chooseImageButton;
     public JPanel infoColourPreview;
     public JPanel messColourPreview;
     public JPanel bgColourPreview;

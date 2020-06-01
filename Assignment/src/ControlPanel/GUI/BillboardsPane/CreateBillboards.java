@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.UnknownHostException;
+import java.util.Base64;
 
 /**
  * This class used to create and preview a new billBoard
@@ -37,7 +38,6 @@ public class CreateBillboards implements ControlPanelComponent {
     private JButton exportToXMLButton;
     private JButton importXMLButton;
     public JTabbedPane billboardsPane;
-
     private JButton billboardColourButton;
     private JButton messageColourButton;
     private JButton informationColourButton;
@@ -45,6 +45,7 @@ public class CreateBillboards implements ControlPanelComponent {
     private JPanel infoColourPreview;
     private JPanel msgColourPreview;
     private JPanel bgColourPreview;
+    public JButton chooseImageButton;
 
     // Global variables
     private String msg;
@@ -117,15 +118,45 @@ public class CreateBillboards implements ControlPanelComponent {
             }
         );
 
+        /**
+         * Add action listeners to choose an image from a file
+         */
+        chooseImageButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    //Create a file chooser
+                    final JFileChooser fileChooser = new JFileChooser("./");
+                    fileChooser.showOpenDialog(null);
+                    File imageFile = fileChooser.getSelectedFile();
+                    String fileName = imageFile.getAbsolutePath();
+                    String fileExtension = getFileExtension(fileName);
+                    //check if its xml file
+                    if (fileExtension.contentEquals("bmp") || fileExtension.contentEquals("jpg")
+                    || fileExtension.contentEquals("jpeg") || fileExtension.contentEquals("png")) {
+                        imageLink = encodeFileToBase64Binary(imageFile);
+                        createBbImgLink.setText("(An image file has been chosen. Leave this field blank to not submitting it!)");
+                    } else {
+                        // If it is not an image file, show a dialog message
+                        JOptionPane.showMessageDialog(controlPanel,"Only BMP, JPEG or PNG format is allowed.",
+                                "Error",JOptionPane.NO_OPTION);
+                    }
+                } catch (NullPointerException error) {
+                    System.out.println("Nothing was provided as an image import.");
+                } catch (Exception ex) {
+                    // If an error happens, show a dialog message
+                    JOptionPane.showMessageDialog(controlPanel,"An error occurred. Cannot import image.",
+                            "Error",JOptionPane.NO_OPTION);
+                }
+            }
+        });
 
         createBbSubmitButton.addActionListener(new ActionListener() {
+            @Override
             /**
              * Implements a ActionListener for submitButton to add new data in database while showing in the view interface,
              * and clear all input after submitted
              * @param e
-             */
-            @Override
-            /**
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
             public void actionPerformed(ActionEvent e) {
@@ -133,7 +164,7 @@ public class CreateBillboards implements ControlPanelComponent {
                     String billboardName = createBbName.getText();
                     String msg = createBbMsg.getText();
                     String info = createBbInfo.getText();
-                    String url = createBbImgLink.getText();
+                    String url = getImage();
                     String billboardColour = convertColorToHexadecimal(bgColourPreview.getBackground());
                     String messageColour = convertColorToHexadecimal(msgColourPreview.getBackground());
                     String informationColour = convertColorToHexadecimal(infoColourPreview.getBackground());
@@ -166,24 +197,25 @@ public class CreateBillboards implements ControlPanelComponent {
 
 
         importXMLButton.addActionListener(new ActionListener() {
+            @Override
             /**
              * Implements a ActionListener for importXmlButton to get billBoard data,
              * then put into create interface from xml form file.
              * @param e
-             */
-            @Override
-            /**
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
             public void actionPerformed(ActionEvent e) {
                 try {
                     //Create a file chooser
-                    final JFileChooser fc = new JFileChooser();
-                    fc.showOpenDialog(null);
-                    File file = fc.getSelectedFile();
+                    final JFileChooser fileChooser = new JFileChooser("./");
+                    fileChooser.showOpenDialog(null);
+                    File file = fileChooser.getSelectedFile();
                     String filename = file.getAbsolutePath();
                     //check if its xml file
                     if (getFileExtension(filename).contentEquals("xml")) {
+                        // String to store the image input
+                        String imageInput = "";
+
                         // Create a document builder to parse the XML file
                         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
                         Document doc = builder.parse(file);
@@ -213,8 +245,10 @@ public class CreateBillboards implements ControlPanelComponent {
                             // URL
                             if (pictureData.hasAttribute("url")){
                                 imageLink = pictureData.getAttribute("url");
+                                imageInput = imageLink;
                             } else { // Base64 encoded
                                 imageLink = pictureData.getAttribute("data");
+                                imageInput = "(An image file has been chosen. Leave this field blank to not submitting it!)";
                             }
                         } catch (NullPointerException exc) {
                             // If there is nothing, return null
@@ -239,7 +273,7 @@ public class CreateBillboards implements ControlPanelComponent {
                         createBbName.setText(file.getName().substring(0, file.getName().length() - 4));
                         createBbMsg.setText(msg);
                         createBbInfo.setText(info);
-                        createBbImgLink.setText(imageLink);
+                        createBbImgLink.setText(imageInput);
                         bgColourPreview.setBackground(bgColour);
                         msgColourPreview.setBackground(msgColour);
                         infoColourPreview.setBackground(infoColour);
@@ -248,10 +282,12 @@ public class CreateBillboards implements ControlPanelComponent {
                         JOptionPane.showMessageDialog(controlPanel,"Successful imported","Information",JOptionPane.NO_OPTION);
                     } else {
                         //if its not xml file. error
-                        JOptionPane.showMessageDialog(controlPanel,"Only XML formatted files are allowed","Error",JOptionPane.NO_OPTION);
+                        JOptionPane.showMessageDialog(controlPanel,"Only XML formatted files are allowed.","Error", JOptionPane.NO_OPTION);
                     }
-                }catch (NullPointerException | ParserConfigurationException | SAXException | IOException error){
-                    error.printStackTrace();
+                } catch (NullPointerException error) {
+                    System.out.println("Nothing was provided as an XML import.");
+                } catch (ParserConfigurationException | SAXException | IOException error) {
+                    JOptionPane.showMessageDialog(controlPanel,"An error occurred. Cannot import XML file.","Error", JOptionPane.NO_OPTION);
                 }
 
             }
@@ -259,20 +295,18 @@ public class CreateBillboards implements ControlPanelComponent {
 
 
         exportToXMLButton.addActionListener(new ActionListener() {
+            @Override
             /**
              * Implements a ActionListener for exportXmlButton to get all billBoard data filled by the user,
              * then store in a file.
              * @param e
-             */
-            @Override
-            /**
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
             public void actionPerformed(ActionEvent e) {
                 String billboardName = createBbName.getText();
                 String msg = createBbMsg.getText();
                 String info = createBbInfo.getText();
-                String url = createBbImgLink.getText();
+                String url = getImage();
 
                 String billboardColour = convertColorToHexadecimal(bgColourPreview.getBackground());
                 String messageColour = convertColorToHexadecimal(msgColourPreview.getBackground());
@@ -316,19 +350,17 @@ public class CreateBillboards implements ControlPanelComponent {
 
 
         createBbPreviewButton.addActionListener(new ActionListener() {
+            @Override
             /**
              *Implements a ActionListener for previewButton to show added billBoardData
              * @param e
-             */
-            @Override
-            /**
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
             public void actionPerformed(ActionEvent e) {
                 // Get information from the fields
                 String msg = createBbMsg.getText();
-                String imageLink = createBbImgLink.getText();
                 String info = createBbInfo.getText();
+                String image = getImage();
 
                 Color billboardColour = bgColourPreview.getBackground();
                 Color messageColour = msgColourPreview.getBackground();
@@ -336,7 +368,7 @@ public class CreateBillboards implements ControlPanelComponent {
 
                 // Create an instance of the billboard viewer
                 try {
-                    new BillboardViewer(billboardColour, msg, messageColour, info, informationColour, imageLink, false);
+                    new BillboardViewer(billboardColour, msg, messageColour, info, informationColour, image, false);
                 } catch (Exception exc) {
                     exc.printStackTrace();
                 }
@@ -443,6 +475,34 @@ public class CreateBillboards implements ControlPanelComponent {
     }
 
     /**
+     * Convert image file to base64 encoded string
+     * @param file
+     * @return base64 encoded string
+     * @throws Exception if the file cannot be read
+     */
+    private static String encodeFileToBase64Binary(File file) throws Exception{
+        FileInputStream fileInputStreamReader = new FileInputStream(file);
+        byte[] bytes = new byte[(int)file.length()];
+        fileInputStreamReader.read(bytes);
+        return Base64.getEncoder().encodeToString(bytes);
+    }
+
+    /**
+     * Check if an image string is URL or Base64
+     *
+     * @return the image string
+     */
+    private String getImage() {
+        if (createBbImgLink.getText().substring(0,4).contains("http")) {
+            return createBbImgLink.getText();
+        } else if (createBbImgLink.getText().length() == 0) {
+            return "";
+        } else {
+            return imageLink;
+        }
+    }
+
+    /**
      * setter function to set value for GUI elements and variables
      * @param controlPanelGUI
      */
@@ -460,9 +520,10 @@ public class CreateBillboards implements ControlPanelComponent {
         this.billboardColourButton = controlPanelGUI.billboardColourButton;
         this.messageColourButton = controlPanelGUI.messageColourButton;
         this.informationColourButton = controlPanelGUI.informationColourButton;
-        this.chooseAFileButton = controlPanelGUI.chooseAFileButton;
+        this.chooseAFileButton = controlPanelGUI.chooseImageButton;
         this.infoColourPreview = controlPanelGUI.infoColourPreview;
         this.msgColourPreview = controlPanelGUI.messColourPreview;
         this.bgColourPreview = controlPanelGUI.bgColourPreview;
+        this.chooseImageButton = controlPanelGUI.chooseImageButton;
     }
 }

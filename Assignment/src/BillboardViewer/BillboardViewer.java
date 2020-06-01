@@ -264,16 +264,6 @@ public class BillboardViewer {
         imageLabel.setText("");
     }
 
-////////////////////////////////////////////////////////////////////////////////////
-    // Encode image to string
-    private static String encodeFileToBase64Binary(File file) throws Exception{
-        FileInputStream fileInputStreamReader = new FileInputStream(file);
-        byte[] bytes = new byte[(int)file.length()];
-        fileInputStreamReader.read(bytes);
-        return Base64.getEncoder().encodeToString(bytes);
-    }
-/////////////////////////////////////////////////////////////////////////////////////
-
     // Change the information text and its colour of the billboard
     private void changeInfo(String info, Color infoColour) {
         if (info == null || info.length() == 0) {
