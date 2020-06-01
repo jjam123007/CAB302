@@ -64,7 +64,7 @@ public class Server {
         ServerSocket serverSocket = new ServerSocket(3310);
         //check if the tables exits..
         DBConnection.checkTableExists();
-        //to create a admin account for marker
+        //to create a admin account for marker. username:admin. password:12345678
         DBConnection.createAccount();
         for(;;){
             try {

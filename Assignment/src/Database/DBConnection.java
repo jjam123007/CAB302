@@ -65,24 +65,25 @@ public class DBConnection {
         boolean checkSchedulesTable= (md.getTables(null, null, "schedules", null).next());
         boolean checkUserTable = (md.getTables(null, null, "users", null).next());
         boolean checkPermissionsTable = (md.getTables(null, null, "permissions", null).next());
+
         //if did not exist viewTable, create viewTable
         if(!checkBBInfoTable){
             BillboardDataSource.create_viewTable();
         }
         //if did not exist billboardTable, create billboardTable
-        else if(!checkBillboardsTable){
+        if(!checkBillboardsTable){
             BillboardDataSource.create_billboardTable();
         }
         //if did not exist schedulesTable, create schedulesTable
-        else if(!checkSchedulesTable){
+        if(!checkSchedulesTable){
             BillboardDataSource.create_schedulesTable();
         }
         //if did not exist usersTable, create usersTable
-        else if(!checkUserTable){
+        if(!checkUserTable){
             BillboardDataSource.create_usersTable();
         }
         //if did not exist permissionsTable,create permissionsTable
-        else if(!checkPermissionsTable){
+        if(!checkPermissionsTable){
             BillboardDataSource.create_permissionsTable();
         }
     }
@@ -94,12 +95,14 @@ public class DBConnection {
      * @throws NoSuchAlgorithmException
      */
     public static void createAccount() throws SQLException, NoSuchAlgorithmException {
-        Connection conn = DBConnection.getInstance();
-        Statement statement = conn.createStatement();
-        ResultSet rs = statement.executeQuery("SELECT COUNT(*) from users where username='admin';");
-        ResultSet rs2 = statement.executeQuery("SELECT * from permissions where username ='admin';");
-        // checking if ResultSet is empty
+
+
         try{
+            Connection conn = DBConnection.getInstance();
+            Statement statement = conn.createStatement();
+            ResultSet rs = statement.executeQuery("SELECT COUNT(*) from users where username='admin';");
+            ResultSet rs2 = statement.executeQuery("SELECT * from permissions where username ='admin';");
+            // checking if ResultSet is empty. if false, create admin and permissions
             if (rs.next()==false || rs2.next()==false){
                 String username = "admin";
                 String password = "12345678";

@@ -46,6 +46,7 @@ public class ViewBillboards implements ControlPanelComponent {
     public ViewBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
 
+        //try request the data to view in control panel and sends to server
         try {
             BillboardRequest showTableRequest = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
             BillboardReply tableData = (BillboardReply) showTableRequest.getOIS().readObject();
@@ -72,11 +73,10 @@ public class ViewBillboards implements ControlPanelComponent {
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {//This line prevents double events
                     int i = viewTable.getSelectedRow();
+                    //get the selected row when value changed
                     if (i >= 0) {
                         billboardID = Integer.parseInt(viewTable.getValueAt(viewTable.getSelectedRow(),0).toString());
                         selectedRow = viewTable.getSelectedRow();
-                        System.out.println("listener selected row "+selectedRow);
-
                     }
                 }
             }
@@ -90,10 +90,12 @@ public class ViewBillboards implements ControlPanelComponent {
             /**@see javax.awt.event.addActionListner#actionPerformed(javax.awt.event.ActionEvent)*/
             public void actionPerformed(ActionEvent e) {
                 try {
+                    //sends the delete request, provided with selection id
                     Object[] id = {billboardID};
                     BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
 
                     if(billboardID != null){
+                        //remove the row selected on control panel
                         DefaultTableModel dm = (DefaultTableModel) viewTable.getModel();
                         dm.removeRow(selectedRow);
                         //read the reply from the server
@@ -123,7 +125,7 @@ public class ViewBillboards implements ControlPanelComponent {
             @Override
             /**@see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)*/
             public void actionPerformed(ActionEvent e) {
-
+                //get the respected values and display on edit panel for users to edit
                 String billboardId = viewTable.getModel().getValueAt(selectedRow,0).toString();
                 String billboardName = (String) viewTable.getModel().getValueAt(selectedRow,1);
                 String billboardMessage = (String) viewTable.getModel().getValueAt(selectedRow,3);
@@ -154,6 +156,7 @@ public class ViewBillboards implements ControlPanelComponent {
             public void stateChanged(ChangeEvent e) {
                 if(billboardsPane.getSelectedIndex() == 0){
                     try {
+                        //sends the request to server when values changed. depicted on VIEW for users to see what has changed
                         BillboardRequest showTableRequest = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
                         BillboardReply tableData = (BillboardReply) showTableRequest.getOIS().readObject();
                         Object[][]  data = tableData.getTableData();

@@ -42,7 +42,7 @@ public final class ManageBillboards implements Serializable {
 
     /**
      *This function used to delete a billBoard from dataBases,
-     * when request of user is delete.
+     * when user sends a delete request. set the data and initialize sql queries
      * @param data
      * @throws SQLException
      */
@@ -75,8 +75,8 @@ public final class ManageBillboards implements Serializable {
     }
 
     /**
-     *This function used to update existed billBoard data in dataBases,
-     * when request of user is edit for billBoard.
+     *This function used to edit billBoard data in dataBases,
+     * when user sends a edit request. set the data and initialize sql queries
      * @param data
      * @throws SQLException
      */
@@ -94,7 +94,7 @@ public final class ManageBillboards implements Serializable {
     }
 
     /**
-     * This function used to get all billBoard data from dataBases,
+     * This method used to get all billBoard data from dataBases,
      * then show in view interface.
      * @return tableDataArray
      * @throws SQLException

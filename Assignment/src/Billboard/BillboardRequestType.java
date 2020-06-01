@@ -1,7 +1,8 @@
 package Billboard;
 
 /**
- * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ * Enum to simplify and set options to required
+ * Haoze He(n10100351)
  */
 public enum BillboardRequestType {
     showTable,

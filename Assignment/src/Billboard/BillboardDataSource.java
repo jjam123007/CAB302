@@ -9,7 +9,7 @@ import java.util.Properties;
 
 /**
  *This class used to create table for store data of billBoard and users
- * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ * @author Jun Chen(n10240977)
  */
 public class BillboardDataSource {
 

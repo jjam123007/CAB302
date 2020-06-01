@@ -37,7 +37,6 @@ public class CreateBillboards implements ControlPanelComponent {
     private JButton createBbPreviewButton;
     private JButton exportToXMLButton;
     private JButton importXMLButton;
-    public JTabbedPane billboardsPane;
     private JButton billboardColourButton;
     private JButton messageColourButton;
     private JButton informationColourButton;
@@ -161,6 +160,7 @@ public class CreateBillboards implements ControlPanelComponent {
              */
             public void actionPerformed(ActionEvent e) {
                 try {
+                    //get the text field results
                     String billboardName = createBbName.getText();
                     String msg = createBbMsg.getText();
                     String info = createBbInfo.getText();
@@ -169,6 +169,7 @@ public class CreateBillboards implements ControlPanelComponent {
                     String messageColour = convertColorToHexadecimal(msgColourPreview.getBackground());
                     String informationColour = convertColorToHexadecimal(infoColourPreview.getBackground());
 
+                    //create a xml
                     String xml = createXMLString(billboardColour, msg, messageColour, info, informationColour, url);
 
                     Object[] newTable = {billboardName,msg,info,url,xml};
@@ -187,8 +188,8 @@ public class CreateBillboards implements ControlPanelComponent {
                     ex.printStackTrace();
                 }catch (NullPointerException ex){
                     ex.printStackTrace();
-                    System.out.println("error: 123");
                 }
+                //empty text fields for new inputs
                 createBbName.setText("");
                 createBbMsg.setText("");
                 createBbInfo.setText("");
@@ -306,15 +307,18 @@ public class CreateBillboards implements ControlPanelComponent {
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
             public void actionPerformed(ActionEvent e) {
+                //get the text field results
                 String billboardName = createBbName.getText();
                 String msg = createBbMsg.getText();
                 String info = createBbInfo.getText();
                 String url = getImage();
 
+                //get the color of different fields
                 String billboardColour = convertColorToHexadecimal(bgColourPreview.getBackground());
                 String messageColour = convertColorToHexadecimal(msgColourPreview.getBackground());
                 String informationColour = convertColorToHexadecimal(infoColourPreview.getBackground());
 
+                //billboard name is valid
                 if (!billboardName.contentEquals("")){
                     try(OutputStream out = new FileOutputStream(billboardName+".xml")) {
                         // when there is no input
@@ -345,6 +349,7 @@ public class CreateBillboards implements ControlPanelComponent {
                         ex.printStackTrace();
                     }
                 }else{
+                    //no billboard name provided
                     JOptionPane.showMessageDialog(controlPanel,"Billboard name cannot be left blank","Warning",JOptionPane.NO_OPTION);
                 }
 

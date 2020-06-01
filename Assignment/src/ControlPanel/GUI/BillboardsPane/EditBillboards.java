@@ -5,7 +5,6 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import Networking.Request;
 import User.ClientUser;
 
 import javax.swing.*;
@@ -54,6 +53,7 @@ public class EditBillboards implements ControlPanelComponent {
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
             public void actionPerformed(ActionEvent e) {
+                //get the text field inputs
                 int viewId = Integer.valueOf(editBbID.getText());
                 String billboardName = editBbName.getText();
                 String billboardMessage = editBbMsg.getText();
@@ -61,9 +61,10 @@ public class EditBillboards implements ControlPanelComponent {
                 String billboardUrl = editBbImgLink.getText();
                 rowToEdit = Integer.valueOf(toEditRow.getText());
                 try {
+                    //sends the billboard request to server
                     Object[] newTable = {viewId,billboardName,billboardMessage,billboardInformation,billboardUrl};
                     BillboardRequest edit = new BillboardRequest(BillboardRequestType.edit, newTable, ClientUser.getToken());
-
+                    //get the values at selected row
                     viewTable.getModel().setValueAt(viewId,rowToEdit,0);
                     viewTable.getModel().setValueAt(billboardName,rowToEdit,1);
                     viewTable.getModel().setValueAt(billboardMessage,rowToEdit,2);

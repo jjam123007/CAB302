@@ -5,15 +5,14 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import Networking.Request;
+
 import User.ClientUser;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+
 import java.net.UnknownHostException;
 /**
  * This class used to edit or add scheduleDate,
@@ -51,11 +50,13 @@ public class ScheduleBillboards implements ControlPanelComponent {
              */
             public void actionPerformed(ActionEvent e) {
                 try {
+                    //get the text field inputs
                     String billboardId = scheduleBbID.getText();
                     String scheduledDate = scheduleBbDate.getText();
                     String startTime = scheduleStartTime.getText();
                     String endTime = scheduleEndTime.getText();
                     String requestType = "addView";
+                    //sends the request to server with data provided
                     Object[] submitData = {billboardId, scheduledDate,startTime,endTime,requestType};
                     BillboardRequest addview = new BillboardRequest(BillboardRequestType.addView, submitData, ClientUser.getToken());
 
@@ -72,6 +73,7 @@ public class ScheduleBillboards implements ControlPanelComponent {
                 } catch (ClassNotFoundException ex) {
                     ex.printStackTrace();
                 }
+                //empty the text field after successful request
                 scheduleBbID.setText("");
                 scheduleBbDate.setText("");
                 scheduleStartTime.setText("");
