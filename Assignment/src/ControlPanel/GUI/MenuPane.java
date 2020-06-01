@@ -39,6 +39,5 @@ public class MenuPane implements ControlPanelComponent{
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
         this.menuPane = controlPanelGUI.menuPane;
-
     }
 }

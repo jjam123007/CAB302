@@ -6,34 +6,27 @@ import Billboard.BillboardRequestType;
 import BillboardViewer.BillboardViewer;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import ControlPanel.SerializeArray;
-import Networking.Request;
 import User.ClientUser;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.SAXException;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
-import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.net.UnknownHostException;
-import java.util.Base64;
-import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * This class used to create and preview a new billBoard
  * @author Haoze He(n10100351) & William Tran (n10306234)
  */
 public class CreateBillboards implements ControlPanelComponent {
-
+    // Components
     private JPanel controlPanel;
     private JTextArea createBbName;
     private JTextArea createBbMsg;
@@ -44,9 +37,22 @@ public class CreateBillboards implements ControlPanelComponent {
     private JButton exportToXMLButton;
     private JButton importXMLButton;
     public JTabbedPane billboardsPane;
+
+    private JButton billboardColourButton;
+    private JButton messageColourButton;
+    private JButton informationColourButton;
+    private JButton chooseAFileButton;
+    private JPanel infoColourPreview;
+    private JPanel msgColourPreview;
+    private JPanel bgColourPreview;
+
+    // Global variables
     private String msg;
     private String info;
-    private String imagelink;
+    private String imageLink;
+    private Color msgColour;
+    private Color infoColour;
+    private Color bgColour;
 
     /**
      *
@@ -56,6 +62,62 @@ public class CreateBillboards implements ControlPanelComponent {
      */
     public CreateBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
+
+        /**
+         * Add action listeners to choose the colour for the billboard, message and information
+         */
+        billboardColourButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Create a colour chooser dialog
+                    Color newColor = JColorChooser.showDialog(
+                            ControlPanelGUI.frame,
+                            "Choose Background Color",
+                            bgColourPreview.getBackground());
+
+                    // Set the preview colour
+                    if (newColor != null) {
+                        bgColourPreview.setBackground(newColor);
+                    }
+                }
+            }
+        );
+
+        messageColourButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Create a colour chooser dialog
+                    Color newColor = JColorChooser.showDialog(
+                            ControlPanelGUI.frame,
+                            "Choose Background Color",
+                            msgColourPreview.getBackground());
+
+                    // Set the preview colour
+                    if (newColor != null) {
+                        msgColourPreview.setBackground(newColor);
+                    }
+                }
+            }
+        );
+
+        informationColourButton.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    // Create a colour chooser dialog
+                    Color newColor = JColorChooser.showDialog(
+                            ControlPanelGUI.frame,
+                            "Choose Background Color",
+                            infoColourPreview.getBackground());
+
+                    // Set the preview colour
+                    if (newColor != null) {
+                        infoColourPreview.setBackground(newColor);
+                    }
+                }
+            }
+        );
+
+
         createBbSubmitButton.addActionListener(new ActionListener() {
             /**
              * Implements a ActionListener for submitButton to add new data in database while showing in the view interface,
@@ -72,8 +134,11 @@ public class CreateBillboards implements ControlPanelComponent {
                     String msg = createBbMsg.getText();
                     String info = createBbInfo.getText();
                     String url = createBbImgLink.getText();
-                    String xml = createXMLString("", msg, "", info, "", url);
+                    String billboardColour = convertColorToHexadecimal(bgColourPreview.getBackground());
+                    String messageColour = convertColorToHexadecimal(msgColourPreview.getBackground());
+                    String informationColour = convertColorToHexadecimal(infoColourPreview.getBackground());
 
+                    String xml = createXMLString(billboardColour, msg, messageColour, info, informationColour, url);
 
                     Object[] newTable = {billboardName,msg,info,url,xml};
                     BillboardRequest addBillboard = new BillboardRequest(BillboardRequestType.addBillboard, newTable, ClientUser.getToken());
@@ -98,6 +163,8 @@ public class CreateBillboards implements ControlPanelComponent {
 
             }
         });
+
+
         importXMLButton.addActionListener(new ActionListener() {
             /**
              * Implements a ActionListener for importXmlButton to get billBoard data,
@@ -109,50 +176,88 @@ public class CreateBillboards implements ControlPanelComponent {
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
             public void actionPerformed(ActionEvent e) {
+                try {
+                    //Create a file chooser
+                    final JFileChooser fc = new JFileChooser();
+                    fc.showOpenDialog(null);
+                    File file = fc.getSelectedFile();
+                    String filename = file.getAbsolutePath();
+                    //check if its xml file
+                    if (getFileExtension(filename).contentEquals("xml")) {
+                        // Create a document builder to parse the XML file
+                        DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                        Document doc = builder.parse(file);
+                        doc.getDocumentElement().normalize();
 
-                try{
-                //Create a file chooser
-                final JFileChooser fc = new JFileChooser();
-                fc.showOpenDialog(null);
-                File file = fc.getSelectedFile();
-                String filename = file.getAbsolutePath();
-                //check if its xml file
-                if(getFileExtension(filename).contentEquals("xml")){
-                    Scanner x = new Scanner(new File(filename));
+                        // Get background color
+                        String billboardColourString = doc.getDocumentElement().getAttribute("background");
+                        bgColour = Color.decode(billboardColourString != "" ? billboardColourString : "#ffffff");
 
-                    while (x.hasNext()){
-                        String a =x.next();
-                        final Pattern pattern = Pattern.compile("<message>(.+?)</message>", Pattern.DOTALL);
-                        final Pattern pattern1 = Pattern.compile("<information>(.+?)</information>", Pattern.DOTALL);
-                        final Pattern pattern2 = Pattern.compile(".*=\"(.+?)\"", Pattern.DOTALL);
+                        // Get message data
+                        try {
+                            // Text
+                            Element messageData = (Element) doc.getElementsByTagName("message").item(0);
+                            msg = messageData.getTextContent();
 
-                        final Matcher matcher = pattern.matcher(a);
-                        final Matcher matcher1 = pattern1.matcher(a);
-                        final Matcher matcher2 = pattern2.matcher(a);
-                        if(matcher.find()){
-                            msg = matcher.group(1);
-                        }if(matcher1.find()){
-                            info = matcher1.group(1);
-                        }if(matcher2.find()){
-                            imagelink = matcher2.group(1);
+                            // Colour
+                            String messageColourString = messageData.getAttribute("colour");
+                            msgColour = Color.decode(messageColourString != "" ? messageColourString : "#000000");
+                        } catch (NullPointerException exc) {
+                            // If there is nothing, return null
+                            msg = null;
                         }
 
-                    }
+                        // Get picture data
+                        try {
+                            Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
+                            // URL
+                            if (pictureData.hasAttribute("url")){
+                                imageLink = pictureData.getAttribute("url");
+                            } else { // Base64 encoded
+                                imageLink = pictureData.getAttribute("data");
+                            }
+                        } catch (NullPointerException exc) {
+                            // If there is nothing, return null
+                            imageLink = null;
+                        }
 
-                }else{
-                    //if its not xml file. error
-                    JOptionPane.showMessageDialog(controlPanel,"Only XML formatted files are allowed","Error",JOptionPane.NO_OPTION);
-                }
-                }catch (NullPointerException | FileNotFoundException error){
+                        // Get information data
+                        try {
+                            // Text
+                            Element informationData = (Element) doc.getElementsByTagName("information").item(0);
+                            info = informationData.getTextContent();
+
+                            // Colour
+                            String informationColourString = informationData.getAttribute("colour");
+                            infoColour = Color.decode(informationColourString != "" ? informationColourString : "#000000");
+                        } catch (NullPointerException exc) {
+                            // If there is nothing, return null
+                            info = null;
+                        }
+
+                        // Set the retrieved information to the fields
+                        createBbName.setText(file.getName().substring(0, file.getName().length() - 4));
+                        createBbMsg.setText(msg);
+                        createBbInfo.setText(info);
+                        createBbImgLink.setText(imageLink);
+                        bgColourPreview.setBackground(bgColour);
+                        msgColourPreview.setBackground(msgColour);
+                        infoColourPreview.setBackground(infoColour);
+
+                        // Show a notification
+                        JOptionPane.showMessageDialog(controlPanel,"Successful imported","Information",JOptionPane.NO_OPTION);
+                    } else {
+                        //if its not xml file. error
+                        JOptionPane.showMessageDialog(controlPanel,"Only XML formatted files are allowed","Error",JOptionPane.NO_OPTION);
+                    }
+                }catch (NullPointerException | ParserConfigurationException | SAXException | IOException error){
                     error.printStackTrace();
                 }
-                createBbMsg.setText(msg);
-                createBbInfo.setText(info);
-                createBbImgLink.setText(imagelink);
-                JOptionPane.showMessageDialog(controlPanel,"Successful imported","Information",JOptionPane.NO_OPTION);
 
             }
         });
+
+
         exportToXMLButton.addActionListener(new ActionListener() {
             /**
              * Implements a ActionListener for exportXmlButton to get all billBoard data filled by the user,
@@ -169,6 +274,10 @@ public class CreateBillboards implements ControlPanelComponent {
                 String info = createBbInfo.getText();
                 String url = createBbImgLink.getText();
 
+                String billboardColour = convertColorToHexadecimal(bgColourPreview.getBackground());
+                String messageColour = convertColorToHexadecimal(msgColourPreview.getBackground());
+                String informationColour = convertColorToHexadecimal(infoColourPreview.getBackground());
+
                 if (!billboardName.contentEquals("")){
                     try(OutputStream out = new FileOutputStream(billboardName+".xml")) {
                         // when there is no input
@@ -181,7 +290,7 @@ public class CreateBillboards implements ControlPanelComponent {
                         // When there is input
                         else {
                             // Create an XML string
-                            String xml = createXMLString("", msg, "", info, "", url);
+                            String xml = createXMLString(billboardColour, msg, messageColour, info, informationColour, url);
                             byte[] format = xml.getBytes();
                             out.write(format);
                             out.close();
@@ -189,7 +298,7 @@ public class CreateBillboards implements ControlPanelComponent {
                             createBbMsg.setText("");
                             createBbInfo.setText("");
                             createBbImgLink.setText("");
-                            JOptionPane.showMessageDialog(controlPanel,"Exported Successful into: "+billboardName+".xml"
+                            JOptionPane.showMessageDialog(controlPanel,"Successfully exported into: "+billboardName+".xml"
                                     ,"Information",JOptionPane.NO_OPTION);
 
                         }
@@ -204,6 +313,8 @@ public class CreateBillboards implements ControlPanelComponent {
 
             }
         });
+
+
         createBbPreviewButton.addActionListener(new ActionListener() {
             /**
              *Implements a ActionListener for previewButton to show added billBoardData
@@ -219,9 +330,13 @@ public class CreateBillboards implements ControlPanelComponent {
                 String imageLink = createBbImgLink.getText();
                 String info = createBbInfo.getText();
 
+                Color billboardColour = bgColourPreview.getBackground();
+                Color messageColour = msgColourPreview.getBackground();
+                Color informationColour = infoColourPreview.getBackground();
+
                 // Create an instance of the billboard viewer
                 try {
-                    new BillboardViewer(Color.decode("#ffffff"), msg, null, info, null, imageLink, false);
+                    new BillboardViewer(billboardColour, msg, messageColour, info, informationColour, imageLink, false);
                 } catch (Exception exc) {
                     exc.printStackTrace();
                 }
@@ -316,6 +431,18 @@ public class CreateBillboards implements ControlPanelComponent {
     }
 
     /**
+     * Convert colour into a hexadecimal string
+     *
+     * @param colour The colour
+     * @return The hex value of the colour
+     */
+    public static String convertColorToHexadecimal(Color colour)
+    {
+        String hex = String.format( "#%02X%02X%02X", colour.getRed(), colour.getGreen(), colour.getBlue());
+        return hex;
+    }
+
+    /**
      * setter function to set value for GUI elements and variables
      * @param controlPanelGUI
      */
@@ -330,5 +457,12 @@ public class CreateBillboards implements ControlPanelComponent {
         this.createBbPreviewButton = controlPanelGUI.createBbPreviewButton;
         this.exportToXMLButton =controlPanelGUI.exportToXMLButton;
         this.importXMLButton = controlPanelGUI.importXMLButton;
+        this.billboardColourButton = controlPanelGUI.billboardColourButton;
+        this.messageColourButton = controlPanelGUI.messageColourButton;
+        this.informationColourButton = controlPanelGUI.informationColourButton;
+        this.chooseAFileButton = controlPanelGUI.chooseAFileButton;
+        this.infoColourPreview = controlPanelGUI.infoColourPreview;
+        this.msgColourPreview = controlPanelGUI.messColourPreview;
+        this.bgColourPreview = controlPanelGUI.bgColourPreview;
     }
 }

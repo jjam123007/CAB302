@@ -47,8 +47,8 @@ import java.sql.*;
  *      * if the edit request is successful, the client will show success message,
  *      * if the edit request is failure, the client will show error message
  *      * that will prompt the user inputs are valid.
- * @author Jun Chen(n10240977)&Haoze He(n10100351)
- * @author Nikolai Taufao(n10481087);
+ * @author Jun Chen (n10240977) & Haoze He (n10100351)
+ * @author Nikolai Taufao(n10481087) & William Tran (n10306234)
  */
 public class Server {
     private static Socket socket;
@@ -94,7 +94,7 @@ public class Server {
                 // Close the connection
                 closeStreams();
             } catch (EOFException | NoSuchAlgorithmException e) {
-                System.out.println("Connection closed.");
+                System.out.println("Something went wrong with the server. Connection closed.");
                 e.printStackTrace();
             }
         }
@@ -264,7 +264,11 @@ public class Server {
         oos.flush();
     }
 
-    // Handle requests from billboard viewer
+    /**
+     * Handle requests from the billboard viewer to retrieve xml billboards from the database
+     * @param request the request of the billboard viewer
+     * @throws IOException
+     */
     private static void handleViewerRequest(ViewerRequest request) throws IOException {
         // Get the request type
         ViewerRequestType requestType = request.getRequestType();
@@ -279,6 +283,7 @@ public class Server {
         }
     }
 
+    // Accept connection from the client and initiate the writer and reader
     private static void setStreams(ServerSocket serverSocket) throws IOException {
         socket = serverSocket.accept();
         System.out.println("Connected to "+ socket.getInetAddress());
@@ -286,6 +291,7 @@ public class Server {
         ois = new ObjectInputStream( socket.getInputStream());
     }
 
+    // Close the connection
     private static void closeStreams() throws IOException {
         ois.close();
         oos.close();

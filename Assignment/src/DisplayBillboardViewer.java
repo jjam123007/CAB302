@@ -32,7 +32,7 @@ public class DisplayBillboardViewer {
     /**
      * Create and run an instance of the billboard viewer
      * @param args
-     * @throws Exception if the billboard cannot be created from the first place (not happening at all)
+     * @throws Exception if the billboard viewer cannot be created from the first place
      */
     public static void main (String args[]) throws Exception {
         // Create initial billboard
