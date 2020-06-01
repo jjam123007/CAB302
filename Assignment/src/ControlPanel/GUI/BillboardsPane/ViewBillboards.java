@@ -55,6 +55,7 @@ public class ViewBillboards implements ControlPanelComponent {
                     data,
                     new String[]{"view ID","Billboard Name","Creator Name","Message", "Information","Url", "Scheduled Date", "Start time", "End time"}
             ));
+            viewTable.setDefaultEditor(Object.class, null);
 
         } catch (IOException | ClassNotFoundException ex) {
             ex.printStackTrace();

@@ -140,6 +140,7 @@ public class EditUsers implements ControlPanelComponent {
      */
     private void updateUsersTable() throws SQLException, IOException, ClassNotFoundException {
         usersTable.getSelectionModel().removeListSelectionListener(userSelection);
+        usersTable.setDefaultEditor(Object.class, null);
         UserManagementRequest viewUsersRequest = new UserManagementRequest(UserManagementRequestType.getUsernames);
         //Get the server reply.
         ViewUsersReply viewUsersReply = (ViewUsersReply) viewUsersRequest.getOIS().readObject();
