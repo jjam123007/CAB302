@@ -124,30 +124,6 @@
                                   <text value="Information"/>
                                 </properties>
                               </component>
-                              <component id="f6ada" class="javax.swing.JTextArea" binding="createBbName">
-                                <constraints>
-                                  <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                    <preferred-size width="150" height="50"/>
-                                  </grid>
-                                </constraints>
-                                <properties/>
-                              </component>
-                              <component id="17a6" class="javax.swing.JTextArea" binding="createBbMsg">
-                                <constraints>
-                                  <grid row="2" column="1" row-span="2" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                    <preferred-size width="150" height="50"/>
-                                  </grid>
-                                </constraints>
-                                <properties/>
-                              </component>
-                              <component id="23d90" class="javax.swing.JTextArea" binding="createBbInfo">
-                                <constraints>
-                                  <grid row="4" column="1" row-span="2" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                    <preferred-size width="150" height="50"/>
-                                  </grid>
-                                </constraints>
-                                <properties/>
-                              </component>
                               <component id="94c2b" class="javax.swing.JLabel">
                                 <constraints>
                                   <grid row="6" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
@@ -237,6 +213,51 @@
                                 <border type="none"/>
                                 <children>
                                   <component id="1bcab" class="javax.swing.JTextArea" binding="createBbImgLink">
+                                    <constraints/>
+                                    <properties>
+                                      <lineWrap value="true"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </scrollpane>
+                              <scrollpane id="7ba9c">
+                                <constraints>
+                                  <grid row="4" column="1" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="987ef" class="javax.swing.JTextArea" binding="createBbInfo">
+                                    <constraints/>
+                                    <properties>
+                                      <lineWrap value="true"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </scrollpane>
+                              <scrollpane id="49fdc">
+                                <constraints>
+                                  <grid row="2" column="1" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="1f14f" class="javax.swing.JTextArea" binding="createBbMsg">
+                                    <constraints/>
+                                    <properties>
+                                      <lineWrap value="true"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </scrollpane>
+                              <scrollpane id="f49b">
+                                <constraints>
+                                  <grid row="0" column="1" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="ed03" class="javax.swing.JTextArea" binding="createBbName">
                                     <constraints/>
                                     <properties>
                                       <lineWrap value="true"/>
