@@ -5,9 +5,6 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import ControlPanel.SerializeArray;
-
-import Networking.Request;
 import User.ClientUser;
 
 import javax.swing.*;
@@ -49,14 +46,19 @@ public class ViewBillboards implements ControlPanelComponent {
     public ViewBillboards(ControlPanelGUI controlPanelGUI) throws IOException, ClassNotFoundException {
         setControlPanelComponents(controlPanelGUI);
 
-        BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
-        BillboardReply tableData = (BillboardReply) request.getOIS().readObject();
+        try {
+            BillboardRequest showTableRequest = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
+            BillboardReply tableData = (BillboardReply) showTableRequest.getOIS().readObject();
+            Object[][]  data = tableData.getTableData();
 
-        Object[][]  data = tableData.getTableData();
-        viewTable.setModel(new DefaultTableModel(
-                data,
-                new String[]{"View ID","Billboard Name","Creator Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
-        ));
+            viewTable.setModel(new DefaultTableModel(
+                    data,
+                    new String[]{"view ID","Billboard Name","Creator Name","Message", "Information","Url", "Scheduled Date", "Start time", "End time"}
+            ));
+
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
 
 
         /**
