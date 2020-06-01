@@ -11,6 +11,12 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Properties;
 
+/**
+ * This class used to connect database,
+ * and check if there are tables existed in this database,
+ * and create account for new user.
+ * @author Haoze He(n10100351)
+ */
 public class DBConnection {
 
     private static Connection instance = null;
@@ -41,6 +47,15 @@ public class DBConnection {
             ex.printStackTrace();
         }
     }
+
+    /**
+     *This function used to check if there is a table existed,
+     * if the table existed, connect to the database and wait for request of users,
+     * if the table did not exist, create table in database,
+     * then connect to the database and wait for the request of users.
+     *
+     * @throws SQLException
+     */
     public static void checkTableExists() throws SQLException {
         //check if required tables exists
         Connection conn = DBConnection.getInstance();
@@ -50,19 +65,34 @@ public class DBConnection {
         boolean checkSchedulesTable= (md.getTables(null, null, "schedules", null).next());
         boolean checkUserTable = (md.getTables(null, null, "users", null).next());
         boolean checkPermissionsTable = (md.getTables(null, null, "permissions", null).next());
-
+        //if did not exist viewTable, create viewTable
         if(!checkBBInfoTable){
             BillboardDataSource.create_viewTable();
-        }else if(!checkBillboardsTable){
+        }
+        //if did not exist billboardTable, create billboardTable
+        else if(!checkBillboardsTable){
             BillboardDataSource.create_billboardTable();
-        }else if(!checkSchedulesTable){
+        }
+        //if did not exist schedulesTable, create schedulesTable
+        else if(!checkSchedulesTable){
             BillboardDataSource.create_schedulesTable();
-        }else if(!checkUserTable){
+        }
+        //if did not exist usersTable, create usersTable
+        else if(!checkUserTable){
             BillboardDataSource.create_usersTable();
-        }else if(!checkPermissionsTable){
+        }
+        //if did not exist permissionsTable,create permissionsTable
+        else if(!checkPermissionsTable){
             BillboardDataSource.create_permissionsTable();
         }
     }
+
+    /**
+     * This function used to create new account for new user
+     * @author Jun Chen(n10240977)
+     * @throws SQLException
+     * @throws NoSuchAlgorithmException
+     */
     public static void createAccount() throws SQLException, NoSuchAlgorithmException {
         Connection conn = DBConnection.getInstance();
         Statement statement = conn.createStatement();
