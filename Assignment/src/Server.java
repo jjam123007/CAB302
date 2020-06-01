@@ -129,7 +129,8 @@ public class Server {
                             replyMessage = new BillboardReply(ReplyError.userNotPermitted);
                         }
                     }catch (SQLException e){
-                        replyMessage = new BillboardReply("Failure, please check inputs are valid");
+                        e.printStackTrace();
+//                        replyMessage = new BillboardReply("Failure, please check inputs are valid");
                     }
                     break;
                 }

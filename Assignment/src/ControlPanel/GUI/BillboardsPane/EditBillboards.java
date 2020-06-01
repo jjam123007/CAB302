@@ -16,7 +16,7 @@ import java.io.IOException;
 
 /**
  *This class used to edit exist billBoards
- * @author Haoze He(n10100351)
+ * @author Haoze He(n10100351) & William Tran (n10306234)
  */
 public class EditBillboards implements ControlPanelComponent {
 
@@ -27,9 +27,9 @@ public class EditBillboards implements ControlPanelComponent {
     public JTextArea editBbInfo;
     public JTextArea editBbImgLink;
     public JButton editUpdateButton;
-    public JTextArea editBbID;
+    public JLabel editBbID;
     public JTable viewTable;
-    public JTextArea toEditRow;
+    public JLabel toEditRow;
     public JPanel EditJPanel;
 
     public int rowToEdit;
@@ -44,7 +44,6 @@ public class EditBillboards implements ControlPanelComponent {
         super();
         setControlPanelComponents(controlPanelGUI);
         toEditRow.setText("Edit through create billboard menu");
-        toEditRow.setEnabled(false);
         editUpdateButton.addActionListener(new ActionListener() {
             /**
              * Implements a ActionListener for updateButton to update data is changed in view interface
@@ -81,7 +80,7 @@ public class EditBillboards implements ControlPanelComponent {
                     editBbImgLink.setText("");
                     editBbID.setText("");
 
-                    JOptionPane.showMessageDialog(controlPanel,message,"message",JOptionPane.NO_OPTION);
+                    JOptionPane.showMessageDialog(controlPanel,message,"Message",JOptionPane.NO_OPTION);
 
 
                 } catch (IOException | ClassNotFoundException ex) {

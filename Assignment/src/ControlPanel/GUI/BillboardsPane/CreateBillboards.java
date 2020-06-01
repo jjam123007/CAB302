@@ -493,10 +493,10 @@ public class CreateBillboards implements ControlPanelComponent {
      * @return the image string
      */
     private String getImage() {
-        if (createBbImgLink.getText().substring(0,4).contains("http")) {
-            return createBbImgLink.getText();
-        } else if (createBbImgLink.getText().length() == 0) {
+        if (createBbImgLink.getText().length() < 5) {
             return "";
+        } else if (createBbImgLink.getText().substring(0,4).contains("http")) {
+            return createBbImgLink.getText();
         } else {
             return imageLink;
         }

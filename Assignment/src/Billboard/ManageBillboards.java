@@ -30,16 +30,14 @@ public final class ManageBillboards implements Serializable {
         String xml = (String) data[4];
         String username = ServerUserSession.getUsername(token);
 
-        System.out.println("Token: "+token);
-        System.out.println("CreatorName: "+ username);
-        System.out.println("Name :" + name);
-        System.out.println("Msg :" + message);
-        System.out.println("Info :" + info);
-        System.out.println("Url :" + url);
-
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery("insert into billboards(billboardID, billboardName, creatorName,message,information, url, xml) values(null,'" + name + "','" + username + "',' " + message + "','" + info + "','" + url + "','" + xml +"');");
-        statement.executeQuery("insert into billboards_info (billboardName,creatorName, message, information, url) values('" + name + "','" + username + "',' " + message + "','" + info + "','" + url  + "');");
+        ResultSet sqlResult = statement.executeQuery("select billboardID from billboards;");
+        sqlResult.afterLast();
+        sqlResult.previous();
+        String billboardID = sqlResult.getString(1);
+
+        statement.executeQuery("insert into billboards_info (viewID, billboardName,creatorName, message, information, url) values(" + billboardID + ",'" + name + "','" + username + "','" + message + "','" + info + "','" + url  + "');");
         //statement.executeQuery("insert into billboard values(null,'" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
         //statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
         statement.close();

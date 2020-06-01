@@ -29,8 +29,8 @@ public class BillboardDataSource {
                 "creatorName varchar(60)," +
                 "message varchar(2000)," +
                 "information varchar(2000)," +
-                "url text," +
-                "xml text" +
+                "url longtext," +
+                "xml longtext" +
                 ");";
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery(create_billboardTable);
@@ -45,12 +45,12 @@ public class BillboardDataSource {
         //create billboards_info table for (view)
         String create_viewTable =
                 "CREATE TABLE IF NOT EXISTS billboards_info (" +
-                        "viewID int NOT NULL auto_increment primary key," +
+                        "viewID int NOT NULL primary key," +
                         "billboardName varchar(60)," +
                         "creatorName varchar(60)," +
                         "message varchar(2000)," +
                         "information varchar(2000)," +
-                        "url varchar(2000)," +
+                        "url longtext," +
                         "scheduledDate Date," +
                         "startTime Time," +
                         "endTime Time" +

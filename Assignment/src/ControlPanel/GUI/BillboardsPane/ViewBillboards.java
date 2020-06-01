@@ -29,11 +29,11 @@ public class ViewBillboards implements ControlPanelComponent {
     public JTextArea editBbInfo;
     public JTextArea editBbImgLink;
     public JTextArea editBbName;
-    public JTextArea editBbID;
+    public JLabel editBbID;
     public JTable viewTable;
     public JButton viewEditButton;
     public JButton viewDeleteButton;
-    public JTextArea toEditRow;
+    public JLabel toEditRow;
     public JPanel controlPanel;
 
 
@@ -132,14 +132,12 @@ public class ViewBillboards implements ControlPanelComponent {
 
 
                 editBbID.setText(billboardId);
-                editBbID.setEditable(false);
                 editBbName.setText(billboardName);
                 editBbMsg.setText(billboardMessage);
                 editBbInfo.setText(billboardInformation);
                 editBbImgLink.setText(billboardUrl);
 
                 toEditRow.setText(String.valueOf(selectedRow));
-                toEditRow.setEditable(false);
                 billboardsPane.setSelectedIndex(2);
             }
         });
