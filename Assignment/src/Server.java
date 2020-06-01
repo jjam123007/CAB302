@@ -60,10 +60,12 @@ public class Server {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException {
+    public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException, NoSuchAlgorithmException {
         ServerSocket serverSocket = new ServerSocket(3310);
+        //check if the tables exits..
         DBConnection.checkTableExists();
-
+        //to create a admin account for marker
+        DBConnection.createAccount();
         for(;;){
             try {
                 // Accept request from the client
@@ -157,7 +159,7 @@ public class Server {
                         } else {
                             replyMessage = new BillboardReply(ReplyError.userNotPermitted);
                         }
-                    }catch (NullPointerException e){
+                    }catch (NullPointerException | ArrayIndexOutOfBoundsException ex){
                         replyMessage = new BillboardReply("No rows was selected");
                     }
                     break;

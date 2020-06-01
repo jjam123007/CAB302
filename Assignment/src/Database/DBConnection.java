@@ -1,11 +1,13 @@
 package Database;
 
 import Billboard.BillboardDataSource;
+import UserManagement.DataSecurity;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.Properties;
 
@@ -60,6 +62,30 @@ public class DBConnection {
         }else if(!checkPermissionsTable){
             BillboardDataSource.create_permissionsTable();
         }
+    }
+    public static void createAccount() throws SQLException, NoSuchAlgorithmException {
+        Connection conn = DBConnection.getInstance();
+        Statement statement = conn.createStatement();
+        ResultSet rs = statement.executeQuery("SELECT COUNT(*) from users where username='admin';");
+        ResultSet rs2 = statement.executeQuery("SELECT * from permissions where username ='admin';");
+        // checking if ResultSet is empty
+        try{
+            if (rs.next()==false || rs2.next()==false){
+                String username = "admin";
+                String password = "12345678";
+                String saltpw = DataSecurity.hash(password);
+                String salt = DataSecurity.randomString();
+                String saltedPassword = DataSecurity.hash(saltpw+salt);
+                String registerQuery = "INSERT INTO users values('"+username+"', '"+saltedPassword+"', '"+salt+"');";
+                String registerPermissionsQuery = "INSERT INTO permissions values('"+username+"', "+"'1','1','1','1');";
+                statement.executeQuery(registerQuery);
+                statement.executeQuery(registerPermissionsQuery);
+            }
+        }catch (SQLException | NoSuchAlgorithmException e){
+            e.printStackTrace();
+        }
+
+
     }
 
     /**

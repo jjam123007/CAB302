@@ -185,6 +185,9 @@ public class CreateBillboards implements ControlPanelComponent {
                     ex.printStackTrace();
                 } catch (ClassNotFoundException ex) {
                     ex.printStackTrace();
+                }catch (NullPointerException ex){
+                    ex.printStackTrace();
+                    System.out.println("error: 123");
                 }
                 createBbName.setText("");
                 createBbMsg.setText("");

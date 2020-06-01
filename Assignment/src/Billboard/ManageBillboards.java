@@ -16,8 +16,8 @@ import java.sql.Time;
  */
 public final class ManageBillboards implements Serializable {
     /**
-     *This function used to put new billBoard data into dataBases,
-     * when request of user is create a new Billboard.
+     * This function used to add new billBoard data into dataBases,
+     * when the request is create new Billboard, it calls the addBillboard method.
      * @param data
      * @param token
      * @throws SQLException
@@ -36,10 +36,7 @@ public final class ManageBillboards implements Serializable {
         sqlResult.afterLast();
         sqlResult.previous();
         String billboardID = sqlResult.getString(1);
-
         statement.executeQuery("insert into billboards_info (viewID, billboardName,creatorName, message, information, url) values(" + billboardID + ",'" + name + "','" + username + "','" + message + "','" + info + "','" + url  + "');");
-        //statement.executeQuery("insert into billboard values(null,'" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
-        //statement.executeQuery("insert into view (BillboardName, message, info, url) values('" + name + "','" + message + "','" + info + "','" + url + "','" + xml + "');");
         statement.close();
     }
 
