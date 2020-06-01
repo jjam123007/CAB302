@@ -70,9 +70,9 @@ public class BillboardDataSource {
                 "CREATE TABLE IF NOT EXISTS schedules (" +
                         "scheduleID int NOT NULL auto_increment primary key," +
                         "billboardID int," +
-                        "scheduledDate Date," +
-                        "startTime Time," +
-                        "endTime Time" +
+                        "scheduledDate Date NOT NULL," +
+                        "startTime Time NOT NULL," +
+                        "endTime Time NOT NULL" +
                         ");";
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery(create_scheduleTable);

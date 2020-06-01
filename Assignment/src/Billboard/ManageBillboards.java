@@ -1,6 +1,5 @@
 package Billboard;
 
-import ControlPanel.SerializeArray;
 import Database.DBConnection;
 import User.ServerUserSession;
 
