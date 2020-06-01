@@ -113,8 +113,15 @@ public class Server {
         Object[] billboard = (billboardRequest).getData();
         BillboardReply replyMessage = null;
         System.out.println(sessionValid);
+
         if (sessionValid){
             switch (request) {
+                case showTable:{
+                    Object[][] tableData = ManageBillboards.showBillboards();
+                    replyMessage = new BillboardReply(tableData);
+                    break;
+                }
+
                 case addBillboard: {
                     try {
                         if (ServerUserSession.hasPermission(sessionToken, PermissionType.createBillboards)){
@@ -141,12 +148,6 @@ public class Server {
                                 "Date: yyyy-mm-dd \n"+
                                 "Time: hh:mm:ss");
                     }
-                    break;
-                }
-                case showTable: {
-                    SerializeArray tableData = ManageBillboards.showBillboards();
-                    oos.writeObject(tableData);
-                    oos.flush();
                     break;
                 }
                 case delete: {

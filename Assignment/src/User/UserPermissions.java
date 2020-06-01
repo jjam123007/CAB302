@@ -9,7 +9,7 @@ public class UserPermissions implements Serializable {
     private boolean editBillboards;
     private boolean scheduleBillboards;
     private boolean editUsers;
-    private boolean admin;
+    private boolean admin = false;
 
     public boolean canCreateBillboards() {
         return createBillboards;

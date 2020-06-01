@@ -34,9 +34,6 @@ public class BillboardsPane implements ControlPanelComponent {
         new EditBillboards(controlPanelGUI);
         new ScheduleBillboards(controlPanelGUI);
         new ViewBillboards(controlPanelGUI);
-
-
-        System.out.println("aaaa");
     }
 
     /**

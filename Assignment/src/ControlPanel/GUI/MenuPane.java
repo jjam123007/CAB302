@@ -29,6 +29,8 @@ public class MenuPane implements ControlPanelComponent{
         new BillboardsPane(controlPanelGUI);
         new AccountPane(controlPanelGUI);
         //Only show the admin pane if the client user is an admin.
+        System.out.println(ClientUser.getUsername());
+        System.out.println(ClientUser.getPermissions());
         if (ClientUser.getPermissions().isAdmin()){
             new AdminPane(controlPanelGUI);
         } else {

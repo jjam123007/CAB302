@@ -1,6 +1,7 @@
 package UserManagement.Replies;
 
 import Database.DBConnection;
+import Networking.ReplyError;
 import UserManagement.Requests.LoginRequest;
 import User.PermissionType;
 import User.ServerUserSession;
@@ -89,7 +90,6 @@ public class LoginReply implements Serializable{
 
    public void checkPassword(String requestPassword, String saltedPassword) throws SQLException {
        if (requestPassword.equals(saltedPassword)){
-           this.success = true;
            this.sessionToken = DataSecurity.randomString();
            retrievePermissions();
            ServerUserSession.addSession(this.sessionToken, loginRequest.getUsername());
@@ -107,17 +107,22 @@ public class LoginReply implements Serializable{
    public void retrievePermissions() throws SQLException {
         String username = loginRequest.getUsername();
         String permissionsQuery = ("SELECT * FROM permissions WHERE username='" + username + "';");
-        Statement statement = DBConnection.getInstance().createStatement();
-        ResultSet getDBUserPermissions = statement.executeQuery(permissionsQuery);
-        getDBUserPermissions.next();
+        try{
+            Statement statement = DBConnection.getInstance().createStatement();
+            ResultSet getDBUserPermissions = statement.executeQuery(permissionsQuery);
+            getDBUserPermissions.next();
 
-        boolean editUsersPerm = getDBUserPermissions.getBoolean(PermissionType.editUsers);
-        boolean createBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.createBillboards);
-        boolean editBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.editBillboards);
-        boolean scheduleBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.scheduleBillboards);
+            boolean editUsersPerm = getDBUserPermissions.getBoolean(PermissionType.editUsers);
+            boolean createBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.createBillboards);
+            boolean editBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.editBillboards);
+            boolean scheduleBillboardsPerm = getDBUserPermissions.getBoolean(PermissionType.scheduleBillboards);
 
-        this.permissions = new UserPermissions(createBillboardsPerm,editBillboardsPerm,scheduleBillboardsPerm,editUsersPerm);
-        System.out.println( this.permissions);
+            this.permissions = new UserPermissions(createBillboardsPerm,editBillboardsPerm,scheduleBillboardsPerm,editUsersPerm);
+            this.success = true;
+        } catch (SQLException sqlException){
+            this.errorMessage = ReplyError.databaseError;
+        }
+
    }
 
 }
