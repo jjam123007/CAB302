@@ -50,9 +50,9 @@ public class ViewBillboards implements ControlPanelComponent {
         setControlPanelComponents(controlPanelGUI);
 
         BillboardRequest request = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
-        SerializeArray tableData = (SerializeArray) request.getOIS().readObject();
+        BillboardReply tableData = (BillboardReply) request.getOIS().readObject();
 
-        Object[][]  data = tableData.getData();
+        Object[][]  data = tableData.getTableData();
         viewTable.setModel(new DefaultTableModel(
                 data,
                 new String[]{"View ID","Billboard Name","Creator Name","Information","Message", "Url", "Scheduled Date", "Start time", "End time"}
@@ -154,14 +154,15 @@ public class ViewBillboards implements ControlPanelComponent {
                 if(billboardsPane.getSelectedIndex() == 0){
                     try {
                         BillboardRequest showTableRequest = new BillboardRequest(BillboardRequestType.showTable,null, ClientUser.getToken());
-                        SerializeArray tableData = (SerializeArray) showTableRequest.getOIS().readObject();
-                        Object[][]  data = tableData.getData();
-
-                        viewTable.setModel(new DefaultTableModel(
-                                data,
-                                new String[]{"view ID","Billboard Name","Creator Name","Message", "Information","Url", "Scheduled Date", "Start time", "End time"}
-                        ));
-
+                        BillboardReply tableData = (BillboardReply) showTableRequest.getOIS().readObject();
+                        Object[][]  data = tableData.getTableData();
+                        if (data!=null)
+                        {
+                            viewTable.setModel(new DefaultTableModel(
+                                    data,
+                                    new String[]{"view ID","Billboard Name","Creator Name","Message", "Information","Url", "Scheduled Date", "Start time", "End time"}
+                            ));
+                        }
                     } catch (IOException | ClassNotFoundException ex) {
                         ex.printStackTrace();
                     }

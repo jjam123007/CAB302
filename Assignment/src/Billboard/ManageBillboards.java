@@ -105,7 +105,7 @@ public final class ManageBillboards implements Serializable {
      * @return tableDataArray
      * @throws SQLException
      */
-    public static SerializeArray showBillboards() throws SQLException {
+    public static Object[][] showBillboards() throws SQLException {
         Object[][] tableData;
 
         Statement statement = DBConnection.getInstance().createStatement();
@@ -134,8 +134,7 @@ public final class ManageBillboards implements Serializable {
             tableData[i] = myString;
         }
         statement.close();
-        SerializeArray tableDataArray = new SerializeArray(tableData);
-        return tableDataArray;
+        return tableData;
     }
 
 
