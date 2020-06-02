@@ -155,14 +155,18 @@ public class ViewBillboards implements ControlPanelComponent {
                     BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
 
                     if(billboardID != null){
-                        //remove the row selected on control panel
-                        DefaultTableModel dm = (DefaultTableModel) viewTable.getModel();
-                        dm.removeRow(selectedRow);
+                        
+
                         //read the reply from the server
                         BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
                         delete.closeConnection();
                         String message = messageObject.getMessage();
+                        //refresh the pane to view data
+                        billboardsPane.setSelectedIndex(2);
+                        billboardsPane.setSelectedIndex(0);
+
                         JOptionPane.showMessageDialog(controlPanel,message,"Success",JOptionPane.NO_OPTION);
+
                     }else{
                         //read the reply from the server
                         BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
