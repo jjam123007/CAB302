@@ -18,7 +18,6 @@ public class Reply implements Serializable {
     public String getErrorMessage() {
         return errorMessage;
     }
-    public void setErrorMessage(String errorMessage) { this.errorMessage = errorMessage; }
 
     /**
      * Notify the user that their session token has expired or is invalid if it is not in the server.
