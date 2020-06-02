@@ -22,7 +22,7 @@ public class Reply implements Serializable {
 
     /**
      * Notify the user that their session token has expired or is invalid if it is not in the server.
-     * @param message
+     * @param sessionToken
      */
     public Reply(String sessionToken){
         if (!ServerUserSession.isValid(sessionToken)){

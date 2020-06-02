@@ -12,6 +12,8 @@ import java.awt.*;
 import java.io.*;
 import java.net.Socket;
 
+import static Networking.NetworkConnection.connectToServer;
+
 /**
  * The billboard viewer of the program, works by getting information from the
  * server and display the billboard to the screen
@@ -150,7 +152,7 @@ public class DisplayBillboardViewer {
     // Setup connection to the server
     private static void setStreams() throws Exception {
         // Establishing a new connection
-        socket = new Socket("localhost",3310);
+        socket = connectToServer();
 
         // Set up streams to read and write data
         OutputStream os = socket.getOutputStream();

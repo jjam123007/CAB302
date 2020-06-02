@@ -3,6 +3,8 @@ package Networking;
 import java.io.*;
 import java.net.Socket;
 
+import static Networking.NetworkConnection.connectToServer;
+
 public class
 Request implements Serializable{
     private static Socket socket;
@@ -23,7 +25,7 @@ Request implements Serializable{
 
     //Set the object output and input streams between the client and the server.
     private void setStreams() throws IOException {
-        this.socket = new Socket("localhost",3310);
+        this.socket = connectToServer();
         OutputStream os = socket.getOutputStream();
         InputStream is = socket.getInputStream();
         System.out.println("Connected to "+ socket.getInetAddress());

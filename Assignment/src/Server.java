@@ -21,6 +21,8 @@ import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
+import static Networking.NetworkConnection.openServer;
+
 /**
  * Check request from client,
  *      * addBillboard
@@ -61,7 +63,7 @@ public class Server {
      * @throws SQLException
      */
     public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException, NoSuchAlgorithmException {
-        ServerSocket serverSocket = new ServerSocket(3310);
+        ServerSocket serverSocket = openServer();
         //check if the tables exits..
         DBConnection.checkTableExists();
         //to create a admin account for marker. username:admin. password:12345678
