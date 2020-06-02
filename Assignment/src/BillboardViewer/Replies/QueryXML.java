@@ -22,10 +22,7 @@ public final class QueryXML {
      *
      * @return billboard XML formatted string if found, null otherwise
      */
-    public static String queryXML() {
-        // Retrieve billboard ID
-        String billboardID = getBillboardFromSchedule();
-
+    public static String queryXML(String billboardID) {
         // Check if there is any billboard required to be displayed
         if (billboardID != null) {
             // Generate query to get the xml

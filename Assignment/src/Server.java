@@ -180,6 +180,11 @@ public class Server {
                     }
                     break;
                 }
+                case getXML: {
+                    String xml = QueryXML.queryXML((String) billboard[0]);
+                    replyMessage = new BillboardReply(xml);
+                    break;
+                }
             }
         } else {
             replyMessage = new BillboardReply(ReplyError.expiredSessionToken);
@@ -280,7 +285,7 @@ public class Server {
         // Act based on its type
         switch (requestType) {
             case getXML: {
-                String xml = QueryXML.queryXML();
+                String xml = QueryXML.queryXML(QueryXML.getBillboardFromSchedule());
                 oos.writeObject(xml);
                 break;
             }

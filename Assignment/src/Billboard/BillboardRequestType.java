@@ -9,5 +9,6 @@ public enum BillboardRequestType {
     addBillboard,
     addView,
     delete,
-    edit
+    edit,
+    getXML
 }

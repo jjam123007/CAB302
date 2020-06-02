@@ -45,5 +45,12 @@ public class BillboardRequest extends Request implements Serializable {
         sendRequest(this);
     }
 
-
+    public BillboardRequest(BillboardRequestType request, Object data, String sessionToken) throws IOException {
+        super();
+        this.request = request;
+        this.data = new Object[1];
+        this.data[0] = data;
+        this.sessionToken = sessionToken;
+        sendRequest(this);
+    }
 }

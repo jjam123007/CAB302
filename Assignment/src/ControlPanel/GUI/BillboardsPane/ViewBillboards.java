@@ -148,25 +148,17 @@ public class ViewBillboards implements ControlPanelComponent {
             /**@see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)*/
             public void actionPerformed(ActionEvent e) {
                 // Get the respected values and display on edit panel for users to edit
-                String billboardId = viewTable.getModel().getValueAt(selectedRow,0).toString();
+                String billboardID = viewTable.getModel().getValueAt(selectedRow,0).toString();
 
-                // Generate query to get the xml
-                String query = "Select xml from billboards where billboardID = " + billboardID + ";";
+//                // Generate query to get the xml
+//                String query = "Select xml from billboards where billboardID = " + billboardID + ";";
 
                 try {
-                    // Establish a connection to the database
-                    Statement statement = DBConnection.getInstance().createStatement();
-
-                    // Execute the SQL query
-                    ResultSet sqlResult = statement.executeQuery(query);
-
-                    // Retrieve the result
-                    sqlResult.next();
-                    String result = sqlResult.getString(1);
-
-                    // Close the connection
-                    statement.close();
-
+                    BillboardRequest getXML = new BillboardRequest(BillboardRequestType.getXML, billboardID, ClientUser.getToken());
+                    //read the reply from the server
+                    BillboardReply replyXML = (BillboardReply) getXML.getOIS().readObject();
+                    getXML.closeConnection();
+                    String result = replyXML.getMessage();
 
                     // Create a document builder to parse the XML file
                     DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -229,7 +221,7 @@ public class ViewBillboards implements ControlPanelComponent {
                     }
 
                     // Export the read information to edit billboard tab
-                    editBbID.setText(billboardId);
+                    editBbID.setText(billboardID);
                     editBbName.setText((String) viewTable.getModel().getValueAt(selectedRow,1));
                     editBbMsg.setText(msg);
                     editBbInfo.setText(info);
@@ -252,7 +244,7 @@ public class ViewBillboards implements ControlPanelComponent {
                     editUpdateButton.setEnabled(true);
                     editChooseImageButton.setEnabled(true);
                     billboardsPane.setSelectedIndex(2);
-                } catch (SQLException | NullPointerException exc) {
+                } catch (NullPointerException | ClassNotFoundException exc) {
                     // If the billboard is not found, show a dialog message
                     JOptionPane.showMessageDialog(controlPanel,"Cannot retrieve billboard from the database. Please contact your administrator.",
                             "Error", JOptionPane.NO_OPTION);

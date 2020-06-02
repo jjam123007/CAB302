@@ -99,6 +99,7 @@ public class ControlPanelGUI {
     public JPanel editBbColourPreview;
     public JPanel editMessageColourPreview;
     public JPanel editInfoColourPreview;
+    private JButton xmlExportButton;
     public JLabel RowToEdit;
 
     public int rowToEdit;
