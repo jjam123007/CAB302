@@ -100,6 +100,9 @@ public class ControlPanelGUI {
     public JPanel editMessageColourPreview;
     public JPanel editInfoColourPreview;
     public JButton viewXMLExportButton;
+    public JButton addScheduleButton;
+    public JTable calenderView;
+    public JButton viewScheduleButton;
     public JLabel RowToEdit;
 
     public int rowToEdit;
@@ -122,6 +125,7 @@ public class ControlPanelGUI {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.setSize(800,500);
         initControlPanelComponents();
 
     }

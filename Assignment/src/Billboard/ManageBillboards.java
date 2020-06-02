@@ -132,6 +132,44 @@ public final class ManageBillboards implements Serializable {
         return tableData;
     }
 
+    /**
+     * This method used to get schedule data for a specific billboard name from databases,
+     * then show in schedule pane to view the calender structure of billboards.
+     * @return tableDataArray
+     * @throws SQLException
+     */
+    public static Object[][] showSchedule(Object[] data) throws SQLException {
+        String billboardName = (String) data[0];
+
+        System.out.println("ID :" + billboardName);
+        Object[][] tableData;
+
+        Statement statement = DBConnection.getInstance().createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT viewID,billboardName,scheduledDate,startTime,endTime FROM billboards_info where billboardName='"+billboardName+"';");
+
+        int rowcount = 0;
+
+        if (resultSet.last()) {
+            rowcount = resultSet.getRow();
+            resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+        }
+        tableData = new Object[rowcount][5];
+
+        for (int i = 0; i < rowcount; i++) {
+            resultSet.next();
+            String viewID = Integer.toString(resultSet.getInt(1));
+            String BillboardName = resultSet.getString(2);
+            String scheduledDate = resultSet.getString(3);
+            Time startTime = resultSet.getTime(4);
+            Time endTime = resultSet.getTime(5);
+            Object[] myString = {viewID, BillboardName,scheduledDate, startTime, endTime};
+            tableData[i] = myString;
+        }
+        statement.close();
+        return tableData;
+    }
+
+
 
 
 }

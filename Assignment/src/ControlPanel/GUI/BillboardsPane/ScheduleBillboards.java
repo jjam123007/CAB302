@@ -9,6 +9,7 @@ import ControlPanel.GUI.ControlPanelGUI;
 import User.ClientUser;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -28,6 +29,7 @@ public class ScheduleBillboards implements ControlPanelComponent {
     public JTextArea scheduleBbDate;
     public JButton scheduleSubmitButton;
     public JTabbedPane billboardsPane;
+    public JTable calenderView;
 
     /**
      *
@@ -50,6 +52,7 @@ public class ScheduleBillboards implements ControlPanelComponent {
              */
             public void actionPerformed(ActionEvent e) {
                 try {
+
                     //get the text field inputs
                     String billboardId = scheduleBbID.getText();
                     String scheduledDate = scheduleBbDate.getText();
@@ -64,6 +67,7 @@ public class ScheduleBillboards implements ControlPanelComponent {
                     BillboardReply messageObject = (BillboardReply) addview.getOIS().readObject();
                     addview.closeConnection();
                     String message = messageObject.getMessage();
+
                     JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
 
                 } catch (UnknownHostException ex) {
@@ -98,5 +102,6 @@ public class ScheduleBillboards implements ControlPanelComponent {
         this.scheduleBbDate = controlPanelGUI.scheduleBbDate;
         this.scheduleSubmitButton = controlPanelGUI.scheduleSubmitButton;
         this.billboardsPane=controlPanelGUI.billboardsPane;
+        this.calenderView = controlPanelGUI.calenderView;
     }
 }

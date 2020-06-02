@@ -123,6 +123,20 @@ public class Server {
                     replyMessage = new BillboardReply(tableData);
                     break;
                 }
+                case showSchedule:{
+
+                    try{
+                        if (ServerUserSession.hasPermission(sessionToken, PermissionType.scheduleBillboards)){
+                            Object[][] tableData = ManageBillboards.showSchedule(billboard);
+                            replyMessage = new BillboardReply(tableData);
+                        } else {
+                            replyMessage = new BillboardReply(ReplyError.userNotPermitted);
+                        }
+                    }catch (SQLException e){
+                        replyMessage = new BillboardReply("Please select the row");
+                    }
+                    break;
+                }
 
                 case addBillboard: {
                     try {

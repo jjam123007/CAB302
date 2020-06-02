@@ -10,5 +10,6 @@ public enum BillboardRequestType {
     addView,
     delete,
     edit,
-    getXML
+    getXML,
+    showSchedule
 }

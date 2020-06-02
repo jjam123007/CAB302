@@ -53,6 +53,10 @@ public class ViewBillboards implements ControlPanelComponent {
     public JButton editPreviewButton;
     public JButton editUpdateButton;
     public JButton viewXMLExportButton;
+    public JButton addScheduleButton;
+    public JButton viewScheduleButton;
+    public JTable calenderView;
+
 
 
     /**
@@ -155,7 +159,7 @@ public class ViewBillboards implements ControlPanelComponent {
                     BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
 
                     if(billboardID != null){
-                        
+
 
                         //read the reply from the server
                         BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
@@ -180,6 +184,86 @@ public class ViewBillboards implements ControlPanelComponent {
                 }
             }
 
+        });
+
+        viewScheduleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                //try request the data to view in control panel and sends to server
+                try {
+                    // Get the respected billboard name to view schedule and display on schedule panel for users to edit
+                    String billboardName = viewTable.getModel().getValueAt(selectedRow,1).toString();
+
+                    BillboardRequest showTableRequest = new BillboardRequest(BillboardRequestType.showSchedule,billboardName, ClientUser.getToken());
+                    BillboardReply tableData = (BillboardReply) showTableRequest.getOIS().readObject();
+                    Object[][]  data = tableData.getTableData();
+
+                    calenderView.setModel(new DefaultTableModel(
+                            data,
+                            new String[]{"view ID","Billboard Name","Date","Starting time", "Ending time"}
+                    ));
+                    calenderView.setDefaultEditor(Object.class, null);
+                    billboardsPane.setSelectedIndex(3);
+
+                } catch (IOException | ClassNotFoundException | ArrayIndexOutOfBoundsException ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(controlPanel,"No row was selected",
+                            "Error",JOptionPane.NO_OPTION);
+
+                }
+
+            }
+        });
+
+        //add schedule on view tab.
+        addScheduleButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try{
+                // Get the respected values and display on edit panel for users to edit
+                String billboardID = viewTable.getModel().getValueAt(selectedRow,0).toString();
+
+                JTextField date = new JTextField(20);
+                JTextField starttime = new JTextField(20);
+                JTextField endtime = new JTextField(20);
+                JPanel myPanel = new JPanel();
+                myPanel.add(new JLabel("Date:"));
+                myPanel.add(date);
+                myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+                myPanel.add(new JLabel("start time:"));
+                myPanel.add(starttime);
+                myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+                myPanel.add(new JLabel("end time:"));
+                myPanel.add(endtime);
+
+                int result = JOptionPane.showConfirmDialog(null, myPanel,
+                        "Add the specific date and time for billboard", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    //sends the request to server with data provided
+                    Object[] submitData = {billboardID, date.getText(),starttime.getText(),endtime.getText()};
+                    BillboardRequest addview = new BillboardRequest(BillboardRequestType.addView, submitData, ClientUser.getToken());
+
+                    //read the reply from the server
+                    BillboardReply messageObject = (BillboardReply) addview.getOIS().readObject();
+                    addview.closeConnection();
+                    String message = messageObject.getMessage();
+                    //refresh the pane to get the latest view
+                    billboardsPane.setSelectedIndex(2);
+                    billboardsPane.setSelectedIndex(0);
+                    JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
+                }
+
+                }catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (ClassNotFoundException ex) {
+                    ex.printStackTrace();
+                }catch (ArrayIndexOutOfBoundsException ex){
+                    JOptionPane.showMessageDialog(controlPanel,"No row was selected","Information",JOptionPane.NO_OPTION);
+                }
+
+
+            }
         });
         /**
          * Implements a ActionListener for BillboardButton to get data from the selected row
@@ -356,5 +440,8 @@ public class ViewBillboards implements ControlPanelComponent {
         this.editPreviewButton = controlPanelGUI.editPreviewButton;
         this.editUpdateButton = controlPanelGUI.editUpdateButton;
         this.viewXMLExportButton = controlPanelGUI.viewXMLExportButton;
+        this.addScheduleButton = controlPanelGUI.addScheduleButton;
+        this.viewScheduleButton = controlPanelGUI.viewScheduleButton;
+        this.calenderView = controlPanelGUI.calenderView;
     }
 }
