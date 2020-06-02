@@ -9,7 +9,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 
 /**
- * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ * @author Jun Chen (n10240977) & Haoze He (n10100351) & Nikolai Taufao (n10481087) & William Tran (n10306234)
  * This class contains all of the java swing components that form the control panel GUI.
  */
 public class ControlPanelGUI {
@@ -91,6 +91,14 @@ public class ControlPanelGUI {
     public JPanel infoColourPreview;
     public JPanel messColourPreview;
     public JPanel bgColourPreview;
+    public JButton editBbColourButton;
+    public JButton editMessageColourButton;
+    public JButton editInfoColourButton;
+    public JButton editChooseImageButton;
+    public JButton editPreviewButton;
+    public JPanel editBbColourPreview;
+    public JPanel editMessageColourPreview;
+    public JPanel editInfoColourPreview;
     public JLabel RowToEdit;
 
     public int rowToEdit;

@@ -87,14 +87,15 @@ public final class ManageBillboards implements Serializable {
         String message = (String) data[2];
         String info = (String) data[3];
         String url = (String) data[4];
+        String xml = (String) data[5];
         Statement statement = DBConnection.getInstance().createStatement();
-        statement.executeQuery("update billboards set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where billboardID='"+ id+"';");
+        statement.executeQuery("update billboards set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+ "',xml='" + xml + "' where billboardID='"+ id+"';");
         statement.executeQuery("update billboards_info set billboardName='"+ name+"', message='"+ message+"',information='"+ info+"',url='"+ url+"' where viewID='"+ id+"';");
         statement.close();
     }
 
     /**
-     * This method used to get all billBoard data from dataBases,
+     * This method used to get all billBoard data from databases,
      * then show in view interface.
      * @return tableDataArray
      * @throws SQLException

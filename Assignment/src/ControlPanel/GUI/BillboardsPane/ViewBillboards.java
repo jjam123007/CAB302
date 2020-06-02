@@ -5,14 +5,27 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
+import Database.DBConnection;
 import User.ClientUser;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.io.StringReader;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 
 /**
@@ -35,6 +48,15 @@ public class ViewBillboards implements ControlPanelComponent {
     public JButton viewDeleteButton;
     public JLabel toEditRow;
     public JPanel controlPanel;
+    public JPanel editBbColourPreview;
+    public JPanel editMessageColourPreview;
+    public JPanel editInfoColourPreview;
+    public JButton editBbColourButton;
+    public JButton editMessageColourButton;
+    public JButton editInfoColourButton;
+    public JButton editChooseImageButton;
+    public JButton editPreviewButton;
+    public JButton editUpdateButton;
 
 
     /**
@@ -125,22 +147,119 @@ public class ViewBillboards implements ControlPanelComponent {
             @Override
             /**@see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)*/
             public void actionPerformed(ActionEvent e) {
-                //get the respected values and display on edit panel for users to edit
+                // Get the respected values and display on edit panel for users to edit
                 String billboardId = viewTable.getModel().getValueAt(selectedRow,0).toString();
-                String billboardName = (String) viewTable.getModel().getValueAt(selectedRow,1);
-                String billboardMessage = (String) viewTable.getModel().getValueAt(selectedRow,3);
-                String billboardInformation = (String) viewTable.getModel().getValueAt(selectedRow,4);
-                String billboardUrl = (String) viewTable.getModel().getValueAt(selectedRow,5);
+
+                // Generate query to get the xml
+                String query = "Select xml from billboards where billboardID = " + billboardID + ";";
+
+                try {
+                    // Establish a connection to the database
+                    Statement statement = DBConnection.getInstance().createStatement();
+
+                    // Execute the SQL query
+                    ResultSet sqlResult = statement.executeQuery(query);
+
+                    // Retrieve the result
+                    sqlResult.next();
+                    String result = sqlResult.getString(1);
+
+                    // Close the connection
+                    statement.close();
 
 
-                editBbID.setText(billboardId);
-                editBbName.setText(billboardName);
-                editBbMsg.setText(billboardMessage);
-                editBbInfo.setText(billboardInformation);
-                editBbImgLink.setText(billboardUrl);
+                    // Create a document builder to parse the XML file
+                    DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+                    Document doc = builder.parse(new InputSource(new StringReader(result)));
+                    doc.getDocumentElement().normalize();
 
-                toEditRow.setText(String.valueOf(selectedRow));
-                billboardsPane.setSelectedIndex(2);
+                    // Get background color
+                    String billboardColourString = doc.getDocumentElement().getAttribute("background");
+                    Color bgColour = Color.decode(billboardColourString != "" ? billboardColourString : "#ffffff");
+
+                    // Get message data
+                    String msg;
+                    Color msgColour = Color.decode("#000000");;
+                    try {
+                        // Text
+                        Element messageData = (Element) doc.getElementsByTagName("message").item(0);
+                        msg = messageData.getTextContent();
+
+                        // Colour
+                        String messageColourString = messageData.getAttribute("colour");
+                        msgColour = Color.decode(messageColourString != "" ? messageColourString : "#000000");
+                    } catch (NullPointerException exc) {
+                        // If there is nothing, return null
+                        msg = null;
+                    }
+
+                    // Get picture data
+                    String imageInput;
+                    String imageMessage;
+                    try {
+                        Element pictureData = (Element) doc.getElementsByTagName("picture").item(0);
+                        // URL
+                        if (pictureData.hasAttribute("url")){
+                            imageInput = pictureData.getAttribute("url");
+                            imageMessage = imageInput;
+                        } else { // Base64 encoded
+                            imageInput = pictureData.getAttribute("data");
+                            imageMessage = "(An image file has been chosen. Leave this field blank to not submitting it!)";
+                        }
+                    } catch (NullPointerException exc) {
+                        // If there is nothing, return null
+                        imageInput = null;
+                        imageMessage = null;
+                    }
+
+                    // Get information data
+                    String info;
+                    Color infoColour = Color.decode("#000000");
+                    try {
+                        // Text
+                        Element informationData = (Element) doc.getElementsByTagName("information").item(0);
+                        info = informationData.getTextContent();
+
+                        // Colour
+                        String informationColourString = informationData.getAttribute("colour");
+                        infoColour = Color.decode(informationColourString != "" ? informationColourString : "#000000");
+                    } catch (NullPointerException exc) {
+                        // If there is nothing, return null
+                        info = null;
+                    }
+
+                    // Export the read information to edit billboard tab
+                    editBbID.setText(billboardId);
+                    editBbName.setText((String) viewTable.getModel().getValueAt(selectedRow,1));
+                    editBbMsg.setText(msg);
+                    editBbInfo.setText(info);
+                    editBbImgLink.setText(imageMessage);
+                    EditBillboards.setEditImageLink(imageInput);
+                    editBbColourPreview.setBackground(bgColour);
+                    editMessageColourPreview.setBackground(msgColour);
+                    editInfoColourPreview.setBackground(infoColour);
+                    toEditRow.setText(String.valueOf(selectedRow));
+
+                    // Change tab and enable edit fields and buttons
+                    editBbName.setEnabled(true);
+                    editBbMsg.setEnabled(true);
+                    editBbInfo.setEnabled(true);
+                    editBbImgLink.setEnabled(true);
+                    editBbColourButton.setEnabled(true);
+                    editMessageColourButton.setEnabled(true);
+                    editInfoColourButton.setEnabled(true);
+                    editPreviewButton.setEnabled(true);
+                    editUpdateButton.setEnabled(true);
+                    editChooseImageButton.setEnabled(true);
+                    billboardsPane.setSelectedIndex(2);
+                } catch (SQLException | NullPointerException exc) {
+                    // If the billboard is not found, show a dialog message
+                    JOptionPane.showMessageDialog(controlPanel,"Cannot retrieve billboard from the database. Please contact your administrator.",
+                            "Error", JOptionPane.NO_OPTION);
+                } catch (ParserConfigurationException | SAXException | IOException error) {
+                    JOptionPane.showMessageDialog(controlPanel,"An error occurred. Cannot read billboard. Please contact your administrator.",
+                            "Error", JOptionPane.NO_OPTION);
+                }
             }
         });
         /**
@@ -181,7 +300,6 @@ public class ViewBillboards implements ControlPanelComponent {
      * @param controlPanelGUI */
     @Override
     public void setControlPanelComponents(ControlPanelGUI controlPanelGUI) {
-
         this.billboardsPane = controlPanelGUI.billboardsPane;
         this.editBbMsg = controlPanelGUI.editBbMsg;
         this.editBbInfo = controlPanelGUI.editBbInfo;
@@ -192,6 +310,14 @@ public class ViewBillboards implements ControlPanelComponent {
         this.viewEditButton = controlPanelGUI.viewEditButton;
         this.viewDeleteButton = controlPanelGUI.viewDeleteButton;
         this.toEditRow = controlPanelGUI.toEditRow;
-
+        this.editBbColourPreview = controlPanelGUI.editBbColourPreview;
+        this.editMessageColourPreview = controlPanelGUI.editMessageColourPreview;
+        this.editInfoColourPreview = controlPanelGUI.editInfoColourPreview;
+        this.editBbColourButton = controlPanelGUI.editBbColourButton;
+        this.editMessageColourButton = controlPanelGUI.editMessageColourButton;
+        this.editInfoColourButton = controlPanelGUI.editInfoColourButton;
+        this.editChooseImageButton = controlPanelGUI.editChooseImageButton;
+        this.editPreviewButton = controlPanelGUI.editPreviewButton;
+        this.editUpdateButton = controlPanelGUI.editUpdateButton;
     }
 }

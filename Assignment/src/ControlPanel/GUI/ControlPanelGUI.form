@@ -32,7 +32,7 @@
             </properties>
             <border type="none"/>
             <children>
-              <grid id="db6a4" binding="ViewJPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+              <grid id="db6a4" binding="ViewJPanel" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                 <margin top="0" left="0" bottom="0" right="0"/>
                 <constraints>
                   <tabbedpane title="View"/>
@@ -42,7 +42,7 @@
                 <children>
                   <scrollpane id="b28c7" binding="usersScrollPane">
                     <constraints>
-                      <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                      <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties/>
                     <border type="none"/>
@@ -55,18 +55,18 @@
                   </scrollpane>
                   <component id="d0f83" class="javax.swing.JButton" binding="viewDeleteButton">
                     <constraints>
-                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="Billboard.Delete"/>
+                      <text value="Delete billboard"/>
                     </properties>
                   </component>
                   <component id="efae6" class="javax.swing.JButton" binding="viewEditButton">
                     <constraints>
-                      <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                      <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                     </constraints>
                     <properties>
-                      <text value="Billboard.Edit"/>
+                      <text value="Edit billboard"/>
                     </properties>
                   </component>
                 </children>
@@ -158,15 +158,15 @@
                               </component>
                               <component id="e6f16" class="javax.swing.JButton" binding="chooseImageButton">
                                 <constraints>
-                                  <grid row="7" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                  <grid row="8" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
-                                  <text value="Choose a file..."/>
+                                  <text value="Choose an image..."/>
                                 </properties>
                               </component>
                               <component id="5eb5f" class="javax.swing.JLabel">
                                 <constraints>
-                                  <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="6" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
                                   <text value="Choose image from file"/>
@@ -328,7 +328,7 @@
                         <properties/>
                         <border type="none"/>
                         <children>
-                          <grid id="d5d15" layout-manager="GridLayoutManager" row-count="6" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                          <grid id="d5d15" layout-manager="GridLayoutManager" row-count="11" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                             <margin top="0" left="0" bottom="0" right="0"/>
                             <constraints/>
                             <properties/>
@@ -336,67 +336,35 @@
                             <children>
                               <component id="e5180" class="javax.swing.JLabel">
                                 <constraints>
-                                  <grid row="2" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="2" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
                                   <text value="Billlboard Name"/>
                                 </properties>
                               </component>
-                              <component id="5a6c2" class="javax.swing.JTextArea" binding="editBbName">
-                                <constraints>
-                                  <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                    <preferred-size width="150" height="50"/>
-                                  </grid>
-                                </constraints>
-                                <properties/>
-                              </component>
                               <component id="63912" class="javax.swing.JLabel">
                                 <constraints>
-                                  <grid row="3" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="4" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
                                   <text value="Message"/>
                                 </properties>
                               </component>
-                              <component id="51af" class="javax.swing.JTextArea" binding="editBbMsg">
-                                <constraints>
-                                  <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                    <preferred-size width="150" height="50"/>
-                                  </grid>
-                                </constraints>
-                                <properties/>
-                              </component>
                               <component id="7d14c" class="javax.swing.JLabel">
                                 <constraints>
-                                  <grid row="4" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="6" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
                                   <text value="Information"/>
                                 </properties>
                               </component>
-                              <component id="2da0" class="javax.swing.JTextArea" binding="editBbInfo">
-                                <constraints>
-                                  <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                    <preferred-size width="150" height="50"/>
-                                  </grid>
-                                </constraints>
-                                <properties/>
-                              </component>
                               <component id="2e93a" class="javax.swing.JLabel">
                                 <constraints>
-                                  <grid row="5" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="8" column="0" row-span="3" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
                                   <text value="Url"/>
                                 </properties>
-                              </component>
-                              <component id="519ce" class="javax.swing.JTextArea" binding="editBbImgLink">
-                                <constraints>
-                                  <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="6" hsize-policy="6" anchor="0" fill="3" indent="0" use-parent-layout="false">
-                                    <preferred-size width="150" height="50"/>
-                                  </grid>
-                                </constraints>
-                                <properties/>
                               </component>
                               <component id="430f5" class="javax.swing.JLabel">
                                 <constraints>
@@ -408,11 +376,11 @@
                               </component>
                               <component id="a8a2a" class="javax.swing.JLabel" binding="editBbID">
                                 <constraints>
-                                  <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="1" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
                                   <font style="1"/>
-                                  <text value="CHOOSE FROM VIEW TAB"/>
+                                  <text value="CHOOSE A BILLBOARD FROM VIEW TAB TO BEGIN EDITING"/>
                                 </properties>
                               </component>
                               <component id="d4cf0" class="javax.swing.JLabel">
@@ -425,18 +393,159 @@
                               </component>
                               <component id="ac4fc" class="javax.swing.JLabel" binding="toEditRow">
                                 <constraints>
-                                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+                                  <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
                                 </constraints>
                                 <properties>
                                   <font style="1"/>
-                                  <text value="CHOOSE FROM VIEW TAB"/>
+                                  <text value="CHOOSE A BILLBOARD FROM VIEW TAB TO BEGIN EDITING"/>
                                 </properties>
                               </component>
+                              <component id="99a2a" class="javax.swing.JButton" binding="editBbColourButton">
+                                <constraints>
+                                  <grid row="2" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <enabled value="false"/>
+                                  <text value="Set billboard colour..."/>
+                                </properties>
+                              </component>
+                              <component id="ec246" class="javax.swing.JButton" binding="editMessageColourButton">
+                                <constraints>
+                                  <grid row="4" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <enabled value="false"/>
+                                  <text value="Set message colour..."/>
+                                </properties>
+                              </component>
+                              <component id="8abd2" class="javax.swing.JButton" binding="editInfoColourButton">
+                                <constraints>
+                                  <grid row="6" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <enabled value="false"/>
+                                  <text value="Set information colour..."/>
+                                </properties>
+                              </component>
+                              <grid id="cafca" binding="editBbColourPreview" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                                <margin top="2" left="2" bottom="2" right="2"/>
+                                <constraints>
+                                  <grid row="3" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <enabled value="true"/>
+                                </properties>
+                                <border type="line"/>
+                                <children/>
+                              </grid>
+                              <grid id="c7322" binding="editMessageColourPreview" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                                <margin top="2" left="2" bottom="2" right="2"/>
+                                <constraints>
+                                  <grid row="5" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <enabled value="true"/>
+                                </properties>
+                                <border type="line"/>
+                                <children/>
+                              </grid>
+                              <grid id="17e97" binding="editInfoColourPreview" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                                <margin top="2" left="2" bottom="2" right="2"/>
+                                <constraints>
+                                  <grid row="7" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <enabled value="true"/>
+                                </properties>
+                                <border type="line"/>
+                                <children/>
+                              </grid>
+                              <component id="2e932" class="javax.swing.JButton" binding="editChooseImageButton">
+                                <constraints>
+                                  <grid row="10" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <enabled value="false"/>
+                                  <text value="Choose an image..."/>
+                                </properties>
+                              </component>
+                              <component id="5690b" class="javax.swing.JLabel">
+                                <constraints>
+                                  <grid row="8" column="2" row-span="2" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties>
+                                  <text value="Choose image from file"/>
+                                </properties>
+                              </component>
+                              <scrollpane id="21b54">
+                                <constraints>
+                                  <grid row="2" column="1" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="a6874" class="javax.swing.JTextArea" binding="editBbName">
+                                    <constraints/>
+                                    <properties>
+                                      <enabled value="false"/>
+                                      <lineWrap value="true"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </scrollpane>
+                              <scrollpane id="2e00">
+                                <constraints>
+                                  <grid row="4" column="1" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="9e8ef" class="javax.swing.JTextArea" binding="editBbMsg">
+                                    <constraints/>
+                                    <properties>
+                                      <enabled value="false"/>
+                                      <lineWrap value="true"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </scrollpane>
+                              <scrollpane id="ea3d1">
+                                <constraints>
+                                  <grid row="6" column="1" row-span="2" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="c422a" class="javax.swing.JTextArea" binding="editBbInfo">
+                                    <constraints/>
+                                    <properties>
+                                      <enabled value="false"/>
+                                      <lineWrap value="true"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </scrollpane>
+                              <scrollpane id="7667d">
+                                <constraints>
+                                  <grid row="8" column="1" row-span="3" col-span="1" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+                                </constraints>
+                                <properties/>
+                                <border type="none"/>
+                                <children>
+                                  <component id="c769d" class="javax.swing.JTextArea" binding="editBbImgLink">
+                                    <constraints/>
+                                    <properties>
+                                      <enabled value="false"/>
+                                      <lineWrap value="true"/>
+                                    </properties>
+                                  </component>
+                                </children>
+                              </scrollpane>
                             </children>
                           </grid>
                         </children>
                       </scrollpane>
-                      <grid id="14b8a" layout-manager="GridLayoutManager" row-count="1" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+                      <grid id="14b8a" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
                         <margin top="0" left="0" bottom="0" right="0"/>
                         <constraints>
                           <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
@@ -446,10 +555,20 @@
                         <children>
                           <component id="c369d" class="javax.swing.JButton" binding="editUpdateButton">
                             <constraints>
+                              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                            </constraints>
+                            <properties>
+                              <enabled value="false"/>
+                              <text value="Update"/>
+                            </properties>
+                          </component>
+                          <component id="5bc92" class="javax.swing.JButton" binding="editPreviewButton">
+                            <constraints>
                               <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                             </constraints>
                             <properties>
-                              <text value="Update"/>
+                              <enabled value="false"/>
+                              <text value="Preview"/>
                             </properties>
                           </component>
                         </children>

@@ -89,7 +89,7 @@ public class CreateBillboards implements ControlPanelComponent {
                     // Create a colour chooser dialog
                     Color newColor = JColorChooser.showDialog(
                             ControlPanelGUI.frame,
-                            "Choose Background Color",
+                            "Choose Message Color",
                             msgColourPreview.getBackground());
 
                     // Set the preview colour
@@ -106,7 +106,7 @@ public class CreateBillboards implements ControlPanelComponent {
                     // Create a colour chooser dialog
                     Color newColor = JColorChooser.showDialog(
                             ControlPanelGUI.frame,
-                            "Choose Background Color",
+                            "Choose Information Color",
                             infoColourPreview.getBackground());
 
                     // Set the preview colour
@@ -360,7 +360,7 @@ public class CreateBillboards implements ControlPanelComponent {
         createBbPreviewButton.addActionListener(new ActionListener() {
             @Override
             /**
-             *Implements a ActionListener for previewButton to show added billBoardData
+             *Implements a ActionListener for previewButton to show added billboard data
              * @param e
              * @see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)
              */
