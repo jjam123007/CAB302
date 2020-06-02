@@ -5,7 +5,6 @@ import Billboard.BillboardRequest;
 import Billboard.BillboardRequestType;
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import Database.DBConnection;
 import User.ClientUser;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -21,21 +20,17 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import java.io.StringReader;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.io.*;
 
 
 /**
  * This class is used to let the user choose the way to process the data (delete or edit),
  * and display the added or edited data
  *
- * @author Jun Chen(n10240977) */
+ * @author Jun Chen(n10240977) & William Tran (n10306234) */
 public class ViewBillboards implements ControlPanelComponent {
     Integer billboardID;
-    int selectedRow;
+    int selectedRow = -1;
 
     public JTabbedPane billboardsPane;
     public JTextArea editBbMsg;
@@ -57,6 +52,7 @@ public class ViewBillboards implements ControlPanelComponent {
     public JButton editChooseImageButton;
     public JButton editPreviewButton;
     public JButton editUpdateButton;
+    public JButton viewXMLExportButton;
 
 
     /**
@@ -103,6 +99,48 @@ public class ViewBillboards implements ControlPanelComponent {
                 }
             }
         });
+
+        /**
+         * Implements a ActionListener to export a selected billboard to XML
+         */
+        viewXMLExportButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    String billboardID = viewTable.getModel().getValueAt(selectedRow,0).toString();
+                    String billboardName = viewTable.getModel().getValueAt(selectedRow,1).toString();
+
+                    BillboardRequest getXML = new BillboardRequest(BillboardRequestType.getXML, billboardID, ClientUser.getToken());
+                    //read the reply from the server
+                    BillboardReply replyXML = (BillboardReply) getXML.getOIS().readObject();
+                    getXML.closeConnection();
+                    String result = replyXML.getMessage();
+
+                    OutputStream out = new FileOutputStream(billboardName + ".xml");
+                    try {
+                        byte[] format = result.getBytes();
+                        out.write(format);
+                    } catch (NullPointerException exc) {
+                        (new File(billboardName+ ".xml")).delete();
+                        JOptionPane.showMessageDialog(controlPanel,"Cannot retrieve billboard from the database. Please contact your administrator.",
+                                "Error", JOptionPane.NO_OPTION);
+                    } finally {
+                        out.close();
+                    }
+
+                    // Show a message
+                    JOptionPane.showMessageDialog(controlPanel,"Successfully exported into: " + billboardName + ".xml"
+                            ,"Information",JOptionPane.NO_OPTION);
+                } catch (ArrayIndexOutOfBoundsException exc) {
+                    JOptionPane.showMessageDialog(controlPanel,"Please select a billboard to export!",
+                            "Error", JOptionPane.NO_OPTION);
+                } catch (IOException | ClassNotFoundException ex) {
+                    JOptionPane.showMessageDialog(controlPanel,"Cannot retrieve billboard from the database. Please contact your administrator.",
+                            "Error", JOptionPane.NO_OPTION);
+                }
+            }
+        });
+
         /**
          * Implements a ActionListener for viewDeleteButton to delete the selected row.
          */
@@ -133,7 +171,8 @@ public class ViewBillboards implements ControlPanelComponent {
                         JOptionPane.showMessageDialog(controlPanel,message,"Warning",JOptionPane.NO_OPTION);
                     }
                 } catch (IOException | ClassNotFoundException ex) {
-                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(controlPanel,"Something went wrong. Cannot delete this billboard!",
+                            "Error",JOptionPane.NO_OPTION);
                 }
             }
 
@@ -147,13 +186,11 @@ public class ViewBillboards implements ControlPanelComponent {
             @Override
             /**@see javax.awt.event.addActionListener#actionPerformed(javax.awt.event.ActionListener)*/
             public void actionPerformed(ActionEvent e) {
-                // Get the respected values and display on edit panel for users to edit
-                String billboardID = viewTable.getModel().getValueAt(selectedRow,0).toString();
-
-//                // Generate query to get the xml
-//                String query = "Select xml from billboards where billboardID = " + billboardID + ";";
-
                 try {
+                    // Get the respected values and display on edit panel for users to edit
+                    String billboardID = viewTable.getModel().getValueAt(selectedRow,0).toString();
+
+                    // Contact to get the respective xml from the server
                     BillboardRequest getXML = new BillboardRequest(BillboardRequestType.getXML, billboardID, ClientUser.getToken());
                     //read the reply from the server
                     BillboardReply replyXML = (BillboardReply) getXML.getOIS().readObject();
@@ -244,6 +281,9 @@ public class ViewBillboards implements ControlPanelComponent {
                     editUpdateButton.setEnabled(true);
                     editChooseImageButton.setEnabled(true);
                     billboardsPane.setSelectedIndex(2);
+                } catch (ArrayIndexOutOfBoundsException exc) {
+                    JOptionPane.showMessageDialog(controlPanel,"Please select a billboard to begin editing!",
+                            "Error", JOptionPane.NO_OPTION);
                 } catch (NullPointerException | ClassNotFoundException exc) {
                     // If the billboard is not found, show a dialog message
                     JOptionPane.showMessageDialog(controlPanel,"Cannot retrieve billboard from the database. Please contact your administrator.",
@@ -311,5 +351,6 @@ public class ViewBillboards implements ControlPanelComponent {
         this.editChooseImageButton = controlPanelGUI.editChooseImageButton;
         this.editPreviewButton = controlPanelGUI.editPreviewButton;
         this.editUpdateButton = controlPanelGUI.editUpdateButton;
+        this.viewXMLExportButton = controlPanelGUI.viewXMLExportButton;
     }
 }

@@ -128,7 +128,7 @@ public class Server {
                     try {
                         if (ServerUserSession.hasPermission(sessionToken, PermissionType.createBillboards)){
                             ManageBillboards.addBillboard(billboard, sessionToken);
-                            replyMessage = new BillboardReply("Success");
+                            replyMessage = new BillboardReply("Success!");
                         } else {
                             replyMessage = new BillboardReply(ReplyError.userNotPermitted);
                         }
@@ -142,7 +142,7 @@ public class Server {
                     try{
                         if (ServerUserSession.hasPermission(sessionToken, PermissionType.scheduleBillboards)){
                             ManageBillboards.addView(billboard);
-                            replyMessage = new BillboardReply("Success");
+                            replyMessage = new BillboardReply("Success!");
                         } else {
                             replyMessage = new BillboardReply(ReplyError.userNotPermitted);
                         }
@@ -157,12 +157,12 @@ public class Server {
                     try{
                         if (ServerUserSession.hasPermission(sessionToken, PermissionType.editBillboards)){
                             ManageBillboards.delete(billboard);
-                            replyMessage = new BillboardReply("Success");
+                            replyMessage = new BillboardReply("Success!");
                         } else {
                             replyMessage = new BillboardReply(ReplyError.userNotPermitted);
                         }
                     }catch (NullPointerException | ArrayIndexOutOfBoundsException ex){
-                        replyMessage = new BillboardReply("No rows was selected");
+                        replyMessage = new BillboardReply("Please select a billboard to delete!");
                     }
                     break;
                 }
@@ -171,12 +171,12 @@ public class Server {
                         if (ServerUserSession.hasPermission(sessionToken, PermissionType.editBillboards))
                         {
                             ManageBillboards.edit(billboard);
-                            replyMessage = new BillboardReply("Success");
+                            replyMessage = new BillboardReply("Success!");
                         } else{
                             replyMessage = new BillboardReply(ReplyError.userNotPermitted);
                         }
                     }catch(SQLException e){
-                        replyMessage = new BillboardReply("Please ensure the inputs are valid");
+                        replyMessage = new BillboardReply("Please ensure the inputs are valid.");
                     }
                     break;
                 }
