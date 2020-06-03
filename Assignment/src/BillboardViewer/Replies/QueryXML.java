@@ -72,7 +72,7 @@ public final class QueryXML {
         String billboardID = null;
 
         // Generate query
-        String query = "Select billboardID from schedule where scheduleDate = \"" + date + "\"" +
+        String query = "Select billboardID from schedules where scheduledDate = \"" + date + "\"" +
                 " and (startTime <= \"" + time + "\" and endTime >= \"" + time + "\");";
 
         try {

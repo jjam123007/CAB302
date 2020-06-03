@@ -7,8 +7,11 @@ package Billboard;
 public enum BillboardRequestType {
     showTable,
     addBillboard,
-    addView,
+    addSchedule,
     delete,
     edit,
-    getXML
+    getXML,
+    showSchedule,
+    showAllSchedules,
+    deleteSchedule
 }

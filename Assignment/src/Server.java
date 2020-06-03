@@ -20,6 +20,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.text.ParseException;
 
 import static Networking.NetworkConnection.openServer;
 
@@ -62,7 +63,7 @@ public class Server {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+    public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException, NoSuchAlgorithmException, ParseException {
         ServerSocket serverSocket = openServer();
         //check if the tables exits..
         DBConnection.checkTableExists();
@@ -75,7 +76,7 @@ public class Server {
 
                 // Read request
                 Object request = ois.readObject();
-                System.out.println("request received");
+                System.out.println("Request received");
 
                 // Handle request
                 if (request instanceof LoginRequest)
@@ -108,7 +109,7 @@ public class Server {
      * @throws SQLException
      * @throws IOException
      */
-    private static void handleBillboardRequests(BillboardRequest billboardRequest) throws SQLException, IOException {
+    private static void handleBillboardRequests(BillboardRequest billboardRequest) throws SQLException, IOException, ParseException {
         BillboardRequestType request = (billboardRequest).getRequest();  System.out.println("Request type :"+ request);
         String sessionToken = (billboardRequest).getSessionToken();
         boolean sessionValid = ServerUserSession.isValid(sessionToken);
@@ -124,6 +125,20 @@ public class Server {
                     break;
                 }
 
+                case showSchedule:{
+                    try{
+                        if (ServerUserSession.hasPermission(sessionToken, PermissionType.scheduleBillboards)){
+                            Object[][] tableData = ManageBillboards.showSchedule(billboard);
+                            replyMessage = new BillboardReply(tableData);
+                        } else {
+                            replyMessage = new BillboardReply(ReplyError.userNotPermitted);
+                        }
+                    } catch (SQLException e) {
+                        replyMessage = new BillboardReply("Cannot retrieve schedule from the database.");
+                    }
+                    break;
+                }
+
                 case addBillboard: {
                     try {
                         if (ServerUserSession.hasPermission(sessionToken, PermissionType.createBillboards)){
@@ -133,23 +148,20 @@ public class Server {
                             replyMessage = new BillboardReply(ReplyError.userNotPermitted);
                         }
                     }catch (SQLException e){
-                        e.printStackTrace();
-//                        replyMessage = new BillboardReply("Failure, please check inputs are valid");
+                        replyMessage = new BillboardReply("Please check inputs are valid!");
                     }
                     break;
                 }
-                case addView: {
+                case addSchedule: {
                     try{
                         if (ServerUserSession.hasPermission(sessionToken, PermissionType.scheduleBillboards)){
-                            ManageBillboards.addView(billboard);
+                            ManageBillboards.addSchedule(billboard);
                             replyMessage = new BillboardReply("Success!");
                         } else {
                             replyMessage = new BillboardReply(ReplyError.userNotPermitted);
                         }
                     }catch (SQLException e){
-                         replyMessage = new BillboardReply("Please ensure the input are in correct format and valid \n"+
-                                "Date: yyyy-mm-dd \n"+
-                                "Time: hh:mm:ss");
+                         replyMessage = new BillboardReply("Something went wrong, could not add the schedule to the database.");
                     }
                     break;
                 }
@@ -183,6 +195,32 @@ public class Server {
                 case getXML: {
                     String xml = QueryXML.queryXML((String) billboard[0]);
                     replyMessage = new BillboardReply(xml);
+                    break;
+                }
+                case showAllSchedules: {
+                    try{
+                        if (ServerUserSession.hasPermission(sessionToken, PermissionType.scheduleBillboards)){
+                            Object[][] tableData = ManageBillboards.showAllSchedule();
+                            replyMessage = new BillboardReply(tableData);
+                        } else {
+                            replyMessage = new BillboardReply(ReplyError.userNotPermitted);
+                        }
+                    } catch (SQLException e) {
+                        replyMessage = new BillboardReply("Cannot retrieve schedule from the database.");
+                    }
+                    break;
+                }
+                case deleteSchedule: {
+                    try{
+                        if (ServerUserSession.hasPermission(sessionToken, PermissionType.scheduleBillboards)){
+                            ManageBillboards.deleteSchedule(billboard);
+                            replyMessage = new BillboardReply("Successfully deleted!");
+                        } else {
+                            replyMessage = new BillboardReply(ReplyError.userNotPermitted);
+                        }
+                    } catch (SQLException e) {
+                        replyMessage = new BillboardReply("Cannot delete schedule from the database.");
+                    }
                     break;
                 }
             }

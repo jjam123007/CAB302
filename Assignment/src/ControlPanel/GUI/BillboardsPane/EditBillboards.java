@@ -40,6 +40,7 @@ public class EditBillboards implements ControlPanelComponent {
     public JButton editInfoColourButton;
     public JButton editChooseImageButton;
     public JButton editPreviewButton;
+    public JButton editCancelButton;
     public JPanel editBbColourPreview;
     public JPanel editMessageColourPreview;
     public JPanel editInfoColourPreview;
@@ -89,7 +90,7 @@ public class EditBillboards implements ControlPanelComponent {
                     viewTable.getModel().setValueAt(billboardUrl,rowToEdit,4);
                     rowToEdit = -1;
 
-                    //read the reply from the server
+                    // Read the reply from the server
                     BillboardReply messageObject = (BillboardReply) edit.getOIS().readObject();
                     edit.closeConnection();
                     String message = messageObject.getMessage();
@@ -114,12 +115,49 @@ public class EditBillboards implements ControlPanelComponent {
                     editPreviewButton.setEnabled(false);
                     editUpdateButton.setEnabled(false);
                     editChooseImageButton.setEnabled(false);
+                    editCancelButton.setEnabled(false);
 
                     billboardsPane.setSelectedIndex(0);
 
                     JOptionPane.showMessageDialog(controlPanel,message,"Message",JOptionPane.NO_OPTION);
                 } catch (IOException | ClassNotFoundException ex) {
                     ex.printStackTrace();
+                }
+            }
+        });
+
+        /**
+         * Cancel all the changes have been made and disable the fields
+         */
+        editCancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int confirmation = JOptionPane.showConfirmDialog(null,
+                        "Are you sure to cancel all the changes?", "Confirmation",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
+                if (confirmation == JOptionPane.OK_OPTION) {
+                    // Reset and disable fields and buttons
+                    editBbName.setText("");
+                    editBbMsg.setText("");
+                    editBbInfo.setText("");
+                    editBbImgLink.setText("");
+                    editBbID.setText("");
+                    toEditRow.setText("CHOOSE A BILLBOARD FROM VIEW TAB TO BEGIN EDITING");
+                    editBbID.setText("CHOOSE A BILLBOARD FROM VIEW TAB TO BEGIN EDITING");
+
+                    // Change tab and enable edit fields and buttons
+                    editBbName.setEnabled(false);
+                    editBbMsg.setEnabled(false);
+                    editBbInfo.setEnabled(false);
+                    editBbImgLink.setEnabled(false);
+                    editBbColourButton.setEnabled(false);
+                    editMessageColourButton.setEnabled(false);
+                    editInfoColourButton.setEnabled(false);
+                    editPreviewButton.setEnabled(false);
+                    editUpdateButton.setEnabled(false);
+                    editChooseImageButton.setEnabled(false);
+                    editCancelButton.setEnabled(false);
+                    billboardsPane.setSelectedIndex(0);
                 }
             }
         });
@@ -393,6 +431,6 @@ public class EditBillboards implements ControlPanelComponent {
         this.editBbColourPreview = controlPanelGUI.editBbColourPreview;
         this.editMessageColourPreview = controlPanelGUI.editMessageColourPreview;
         this.editInfoColourPreview = controlPanelGUI.editInfoColourPreview;
-
+        this.editCancelButton = controlPanelGUI.editCancelButton;
     }
 }
