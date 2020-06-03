@@ -200,6 +200,9 @@ public class EditBillboards implements ControlPanelComponent {
         );
 
         editInfoColourButton.addActionListener(new ActionListener() {
+            /**
+             * @param e
+             */
               @Override
               public void actionPerformed(ActionEvent e) {
                   // Create a colour chooser dialog
@@ -220,6 +223,9 @@ public class EditBillboards implements ControlPanelComponent {
          * Add action listeners to choose an image from a file
          */
         editChooseImageButton.addActionListener(new ActionListener() {
+            /**
+             * @param e
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -281,7 +287,7 @@ public class EditBillboards implements ControlPanelComponent {
      * @param fullName
      * @return
      */
-    private static String getFileExtension(String fullName) {
+    public static String getFileExtension(String fullName) {
         String fileName = new File(fullName).getName();
         int dotIndex = fileName.lastIndexOf('.');
         return (dotIndex == -1) ? "" : fileName.substring(dotIndex + 1);
@@ -298,7 +304,7 @@ public class EditBillboards implements ControlPanelComponent {
      * @param imgData
      * @return
      */
-    private static String createXMLString(String billboardColour, String message, String messageColour,
+    public static String createXMLString(String billboardColour, String message, String messageColour,
                                           String info, String infoColour, String imgData) {
         // Initial result, open the billboard tag
         String result = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
@@ -380,12 +386,14 @@ public class EditBillboards implements ControlPanelComponent {
      * @return base64 encoded string
      * @throws Exception if the file cannot be read
      */
-    private static String encodeFileToBase64Binary(File file) throws Exception{
+    public static String encodeFileToBase64Binary(File file) throws Exception{
         FileInputStream fileInputStreamReader = new FileInputStream(file);
         byte[] bytes = new byte[(int)file.length()];
         fileInputStreamReader.read(bytes);
         return Base64.getEncoder().encodeToString(bytes);
     }
+
+
 
     /**
      * Check if an image string is URL or Base64
