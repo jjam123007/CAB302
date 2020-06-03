@@ -55,6 +55,7 @@ public class ViewBillboards implements ControlPanelComponent {
     public JButton editChooseImageButton;
     public JButton editPreviewButton;
     public JButton editUpdateButton;
+    public JButton editCancelButton;
     public JButton viewXMLExportButton;
     public JButton addScheduleButton;
     public JButton viewScheduleButton;
@@ -393,6 +394,7 @@ public class ViewBillboards implements ControlPanelComponent {
                     editInfoColourButton.setEnabled(true);
                     editPreviewButton.setEnabled(true);
                     editUpdateButton.setEnabled(true);
+                    editCancelButton.setEnabled(true);
                     editChooseImageButton.setEnabled(true);
                     billboardsPane.setSelectedIndex(2);
                 } catch (ArrayIndexOutOfBoundsException exc) {
@@ -518,6 +520,7 @@ public class ViewBillboards implements ControlPanelComponent {
         this.editInfoColourButton = controlPanelGUI.editInfoColourButton;
         this.editChooseImageButton = controlPanelGUI.editChooseImageButton;
         this.editPreviewButton = controlPanelGUI.editPreviewButton;
+        this.editCancelButton = controlPanelGUI.editCancelButton;
         this.editUpdateButton = controlPanelGUI.editUpdateButton;
         this.viewXMLExportButton = controlPanelGUI.viewXMLExportButton;
         this.addScheduleButton = controlPanelGUI.addScheduleButton;

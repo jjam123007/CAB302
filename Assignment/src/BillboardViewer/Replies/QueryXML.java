@@ -74,7 +74,6 @@ public final class QueryXML {
         // Generate query
         String query = "Select billboardID from schedules where scheduledDate = \"" + date + "\"" +
                 " and (startTime <= \"" + time + "\" and endTime >= \"" + time + "\");";
-        System.out.println(query);
 
         try {
             // Establish a connection to the database

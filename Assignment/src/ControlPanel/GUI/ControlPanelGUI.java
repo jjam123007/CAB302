@@ -99,6 +99,7 @@ public class ControlPanelGUI {
     public JButton viewScheduleButton;
     public JButton viewAllSchedulesButton;
     public JButton deleteScheduleButton;
+    public JButton editCancelButton;
     public JLabel RowToEdit;
 
     public int rowToEdit;

@@ -28,6 +28,7 @@ public final class ManageBillboards implements Serializable {
      * @throws SQLException
      */
     public static void addBillboard(Object[] data, String token) throws SQLException{
+        // Get the billboard information
         String name = (String) data[0];
         String message = (String) data[1];
         String info = (String) data[2];
@@ -35,8 +36,12 @@ public final class ManageBillboards implements Serializable {
         String xml = (String) data[4];
         String username = ServerUserSession.getUsername(token);
 
+        // Add to the database
+        // Billboard table
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery("insert into billboards(billboardID, billboardName, creatorName,message,information, url, xml) values(null,'" + name + "','" + username + "',' " + message + "','" + info + "','" + url + "','" + xml +"');");
+
+        // Billboard Info Table
         ResultSet sqlResult = statement.executeQuery("select billboardID from billboards;");
         sqlResult.afterLast();
         sqlResult.previous();
@@ -51,12 +56,12 @@ public final class ManageBillboards implements Serializable {
      * @param data
      * @throws SQLException
      */
-    public static void delete(Object[] data) throws SQLException{
+    public static void delete(Object[] data) throws SQLException {
         int id = (int) data[0];
 
         Statement statement = DBConnection.getInstance().createStatement();
-        statement.executeQuery("delete from billboards_info where viewID=(" + id+ ");");
-        statement.executeQuery("delete from billboards where billboardID=(" + id+ ");");
+        statement.executeQuery("delete from billboards_info where viewID=(" + id + ");");
+        statement.executeQuery("delete from billboards where billboardID=(" + id + ");");
         statement.close();
     }
 
@@ -151,19 +156,22 @@ public final class ManageBillboards implements Serializable {
         // Get system date and time
         String date = LocalDate.now().toString();
 
+        // Initiate result
         Object[][] tableData;
 
+        // Query from the database
         Statement statement = DBConnection.getInstance().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT scheduleID, billboardID, scheduledDate, startTime, endTime FROM schedules where billboardID=" + billboardID +
                 " AND scheduledDate>='" + date + "';");
         ResultSet billboardName = statement.executeQuery("SELECT billboardName FROM billboards where billboardID=" + billboardID + ";");
         billboardName.next();
 
+        // Some preparation for date formatting
         SimpleDateFormat oldDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+        // Get the number of results
         int rowcount = 0;
-
         if (resultSet.last()) {
             rowcount = resultSet.getRow();
             resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
@@ -171,6 +179,7 @@ public final class ManageBillboards implements Serializable {
 
         tableData = new Object[rowcount][5];
 
+        // Populate the result to the array
         for (int i = 0; i < rowcount; i++) {
             resultSet.next();
             String BillboardName = billboardName.getString(1);
@@ -181,7 +190,11 @@ public final class ManageBillboards implements Serializable {
             Object[] myString = {scheduleID, billboardID, BillboardName,scheduledDate, startTime, endTime};
             tableData[i] = myString;
         }
+
+        // Close the connection
         statement.close();
+
+        // Return the result
         return tableData;
     }
 
@@ -205,11 +218,12 @@ public final class ManageBillboards implements Serializable {
         Statement statement = DBConnection.getInstance().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT scheduleID, billboardID, scheduledDate, startTime, endTime FROM schedules WHERE scheduledDate>='" + date + "' AND scheduledDate <= '"+ newDate +"';");
 
+        // Some preparation for date formatting
         SimpleDateFormat oldDateFormat = new SimpleDateFormat("yyyy-MM-dd");
         SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
+        // Get the number of results
         int rowcount = 0;
-
         if (resultSet.last()) {
             rowcount = resultSet.getRow();
             resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
@@ -217,6 +231,7 @@ public final class ManageBillboards implements Serializable {
 
         tableData = new Object[rowcount][5];
 
+        // Populate the array with the result
         for (int i = 0; i < rowcount; i++) {
             resultSet.next();
             String scheduleID = resultSet.getString(1);
@@ -235,12 +250,14 @@ public final class ManageBillboards implements Serializable {
             Object[] myString = {scheduleID, billboardID, BillboardName,scheduledDate, startTime, endTime};
             tableData[i] = myString;
         }
+
+        // Close the connection and return the result
         statement.close();
         return tableData;
     }
 
     /**
-     * Delete a selected schedule
+     * Delete a selected schedule from the database
      */
     public static void deleteSchedule(Object[] data) throws SQLException{
         String scheduleID = (String) data[0];

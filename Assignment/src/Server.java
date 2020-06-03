@@ -76,7 +76,7 @@ public class Server {
 
                 // Read request
                 Object request = ois.readObject();
-                System.out.println("request received");
+                System.out.println("Request received");
 
                 // Handle request
                 if (request instanceof LoginRequest)
@@ -161,9 +161,7 @@ public class Server {
                             replyMessage = new BillboardReply(ReplyError.userNotPermitted);
                         }
                     }catch (SQLException e){
-                         replyMessage = new BillboardReply("Please ensure the input are in correct format and valid \n"+
-                                "Date: yyyy-mm-dd \n"+
-                                "Time: hh:mm:ss");
+                         replyMessage = new BillboardReply("Something went wrong, could not add the schedule to the database.");
                     }
                     break;
                 }
