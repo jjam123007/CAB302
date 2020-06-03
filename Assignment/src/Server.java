@@ -20,6 +20,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.text.ParseException;
 
 import static Networking.NetworkConnection.openServer;
 
@@ -62,7 +63,7 @@ public class Server {
      * @throws ClassNotFoundException
      * @throws SQLException
      */
-    public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException, NoSuchAlgorithmException {
+    public static void main (String [] args) throws IOException, ClassNotFoundException, SQLException, NoSuchAlgorithmException, ParseException {
         ServerSocket serverSocket = openServer();
         //check if the tables exits..
         DBConnection.checkTableExists();
@@ -108,7 +109,7 @@ public class Server {
      * @throws SQLException
      * @throws IOException
      */
-    private static void handleBillboardRequests(BillboardRequest billboardRequest) throws SQLException, IOException {
+    private static void handleBillboardRequests(BillboardRequest billboardRequest) throws SQLException, IOException, ParseException {
         BillboardRequestType request = (billboardRequest).getRequest();  System.out.println("Request type :"+ request);
         String sessionToken = (billboardRequest).getSessionToken();
         boolean sessionValid = ServerUserSession.isValid(sessionToken);

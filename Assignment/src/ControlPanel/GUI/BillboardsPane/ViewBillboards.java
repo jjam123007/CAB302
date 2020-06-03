@@ -21,6 +21,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -155,35 +156,38 @@ public class ViewBillboards implements ControlPanelComponent {
             @Override
             /**@see javax.awt.event.addActionListner#actionPerformed(javax.awt.event.ActionEvent)*/
             public void actionPerformed(ActionEvent e) {
-                try {
-                    //sends the delete request, provided with selection id
-                    Object[] id = {billboardID};
-                    BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Are you sure to delete billboard " + billboardID + "?", "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    try {
+                        //sends the delete request, provided with selection id
+                        Object[] id = {billboardID};
+                        BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
 
-                    if(billboardID != null){
-                        //read the reply from the server
-                        BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
-                        delete.closeConnection();
-                        String message = messageObject.getMessage();
-                        //refresh the pane to view data
-                        billboardsPane.setSelectedIndex(2);
-                        billboardsPane.setSelectedIndex(0);
+                        if(billboardID != null){
+                            //read the reply from the server
+                            BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
+                            delete.closeConnection();
+                            String message = messageObject.getMessage();
+                            //refresh the pane to view data
+                            billboardsPane.setSelectedIndex(2);
+                            billboardsPane.setSelectedIndex(0);
 
-                        JOptionPane.showMessageDialog(controlPanel,message,"Success",JOptionPane.NO_OPTION);
+                            JOptionPane.showMessageDialog(controlPanel,message,"Success",JOptionPane.NO_OPTION);
 
-                    }else{
-                        //read the reply from the server
-                        BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
-                        delete.closeConnection();
-                        String message = messageObject.getMessage();
-                        JOptionPane.showMessageDialog(controlPanel,message,"Warning",JOptionPane.NO_OPTION);
+                        } else{
+                            //read the reply from the server
+                            BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
+                            delete.closeConnection();
+                            String message = messageObject.getMessage();
+                            JOptionPane.showMessageDialog(controlPanel,message,"Warning",JOptionPane.NO_OPTION);
+                        }
+                    } catch (IOException | ClassNotFoundException ex) {
+                        JOptionPane.showMessageDialog(controlPanel,"Something went wrong. Cannot delete this billboard!",
+                                "Error",JOptionPane.NO_OPTION);
                     }
-                } catch (IOException | ClassNotFoundException ex) {
-                    JOptionPane.showMessageDialog(controlPanel,"Something went wrong. Cannot delete this billboard!",
-                            "Error",JOptionPane.NO_OPTION);
                 }
             }
-
         });
 
         viewScheduleButton.addActionListener(new ActionListener() {
@@ -206,6 +210,7 @@ public class ViewBillboards implements ControlPanelComponent {
                     ));
                     calenderView.setDefaultEditor(Object.class, null);
                     isSpecificSchedule = true;
+                    viewAllSchedulesButton.setText("View all schedules in the next 7 days");
                     viewAllSchedulesButton.setEnabled(true);
                     billboardsPane.setSelectedIndex(3);
 
@@ -247,31 +252,39 @@ public class ViewBillboards implements ControlPanelComponent {
                 myPanel.add(endMinute);
 
                 int result = JOptionPane.showConfirmDialog(null, myPanel,
-                        "Add the specific date and time for billboard", JOptionPane.OK_CANCEL_OPTION);
+                        "Add schedule for billboard number " + billboardID, JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
                 if (result == JOptionPane.OK_OPTION) {
-                    //sends the request to server with data provided
-                    String startTime = startHour.getSelectedItem().toString() + ":" + startMinute.getSelectedItem().toString() + ":00";
-                    String endTime = endHour.getSelectedItem().toString() + ":" + endMinute.getSelectedItem().toString() + ":00";
+                    Boolean validInput = (Integer.parseInt(startHour.getSelectedItem().toString()) < Integer.parseInt(endHour.getSelectedItem().toString()))
+                            || (Integer.parseInt(startHour.getSelectedItem().toString()) == Integer.parseInt(endHour.getSelectedItem().toString())
+                                && Integer.parseInt(startMinute.getSelectedItem().toString()) < Integer.parseInt(endMinute.getSelectedItem().toString()));
+                    if (validInput) {
+                        SimpleDateFormat oldDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                        SimpleDateFormat newDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        //sends the request to server with data provided
+                        String startTime = startHour.getSelectedItem().toString() + ":" + startMinute.getSelectedItem().toString() + ":00";
+                        String endTime = endHour.getSelectedItem().toString() + ":" + endMinute.getSelectedItem().toString() + ":00";
+                        String chosenScheduleDate = newDateFormat.format(oldDateFormat.parse(date.getSelectedItem().toString()));
 
-                    Object[] submitData = {billboardID, date.getSelectedItem().toString(),startTime,endTime};
-                    BillboardRequest addview = new BillboardRequest(BillboardRequestType.addSchedule, submitData, ClientUser.getToken());
+                        Object[] submitData = {billboardID, chosenScheduleDate, startTime, endTime};
+                        BillboardRequest addview = new BillboardRequest(BillboardRequestType.addSchedule, submitData, ClientUser.getToken());
 
-                    //read the reply from the server
-                    BillboardReply messageObject = (BillboardReply) addview.getOIS().readObject();
-                    addview.closeConnection();
-                    String message = messageObject.getMessage();
-                    //refresh the pane to get the latest view
-                    billboardsPane.setSelectedIndex(2);
-                    billboardsPane.setSelectedIndex(0);
-                    JOptionPane.showMessageDialog(controlPanel,message,"Information",JOptionPane.NO_OPTION);
+                        //read the reply from the server
+                        BillboardReply messageObject = (BillboardReply) addview.getOIS().readObject();
+                        addview.closeConnection();
+                        String message = messageObject.getMessage();
+                        //refresh the pane to get the latest view
+                        billboardsPane.setSelectedIndex(2);
+                        billboardsPane.setSelectedIndex(0);
+                        JOptionPane.showMessageDialog(controlPanel, message, "Information", JOptionPane.NO_OPTION);
+                    } else {
+                        JOptionPane.showMessageDialog(controlPanel, "Please enter a valid period of time!", "Information", JOptionPane.NO_OPTION);
+                    }
                 }
 
-                }catch (IOException ex) {
-                    ex.printStackTrace();
-                } catch (ClassNotFoundException ex) {
-                    ex.printStackTrace();
-                }catch (ArrayIndexOutOfBoundsException ex){
-                    JOptionPane.showMessageDialog(controlPanel,"No row was selected","Information",JOptionPane.NO_OPTION);
+                } catch (IOException | ParseException | ClassNotFoundException ex) {
+                    JOptionPane.showMessageDialog(controlPanel,"Something went wrong, cannot schedule this billboard!","Error",JOptionPane.NO_OPTION);
+                } catch (ArrayIndexOutOfBoundsException ex){
+                    JOptionPane.showMessageDialog(controlPanel,"Please select a billboard for scheduling!","Information",JOptionPane.NO_OPTION);
                 }
 
 
@@ -438,6 +451,7 @@ public class ViewBillboards implements ControlPanelComponent {
                                 new String[]{"Schedule ID", "Billboard ID","Billboard Name","Date","Starting time", "Ending time"}
                         ));
                         calenderView.setDefaultEditor(Object.class, null);
+                        viewAllSchedulesButton.setText("Currently viewing all schedules in the next 7 days");
                         viewAllSchedulesButton.setEnabled(false);
                         billboardsPane.setSelectedIndex(3);
                     } catch (IOException | ClassNotFoundException ex) {
@@ -451,7 +465,7 @@ public class ViewBillboards implements ControlPanelComponent {
     // Create an array of date from today to the next 7 days
     private static String[] generateInputDate() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         String[] dateArray = new String[8];
         dateArray[0] = dateFormat.format(calendar.getTime());
@@ -460,7 +474,7 @@ public class ViewBillboards implements ControlPanelComponent {
             String newDate = dateFormat.format(calendar.getTime());
             dateArray[i] = newDate;
         }
-        return  dateArray;
+        return dateArray;
     }
 
     private static String[] generateInputHour() {

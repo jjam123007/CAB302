@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
@@ -103,7 +104,7 @@ public final class ManageBillboards implements Serializable {
      * @return tableDataArray
      * @throws SQLException
      */
-    public static Object[][] showBillboards() throws SQLException {
+    public static Object[][] showBillboards() throws SQLException, ParseException {
         Object[][] tableData;
 
         Statement statement = DBConnection.getInstance().createStatement();
@@ -117,6 +118,9 @@ public final class ManageBillboards implements Serializable {
         }
         tableData = new Object[rowcount][9];
 
+        SimpleDateFormat oldDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         for (int i = 0; i < rowcount; i++) {
             resultSet.next();
             String viewID = Integer.toString(resultSet.getInt(1));
@@ -125,7 +129,7 @@ public final class ManageBillboards implements Serializable {
             String msg = resultSet.getString(4);
             String info = resultSet.getString(5);
             String url = resultSet.getString(6);
-            String scheduledDate = resultSet.getString(7);
+            String scheduledDate = newDateFormat.format(oldDateFormat.parse(resultSet.getString(7)));
             Time startTime = resultSet.getTime(8);
             Time endTime = resultSet.getTime(9);
             Object[] myString = {viewID, BillboardName,creatorName, msg,info, url, scheduledDate, startTime, endTime};
@@ -141,7 +145,7 @@ public final class ManageBillboards implements Serializable {
      * @return tableDataArray
      * @throws SQLException
      */
-    public static Object[][] showSchedule(Object[] data) throws SQLException {
+    public static Object[][] showSchedule(Object[] data) throws SQLException, ParseException {
         String billboardID = (String) data[0];
 
         // Get system date and time
@@ -154,6 +158,9 @@ public final class ManageBillboards implements Serializable {
                 " AND scheduledDate>='" + date + "';");
         ResultSet billboardName = statement.executeQuery("SELECT billboardName FROM billboards where billboardID=" + billboardID + ";");
         billboardName.next();
+
+        SimpleDateFormat oldDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         int rowcount = 0;
 
@@ -168,7 +175,7 @@ public final class ManageBillboards implements Serializable {
             resultSet.next();
             String BillboardName = billboardName.getString(1);
             String scheduleID = resultSet.getString(1);
-            String scheduledDate = resultSet.getString(3);
+            String scheduledDate = newDateFormat.format(oldDateFormat.parse(resultSet.getString(3)));
             Time startTime = resultSet.getTime(4);
             Time endTime = resultSet.getTime(5);
             Object[] myString = {scheduleID, billboardID, BillboardName,scheduledDate, startTime, endTime};
@@ -184,7 +191,7 @@ public final class ManageBillboards implements Serializable {
      * @return tableDataArray
      * @throws SQLException
      */
-    public static Object[][] showAllSchedule() throws SQLException {
+    public static Object[][] showAllSchedule() throws SQLException, ParseException {
         Object[][] tableData;
 
         // Get system date and time
@@ -197,6 +204,9 @@ public final class ManageBillboards implements Serializable {
 
         Statement statement = DBConnection.getInstance().createStatement();
         ResultSet resultSet = statement.executeQuery("SELECT scheduleID, billboardID, scheduledDate, startTime, endTime FROM schedules WHERE scheduledDate>='" + date + "' AND scheduledDate <= '"+ newDate +"';");
+
+        SimpleDateFormat oldDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat newDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
         int rowcount = 0;
 
@@ -219,7 +229,7 @@ public final class ManageBillboards implements Serializable {
             } else {
                 BillboardName = "(Deleted)";
             }
-            String scheduledDate = resultSet.getString(3);
+            String scheduledDate = newDateFormat.format(oldDateFormat.parse(resultSet.getString(3)));
             Time startTime = resultSet.getTime(4);
             Time endTime = resultSet.getTime(5);
             Object[] myString = {scheduleID, billboardID, BillboardName,scheduledDate, startTime, endTime};

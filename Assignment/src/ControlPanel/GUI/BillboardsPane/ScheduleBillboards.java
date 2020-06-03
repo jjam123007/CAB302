@@ -79,6 +79,7 @@ public class ScheduleBillboards implements ControlPanelComponent {
                             new String[]{"Schedule ID", "Billboard ID","Billboard Name","Date","Starting time", "Ending time"}
                     ));
                     calenderView.setDefaultEditor(Object.class, null);
+                    viewAllSchedulesButton.setText("Currently viewing all schedules in the next 7 days");
                     viewAllSchedulesButton.setEnabled(false);
                     billboardsPane.setSelectedIndex(3);
                 } catch (IOException | ClassNotFoundException ex) {
@@ -93,26 +94,34 @@ public class ScheduleBillboards implements ControlPanelComponent {
         deleteScheduleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    Object[] id = {calenderView.getModel().getValueAt(selectedRow,0).toString()};
-                    System.out.println(calenderView.getModel().getValueAt(selectedRow,0).toString());
-                    BillboardRequest delete = new BillboardRequest(BillboardRequestType.deleteSchedule, id, ClientUser.getToken());
-                    BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
-                    delete.closeConnection();
-                    String message = messageObject.getMessage();
+                int result = JOptionPane.showConfirmDialog(null,
+                        "Are you sure to delete schedule for billboard " + calenderView.getModel().getValueAt(selectedRow,1).toString()
+                                + ", from " + calenderView.getModel().getValueAt(selectedRow,4).toString() + " to "
+                                + calenderView.getModel().getValueAt(selectedRow,5).toString() + " on "
+                                + calenderView.getModel().getValueAt(selectedRow,3).toString() + "?",
+                            "Confirmation", JOptionPane.OK_CANCEL_OPTION);
+                if (result == JOptionPane.OK_OPTION) {
+                    try {
+                        Object[] id = {calenderView.getModel().getValueAt(selectedRow, 0).toString()};
 
-                    //refresh the pane to view data
-                    billboardsPane.setSelectedIndex(1);
-                    billboardsPane.setSelectedIndex(3);
+                        BillboardRequest delete = new BillboardRequest(BillboardRequestType.deleteSchedule, id, ClientUser.getToken());
+                        BillboardReply messageObject = (BillboardReply) delete.getOIS().readObject();
+                        delete.closeConnection();
+                        String message = messageObject.getMessage();
 
-                    JOptionPane.showMessageDialog(controlPanel,message,"Success",JOptionPane.NO_OPTION);
+                        //refresh the pane to view data
+                        billboardsPane.setSelectedIndex(1);
+                        billboardsPane.setSelectedIndex(3);
 
-                } catch (ArrayIndexOutOfBoundsException exc) {
-                    JOptionPane.showMessageDialog(controlPanel,"Please select a schedule to delete!",
-                            "Error", JOptionPane.NO_OPTION);
-                } catch (IOException | ClassNotFoundException ex) {
-                    JOptionPane.showMessageDialog(controlPanel,"Something went wrong. Cannot delete this schedule!",
-                            "Error",JOptionPane.NO_OPTION);
+                        JOptionPane.showMessageDialog(controlPanel, message, "Success", JOptionPane.NO_OPTION);
+
+                    } catch (ArrayIndexOutOfBoundsException exc) {
+                        JOptionPane.showMessageDialog(controlPanel, "Please select a schedule to delete!",
+                                "Error", JOptionPane.NO_OPTION);
+                    } catch (IOException | ClassNotFoundException ex) {
+                        JOptionPane.showMessageDialog(controlPanel, "Something went wrong. Cannot delete this schedule!",
+                                "Error", JOptionPane.NO_OPTION);
+                    }
                 }
             }
         });
