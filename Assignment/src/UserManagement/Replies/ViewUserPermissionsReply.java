@@ -28,7 +28,12 @@ public class ViewUserPermissionsReply extends Reply {
         super(sessionToken);
         if (tokenExpired) return;
 
-        if (ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers)){
+        //Check if the user that sent the request is trying to change their own password.
+        boolean clientIsTargetUser = username.equals(ServerUserSession.getUsername(sessionToken));
+        //Check if the user that sent the request is an admin.
+        boolean clientUserIsAdmin = ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers);
+
+        if ((clientIsTargetUser || clientUserIsAdmin)){
             retrieveUserPermissions(username);
         }else{
             this.errorMessage = ReplyError.userNotPermitted;

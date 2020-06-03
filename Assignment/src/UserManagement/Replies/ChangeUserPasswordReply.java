@@ -29,9 +29,9 @@ public class ChangeUserPasswordReply extends Reply {
 
         String username = editUserPropertyRequest.getUsername();
         String password = editUserPropertyRequest.getPassword();
-        //Check if the user that send the request is trying to change their own password.
+        //Check if the user that sent the request is trying to change their own password.
         boolean clientIsTargetUser = username.equals(ServerUserSession.getUsername(sessionToken));
-        //Check if the user that send the request is an admin.
+        //Check if the user that sent the request is an admin.
         boolean clientUserIsAdmin = ServerUserSession.hasPermission(sessionToken, PermissionType.editUsers);
         if ((clientIsTargetUser || clientUserIsAdmin)){
             changePassword(username, password);
