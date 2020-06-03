@@ -4,6 +4,8 @@ package ControlPanel.GUI;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -118,13 +120,29 @@ public class ControlPanelGUI {
         JPanel root = this.controlPanel;
         frame = new JFrame();
         frame.setContentPane(root);
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.setSize(800,500);
         initControlPanelComponents();
+        setupClosingConfirmationDialog();
+    }
 
+    private void setupClosingConfirmationDialog() {
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                int confirmed = JOptionPane.showConfirmDialog(null,
+                        "Are you sure to exit the program?", "Confirmation",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (confirmed == JOptionPane.YES_OPTION) {
+                    frame.dispose();
+                } else {
+
+                }
+            }
+        });
     }
 
     private void initControlPanelComponents() throws IOException, ClassNotFoundException, SQLException {
