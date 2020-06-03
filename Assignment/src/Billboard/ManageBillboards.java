@@ -134,7 +134,10 @@ public final class ManageBillboards implements Serializable {
             String msg = resultSet.getString(4);
             String info = resultSet.getString(5);
             String url = resultSet.getString(6);
-            String scheduledDate = newDateFormat.format(oldDateFormat.parse(resultSet.getString(7)));
+            String scheduledDate = null;
+            if (!(resultSet.getString(7) == null)){
+                scheduledDate = newDateFormat.format(oldDateFormat.parse(resultSet.getString(7)));
+            }
             Time startTime = resultSet.getTime(8);
             Time endTime = resultSet.getTime(9);
             Object[] myString = {viewID, BillboardName,creatorName, msg,info, url, scheduledDate, startTime, endTime};
