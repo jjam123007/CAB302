@@ -30,12 +30,6 @@ public class ControlPanelGUI {
     public JButton editUpdateButton;
     public JLabel editBbID;
 
-    public JTextArea scheduleBbID;
-    public JTextArea scheduleEndTime;
-    public JTextArea scheduleStartTime;
-    public JTextArea scheduleBbDate;
-    public JButton scheduleSubmitButton;
-
     public JTable viewTable;
     public JButton viewEditButton;
     public JButton viewDeleteButton;
@@ -103,6 +97,8 @@ public class ControlPanelGUI {
     public JButton addScheduleButton;
     public JTable calenderView;
     public JButton viewScheduleButton;
+    public JButton viewAllSchedulesButton;
+    public JButton deleteScheduleButton;
     public JLabel RowToEdit;
 
     public int rowToEdit;

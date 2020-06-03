@@ -3,16 +3,20 @@ package Billboard;
 import Database.DBConnection;
 import User.ServerUserSession;
 
+import javax.xml.transform.Result;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 /**
  * This class used to create some functions to feedback user's request to databases,
  * and perform corresponding operations in databases
- * @author Jun Chen(n10240977)&Haoze He(n10100351)
+ * @author Jun Chen(n10240977) & Haoze He(n10100351) & William Tran (n10306234)
  */
 public final class ManageBillboards implements Serializable {
     /**
@@ -49,7 +53,6 @@ public final class ManageBillboards implements Serializable {
     public static void delete(Object[] data) throws SQLException{
         int id = (int) data[0];
 
-        System.out.println("ID :" + id);
         Statement statement = DBConnection.getInstance().createStatement();
         statement.executeQuery("delete from billboards_info where viewID=(" + id+ ");");
         statement.executeQuery("delete from billboards where billboardID=(" + id+ ");");
@@ -57,19 +60,20 @@ public final class ManageBillboards implements Serializable {
     }
 
     /**
-     *This function used to update schedule according to view id in dataBases,
+     *This function used to update latest schedule according to view id in dataBases,
      * when request of user is insert or edit schedule for created billBoard or existed billBoard
      *
      * @param data
      * @throws SQLException
      */
-    public static void addView (Object[] data) throws SQLException {
+    public static void addSchedule(Object[] data) throws SQLException {
         String id = (String) data[0];
         String scheduledDate = (String) data[1];
         String startTime = (String) data[2];
         String endTime = (String) data[3];
 
         Statement statement = DBConnection.getInstance().createStatement();
+        statement.executeQuery("INSERT INTO schedules values (null, " + id + ",'" + scheduledDate + "','" + startTime + "','" + endTime + "');");
         statement.executeQuery("update billboards_info set scheduleddate='" + scheduledDate + "', starttime='" + startTime + "', endtime='" + endTime + "'Where viewID='" + id + "';");
         statement.close();
     }
@@ -81,7 +85,6 @@ public final class ManageBillboards implements Serializable {
      * @throws SQLException
      */
     public static void edit(Object[] data) throws SQLException {
-        System.out.println("Data0: "+data[0]);
         int id = (int) data[0];
         String name = (String) data[1];
         String message = (String) data[2];
@@ -139,13 +142,14 @@ public final class ManageBillboards implements Serializable {
      * @throws SQLException
      */
     public static Object[][] showSchedule(Object[] data) throws SQLException {
-        String billboardName = (String) data[0];
+        String billboardID = (String) data[0];
 
-        System.out.println("ID :" + billboardName);
         Object[][] tableData;
 
         Statement statement = DBConnection.getInstance().createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT viewID,billboardName,scheduledDate,startTime,endTime FROM billboards_info where billboardName='"+billboardName+"';");
+        ResultSet resultSet = statement.executeQuery("SELECT scheduleID, billboardID, scheduledDate, startTime, endTime FROM schedules where billboardID=" + billboardID + ";");
+        ResultSet billboardName = statement.executeQuery("SELECT billboardName FROM billboards where billboardID=" + billboardID + ";");
+        billboardName.next();
 
         int rowcount = 0;
 
@@ -153,23 +157,80 @@ public final class ManageBillboards implements Serializable {
             rowcount = resultSet.getRow();
             resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
         }
+
         tableData = new Object[rowcount][5];
 
         for (int i = 0; i < rowcount; i++) {
             resultSet.next();
-            String viewID = Integer.toString(resultSet.getInt(1));
-            String BillboardName = resultSet.getString(2);
+            String BillboardName = billboardName.getString(1);
+            String scheduleID = resultSet.getString(1);
             String scheduledDate = resultSet.getString(3);
             Time startTime = resultSet.getTime(4);
             Time endTime = resultSet.getTime(5);
-            Object[] myString = {viewID, BillboardName,scheduledDate, startTime, endTime};
+            Object[] myString = {scheduleID, billboardID, BillboardName,scheduledDate, startTime, endTime};
             tableData[i] = myString;
         }
         statement.close();
         return tableData;
     }
 
+    /**
+     * This method used to get all schedule data,
+     * then show in schedule pane to view the calender structure of billboards.
+     * @return tableDataArray
+     * @throws SQLException
+     */
+    public static Object[][] showAllSchedule() throws SQLException {
+        Object[][] tableData;
 
+        // Get system date and time
+        String date = LocalDate.now().toString();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_MONTH, 7);
+        String newDate = (new SimpleDateFormat("yyyy-MM-dd")).format(calendar.getTime());
 
+        Statement statement = DBConnection.getInstance().createStatement();
+        ResultSet resultSet = statement.executeQuery("SELECT scheduleID, billboardID, scheduledDate, startTime, endTime FROM schedules WHERE scheduledDate>='" + date + "' AND scheduledDate <= '"+ newDate +"';");
 
+        int rowcount = 0;
+
+        if (resultSet.last()) {
+            rowcount = resultSet.getRow();
+            resultSet.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+        }
+
+        tableData = new Object[rowcount][5];
+
+        for (int i = 0; i < rowcount; i++) {
+            resultSet.next();
+            String scheduleID = resultSet.getString(1);
+            String billboardID = resultSet.getString(2);
+            ResultSet billboardName = statement.executeQuery("SELECT billboardName FROM billboards where billboardID=" + billboardID + ";");
+
+            String BillboardName;
+            if (billboardName.next()){
+                BillboardName = billboardName.getString(1);
+            } else {
+                BillboardName = "(Deleted)";
+            }
+            String scheduledDate = resultSet.getString(3);
+            Time startTime = resultSet.getTime(4);
+            Time endTime = resultSet.getTime(5);
+            Object[] myString = {scheduleID, billboardID, BillboardName,scheduledDate, startTime, endTime};
+            tableData[i] = myString;
+        }
+        statement.close();
+        return tableData;
+    }
+
+    /**
+     * Delete a selected schedule
+     */
+    public static void deleteSchedule(Object[] data) throws SQLException{
+        String scheduleID = (String) data[0];
+
+        Statement statement = DBConnection.getInstance().createStatement();
+        statement.executeQuery("delete from schedules where scheduleID=(" + scheduleID + ");");
+        statement.close();
+    }
 }

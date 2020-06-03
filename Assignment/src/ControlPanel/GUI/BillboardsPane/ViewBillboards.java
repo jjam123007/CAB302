@@ -56,8 +56,8 @@ public class ViewBillboards implements ControlPanelComponent {
     public JButton addScheduleButton;
     public JButton viewScheduleButton;
     public JTable calenderView;
-
-
+    public JButton viewAllSchedulesButton;
+    public static Boolean isSpecificSchedule = false;
 
     /**
      *
@@ -159,8 +159,6 @@ public class ViewBillboards implements ControlPanelComponent {
                     BillboardRequest delete = new BillboardRequest(BillboardRequestType.delete,id,ClientUser.getToken());
 
                     if(billboardID != null){
-
-
                         //read the reply from the server
                         BillboardReply messageObject = (BillboardReply)delete.getOIS().readObject();
                         delete.closeConnection();
@@ -193,24 +191,25 @@ public class ViewBillboards implements ControlPanelComponent {
                 //try request the data to view in control panel and sends to server
                 try {
                     // Get the respected billboard name to view schedule and display on schedule panel for users to edit
-                    String billboardName = viewTable.getModel().getValueAt(selectedRow,1).toString();
+                    String billboardID = viewTable.getModel().getValueAt(selectedRow,0).toString();
 
-                    BillboardRequest showTableRequest = new BillboardRequest(BillboardRequestType.showSchedule,billboardName, ClientUser.getToken());
+                    BillboardRequest showTableRequest = new BillboardRequest(BillboardRequestType.showSchedule, billboardID, ClientUser.getToken());
                     BillboardReply tableData = (BillboardReply) showTableRequest.getOIS().readObject();
                     Object[][]  data = tableData.getTableData();
+                    showTableRequest.closeConnection();
 
                     calenderView.setModel(new DefaultTableModel(
                             data,
-                            new String[]{"view ID","Billboard Name","Date","Starting time", "Ending time"}
+                            new String[]{"Schedule ID", "Billboard ID","Billboard Name","Date","Starting time", "Ending time"}
                     ));
                     calenderView.setDefaultEditor(Object.class, null);
+                    isSpecificSchedule = true;
+                    viewAllSchedulesButton.setEnabled(true);
                     billboardsPane.setSelectedIndex(3);
 
                 } catch (IOException | ClassNotFoundException | ArrayIndexOutOfBoundsException ex) {
-                    ex.printStackTrace();
-                    JOptionPane.showMessageDialog(controlPanel,"No row was selected",
-                            "Error",JOptionPane.NO_OPTION);
-
+                    JOptionPane.showMessageDialog(controlPanel,"Please select a billboard to view its schedule!",
+                            "Warning", JOptionPane.NO_OPTION);
                 }
 
             }
@@ -242,7 +241,7 @@ public class ViewBillboards implements ControlPanelComponent {
                 if (result == JOptionPane.OK_OPTION) {
                     //sends the request to server with data provided
                     Object[] submitData = {billboardID, date.getText(),starttime.getText(),endtime.getText()};
-                    BillboardRequest addview = new BillboardRequest(BillboardRequestType.addView, submitData, ClientUser.getToken());
+                    BillboardRequest addview = new BillboardRequest(BillboardRequestType.addSchedule, submitData, ClientUser.getToken());
 
                     //read the reply from the server
                     BillboardReply messageObject = (BillboardReply) addview.getOIS().readObject();
@@ -382,9 +381,11 @@ public class ViewBillboards implements ControlPanelComponent {
                 }
             }
         });
+
         /**
          * Implements a ChangeListener for tab change,
-         * when tab changed to view tab, all data in viewTable get refreshed
+         * when tab changed to view tab, all data in viewTable get refreshed,
+         * the same for schedule tab
          */
         billboardsPane.addChangeListener(new ChangeListener() {
             /**@param e */
@@ -409,7 +410,25 @@ public class ViewBillboards implements ControlPanelComponent {
                     } catch (IOException | ClassNotFoundException ex) {
                         ex.printStackTrace();
                     }
+                }
 
+                if (billboardsPane.getSelectedIndex() == 3 && !isSpecificSchedule){
+                    try {
+                        BillboardRequest request = new BillboardRequest(BillboardRequestType.showAllSchedules, "dummy data", ClientUser.getToken());
+                        BillboardReply tableData = (BillboardReply) request.getOIS().readObject();
+                        Object[][]  data = tableData.getTableData();
+                        request.closeConnection();
+
+                        calenderView.setModel(new DefaultTableModel(
+                                data,
+                                new String[]{"Schedule ID", "Billboard ID","Billboard Name","Date","Starting time", "Ending time"}
+                        ));
+                        calenderView.setDefaultEditor(Object.class, null);
+                        viewAllSchedulesButton.setEnabled(false);
+                        billboardsPane.setSelectedIndex(3);
+                    } catch (IOException | ClassNotFoundException ex) {
+                        JOptionPane.showMessageDialog(controlPanel,"Cannot read data from the server.","Error",JOptionPane.NO_OPTION);
+                    }
                 }
             }
         });
@@ -443,5 +462,6 @@ public class ViewBillboards implements ControlPanelComponent {
         this.addScheduleButton = controlPanelGUI.addScheduleButton;
         this.viewScheduleButton = controlPanelGUI.viewScheduleButton;
         this.calenderView = controlPanelGUI.calenderView;
+        this.viewAllSchedulesButton = controlPanelGUI.viewAllSchedulesButton;
     }
 }

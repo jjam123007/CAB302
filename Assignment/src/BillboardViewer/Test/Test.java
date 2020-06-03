@@ -19,10 +19,12 @@ import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Iterator;
 
 import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
@@ -40,6 +42,7 @@ public class Test {
 
     // The main function
     public static void main(String[] args) throws Exception {
+
         File a = new File(filePath);
 
         // Create a document builder to parse the XML file
