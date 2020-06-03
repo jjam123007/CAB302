@@ -21,6 +21,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 
 /**
@@ -223,24 +225,35 @@ public class ViewBillboards implements ControlPanelComponent {
                 // Get the respected values and display on edit panel for users to edit
                 String billboardID = viewTable.getModel().getValueAt(selectedRow,0).toString();
 
-                JTextField date = new JTextField(20);
-                JTextField starttime = new JTextField(20);
-                JTextField endtime = new JTextField(20);
+                JComboBox date = new JComboBox(generateInputDate());
+                JComboBox startHour = new JComboBox(generateInputHour());
+                JComboBox startMinute = new JComboBox(generateInputMinute());
+                JComboBox endHour = new JComboBox(generateInputHour());
+                JComboBox endMinute = new JComboBox(generateInputMinute());
                 JPanel myPanel = new JPanel();
                 myPanel.add(new JLabel("Date:"));
                 myPanel.add(date);
                 myPanel.add(Box.createHorizontalStrut(15)); // a spacer
-                myPanel.add(new JLabel("start time:"));
-                myPanel.add(starttime);
+                myPanel.add(new JLabel("Start hour:"));
+                myPanel.add(startHour);
                 myPanel.add(Box.createHorizontalStrut(15)); // a spacer
-                myPanel.add(new JLabel("end time:"));
-                myPanel.add(endtime);
+                myPanel.add(new JLabel("Start minute:"));
+                myPanel.add(startMinute);
+                myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+                myPanel.add(new JLabel("End hour:"));
+                myPanel.add(endHour);
+                myPanel.add(Box.createHorizontalStrut(15)); // a spacer
+                myPanel.add(new JLabel("End minute:"));
+                myPanel.add(endMinute);
 
                 int result = JOptionPane.showConfirmDialog(null, myPanel,
                         "Add the specific date and time for billboard", JOptionPane.OK_CANCEL_OPTION);
                 if (result == JOptionPane.OK_OPTION) {
                     //sends the request to server with data provided
-                    Object[] submitData = {billboardID, date.getText(),starttime.getText(),endtime.getText()};
+                    String startTime = startHour.getSelectedItem().toString() + ":" + startMinute.getSelectedItem().toString() + ":00";
+                    String endTime = endHour.getSelectedItem().toString() + ":" + endMinute.getSelectedItem().toString() + ":00";
+
+                    Object[] submitData = {billboardID, date.getSelectedItem().toString(),startTime,endTime};
                     BillboardRequest addview = new BillboardRequest(BillboardRequestType.addSchedule, submitData, ClientUser.getToken());
 
                     //read the reply from the server
@@ -264,6 +277,7 @@ public class ViewBillboards implements ControlPanelComponent {
 
             }
         });
+
         /**
          * Implements a ActionListener for BillboardButton to get data from the selected row
          * then put these into edit interface.
@@ -404,7 +418,7 @@ public class ViewBillboards implements ControlPanelComponent {
                         {
                             viewTable.setModel(new DefaultTableModel(
                                     data,
-                                    new String[]{"view ID","Billboard Name","Creator Name","Message", "Information","Url", "Scheduled Date", "Start time", "End time"}
+                                    new String[]{"Billboard ID","Billboard Name","Creator Name","Message", "Information","Url", "Scheduled Date", "Start time", "End time"}
                             ));
                         }
                     } catch (IOException | ClassNotFoundException ex) {
@@ -432,6 +446,39 @@ public class ViewBillboards implements ControlPanelComponent {
                 }
             }
         });
+    }
+
+    // Create an array of date from today to the next 7 days
+    private static String[] generateInputDate() {
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        String[] dateArray = new String[8];
+        dateArray[0] = dateFormat.format(calendar.getTime());
+        for (int i = 1; i <= 7; i++){
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            String newDate = dateFormat.format(calendar.getTime());
+            dateArray[i] = newDate;
+        }
+        return  dateArray;
+    }
+
+    private static String[] generateInputHour() {
+        String[] hourArray = new String[24];
+        for (int i = 0; i <= 23; i++) {
+            hourArray[i] = Integer.toString(i);
+        }
+
+        return hourArray;
+    }
+
+    private static String[] generateInputMinute() {
+        String[] minuteArray = new String[60];
+        for (int i = 0; i <= 59; i++) {
+            minuteArray[i] = Integer.toString(i);
+        }
+
+        return minuteArray;
     }
 
     /**

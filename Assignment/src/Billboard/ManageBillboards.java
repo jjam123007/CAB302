@@ -144,10 +144,14 @@ public final class ManageBillboards implements Serializable {
     public static Object[][] showSchedule(Object[] data) throws SQLException {
         String billboardID = (String) data[0];
 
+        // Get system date and time
+        String date = LocalDate.now().toString();
+
         Object[][] tableData;
 
         Statement statement = DBConnection.getInstance().createStatement();
-        ResultSet resultSet = statement.executeQuery("SELECT scheduleID, billboardID, scheduledDate, startTime, endTime FROM schedules where billboardID=" + billboardID + ";");
+        ResultSet resultSet = statement.executeQuery("SELECT scheduleID, billboardID, scheduledDate, startTime, endTime FROM schedules where billboardID=" + billboardID +
+                " AND scheduledDate>='" + date + "';");
         ResultSet billboardName = statement.executeQuery("SELECT billboardName FROM billboards where billboardID=" + billboardID + ";");
         billboardName.next();
 
@@ -185,6 +189,8 @@ public final class ManageBillboards implements Serializable {
 
         // Get system date and time
         String date = LocalDate.now().toString();
+
+        // Get date after 7 days
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DAY_OF_MONTH, 7);
         String newDate = (new SimpleDateFormat("yyyy-MM-dd")).format(calendar.getTime());
