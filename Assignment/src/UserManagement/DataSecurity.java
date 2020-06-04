@@ -19,6 +19,7 @@ public final class DataSecurity {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash = digest.digest(input.getBytes());
         return(bytesToString(hash));
+
     }
 
     /**

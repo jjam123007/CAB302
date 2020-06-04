@@ -138,8 +138,6 @@ public class ControlPanelGUI {
 
                 if (confirmed == JOptionPane.YES_OPTION) {
                     frame.dispose();
-                } else {
-
                 }
             }
         });

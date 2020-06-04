@@ -32,7 +32,6 @@ import java.security.NoSuchAlgorithmException;
             this.username = username;
             this.password = DataSecurity.hash(password);
             this.permissions = permissions;
-            System.out.println(DataSecurity.hash(password));
             sendRequest(this);
         }
 

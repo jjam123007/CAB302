@@ -30,9 +30,6 @@ public class LoginRequest extends Request implements Serializable {
         super();
         this.username = username;
         this.password = DataSecurity.hash(password);
-        System.out.println("HELLo1");
-        System.out.println("HELLo2");
-        System.out.println("HELLo3");
         sendRequest(this);
     }
 

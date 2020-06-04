@@ -25,12 +25,21 @@
     </select>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="- Fixed a bug where users with expired session tokens could not log out of the control panel client.">
+    <list default="true" id="3cb333b9-7f9b-4a49-bed3-33f7ce96deca" name="Default Changelist" comment="- Fixed &quot;invalid permissions&quot; message dialogue box that displayed on startup to non-admin users.&#10;- Minor grammar fixes.">
+      <change afterPath="$PROJECT_DIR$/Assignment/test/User/ServerUserSessionTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assignment/test/UserManagement/DataSecurityTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/MenuPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/MenuPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/Networking/ReplyError.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Networking/ReplyError.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ChangeUserPasswordReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ChangeUserPasswordReply.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ViewUserPermissionsReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/ViewUserPermissionsReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/EditUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/AdminPane/EditUsers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/ControlPanelGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/LoginGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/ControlPanel/GUI/LoginGUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/User/ServerUserSession.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/User/ServerUserSession.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/DataSecurity.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/DataSecurity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/LoginReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/LoginReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/RegisterReply.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Replies/RegisterReply.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/LoginRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/RegisterRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/Assignment/src/UserManagement/Requests/RegisterRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/DESKTOP-KTM4I2R.pid" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/DESKTOP-KTM4I2R.pid" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ib_logfile0" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ib_logfile0" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" beforeDir="false" afterPath="$PROJECT_DIR$/mariaDB/mariadb-10.5.2-winx64/data/ibdata1" afterDir="false" />
@@ -99,18 +108,19 @@
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
       <recent name="User" />
+      <recent name="UserManagement" />
     </key>
     <key name="ExtractSuperBase.RECENT_KEYS">
       <recent name="ControlPanel.GUI.BillboardsPane" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="UserManagement.Replies" />
       <recent name="ControlPanel.GUI" />
       <recent name="" />
       <recent name="Billboard" />
-    </key>
-    <key name="CreateTestDialog.Recents.Supers">
-      <recent name="" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="E:\School\BillboardProject\Assignment\src\ControlPanel\GUI" />
@@ -119,51 +129,55 @@
       <recent name="E:\School\BillboardProject\Assignment\src\GUIs" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.ControlPanelStartup">
-    <configuration name="ControlPanelStartup" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="ControlPanelStartup" />
-      <module name="BillboardProject" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Assignment" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Server" />
-      <module name="BillboardProject" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Assignment/" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="BillboardViewer.Test.Test" />
+  <component name="RunManager" selected="JUnit.ServerUserSessionTest">
+    <configuration name="DataSecurityTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BillboardProject" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="BillboardViewer.Test.*" />
+          <option name="PATTERN" value="UserManagement.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="UserManagement" />
+      <option name="MAIN_CLASS_NAME" value="UserManagement.DataSecurityTest" />
+      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="UserManagement.Test" />
+    <configuration name="DataSecurityTest.hash" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BillboardProject" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Assignment/src" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="Networking.*" />
+          <option name="PATTERN" value="UserManagement.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <option name="PACKAGE_NAME" value="UserManagement" />
+      <option name="MAIN_CLASS_NAME" value="UserManagement.DataSecurityTest" />
+      <option name="METHOD_NAME" value="hash" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ClientUserTest.test" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="EditBillboardsTest.base64" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BillboardProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ControlPanel.GUI.BillboardsPane.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ControlPanel.GUI.BillboardsPane" />
+      <option name="MAIN_CLASS_NAME" value="ControlPanel.GUI.BillboardsPane.EditBillboardsTest" />
+      <option name="METHOD_NAME" value="base64" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerUserSessionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="BillboardProject" />
       <extension name="coverage">
         <pattern>
@@ -172,27 +186,42 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="User" />
-      <option name="MAIN_CLASS_NAME" value="User.ClientUserTest" />
-      <option name="METHOD_NAME" value="test" />
+      <option name="MAIN_CLASS_NAME" value="User.ServerUserSessionTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServerUserSessionTest.getUsername" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="BillboardProject" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="User.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="User" />
+      <option name="MAIN_CLASS_NAME" value="User.ServerUserSessionTest" />
+      <option name="METHOD_NAME" value="getUsername" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <list>
-      <item itemvalue="Application.ControlPanelStartup" />
-      <item itemvalue="Application.Server" />
-      <item itemvalue="Application.Test (1)" />
-      <item itemvalue="Application.Test" />
-      <item itemvalue="JUnit.ClientUserTest.test" />
+      <item itemvalue="JUnit.EditBillboardsTest.base64" />
+      <item itemvalue="JUnit.DataSecurityTest.hash" />
+      <item itemvalue="JUnit.DataSecurityTest" />
+      <item itemvalue="JUnit.ServerUserSessionTest.getUsername" />
+      <item itemvalue="JUnit.ServerUserSessionTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.ControlPanelStartup" />
-        <item itemvalue="Application.Server" />
-        <item itemvalue="JUnit.ClientUserTest.test" />
-        <item itemvalue="Application.Test (1)" />
-        <item itemvalue="Application.Test" />
+        <item itemvalue="JUnit.ServerUserSessionTest" />
+        <item itemvalue="JUnit.DataSecurityTest.hash" />
+        <item itemvalue="JUnit.ServerUserSessionTest.getUsername" />
+        <item itemvalue="JUnit.DataSecurityTest" />
+        <item itemvalue="JUnit.EditBillboardsTest.base64" />
       </list>
     </recent_temporary>
   </component>
@@ -424,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1591102918727</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="- Fixed &quot;invalid permissions&quot; message dialogue box that displayed on startup to non-admin users.&#10;- Minor grammar fixes.">
+      <created>1591176586578</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1591176586578</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -462,7 +498,6 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Refactored a number of classes under appropriate package names. NOTE: Classes Register and RegisterReply do not currently work so please comment them out for testing." />
     <MESSAGE value="- Created PermissionType enum&#10;- Successfully implemented static UserSession class:&#10;  - This class handles user sessions and exceptional cases (such as users not existing or having expired tokens) on the server side.&#10;  - On the server side, UserSession.hasPermission can be used to check if a user has a particular permission. See line 101 in class Server for an example.&#10;&#10;NOTE: Register and its associated classes do not currently function." />
     <MESSAGE value="Moved and renamed ClientGUI form under the GUIs package." />
     <MESSAGE value="Added login GUI." />
@@ -487,13 +522,18 @@
     <MESSAGE value="- Added comments in the Server class for the handleLoginRequest and handleUserManagementRequest methods." />
     <MESSAGE value="- Added 'Account Details' tab under the tabbed pane 'Account'.&#10;- Added ability for user's to view their own updated permissions in 'Account Details'." />
     <MESSAGE value="- Fixed a bug where users with expired session tokens could not log out of the control panel client." />
-    <option name="LAST_COMMIT_MESSAGE" value="- Fixed a bug where users with expired session tokens could not log out of the control panel client." />
+    <MESSAGE value="- Fixed &quot;invalid permissions&quot; message dialogue box that displayed on startup to non-admin users.&#10;- Minor grammar fixes." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Fixed &quot;invalid permissions&quot; message dialogue box that displayed on startup to non-admin users.&#10;- Minor grammar fixes." />
   </component>
   <component name="WindowStateProjectService">
     <state x="343" y="139" key="#Project_Structure" timestamp="1589004292317">
       <screen x="0" y="0" width="1500" height="960" />
     </state>
     <state x="343" y="139" key="#Project_Structure/0.0.1500.960@0.0.1500.960" timestamp="1589004292317" />
+    <state x="563" y="139" key="#ServerUserSessionTest" timestamp="1591280103326">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="563" y="139" key="#ServerUserSessionTest/0.0.1920.1040@0.0.1920.1040" timestamp="1591280103326" />
     <state x="552" y="184" key="#Template" timestamp="1590317705634">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -568,22 +608,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="478" y="432" key="GitRewordDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591103361572" />
-    <state width="938" height="252" key="GridCell.Tab.0.bottom" timestamp="1591175870113">
+    <state width="938" height="252" key="GridCell.Tab.0.bottom" timestamp="1591281976202">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="938" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591175870113" />
-    <state width="938" height="252" key="GridCell.Tab.0.center" timestamp="1591175870113">
+    <state width="938" height="252" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1591281976202" />
+    <state width="938" height="252" key="GridCell.Tab.0.center" timestamp="1591281976202">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="938" height="252" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591175870113" />
-    <state width="938" height="252" key="GridCell.Tab.0.left" timestamp="1591175870113">
+    <state width="938" height="252" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1591281976202" />
+    <state width="938" height="252" key="GridCell.Tab.0.left" timestamp="1591281976202">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="938" height="252" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591175870113" />
-    <state width="938" height="252" key="GridCell.Tab.0.right" timestamp="1591175870113">
+    <state width="938" height="252" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1591281976202" />
+    <state width="938" height="252" key="GridCell.Tab.0.right" timestamp="1591281976202">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="938" height="252" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591175870113" />
+    <state width="938" height="252" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1591281976202" />
     <state x="165" y="83" key="MergeDialog" timestamp="1590924373283">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -608,31 +648,31 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="747" y="236" key="VCS.ChangeListViewerDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591103029691" />
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1591103384256">
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1591176596573">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1591103384256" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1591176596573" />
     <state x="664" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1591106372092">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="664" y="412" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040@0.0.1920.1040" timestamp="1591106372092" />
-    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591170563897">
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1591271161576">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="615" y="344" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1536.824@0.0.1536.824" timestamp="1590838249141" />
-    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1591170563897" />
-    <state x="731" y="302" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1591106221045">
+    <state x="769" y="434" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1591271161576" />
+    <state x="731" y="302" key="com.intellij.testIntegration.createTest.CreateTestDialog" timestamp="1591280138214">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="731" y="302" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591106221045" />
+    <state x="731" y="302" key="com.intellij.testIntegration.createTest.CreateTestDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1591280138214" />
     <state x="730" y="400" key="com.intellij.uiDesigner.propertyInspector.editors.string.StringEditorDialog" timestamp="1589987839906">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="730" y="400" key="com.intellij.uiDesigner.propertyInspector.editors.string.StringEditorDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1589987839906" />
-    <state x="942" y="172" width="585" height="801" key="find.popup" timestamp="1590591753881">
+    <state x="942" y="172" width="585" height="801" key="find.popup" timestamp="1591271495151">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="942" y="172" width="585" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1590591753881" />
+    <state x="942" y="172" width="585" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1591271495151" />
     <state x="755" y="267" key="refactoring.ChangeSignatureDialog" timestamp="1590386596288">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>

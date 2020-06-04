@@ -75,7 +75,6 @@ public final class ServerUserSession {
                 user.setLastSessionUseTime(currentTime);
                 return true;
             }else{
-                System.out.println("Token expired!");
                 removeSession(sessionToken);
                 return false;
             }

@@ -94,7 +94,6 @@ public class LoginReply implements Serializable{
            retrievePermissions();
            ServerUserSession.addSession(this.sessionToken, loginRequest.getUsername());
            ServerUserSession.getUsername(this.sessionToken);
-           System.out.println("token: "+ServerUserSession.getUsername(this.sessionToken));
        }else{
            this.errorMessage = "Incorrect password.";
        }

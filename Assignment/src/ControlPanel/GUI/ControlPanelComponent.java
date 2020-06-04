@@ -7,7 +7,7 @@ public interface ControlPanelComponent {
 
     /**
      * Select and set the required control panel Java swing components from the main GUI.
-     * @param controlPanelGUI the control panel GUI components.
+     * @param controlPanelGUI the control panel GUI superclass containing the ControlPanelGUI.form components.
      */
     void setControlPanelComponents(ControlPanelGUI controlPanelGUI);
 }

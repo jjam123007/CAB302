@@ -69,10 +69,8 @@ public class RegisterReply extends Reply implements Serializable {
         ResultSet user = statement.executeQuery(userExistsQuery);
         boolean userExists = user.next();
         if (!userExists){
-            System.out.println("users does not exist");
             return true;
         } else{
-            System.out.println("user exists");
             this.errorMessage = "Username already exists! Please use another.";
             return false;
         }

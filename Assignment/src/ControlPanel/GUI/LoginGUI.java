@@ -76,7 +76,6 @@ public class LoginGUI {
             new ClientUser(loginReply.getSessionToken(), loginReply.getUsername(), loginReply.getPermissions());
             new ControlPanelGUI();
             this.frame.dispose();
-            System.out.println("login Success");
         }else{
             messageLabel.setText(loginReply.getErrorMessage());
             frame.pack();

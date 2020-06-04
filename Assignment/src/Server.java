@@ -115,7 +115,6 @@ public class Server {
         boolean sessionValid = ServerUserSession.isValid(sessionToken);
         Object[] billboard = (billboardRequest).getData();
         BillboardReply replyMessage = null;
-        System.out.println(sessionValid);
 
         if (sessionValid){
             switch (request) {

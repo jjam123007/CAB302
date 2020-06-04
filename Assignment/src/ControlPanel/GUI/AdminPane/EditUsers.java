@@ -165,11 +165,9 @@ public class EditUsers implements ControlPanelComponent {
      */
     public Object[][] listToTableData(List<Object> list){
         Object[] array =  list.toArray(new Object[0]);
-        System.out.println(array.length);
         Object[][] dataArray = new Object[array.length][1];
 
         for(int dataIndex = 0; dataIndex < array.length; dataIndex++){
-            System.out.println(dataIndex);
             dataArray[dataIndex][0] = array[dataIndex];
         }
         return dataArray;
