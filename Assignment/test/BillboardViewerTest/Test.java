@@ -1,33 +1,14 @@
-package BillboardViewer.Test;
+package BillboardViewerTest;
 
 import BillboardViewer.BillboardViewer;
-import Database.DBConnection;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.xml.sax.InputSource;
 
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-import javax.swing.*;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.*;
-import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Base64;
-import java.util.Calendar;
-import java.util.Iterator;
-
-import static java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment;
 
 /* A test class when developing the billboard viewer
 Really similar to DisplayBillboardViewer.java
@@ -38,7 +19,7 @@ public class Test {
     private static Color billboardColour, messageColour, informationColour;
 
     // The path for testing
-    private static String filePath = "src/BillboardViewer/Test/img-only.xml";
+    private static String filePath = "test/BillboardViewerTest/img-only.xml";
 
     // The main function
     public static void main(String[] args) throws Exception {
