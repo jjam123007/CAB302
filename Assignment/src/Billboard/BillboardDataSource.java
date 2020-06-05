@@ -13,9 +13,6 @@ import java.util.Properties;
  */
 public class BillboardDataSource {
 
-    //set up the database
-    public static final String create_billboardDB = "create database if not exists `billboardscheduler`;";
-
     /**
      *This function used to create a billBoardTable,
      * it sets seven title and value types to store data of billBoard in dataBase

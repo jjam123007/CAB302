@@ -13,8 +13,6 @@ import java.io.IOException;
  */
 public class BillboardsPane implements ControlPanelComponent {
 
-    public JTabbedPane billboardsPane;
-    public JTable viewTable;
 
     /**
      *
