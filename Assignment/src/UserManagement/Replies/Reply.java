@@ -1,6 +1,7 @@
-package Networking;
+package UserManagement.Replies;
 
 import User.ServerUserSession;
+import UserManagement.Replies.ReplyError;
 
 import java.io.Serializable;
 

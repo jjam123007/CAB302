@@ -1,4 +1,4 @@
-package Networking;
+package UserManagement.Requests;
 
 import java.io.*;
 import java.net.Socket;

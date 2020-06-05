@@ -6,7 +6,7 @@ import Billboard.ManageBillboards;
 import BillboardViewer.Replies.QueryXML;
 import BillboardViewer.Requests.ViewerRequest;
 import BillboardViewer.Requests.ViewerRequestType;
-import Networking.ReplyError;
+import UserManagement.Replies.ReplyError;
 import User.*;
 import Database.DBConnection;
 import UserManagement.Replies.*;

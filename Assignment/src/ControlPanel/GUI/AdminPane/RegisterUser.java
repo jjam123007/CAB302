@@ -2,7 +2,6 @@ package ControlPanel.GUI.AdminPane;
 
 import ControlPanel.GUI.ControlPanelComponent;
 import ControlPanel.GUI.ControlPanelGUI;
-import Networking.Reply;
 import UserManagement.Replies.RegisterReply;
 import UserManagement.Requests.RegisterRequest;
 import User.UserPermissions;
@@ -10,11 +9,8 @@ import UserManagement.Requests.UserManagementRequest;
 import UserManagement.Requests.UserManagementRequestType;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 

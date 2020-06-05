@@ -1,6 +1,6 @@
 package Billboard;
 
-import Networking.Request;
+import UserManagement.Requests.Request;
 
 import java.io.IOException;
 import java.io.Serializable;

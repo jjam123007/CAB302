@@ -1,7 +1,6 @@
 package UserManagement.Replies;
 
 import Database.DBConnection;
-import Networking.ReplyError;
 import UserManagement.Requests.LoginRequest;
 import User.PermissionType;
 import User.ServerUserSession;
@@ -63,6 +62,7 @@ public class LoginReply implements Serializable{
            statement.close();
 
        }catch (Exception exception){
+           this.errorMessage = ReplyError.databaseError;
            exception.printStackTrace();
        }
    }

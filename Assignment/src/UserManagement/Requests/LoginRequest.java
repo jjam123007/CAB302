@@ -1,6 +1,5 @@
 package UserManagement.Requests;
 
-import Networking.Request;
 import UserManagement.DataSecurity;
 
 import java.io.IOException;
