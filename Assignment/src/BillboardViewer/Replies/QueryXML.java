@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * Contains two static functions to query the billboard that needs to be display at
  * local machine's time and return its XML formatted string stored to the database
  *
- * @author William Tran - 10306234
+ * @author William Tran (10306234)
  */
 
 public final class QueryXML {

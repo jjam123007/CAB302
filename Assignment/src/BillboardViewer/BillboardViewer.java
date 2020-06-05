@@ -64,7 +64,11 @@ public class BillboardViewer {
         showBillboard(isViewer);
     }
 
-    // Set up and display the billboard in fullscreen
+    /**
+     * Set up and display the billboard in fullscreen
+     * @param isViewer determines if the billboard is for previewing when creating billboard
+     *                 or displaying in the billboard viewer to set up close function
+     */
     private void showBillboard(Boolean isViewer) {
 
         // Create a new frame to contain all the components
@@ -86,7 +90,9 @@ public class BillboardViewer {
         device.setFullScreenWindow(frame);
     }
 
-    // Set up the styles of the information pane
+    /**
+     * Set up the styles of the information pane
+     */
     private void setupInfoPane() {
         // Align the text center
         StyledDocument doc = infoTextPane.getStyledDocument();
@@ -187,7 +193,10 @@ public class BillboardViewer {
         }
     }
 
-    // Change the background colour
+    /**
+     * Change the background colour of the billboard
+     * @param billboardColour desire colour that needed to change to
+     */
     private void changeBackground(Color billboardColour) {
         // Change for each component
         billboardPanel.setBackground(billboardColour);
@@ -197,7 +206,11 @@ public class BillboardViewer {
         infoTextPane.setBackground(billboardColour);
     }
 
-    // Change the title and its colour of the billboard
+    /**
+     * Change the title and its colour of the billboard
+     * @param message The title text
+     * @param messageColour The title colour
+     */
     private void changeMessage(String message, Color messageColour) {
         if (message == null || message.length() == 0) {
             // If there is no message
@@ -213,7 +226,11 @@ public class BillboardViewer {
         }
     }
 
-    // Change the image of the billboard
+    /**
+     * Change the image of the billboard
+     * @param imgInfo the URL or base64 encoded string of the image
+     * @param ratio The ratio for resizing the image
+     */
     private void changeImage(String imgInfo, double ratio){
         if (imgInfo == null || imgInfo.length() == 0) {
             // If there is no image
@@ -239,7 +256,12 @@ public class BillboardViewer {
         }
     }
 
-    // Functions to set image from URL to the billboard
+    /**
+     * // Functions to set image from URL to the billboard
+     * @param url The URL
+     * @param ratio The ratio for resizing the image
+     * @throws IOException
+     */
     private void setImageFromURL(String url, double ratio) throws IOException {
         // Read image from URL
         URL imageURL = new URL(url);
@@ -253,10 +275,13 @@ public class BillboardViewer {
         imageLabel.setText("");
     }
 
-    // Function to set image from Base64 encoded string to the billboard
+    /**
+     * // Functions to set image from URL to the billboard
+     * @param encodedString The base64 string
+     * @param ratio The ratio for resizing the image
+     * @throws IOException
+     */
     private void setImageFromBase64(String encodedString, double ratio) throws Exception {
-//        File f =  new File("src/BillboardViewer/test_img.jpg");
-//        String encodeString = encodeFileToBase64Binary(f);
         byte[] btDataFile = Base64.getDecoder().decode(encodedString);
         BufferedImage image = ImageIO.read(new ByteArrayInputStream(btDataFile));
         ImageIcon img = resizeImage(new ImageIcon(image), ratio);
@@ -264,7 +289,11 @@ public class BillboardViewer {
         imageLabel.setText("");
     }
 
-    // Change the information text and its colour of the billboard
+    /**
+     * Change the title and its colour of the billboard
+     * @param info The title text
+     * @param infoColour The title colour
+     */
     private void changeInfo(String info, Color infoColour) {
         if (info == null || info.length() == 0) {
             // If there is no information
@@ -280,7 +309,15 @@ public class BillboardViewer {
         }
     }
 
-    // Check if the information in the billboard is new or not
+    /**
+     * Check if the information in the billboard is new or not
+     * @param billboardColour the billboard colour
+     * @param message the billboard message
+     * @param messageColour the message colour
+     * @param info the information
+     * @param infoColour the information colour
+     * @return true if the billboard has change, false otherwise
+     */
     private Boolean billboardHasChanged(Color billboardColour, String message, Color messageColour,
                                                String info, Color infoColour) {
         // Check if each component is still the same
@@ -294,7 +331,11 @@ public class BillboardViewer {
         }
     }
 
-    // Function to close the billboard viewer
+    /**
+     * Set up to close the billboard viewer
+     * @param isViewer check if the billboard is in preview or display mode
+     * @param currentFrame the frame for displaying the billboard
+     */
     private void closeBillboardSetup(Boolean isViewer, JFrame currentFrame) {
         // If this is used for the billboard viewer
         if (isViewer) {
@@ -420,7 +461,12 @@ public class BillboardViewer {
         }
     }
 
-    // Function to resize the image
+    /**
+     * Function to resize the image
+     * @param image The image that needed to be resized
+     * @param maxRatio The maximum size according to the screen
+     * @return
+     */
     private static ImageIcon resizeImage(ImageIcon image, double maxRatio) {
         // Get the dimensions of the given image
         int imageHeight = image.getIconHeight();

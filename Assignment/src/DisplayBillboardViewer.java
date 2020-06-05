@@ -74,28 +74,43 @@ public class DisplayBillboardViewer {
         }
     }
 
-    // Function to create a billboard and display the initial loading page
+    /**
+     * Create a billboard and display the initial loading page
+     * @throws Exception if the page could not be created
+     */
     private static void createBillboard() throws Exception {
         billboard = new BillboardViewer(Color.decode("#ffffff"), null,
                 null, null, null,
                 "https://hackernoon.com/drafts/pp6p36ml.png", true);
     }
 
-    // Function to display the idle billboard
+    /**
+     * Display the idle billboard
+     * @throws Exception if the page could not be changed
+     */
     private static void setIdleBillboard() throws Exception {
         billboard.renewBillboard(Color.decode("#ffffff"), "The billboard is having a break...",
                 Color.decode("#000000"), "There is nothing to be displayed right now.", Color.decode("#000000"),
                 "https://miro.medium.com/max/10886/1*DFaRILoVj4jv0AAVb6EmDw.jpeg");
     }
 
-    // Function to display the notification billboard saying that it could not connect to the server
+    /**
+     * Display the notification billboard saying that it could not connect to the server
+     * @throws Exception if the page could not be changed
+     */
     private static void setMaintenanceBillboard() throws Exception {
         billboard.renewBillboard(Color.decode("#f2fc92"), "The server is currently in maintenance.",
                 Color.decode("#000000"), null, null,
                 "https://media.noria.com/sites/Uploads/2018/12/20/73c77e51-97d0-4ec5-81dc-e80c0b265dcf_Images_ProactiveMaintenanceApproach_31035_1234x694_large.jpeg");
     }
 
-    // Function to read XML string and extract its elements for the billboard
+    /**
+     * Read XML string and extract its elements for the billboard
+     * @param input the XML string
+     * @throws ParserConfigurationException if cannot parse the XML string
+     * @throws IOException if cannot parse the XML string
+     * @throws SAXException if cannot parse the XML string
+     */
     private static void readXML(String input) throws ParserConfigurationException, IOException, SAXException {
         // Create a document builder to parse the XML file
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -149,7 +164,10 @@ public class DisplayBillboardViewer {
         }
     }
 
-    // Setup connection to the server
+    /**
+     * Set up connection to the server
+     * @throws Exception if the server is not available
+     */
     private static void setStreams() throws Exception {
         // Establishing a new connection
         socket = connectToServer();
@@ -161,7 +179,10 @@ public class DisplayBillboardViewer {
         ois = new ObjectInputStream(is);
     }
 
-    // Close the connection to the server
+    /**
+     * Close the connection to the server
+     * @throws IOException if the server is not available
+     */
     private static void closeStreams() throws IOException {
         // Close the connection
         oos.close();
